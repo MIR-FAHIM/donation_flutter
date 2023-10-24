@@ -1,0 +1,53 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/models/icon_model.dart';
+import 'package:latest_payplus_agent/app/modules/global_widgets/square_card_widget.dart';
+import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
+
+class SalesOptionWidget extends GetWidget<HomeController> {
+  final _size = Get.size;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      height: _size.height,
+      width: _size.width,
+      color: Colors.white,
+      child: GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          primary: false,
+          shrinkWrap: true,
+          crossAxisCount: 2,
+          crossAxisSpacing: 4.0,
+          mainAxisSpacing: 20.0,
+          childAspectRatio: 1.6,
+          children: List.generate(sales.length, (index) {
+            return GestureDetector(
+              onTap: () {},
+              child: AnimationConfiguration.staggeredGrid(
+                position: index,
+                duration: const Duration(milliseconds: 475),
+                columnCount: sales.length,
+                child: SlideAnimation(
+                  horizontalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: SquareCardWidget(
+                      width: 55,
+                      aspectRetio: 1.2,
+                      colors: Color(0xFF652981),
+                      image: sales[index].image,
+                      allpadding: 0.0,
+                      name: sales[index].title!.tr,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          })),
+    );
+  }
+}

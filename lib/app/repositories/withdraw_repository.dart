@@ -1,0 +1,25 @@
+import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
+
+
+class WithdrawRepository {
+  Future withdrawMoney(String bankId, String amount) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    print(token);
+
+    Map withdrawData = {
+      'banking_id': bankId,
+      'amount': amount,
+    };
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(ApiClient.withdrawMoneyApi, withdrawData, headers);
+
+    print('withdraw info: ${response}');
+    return response;
+  }
+}
