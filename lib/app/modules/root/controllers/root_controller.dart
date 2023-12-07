@@ -113,6 +113,8 @@ class RootController extends GetxController {
     });
   }
   loginDuration() async{
+   // String? date = DateTime.now().add(Duration(minutes: -3)).toString();
+
     String? date = await SharedPreff.to.prefss.getString("logindate");
     return date;
     //  print("login duration bro");

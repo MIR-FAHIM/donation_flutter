@@ -8,6 +8,10 @@ class BillFormController extends GetxController {
   final isChecked = false.obs;
   final refName = ''.obs;
   final bill_id = ''.obs;
+  final meterNo = ''.obs;
+  final amount = ''.obs;
+  final accountID = ''.obs;
+  final mobile = ''.obs;
   final favBillerLoaded = false.obs;
   final favBillList = FavouriteListModel().obs;
   var lstTask = List<dynamic>.empty(growable: true).obs;

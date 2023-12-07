@@ -142,6 +142,13 @@ class MainDrawerWidget extends StatelessWidget {
             //   },
             // ),
             DrawerLinkWidget(
+              icon: 'assets/drawer/7.png',
+              text: "Profile".tr,
+              onTap: (e) {
+                Get.toNamed(Routes.PROFILEVIEW);
+              },
+            ),
+            DrawerLinkWidget(
               icon: 'assets/drawer/account_statement.png',
               text: "Current Package".tr,
               onTap: (e) {

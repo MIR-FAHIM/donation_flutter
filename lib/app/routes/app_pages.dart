@@ -13,6 +13,7 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_postpaid_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/bindings/bus_ticket_binding.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_view.dart';
+import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/cash_in_out_view_tab.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/m_banking_pin_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/succes_page.dart';
@@ -72,9 +73,10 @@ import '../modules/bill_payment/views/biller_list_gas.dart';
 import '../modules/bill_payment/views/biller_list_water.dart';
 import '../modules/bill_payment/views/electricity/WestZone_Postpaid/westzone_postpaid_bill_view.dart';
 import '../modules/bill_payment/views/electricity/WestZone_Postpaid/westzone_postpaid_form_view.dart';
+import '../modules/bill_payment/views/electricity/desco-prepaid/desco_prepaid_bill_view.dart';
 import '../modules/bill_payment/views/electricity/desco_postpaid_bill_view.dart';
 import '../modules/bill_payment/views/electricity/desco_postpaid_form_view.dart';
-import '../modules/bill_payment/views/electricity/desco_prepaid_form_view.dart';
+import '../modules/bill_payment/views/electricity/desco-prepaid/desco_prepaid_form_view.dart';
 import '../modules/bill_payment/views/electricity/dpdc_postpaid_bill_view.dart';
 import '../modules/bill_payment/views/electricity/dpdc_postpaid_form_view.dart';
 import '../modules/billpay_report/bindings/billpay_report_binding.dart';
@@ -198,6 +200,12 @@ class AppPages {
       page: () => HomeView(),
       binding: HomeBinding(),
     ),
+    GetPage(
+      name: _Paths.PROFILEVIEW,
+      page: () => ProfileView(),
+      binding: HomeBinding(),
+    ),
+
     GetPage(
       name: _Paths.BUS_TICKET,
       page: () => BusTicketView(),
@@ -370,9 +378,15 @@ class AppPages {
       page: () => BillPaymentView(),
       binding: BillPaymentBinding(),
     ),
+
     GetPage(
       name: _Paths.Biller_List_View,
       page: () => BillerList(),
+      binding: BillPaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.DESCOPREPAIDDETAILS,
+      page: () => DescoPrepaidBillView(),
       binding: BillPaymentBinding(),
     ),
     GetPage(

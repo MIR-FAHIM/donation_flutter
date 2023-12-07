@@ -13,7 +13,6 @@ import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:latest_payplus_agent/service/shared_pref.dart';
 
-
 class LoginController extends GetxController {
   //TODO: Implement LoginController
 
@@ -38,8 +37,6 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
-
-
   Future<String> askingPhonePermission() async {
     final PermissionStatus permissionStatus = await _getPhonePermission();
     return permissionStatus.name;
@@ -47,15 +44,14 @@ class LoginController extends GetxController {
 
   Future<PermissionStatus> _getPhonePermission() async {
     final PermissionStatus permission = await Permission.phone.status;
-    print("kaj ekhane hocche location service permissioon status  ${Permission.phone.status.isGranted}");
-
+    print(
+        "kaj ekhane hocche location service permissioon status  ${Permission.phone.status.isGranted}");
 
     if (permission != PermissionStatus.granted &&
         permission != PermissionStatus.denied) {
       final Map<Permission, PermissionStatus> permissionStatus =
-      await [Permission.phone].request();
-      return permissionStatus[Permission.phone] ??
-          PermissionStatus.restricted;
+          await [Permission.phone].request();
+      return permissionStatus[Permission.phone] ?? PermissionStatus.restricted;
     } else {
       print("device info is coming from login controller");
       getDeviceInfo();
@@ -64,10 +60,7 @@ class LoginController extends GetxController {
     }
   }
 
-
   getDeviceInfo() async {
-
-
     try {
       String platformVersion = await DeviceInformation.platformVersion;
       imeiNumber.value = await DeviceInformation.deviceIMEINumber;
@@ -79,28 +72,36 @@ class LoginController extends GetxController {
   }
 
   void login() async {
+    print("my device token is bro ++++++++++++++++++++++"
+        " ${imeiNumber.value}");
     if (loginFormKey.currentState!.validate()) {
       Get.find<AuthService>().setFirstLoggedOrNot();
       loginFormKey.currentState!.save();
       await Get.find<FireBaseMessagingService>().setDeviceToken();
       Ui.customLoaderDialog();
       //351811075916820
-      AuthRepository().userLogin(mobileNumber.value, password.value, "586784784576498").then((resp) {
+      AuthRepository()
+          .userLogin(mobileNumber.value, password.value, imeiNumber.value)
+          .then((resp) {
         if (resp.result == 'success') {
-          AuthRepository().sendDeviceToken(resp.customerCode.toString(), deviceToken.value);
+          AuthRepository()
+              .sendDeviceToken(resp.customerCode.toString(), deviceToken.value);
           print('deviceToken : ${deviceToken.value}');
 
-          SharedPreff.to.prefss.setString("logindate", DateTime.now().toString());
-
+          SharedPreff.to.prefss
+              .setString("logindate", DateTime.now().toString());
 
           Get.offAllNamed(Routes.ROOT);
         } else {
           Get.back();
-          Get.showSnackbar(Ui.ErrorSnackBar(message: 'Invalid information provided'.tr, title: 'Error'.tr));
+          Get.showSnackbar(Ui.ErrorSnackBar(
+              message: 'Invalid information provided'.tr, title: 'Error'.tr));
         }
       }).catchError((onError) {
         Get.back();
-        Get.showSnackbar(Ui.ErrorSnackBar(message: "Please check your mobile number and PIN".tr, title: 'Error'.tr));
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message: "Please check your mobile number and PIN".tr,
+            title: 'Error'.tr));
       });
     }
   }
@@ -160,5 +161,4 @@ class LoginController extends GetxController {
   //     _responseMessage = e.message ?? '';
   //   }
   // }
-
 }

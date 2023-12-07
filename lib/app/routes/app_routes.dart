@@ -129,7 +129,7 @@ abstract class Routes {
   static const MBANKINGPIN = _Paths.MBANKINGPIN;
   static const MBANKINGSUCCESS = _Paths.MBANKINGSUCCESS;
 
-
+  static const DESCOPREPAIDDETAILS = _Paths.DESCOPREPAIDDETAILS;
 
 
   static const DUE_REPORT = _Paths.DUE_REPORT;
@@ -145,6 +145,8 @@ abstract class Routes {
   static const PACKAGELIST = _Paths.PACKAGELIST;
   static const CASHINOUT = _Paths.CASHINOUT;
   static const MBANKINGNUMAMOUNT = _Paths.MBANKINGNUMAMOUNT;
+  static const PROFILEVIEW = _Paths.PROFILEVIEW;
+
 
 
   static const CONFIRM_BANK_PAY = _Paths.CONFIRM_BANK_PAY;
@@ -156,6 +158,7 @@ abstract class _Paths {
   static const HOME = '/home';
   static const COLLECTION = '/collection';
   static const NEWNID = '/new-nid';
+  static const DESCOPREPAIDDETAILS = '/desco-pre-details';
 
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
@@ -167,6 +170,7 @@ abstract class _Paths {
 
   static const NEWSIGNUPPASS = '/new-sign-up-pass';
   static const PACKAGELIST = '/package-list';
+  static const PROFILEVIEW = '/profile-view';
 
 
   static const WELCOME = '/welcome';

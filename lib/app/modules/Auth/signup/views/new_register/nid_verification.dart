@@ -324,13 +324,13 @@ class NewNidVerification extends GetView<SignupController> {
               ),
               child: Wrap(
                 children: <Widget>[
-                  // ListTile(
-                  //     leading: const Icon(Icons.photo_library),
-                  //     title: Text('Photo Library'.tr),
-                  //     onTap: () {
-                  //       controller.getImage(ImageSource.gallery, type);
-                  //       Get.back();
-                  //     }),
+                  ListTile(
+                      leading: const Icon(Icons.photo_library),
+                      title: Text('Photo Library'.tr),
+                      onTap: () {
+                        controller.getImage(ImageSource.gallery, type);
+                        Get.back();
+                      }),
                   ListTile(
                     leading: const Icon(Icons.photo_camera),
                     title: Text('Camera'.tr),

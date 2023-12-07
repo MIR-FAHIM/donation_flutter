@@ -55,7 +55,9 @@ class BillerList extends GetView {
                         };
                         if (billerList[index]['bill_code'] == 'desco_postpaid') {
                           Get.toNamed(Routes.Desco_Postpaid_List_View, arguments: data);
-                        } else if (billerList[index]['bill_code'] == 'dpdc_postpaid') {
+                        } else if (billerList[index]['bill_code'] == 'desco_prepaid') {
+                          Get.toNamed(Routes.Desco_Prepaid_From_View, arguments: data);
+                        }else if (billerList[index]['bill_code'] == 'dpdc_postpaid') {
                           Get.toNamed(Routes.DPDC_Postpaid_From_View, arguments: data);
                         } else if (billerList[index]['bill_code'] == 'desco_prepaid') {
                           // Get.toNamed(Routes.Desco_Prepaid_From_View,

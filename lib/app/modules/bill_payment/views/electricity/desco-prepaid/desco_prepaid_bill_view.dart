@@ -13,7 +13,7 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class DescoPostpaidBillView extends GetView<BillPaymentController> {
+class DescoPrepaidBillView extends GetView<BillPaymentController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
@@ -117,28 +117,28 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Bill No.",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  _bll_no,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(top: 10, bottom: 8),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Text(
+                          //         "Bill No.",
+                          //         style: TextStyle(
+                          //           fontSize: 16,
+                          //           color: AppColors.primaryColor,
+                          //         ),
+                          //       ),
+                          //       Text(
+                          //         _bll_no,
+                          //         style: TextStyle(
+                          //           fontSize: 16,
+                          //           color: AppColors.homeTextColor3,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Container(
                             width: _size.width,
                             height: 1,
@@ -198,55 +198,13 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                             height: 1,
                             color: AppColors.SectionHighLightCardBg,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Bill For",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  _bll_dt_frm + " to " + _bll_dt_to,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+
                           Container(
                             width: _size.width,
                             height: 1,
                             color: AppColors.SectionHighLightCardBg,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Bill Due Date",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  _bll_dt_due,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+
                           Container(
                             width: _size.width,
                             height: 1,
@@ -279,28 +237,7 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                             height: 15,
                             // color: AppColors.SectionHighLightCardBg,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Bill Amount",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + _bll_amnt.toString(),
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+
                           Padding(
                             padding: const EdgeInsets.only(top: 8, bottom: 8),
                             child: Row(
@@ -345,50 +282,8 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Service Fee",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + controller.servic_fee.value,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Late Fee",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + bll_late_fee.toString(),
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+
+
                           Container(
                             width: _size.width,
                             height: 1,
@@ -441,23 +336,23 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                               var res = BillPaymentChargePreview(_bill_payment_id, _bill_refer_id);
                               Ui.customLoaderDialog();
                               res.then((value) => {
-                                    Get.back(),
-                                    result = value['result'],
+                                Get.back(),
+                                result = value['result'],
+                                data = value['data'],
+                                if (value['result'] == 'success')
+                                  {
                                     data = value['data'],
-                                    if (value['result'] == 'success')
-                                      {
-                                        data = value['data'],
-                                        current_balance = data['current_balance'],
-                                        bill_amount = data['bill_amount'],
-                                        service_charge = data['service_charge'],
-                                        charge_for_online_balance_received = data['charge_for_online_balance_received'],
-                                        grand_total_amount = data['grand_total_amount'],
-                                        openBottomSheetBill(current_balance, bill_amount, service_charge, charge_for_online_balance_received,
-                                            grand_total_amount, _bllr_accno, _title, _images, _bill_payment_id, _bill_refer_id)
-                                      }
-                                    else
-                                      Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'error'.tr))
-                                  });
+                                    current_balance = data['current_balance'],
+                                    bill_amount = data['bill_amount'],
+                                    service_charge = data['service_charge'],
+                                    charge_for_online_balance_received = data['charge_for_online_balance_received'],
+                                    grand_total_amount = data['grand_total_amount'],
+                                    openBottomSheetBill(current_balance, bill_amount, service_charge, charge_for_online_balance_received,
+                                        grand_total_amount, _bllr_accno, _title, _images, _bill_payment_id, _bill_refer_id)
+                                  }
+                                else
+                                  Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'error'.tr))
+                              });
                             },
                             color: Color(0xFF652981),
                             text: Text(
@@ -465,6 +360,7 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                               style: TextStyle(color: Colors.white, fontSize: 16),
                             ),
                           ).paddingSymmetric(vertical: 10, horizontal: 20),
+
 
                   ],
                 ),

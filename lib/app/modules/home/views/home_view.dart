@@ -163,7 +163,7 @@ class HomeView extends GetView<HomeController> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Get.find<AuthService>().currentUser.value.kyc_status == "none"
-                      ? Container()
+                      ?Container()
                       : Get.find<AuthService>().currentUser.value.kyc_status ==
                               "required"
                           ? Card(

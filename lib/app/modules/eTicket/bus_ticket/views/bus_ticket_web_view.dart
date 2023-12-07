@@ -86,7 +86,7 @@ class _InAppWebViewExampleScreenState extends State<BusTicketWeb> {
                 )),
                 //
                 initialUrlRequest: URLRequest(
-                   // url: Uri.parse("https://shl.com.bd/ticket/bus/agent/ticket-details/639"),
+                 // url: Uri.parse("https://shl.com.bd/ticket/bus/agent/ticket-details/639"),
                   url: Uri.parse("https://shl.com.bd/ticket/bus/agent"),
                   headers: {
                     "msisdn":
