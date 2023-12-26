@@ -1,10 +1,7 @@
-
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-
-
 
 import 'dart:typed_data';
 
@@ -13,21 +10,17 @@ import 'package:pdf/widgets.dart';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 
-
-
 Future<Uint8List> makePdfWestZone(
-title,
-images,
-
-billPaymentId,
-billReferId ,
-
-bllNo ,
-bllrAccno ,
-billAddress ,
-
-bllDtDue ,
-bllAmnt) async {
+    {
+      title,
+      images,
+      billPaymentId,
+      billReferId,
+      bllNo,
+      bllDtDue,
+      bllAmnt
+    }
+      ) async {
   final pdf = pw.Document();
   List<pw.Widget> widgets = [];
   widgets.add(pw.SizedBox(height: 5));
@@ -49,37 +42,12 @@ bllAmnt) async {
                   Spacer(),
                   Text(
                     "Printed on: ${DateFormat.yMd().format(DateTime.now())}," +
-                        " ${DateFormat.jm().format(DateTime.now())}" +
-                        " (printed by: ",
+                        " ${DateFormat.jm().format(DateTime.now())}",
                     style: TextStyle(
                         fontWeight: pw.FontWeight.normal, fontSize: 8),
                   ),
                 ]),
             SizedBox(height: 05),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Nexzen Solution Ltd",
-                    style:
-                    TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "House: 545, 2nd floor, Suite A2, Road 8, Mirpur DOHS",
-                    style: TextStyle(
-                        fontSize: 8, fontWeight: pw.FontWeight.normal),
-                  ),
-                ],
-              ),
-            ),
           ],
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
@@ -96,11 +64,10 @@ bllAmnt) async {
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 crossAxisAlignment: pw.CrossAxisAlignment.center,
                 children: [
-                  Text("Attendance Sheet",
+                  Text(title,
                       style: pw.TextStyle(
                           fontSize: 12, fontWeight: pw.FontWeight.bold)),
-                  PaddedText(
-                      "${DateFormat.yMMM().format(DateTime.now())}"),
+                  PaddedText("${DateFormat.yMMM().format(DateTime.now())}"),
                 ])),
         SizedBox(height: 05),
         Row(children: [
@@ -110,9 +77,9 @@ bllAmnt) async {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Employee Name: ",
+                      "Bill Account: ",
                     ),
-                    //  Text(StaticData.designation),
+                    Text(bllNo),
                   ])),
           Spacer(),
         ]),
@@ -127,50 +94,40 @@ bllAmnt) async {
         TableRow(
           children: [
             Padding(
-              child: Text('Date',
+              child: Text('Due Date',
                   textAlign: TextAlign.center,
                   style: pw.TextStyle(fontSize: 8)),
               padding: EdgeInsets.only(top: 10),
             ),
             Padding(
-              child: Text('Check In',
+              child: Text('Payment Status',
                   textAlign: TextAlign.center,
                   style: pw.TextStyle(fontSize: 8)),
               padding: EdgeInsets.only(top: 10),
             ),
             Padding(
-              child: Text('Check Out',
+              child: Text('Bill  Amount',
                   textAlign: TextAlign.center,
                   style: pw.TextStyle(fontSize: 8)),
               padding: EdgeInsets.only(top: 10),
             ),
-            // Padding(
-            //   child: Text(
-            //     'In Time',
-            //
-            //     textAlign: TextAlign.center,
-            //   ),
-            //   padding: EdgeInsets.all(20),
-            // ),
-
             Padding(
-              child: Center(
-                child: Text('Working Hour',
-                    textAlign: TextAlign.center,
-                    maxLines: 3,
-                    style: pw.TextStyle(fontSize: 8)),
-              ),
-              padding: EdgeInsets.only(top: 10),
-            ),
-            Padding(
-              child: Text('Note',
+              child: Text('Online Charge',
                   textAlign: TextAlign.center,
                   style: pw.TextStyle(fontSize: 8)),
               padding: EdgeInsets.only(top: 10),
             ),
           ],
         ),
-
+        TableRow(
+          children: [
+            PaddedText(bllDtDue),
+            PaddedText("status"),
+            PaddedText(bllAmnt),
+            PaddedText(bllAmnt),
+            // '\$${(invoice.totalCost() * 1).toStringAsFixed(2)}')
+          ],
+        ),
         TableRow(
           children: [
             PaddedText('TOTAL', align: TextAlign.right),

@@ -79,7 +79,9 @@ class DescoPostpaidFormView extends GetView {
                             Image(
                               height: 40,
                               width: 50,
-                              image: NetworkImage(_images == null ? "https://shl.com.bd/uploads/billers/dwasa.png" : _images),
+                              image: NetworkImage(_images == null
+                                  ? "https://shl.com.bd/uploads/billers/dwasa.png"
+                                  : _images),
                             ),
                             SizedBox(
                               width: 10,
@@ -156,14 +158,18 @@ class DescoPostpaidFormView extends GetView {
                         var data;
                         var bill_ref;
                         var datas;
-                        var Bill_No = bill_number == '' ? _bill_no : bill_number;
+                        var Bill_No =
+                            bill_number == '' ? _bill_no : bill_number;
                         print('bill numer:  $Bill_No');
-                        var res = getBillDetail(Bill_No, billpayController.isChecked.value, billpayController.refName.value);
+                        var res = getBillDetail(
+                            Bill_No,
+                            billpayController.isChecked.value,
+                            billpayController.refName.value);
                         Ui.customLoaderDialog();
                         res.then((value) => {
                               Get.back(),
                               result = value['result'],
-                          print("hle bro+++++++ ${value['result']}"),
+                              print("hle bro+++++++ ${value['result']}"),
                               if (value['result'] == 'success')
                                 {
                                   data = value['data'],
@@ -173,7 +179,8 @@ class DescoPostpaidFormView extends GetView {
                                   datas = {
                                     "title": _title,
                                     "images": _images,
-                                    "bill_payment_id": bill_ref['bill_payment_id'],
+                                    "bill_payment_id":
+                                        bill_ref['bill_payment_id'],
                                     "bill_refer_id": bill_ref['bill_refer_id'],
                                     "bll_no": data['bill_no'],
                                     "bllr_accno": data['biller_acc_no'],
@@ -188,10 +195,13 @@ class DescoPostpaidFormView extends GetView {
                                     "is_bill_paid": data['is_bill_paid'],
                                     "bll_amnt_ttl": data['bill_total_amount'],
                                   },
-                                  Get.toNamed(Routes.Desco_Postpaid_Billview, arguments: datas)
+                                  Get.toNamed(Routes.Desco_Postpaid_Billview,
+                                      arguments: datas)
                                 }
                               else
-                                Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'error'.tr))
+                                Get.showSnackbar(Ui.ErrorSnackBar(
+                                    message: value['message'],
+                                    title: 'error'.tr))
                             });
                       },
                       color: Color(0xFF652981),
@@ -207,7 +217,9 @@ class DescoPostpaidFormView extends GetView {
           );
         }));
   }
-  Future<Map<dynamic, dynamic>> getNescoBillDetail(String billNumber, dynamic isBillSave, String refName) async {
+
+  Future<Map<dynamic, dynamic>> getNescoBillDetail(
+      String billNumber, dynamic isBillSave, String refName) async {
     print(billNumber);
     print(isBillSave);
     print(refName);
@@ -228,12 +240,15 @@ class DescoPostpaidFormView extends GetView {
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Detail : $resp');
     return resp;
   }
-  Future<Map<dynamic, dynamic>> getBillDetail(String billNumber, dynamic isBillSave, String refName) async {
+
+  Future<Map<dynamic, dynamic>> getBillDetail(
+      String billNumber, dynamic isBillSave, String refName) async {
     print(billNumber);
     print(isBillSave);
     print(refName);
@@ -254,7 +269,8 @@ class DescoPostpaidFormView extends GetView {
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Detail : $resp');
     return resp;

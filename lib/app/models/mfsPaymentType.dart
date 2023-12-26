@@ -31,7 +31,39 @@ class MFSPaymentTypeModel {
     return data;
   }
 }
+class BankkPaymentTypeModel {
+  int? id;
+  String? code;
+  String? name;
+  String? logo;
 
+
+  BankkPaymentTypeModel({
+    this.id,
+    this.code,
+    this.name,
+    this.logo,
+
+  });
+
+  BankkPaymentTypeModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    code = json['code'];
+    name = json['name'];
+    logo = json['logo_link'];
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['code'] = this.code;
+    data['name'] = this.name;
+    data['logo_link'] = this.logo;
+
+    return data;
+  }
+}
 
 class BankChargeListModel {
 

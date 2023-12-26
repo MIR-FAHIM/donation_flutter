@@ -83,7 +83,7 @@ class BillPaymentView extends GetView<BillPaymentController> {
                         },
                         child: Container(
                           height: _size.width * .2,
-                          width: _size.width * .5,
+                          width: _size.width * .45,
                           decoration: Ui.getBoxDecoration(
                               color: Colors.white, radius: 10),
                           child: Padding(
@@ -103,8 +103,8 @@ class BillPaymentView extends GetView<BillPaymentController> {
                                   child: Center(
                                     child: Text(
                                       'Favourite Biller'.tr,
-                                      style: const TextStyle(
-                                          color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                     ),
                                   ),
                                 ),
@@ -138,8 +138,7 @@ class BillPaymentView extends GetView<BillPaymentController> {
                                 Center(
                                   child: Text(
                                     'Receipt'.tr,
-                                    style:
-                                        const TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                 ),
                               ],
@@ -170,8 +169,12 @@ class BillPaymentView extends GetView<BillPaymentController> {
                 // onTap: billPayment[index].press,
                 onTap: () {
                   Get.toNamed(
+
                     Routes.akash_From_View,
                   );
+                  // Get.toNamed(
+                  //   Routes.Reb_Postpaid_Form_View,
+                  // );
                 },
 
                 child: Padding(

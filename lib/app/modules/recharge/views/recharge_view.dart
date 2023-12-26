@@ -269,28 +269,37 @@ class RechargeView extends GetView<RechargeController> {
                                                           // imageData: 'assets/icons/number_pad.png',
                                                           GestureDetector(
                                                             onTap: () {
-                                                              if(controller.box.value.hasData('contactbook')){
-
-                                                                controller.getStoredData();
-                                                              }else{
-                                                                controller.getPhoneContact();
+                                                              if (controller
+                                                                  .box.value
+                                                                  .hasData(
+                                                                      'contactbook')) {
+                                                                controller
+                                                                    .getStoredData();
+                                                              } else {
+                                                                controller
+                                                                    .getPhoneContact();
                                                               }
                                                             },
-                                                            child: controller.contactLoad.value == false ?
-                                                            Image.asset(
-                                                              'assets/icons/phnbk.png',
-                                                              height: 30,
-                                                              width: 30,
-                                                              // color: Get.theme.primaryColor,
-                                                            ) : Center(
-                                                              child: Container(
-                                                                height:10,
-                                                                width:10,
-                                                                child: CircularProgressIndicator(
-
-                                                                ),
-                                                              ),
-                                                            ),
+                                                            child: controller
+                                                                        .contactLoad
+                                                                        .value ==
+                                                                    false
+                                                                ? Image.asset(
+                                                                    'assets/icons/phnbk.png',
+                                                                    height: 30,
+                                                                    width: 30,
+                                                                    // color: Get.theme.primaryColor,
+                                                                  )
+                                                                : Center(
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          10,
+                                                                      width: 10,
+                                                                      child:
+                                                                          CircularProgressIndicator(),
+                                                                    ),
+                                                                  ),
                                                           ),
                                                           Padding(
                                                             padding:
@@ -558,12 +567,13 @@ class RechargeView extends GetView<RechargeController> {
                                         ""
                                     ? Container()
                                     : controller.rechargeNumberController.value
-                                                .text
-                                                .substring(0, 3) ==
-                                            "016" || controller.rechargeNumberController.value
-                                    .text
-                                    .substring(0, 3) ==
-                                    "018"
+                                                    .text
+                                                    .substring(0, 3) ==
+                                                "016" ||
+                                            controller.rechargeNumberController
+                                                    .value.text
+                                                    .substring(0, 3) ==
+                                                "018"
                                         ? Obx(() {
                                             return Padding(
                                               padding: const EdgeInsets.only(

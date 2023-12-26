@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/models/favourite_bill_list_model.dart';
 import 'package:latest_payplus_agent/app/repositories/bill_payment_repository.dart';
 
@@ -12,6 +13,10 @@ class BillFormController extends GetxController {
   final amount = ''.obs;
   final accountID = ''.obs;
   final mobile = ''.obs;
+ final  initialDate = DateTime.now().obs;
+  final selectedDate = DateTime.now().obs;
+  var myFormat = DateFormat('yyyy-MM');
+  var myFormat1 = DateFormat('MMMM, y');
   final favBillerLoaded = false.obs;
   final favBillList = FavouriteListModel().obs;
   var lstTask = List<dynamic>.empty(growable: true).obs;

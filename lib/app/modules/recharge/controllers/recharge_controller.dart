@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/cashback_offer_model.dart';
+import 'package:latest_payplus_agent/app/models/operator_model.dart';
 import 'package:latest_payplus_agent/app/models/package_model.dart';
 import 'package:latest_payplus_agent/app/models/recharge/robiairtelmodel.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
@@ -193,7 +194,17 @@ class RechargeController extends GetxController {
       count.value++;
     }
   }
-
+getOperatorId(code){
+  operatorLogos.forEach((element) { 
+    if(element.name == code){
+      simOperator.value =
+          element.id!.toString();
+      print("my sim operator id is ${simOperator.value}");
+    }
+    
+  });
+  return simOperator.value;
+}
   onKeyboardTap(String value) {
     keyboardText.value = keyboardText.value + value;
   }
@@ -419,18 +430,20 @@ class RechargeController extends GetxController {
       }
     });
   }
-  rechargeFromNotification({String? operatorId}) async {
+  rechargeFromNotification() async {
     print(number_type.value);
     print(rechargeNumberController.value.text);
     print(amountController.value.text);
     print(simOperator.value);
     print(pinNumber.value);
+    print("my num code is ${rechargeNumber.value.substring(0,3)}");
+    getOperatorId(rechargeNumber.value.substring(0,3));
     // Get.focusScope!.unfocus();
     // pinFocusFocus.dispose();
     Ui.customLoaderDialog();
 
     RechargeRepository()
-        .recharge(rechargeNumber.value, amount.value, operatorId!, number_type.value, pinNumber.value)
+        .recharge(rechargeNumber.value, amount.value,  simOperator.value, number_type.value, pinNumber.value)
         .then((resp) {
       print('Recharge Response :  $resp');
 

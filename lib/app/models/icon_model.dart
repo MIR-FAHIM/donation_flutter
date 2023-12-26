@@ -61,10 +61,10 @@ List<IconModel> iconButtonData = [
       title: 'Sales',
       image: "assets/images/cart.png",
       press: () {
-        Get.showSnackbar(
-            Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-     //   Get.toNamed(Routes.SALES);
-        // Get.to(SalePage());
+        // Get.showSnackbar(
+        //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
+        Get.toNamed(Routes.SALES);
+       //  Get.to(SalePage());
       }),
   IconModel(
       title: 'My shop',
@@ -115,30 +115,31 @@ List<IconModel> billPayment = [
       }),
 ];
 
-List<IconModel> sales = [
+List<IconModel> saless = [
   IconModel(
       title: 'Sell',
       image: "assets/sales/sell.png",
       press: () {
-        // Get.toNamed(Routes.SALE_NOW);
+        print("sell tapped");
+         Get.toNamed(Routes.SALE_NOW);
       }),
   IconModel(
       title: 'Buy',
       image: "assets/sales/buy.png",
       press: () {
-        // Get.toNamed(Routes.BUY_PRODUCT);
+         Get.toNamed(Routes.BUY_PRODUCT);
       }),
   IconModel(
       title: 'Due',
       image: "assets/sales/due.png",
       press: () {
-        // Get.toNamed(Routes.Due_DashBoard);
+         Get.toNamed(Routes.Due_DashBoard);
       }),
   IconModel(
       title: 'Consumption',
       image: "assets/sales/cost.png",
       press: () {
-        //  Get.toNamed(Routes.EXPENSES_REPORT);
+         Get.toNamed(Routes.EXPENSES_REPORT);
         //Get.to(ExpenseDashBoard());
       }),
   IconModel(
@@ -151,13 +152,13 @@ List<IconModel> sales = [
       title: 'Vendors',
       image: "assets/images/shop.png",
       press: () {
-        // Get.toNamed(Routes.VENDORS);
+         Get.toNamed(Routes.VENDORS);
       }),
   IconModel(
       title: 'Product',
       image: "assets/sales/product.png",
       press: () {
-        // Get.toNamed(Routes.PRODUCT_LIST_FOR_BUY);
+         Get.toNamed(Routes.PRODUCT_LIST_FOR_BUY);
         //Get.to(BuyListItem());
       }),
 ];

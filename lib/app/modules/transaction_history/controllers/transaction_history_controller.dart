@@ -10,6 +10,7 @@ class TransactionHistoryController extends GetxController {
   final transactionReportLoaded = false.obs;
   @override
   void onInit() {
+
     // getTransactionReport();
     super.onInit();
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:device_information/device_information.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';

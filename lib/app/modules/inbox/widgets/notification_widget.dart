@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -23,9 +24,16 @@ class NotificationWidget extends GetWidget<InboxController> {
                     if(controller.notifications.value
                         .data![index].title! == "Robi Recharge Request from PayPos" || controller.notifications.value
                         .data![index].title! == "Airtel Recharge Request from PayPos" ){
+                      List<String?> numbers = controller.extractNumbersFromString(controller.notifications.value.data![index].message!);
+                      if(numbers.isNotEmpty){
+                        Get.find<RechargeController>().rechargeNumber.value = numbers[1]!;
+                        Get.find<RechargeController>().amount.value = numbers[0]!;
+                        Get.find<RechargeController>().commission.value = numbers[2]!;
+                        Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [controller.notifications.value.data![index].message!, "mir", ],  );
+                      } else {
+                        print("message num list is empty bhai >>>>>>");
+                      }
 
-                      Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [controller.notifications.value
-                          .data![index].message!, "mir"]);
 
                       controller.changeNotiStatus(controller.notifications.value.data![index].notiId);
 

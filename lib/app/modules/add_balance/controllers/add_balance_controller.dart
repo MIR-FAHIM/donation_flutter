@@ -34,6 +34,7 @@ class AddbalanceController extends GetxController {
   final paymentOptionId = ''.obs;
   final functionIsBank = false.obs;
   final paymentTypes = <MFSPaymentTypeModel>[].obs;
+  final  paymentTypesBnk= <BankkPaymentTypeModel>[].obs;
   final paymentTypesMFS = <MFSListModel>[].obs;
   final bankChargeList = <BankChargeListModel>[].obs;
   final collectionDetailsList = <DatumCollection>[].obs;
@@ -136,23 +137,27 @@ class AddbalanceController extends GetxController {
 
   // new function
   getPaymentTypeController(int type) async {
+    print("hlw boss just called getPaymentTypeController");
     mfsPaymentTypeRepository().getPaymentType(type).then((resp) {
       paymentTypes.value = resp;
-      print(paymentTypes.value.length);
+      print("hlw boss ++++++${paymentTypes.value.toString()}");
 
       // userData.value.businessType = businessTypes[0].id!.toString();
 
       dailyReportLoaded.value = true;
+      print("hlw boss my paymment type are $resp");
       return resp;
     });
   }
+//for bank
+
   getBankChargeListController(int type) async {
     mfsPaymentTypeRepository().getBankChargeList(type).then((resp) {
       bankChargeList.value = resp;
       print(paymentTypes.value.length);
 
       // userData.value.businessType = businessTypes[0].id!.toString();
-
+      Get.toNamed(Routes.Add_Balance_Dashboard_View);
       dailyReportLoaded.value = true;
       return resp;
     });

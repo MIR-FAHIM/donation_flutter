@@ -11,6 +11,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/operator_model.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
+import 'package:latest_payplus_agent/app/modules/mobile_banking/widgets/mobile_bank_drawer.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/recharge_drawer.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -28,7 +29,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         // drawer: RechargeDrawer(),
-        endDrawer: RechargeDrawer(),
+        endDrawer: MobileBankDrawer(),
         appBar: PreferredSize(
           preferredSize: const Size(65, 65),
           child: AppBar(

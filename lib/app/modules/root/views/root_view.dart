@@ -17,7 +17,7 @@ class RootView extends GetView<RootController> {
         body: controller.currentPage,
         endDrawer: MainDrawerWidget(),
         bottomNavigationBar: BottomAppBar(
-          // shape: CircularNotchedRectangle(),
+          //shape: CircularNotchedRectangle(),
           //notchMargin: 15,
           elevation: 10,
           child: Container(
@@ -100,13 +100,13 @@ class RootView extends GetView<RootController> {
                       Image(
                         height: 16,
                         width: 16,
-                        image: const AssetImage('assets/icons/email.png'),
+                        image: const AssetImage('assets/icons/avatar.png'),
                         color: controller.currentIndex.value == 2 ? const Color(0xFF652981) : Colors.grey,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          'Inbox'.tr,
+                          'Profile'.tr,
                           style: TextStyle(
                             color: controller.currentIndex.value == 2 ? const Color(0xFF652981) : Colors.grey,
                             fontWeight: FontWeight.normal,

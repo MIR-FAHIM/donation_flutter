@@ -194,6 +194,13 @@ class MainDrawerWidget extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
+                      DrawerLinkWidget(
+                        icon: 'assets/drawer/3.png',
+                        text: "Report Analytic".tr,
+                        onTap: (e) {
+                          Get.toNamed(Routes.REPORTANALITYC);
+                        },
+                      ),
                     ],
                   ),
                 ),

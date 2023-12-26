@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     ProfileImage(),
 
-                    const SizedBox(
+                    SizedBox(
                       width: 10,
                     ),
                     Obx(() {
@@ -118,7 +118,9 @@ class HomeView extends GetView<HomeController> {
                 Obx(() {
                   return Column(
                     children: [
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       badges.Badge(
                         badgeStyle: badges.BadgeStyle(
                           badgeColor: Colors.redAccent,
@@ -153,7 +155,7 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           body: Obx(() {
-            // print(controller.balance.value);
+            // print(controller.balance.value);+
             return RefreshIndicator(
               color: const Color(0xFF652981),
               onRefresh: () async {
@@ -163,7 +165,7 @@ class HomeView extends GetView<HomeController> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Get.find<AuthService>().currentUser.value.kyc_status == "none"
-                      ?Container()
+                      ? Container()
                       : Get.find<AuthService>().currentUser.value.kyc_status ==
                               "required"
                           ? Card(

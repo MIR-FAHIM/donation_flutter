@@ -16,25 +16,24 @@ import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 import '../../../../models/user_model.dart';
-
 // import 'package:sms_autofill/sms_autofill.dart';
 
 class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
-  final checkTerm  = false.obs;
+  final checkTerm = false.obs;
   late TextEditingController textEditingController;
   final simOperator = ''.obs;
   late GlobalKey<FormState> mobileFormKey;
   final userData = UserModel().obs;
   final isChecked = false.obs;
   final box = GetStorage().obs;
-  final   contactsResult = <Contact>[].obs;
+  final contactsResult = <Contact>[].obs;
   @override
   Future<void> onInit() async {
     super.onInit();
     mobileFormKey = GlobalKey<FormState>();
     textEditingController = TextEditingController();
- //   getPhoneContact();
+    //   getPhoneContact();
   }
 
   @override
@@ -63,7 +62,7 @@ class CheckPhoneNumberController extends GetxController {
   //     print('Failed to get mobile number because of: ${e.message}');
   //   }
   // }
-  getPhoneContact()async{
+  getPhoneContact() async {
     box.value.remove('contact');
     if (await FlutterContacts.requestPermission()) {
       // Get all contacts (lightly fetched)
@@ -80,11 +79,11 @@ class CheckPhoneNumberController extends GetxController {
       contactsResult.value = contacts;
       await box.value.write('contact', contactsResult);
       print("hlw bro ***********************${GetStorage().read('contact')}");
-
     }
   }
+
   Future checkNumberDuplicacy() async {
-   MyData.phone_no = textEditingController.text;
+    MyData.phone_no = textEditingController.text;
     if (mobileFormKey.currentState!.validate()) {
       mobileFormKey.currentState!.save();
       if (Get.find<LocationService>().imei.value.isEmpty) {
@@ -92,16 +91,18 @@ class CheckPhoneNumberController extends GetxController {
       }
       if (Get.find<LocationService>().imei.value.isNotEmpty) {
         Ui.customLoaderDialog();
-        NumberCheckRepository().checkNumberDuplicacy(textEditingController.text).then((resp) {
+        NumberCheckRepository()
+            .checkNumberDuplicacy(textEditingController.text)
+            .then((resp) {
           print("hlw bro${resp['result']}");
           print("hlw beo res  msg${resp['message']}");
 
           if (resp['result'] == 1) {
             Get.back();
-
 // bypasss otp from here with making isFalse
             if (Get.find<AuthService>().alreadyLogged.isTrue) {
-              Get.offAllNamed(Routes.LOGIN, arguments: textEditingController.text);
+              Get.offAllNamed(Routes.LOGIN,
+                  arguments: textEditingController.text);
             } else {
               Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
                 'mobileNumber': textEditingController.text,
@@ -110,12 +111,13 @@ class CheckPhoneNumberController extends GetxController {
               });
             }
           } else {
-       //    Get.offAllNamed(Routes.NEWSIGNUP, arguments: textEditingController.text);
-            Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-              'mobileNumber': textEditingController.text,
-              'isRegistered': resp['result'].toString(),
-              'selectedServiceTypeId': '',
-            });
+            Get.offAllNamed(Routes.NEWSIGNUP,
+                arguments: textEditingController.text);
+            //      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
+            //        'mobileNumber': textEditingController.text,
+            //        'isRegistered': resp['result'].toString(),
+            //        'selectedServiceTypeId': '',
+            //      });
           }
           // test token
           //
@@ -156,7 +158,6 @@ class CheckPhoneNumberController extends GetxController {
       }
     }
   }
-
 
   showPopupForReg() {
     return showDialog(
@@ -233,7 +234,7 @@ class CheckPhoneNumberController extends GetxController {
                         color: Colors.red,
                         size: 35,
                       ),
-                    ))
+                    )),
               ],
             )
             // actions: <Widget>[

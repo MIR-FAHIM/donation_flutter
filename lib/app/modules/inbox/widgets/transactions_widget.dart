@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
+import 'package:latest_payplus_agent/app/modules/inbox/controllers/transactionController.dart';
+import 'package:latest_payplus_agent/app/modules/transaction_history/controllers/transaction_history_controller.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class TransactionWidget extends GetWidget<InboxController> {
+class TransactionsWidget extends GetWidget<InboxController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -91,9 +93,10 @@ class TransactionWidget extends GetWidget<InboxController> {
             const SizedBox(
               height: 10,
             ),
+
             Column(
-              children:
-                  List.generate(controller.transactionReport.value.data!.length, (index) {
+              children: List.generate(
+                  controller.transactionReport.value.data!.length, (index) {
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
@@ -116,19 +119,20 @@ class TransactionWidget extends GetWidget<InboxController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    controller.transactionReport.value.data![index]
-                                            .trxName ??
+                                    controller.transactionReport.value
+                                            .data![index].trxName ??
                                         '',
                                     style: TextStyle(
-                                      color: Get.theme.textTheme.bodyText1!.color,
+                                      color:
+                                          Get.theme.textTheme.bodyText1!.color,
                                     ),
                                   ),
                                   const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    controller.transactionReport.value.data![index]
-                                            .invoiceNumber ??
+                                    controller.transactionReport.value
+                                            .data![index].invoiceNumber ??
                                         '',
                                     style: const TextStyle(
                                       fontSize: 13,
@@ -140,28 +144,30 @@ class TransactionWidget extends GetWidget<InboxController> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   '৳ ${controller.transactionReport.value.data![index].amount}',
                                   style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
                                     color: Color(0xFF652981),
-                                    fontSize: 13,
+                                    fontSize: 16,
                                   ),
                                 ),
                                 Text(
-                                  DateFormat.yMMMd().format(DateTime.parse(controller
-                                          .transactionReport.value.data![index].trxTime
-                                          .toString())) +
+                                  DateFormat.yMMMd().format(DateTime.parse(
+                                          controller.transactionReport.value
+                                              .data![index].trxTime
+                                              .toString())) +
                                       ' ' +
-                                      DateFormat.jm().format(DateTime.parse(controller
-                                          .transactionReport.value.data![index].trxTime
-                                          .toString())),
+                                      DateFormat.jm().format(DateTime.parse(
+                                          controller.transactionReport.value
+                                              .data![index].trxTime
+                                              .toString())),
                                   style: const TextStyle(
-                                    fontSize: 13,
-                                  ),
+                                      fontSize: 12, color: Colors.grey),
                                 ),
                               ],
                             ),

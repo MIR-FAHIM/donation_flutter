@@ -27,13 +27,16 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
             scrollDirection: Axis.vertical,
             child: Column(
               children: List.generate(controller.history.value.data!.length, (index) {
+                var data = controller.history.value.data![index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                     elevation: 5,
-                    child: SizedBox(
+                    child: Container(
                       height: size.width * .23,
                       width: size.width,
+
+                      color:  data.trxStatus == "FAILED" ? Colors.redAccent.withOpacity(.1) : AppColors.primaryColor.withOpacity(.1),
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Row(
@@ -150,8 +153,23 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        Expanded(
-                                          child: Text(
+                                        data.trxStatus == "FAILED" ?
+                                            Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: Get.height*.02,
+                                                    width: Get.width*.06,
+                                                    child: Image(image: AssetImage("assets/icons/cancel.png"),)),
+                                                Text(
+                                                  'Failed',
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        :Expanded(
+                                          child:  Text(
                                             'Trans ID:' + controller.history.value.data![index].trxId!,
                                             style: const TextStyle(
                                               fontSize: 12,
@@ -173,14 +191,19 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
                                   const SizedBox(
                                     height: 5,
                                   ),
+                                  data.trxStatus == "FAILED" ?
                                   Text(
                                     controller.history.value.data![index].typeName!.toLowerCase() == 'cashout'
                                         ? '- ৳ ${controller.history.value.data![index].amount}'
                                         : '+৳ ${controller.history.value.data![index].amount}',
                                     style: TextStyle(
                                         fontSize: 18,
-                                        color:
-                                            controller.history.value.data![index].typeName!.toLowerCase() == 'cashout' ? Colors.red : Colors.green),
+                                        color: Colors.green),
+                                  ) :
+                                  Text('-৳ ${controller.history.value.data![index].amount}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.red),
                                   ),
                                   Text(
                                     'Com: ' + uniCodeTk + ' ' + controller.history.value.data![index].commission!,

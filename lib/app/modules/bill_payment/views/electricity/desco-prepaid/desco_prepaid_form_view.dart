@@ -114,6 +114,7 @@ class DescoPrepaidFormView extends GetView {
                     },
                     labelText: "Recharge Amount".tr,
                     hintText: "Enter Recharge Amount".tr,
+                    keyboardType: TextInputType.number,
                     // onSaved: (input) =>
                     // controller.currentUser.value.email = input,
                     // validator: (input) => !input!.contains('@') ? "Should be a valid email".tr : null,
@@ -126,6 +127,7 @@ class DescoPrepaidFormView extends GetView {
                     },
                     labelText: "Mobile No".tr,
                     hintText: "Enter Mobile No.".tr,
+                    keyboardType: TextInputType.number,
 
                     // onSaved: (input) =>
                     // controller.currentUser.value.email = input,

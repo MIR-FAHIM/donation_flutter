@@ -142,12 +142,18 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
         Get.toNamed(Routes.MBANKINGSUCCESS,arguments: [resp['message']]);
         numberController.value.clear();
         amountController.value.clear();
+        pinController.value.clear();
 
 
-        Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+      //  Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
 
       } else {
-        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        Get.toNamed(Routes.MBANKINGFAIL,arguments: [resp['message']]);
+      //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+        //Get.toNamed(Routes.MBANKINGNUMAMOUNT);
       }
     }).catchError((onError) {});
   }

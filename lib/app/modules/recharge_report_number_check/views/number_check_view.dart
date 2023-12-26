@@ -216,8 +216,8 @@ class NumberCheckView extends GetView<NumberCheckController> {
                                                         .data![index].status!
                                                         .toLowerCase() ==
                                                     'failed'
-                                                ? '- ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}'
-                                                : '৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}',
+                                                ? '+ ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}'
+                                                : '- ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}',
                                             style: TextStyle(
                                               fontSize: 18,
                                               color: Color(0xFF652981),

@@ -4,6 +4,7 @@ import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/views/che
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_regiater_page.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/name_field.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/password_field.dart';
+import 'package:latest_payplus_agent/app/modules/account_statement/views/statement_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/collection_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/mfs_list_view.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/success_page_add_balance.dart';
@@ -11,10 +12,15 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_form.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_postpaid_view.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_bill_view.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_form.dart';
+import 'package:latest_payplus_agent/app/modules/daily_report/views/report_analytic.dart';
+import 'package:latest_payplus_agent/app/modules/demo/task_dashboard.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/bindings/bus_ticket_binding.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_view.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/cash_in_out_view_tab.dart';
+import 'package:latest_payplus_agent/app/modules/mobile_banking/views/failed_page.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/m_banking_pin_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/succes_page.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/pay_now_option.dart';
@@ -299,6 +305,11 @@ class AppPages {
       binding: RechargeBinding(),
     ),
     GetPage(
+      name: _Paths.REPORTANALITYC,
+      page: () => DailyReportAnalyticView(),
+      binding: DailyReportBinding(),
+    ),
+    GetPage(
       name: _Paths.RECHARGEPIN,
       page: () => RechargePINView(),
       binding: RechargeBinding(),
@@ -459,20 +470,38 @@ class AppPages {
       page: () => AddNewExpense(),
       binding: SignupBinding(),
     ),
+    // Westzone bill
     GetPage(
       name: _Paths.Westzone_Postpaid_From_View,
       page: () => WestZonePostpaidFormView(),
       binding: BillPaymentBinding(),
     ),
+
     GetPage(
       name: _Paths.Westzone_Postpaid_Bill_View,
       page: () => WestZonePostpaidBillView(),
+      binding: BillPaymentBinding(),
+    ),
+    //REB bill
+    GetPage(
+      name: _Paths.Reb_Postpaid_Form_View,
+      page: () => RebPostpaidFormView(),
+      binding: BillPaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.Reb_Postpaid_Bill_View,
+      page: () => RebPostpaidBillView(),
       binding: BillPaymentBinding(),
     ),
     GetPage(
       name: _Paths.Dhaka_Wasa_From_View,
       page: () => DhakaWasaFormView(),
       binding: BillPaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.MBANKINGFAIL,
+      page: () => MBankingFailedView(),
+      binding: MobileBankingBinding(),
     ),
     GetPage(
       name: _Paths.SALES,
@@ -518,6 +547,11 @@ class AppPages {
       name: _Paths.INBOX,
       page: () => InboxView(),
       binding: InboxBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRANSACTION_HISTORY,
+      page: () => InboxView(),
+      binding: TransactionBinding(),
     ),
     GetPage(
       name: _Paths.DEACTIVATE_ACCCOUNT,
@@ -585,6 +619,13 @@ class AppPages {
       page: () => MFSListViewPackage(),
       binding: AddBalanceBinding(),
     ),
+
+    GetPage(
+      name: _Paths.STATEMENTDETAILS,
+      page: () => StatementWidgetDetails(),
+      binding: StatementBinding(),
+    ),
+
     GetPage(
       name: _Paths.TRANSACTION_HISTORY,
       page: () => TransactionHistoryView(),
@@ -605,9 +646,15 @@ class AppPages {
       page: () => AccountSettingView(),
       binding: AccountSettingBinding(),
     ),
+    //daily report
     GetPage(
       name: _Paths.DAILY_REPORT,
       page: () => DailyReportView(),
+      binding: DailyReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.TASKD,
+      page: () => TaskDashboard(),
       binding: DailyReportBinding(),
     ),
     GetPage(

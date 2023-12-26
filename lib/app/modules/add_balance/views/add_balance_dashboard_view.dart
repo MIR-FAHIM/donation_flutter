@@ -215,21 +215,24 @@ class AddBalanceDashBoardView extends GetView<AddbalanceController> {
                                               controller.bankName.value = controller.paymentTypes[index].name!;
                                               print(
                                                   "hi hih hi hi hi hi ++++++++++++++++++++++++++++++++++${controller.paymentOptionId.value}");
-
-                                              if (controller.paymentMethodId.value ==
-                                                  3) {
-                                              } else {
-                                                controller
-                                                    .getAddPaymentUrl()
-                                                    .then((e) {
-                                                  if (e == true) {
-                                                    print(
-                                                        "hlw moho +++++++++++++++++++++++++++++++++");
-                                                    Get.toNamed(
-                                                        Routes.CONFIRM_BANK_PAY);
-                                                  }
-                                                });
-                                              }
+                                              Get.toNamed(
+                                                  Routes.CONFIRM_BANK_PAY);
+                                              // if (controller.paymentMethodId.value ==
+                                              //     3) {
+                                              //   Get.toNamed(
+                                              //       Routes.CONFIRM_BANK_PAY);
+                                              // } else {
+                                              //   controller
+                                              //       .getAddPaymentUrl()
+                                              //       .then((e) {
+                                              //     if (e == true) {
+                                              //       print(
+                                              //           "hlw moho +++++++++++++++++++++++++++++++++");
+                                              //       Get.toNamed(
+                                              //           Routes.CONFIRM_BANK_PAY);
+                                              //     }
+                                              //   });
+                                              // }
                                             },
                                             child: AnimationConfiguration.staggeredGrid(
                                               position: index,

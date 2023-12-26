@@ -33,6 +33,20 @@ class mfsPaymentTypeRepository {
     return List.from(
         response["data"]["payment_options"].map((item) => MFSPaymentTypeModel.fromJson(item)));
   }
+  Future<List<BankkPaymentTypeModel>> getBankPaymentType(int type) async {
+    print('++++++++++++++ hlw bro ++++++++');
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.mfsPaymentOPTION, {"payment_method_id": type.toString()}, headers);
+
+    print('payment type hlw bro ++++++++: ${response}');
+
+    return List.from(
+        response["data"]["payment_options"].map((item) => BankkPaymentTypeModel.fromJson(item)));
+  }
   Future<List<BankChargeListModel>> getBankChargeList(int type) async {
     print('++++++++++++++ hlw bro ++++++++');
     String token = Get.find<AuthService>().currentUser.value.token!;

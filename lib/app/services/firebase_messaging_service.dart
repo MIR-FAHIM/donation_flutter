@@ -6,11 +6,11 @@ import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_control
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/notificationlocal.dart';
 import 'package:latest_payplus_agent/main.dart';
-
 import '../../common/ui.dart';
 import '../modules/Auth/login/controllers/login_controller.dart';
 
 class FireBaseMessagingService extends GetxService {
+  late List<String?> numbers;
   Future<FireBaseMessagingService> init() async {
     firebaseCloudMessagingListeners();
     // await flutterLocalNotificationsPlugin
@@ -18,10 +18,13 @@ class FireBaseMessagingService extends GetxService {
     //         AndroidFlutterLocalNotificationsPlugin>()
     //     ?.createNotificationChannel(channel);
 
-    var initializationSettingsAndroid = const AndroidInitializationSettings('@drawable/notification_icon');
-    var initialzationSettings = InitializationSettings(android: initializationSettingsAndroid);
+    var initializationSettingsAndroid =
+        const AndroidInitializationSettings('@drawable/notification_icon');
+    var initialzationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
 
-    flutterLocalNotificationsPlugin.initialize(initialzationSettings, onSelectNotification: onSelectNotification);
+    flutterLocalNotificationsPlugin.initialize(initialzationSettings,
+        onSelectNotification: onSelectNotification);
 
     return this;
   }
@@ -33,7 +36,8 @@ class FireBaseMessagingService extends GetxService {
       importance: Importance.high,
       playSound: true);
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   void firebaseCloudMessagingListeners() {
     ///gives you the message on which user taps
@@ -41,8 +45,12 @@ class FireBaseMessagingService extends GetxService {
     FirebaseMessaging.instance.getInitialMessage().then((message) async {
       if (message != null) {
         RemoteNotification notification = message.notification!;
-        type = message.data['notification_type'] != '' && message.data['notification_type'] != null ? message.data['notification_type'].toString() : message.data['notification_sub_type'].toString();
-        print('FireBaseMessagingService.firebaseCloudMessagingListeners 1:${message.data['notification_type']}');
+        type = message.data['notification_type'] != '' &&
+                message.data['notification_type'] != null
+            ? message.data['notification_type'].toString()
+            : message.data['notification_sub_type'].toString();
+        print(
+            'FireBaseMessagingService.firebaseCloudMessagingListeners 1:${message.data['notification_type']}');
 
         // flutterLocalNotificationsPlugin.show(
         //     message.data.hashCode,
@@ -74,15 +82,15 @@ class FireBaseMessagingService extends GetxService {
       }
     });
 
-
-
-    FirebaseMessaging.instance.requestPermission(sound: true, badge: true, alert: true);
+    FirebaseMessaging.instance
+        .requestPermission(sound: true, badge: true, alert: true);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification notification = message.notification!;
       print(notification.title!);
 
-      print('FireBaseMessagingService.firebaseCloudMessagingListeners:${message.data['notification_type']}');
+      print(
+          'FireBaseMessagingService.firebaseCloudMessagingListeners:${message.data['notification_type']}');
       //new added
       // NotificationLocal.showBigTextNotification(title: notification.title!, body: "hlw",
       //     fln: flutterLocalNotificationsPlugin, payload:"3" );
@@ -103,10 +111,14 @@ class FireBaseMessagingService extends GetxService {
             //      one that already exists in example app.
             // icon: message.notification!.android!.smallIcon,
           ),
-
         ),
-        payload: notification.title!.contains("Robi Recharge") ? notification.body! :message.data['notification_type'].toString(),);
+        payload: notification.title!.contains("Robi Recharge")
+            ? notification.body!
+            : message.data['notification_type'].toString(),
+      );
       Get.find<InboxController>().getNotifications();
+      // print('get notificationbody is 1:${notification.body!}');
+      // numbers = Get.find<RechargeController>().extractNumbersFromString(notification.body!);
       Get.find<InboxController>().getNewMsgNum();
 
       //In App Notification
@@ -114,7 +126,6 @@ class FireBaseMessagingService extends GetxService {
       //   title: notification.title!,
       //   message: notification.body!,
       // ));
-
 
       // if (message.data.isNotEmpty) {
       //   print('FireBaseMessagingService.firebaseCloudMessagingListeners: ${message.data['notification_type'].runtimeType}');
@@ -139,7 +150,8 @@ class FireBaseMessagingService extends GetxService {
       //   title: notification.title!,
       //   message: notification.body!,
       // ));
-      print('FireBaseMessagingService.firebaseCloudMessagingListeners 2:${message.data['notification_type']}');
+      print(
+          'FireBaseMessagingService.firebaseCloudMessagingListeners 2:${message.data['notification_type']}');
       print("hlw noti 7777777 ");
       // flutterLocalNotificationsPlugin.show(
       //     message.data.hashCode,
@@ -156,46 +168,53 @@ class FireBaseMessagingService extends GetxService {
       //       ),
       //     ));
       print("hlw noti 1111111 ");
-      Map data = { "msg" : "hlw"};
+      Map data = {"msg": "hlw"};
       if (message.data.isNotEmpty) {
-        print('FireBaseMessagingService.firebaseCloudMessagingListeners 3: ${message.data['notification_type'].runtimeType}');
+        print(
+            'FireBaseMessagingService.firebaseCloudMessagingListeners 3: ${message.data['notification_type'].runtimeType}');
         if (message.data['notification_type'].toString() == '1') {
-          Get.toNamed(Routes.OFFER, arguments: message.data['notification_type'].toString());
+          Get.toNamed(Routes.OFFER,
+              arguments: message.data['notification_type'].toString());
         }
 
         if (message.data['notification_type'].toString() == '2') {
-          Get.toNamed(Routes.RECHARGE_REPORT, arguments: message.data['notification_type'].toString());
+          Get.toNamed(Routes.RECHARGE_REPORT,
+              arguments: message.data['notification_type'].toString());
         }
         if (message.data['notification_type'].toString() == '3') {
           print("hlw noti 22222 ");
-          Get.toNamed(Routes.COLLECTION, arguments: message.data['notification_type'].toString());
+          Get.toNamed(Routes.COLLECTION,
+              arguments: message.data['notification_type'].toString());
         }
         if (message.data['notification_type'].toString() == '4') {
           print("hlw noti 22222 ");
-          Get.toNamed(Routes.COLLECTION, arguments: message.data['notification_type'].toString());
+          Get.toNamed(Routes.COLLECTION,
+              arguments: message.data['notification_type'].toString());
         }
-        if (notification.title!.contains("Robi Recharge Request from PayPos")) {
-
-          Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [notification.body, "mir"]);
-
+        if (notification.title!
+            .contains("Robi Recharge Request from PayPlus")) {
+          // Get.find<RechargeController>().rechargeNumber.value =  numbers[1]!;
+          // Get.find<RechargeController>().amount.value =  numbers[0]!;
+          // Get.find<RechargeController>().commission.value =  numbers[2]!;
+          Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
+              arguments: [notification.body, "mir"]);
         }
-
-      }
-      else {
+      } else {
         print("hlw noti 44444444 ");
-        if(notification.title!.contains("Payment Notification")){
-          Get.toNamed(Routes.COLLECTION, arguments: message.data['notification_type'].toString());
-
-        }else {
-          Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [notification.body, "mir"]);
-
+        if (notification.title!.contains("Payment Notification")) {
+          Get.toNamed(Routes.COLLECTION,
+              arguments: message.data['notification_type'].toString());
+        } else {
+          Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
+              arguments: [notification.body, "push"]);
         }
       }
     });
   }
 
   Future<void> setDeviceToken() async {
-    Get.find<LoginController>().deviceToken.value = (await FirebaseMessaging.instance.getToken())!;
+    Get.find<LoginController>().deviceToken.value =
+        (await FirebaseMessaging.instance.getToken())!;
   }
 
   void onSelectNotification(String? payload) async {
@@ -203,17 +222,18 @@ class FireBaseMessagingService extends GetxService {
     // final NotificationAppLaunchDetails? notificationAppLaunchDetails =
     //     await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
-    if(payload == "3") {
+    if (payload == "3") {
       Get.toNamed(Routes.COLLECTION);
-    }else if(payload == "2"){
-      Get.toNamed(Routes.RECHARGE_REPORT,);
-
+    } else if (payload == "2") {
+      Get.toNamed(
+        Routes.RECHARGE_REPORT,
+      );
     } else {
       print("my payload is $payload");
-      Get.toNamed(Routes.Notification_View,);
+      Get.toNamed(
+        Routes.Notification_View,
+      );
     }
-
-
 
     // Map notificationModelMap = jsonDecode(payload!);
   }

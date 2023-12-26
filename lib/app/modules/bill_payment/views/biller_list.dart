@@ -60,12 +60,12 @@ class BillerList extends GetView {
                         }else if (billerList[index]['bill_code'] == 'dpdc_postpaid') {
                           Get.toNamed(Routes.DPDC_Postpaid_From_View, arguments: data);
                         } else if (billerList[index]['bill_code'] == 'desco_prepaid') {
-                          // Get.toNamed(Routes.Desco_Prepaid_From_View,
-                          //     arguments: data);
+                          Get.toNamed(Routes.Desco_Prepaid_From_View,
+                              arguments: data);
                         } else if (billerList[index]['bill_code'] == 'west_zone_postpaid') {
                           Get.toNamed(Routes.Westzone_Postpaid_From_View, arguments: data);
-                        }else if (billerList[index]['bill_code'] == 'nesco_postpaid') {
-                          Get.toNamed(Routes.nesco_From_View, arguments: data);
+                        }else if (billerList[index]['bill_code'] == 'palli_bidyut_postpaid') {
+                          Get.toNamed(Routes.Reb_Postpaid_Form_View, arguments: data);
                         }
                         // else if (billerList[index]['bill_code'] ==
                         //     'dhaka_wasa') {

@@ -108,7 +108,7 @@ class MBankingSuccessView extends GetView<MobileBankingController> {
                       // Get.offAndToNamed(Routes.RECHARGE);
                       // Get.offAllNamed(Routes.RECHARGE);
 
-                      Get.toNamed(Routes.CASHINOUT);
+                      Get.toNamed(Routes.MBANKINGNUMAMOUNT);
 
                       // controller.amountFocusFocus.requestFocus();
                     },

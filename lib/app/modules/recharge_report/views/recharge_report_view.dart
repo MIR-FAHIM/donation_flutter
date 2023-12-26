@@ -109,8 +109,8 @@ class RechargeReportView extends GetView<RechargeReportController> {
                                   ),
                                   Text(
                                     controller.rechargeReport.value.data![index].status!.toLowerCase() == 'failed'
-                                        ? '- ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}'
-                                        : '৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}',
+                                        ? '+ ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}'
+                                        : '-৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}',
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Color(0xFF652981),

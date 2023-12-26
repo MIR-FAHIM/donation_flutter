@@ -12,11 +12,17 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
-    print('Recharge number : ${controller.rechargeNumber.value}');
-    List<String?> numbers = controller.extractNumbersFromString(Get.arguments[0]);
-    controller.rechargeNumber.value = numbers[1]!;
-    controller.amount.value = numbers[0]!;
-    controller.commission.value = numbers[2]!;
+    if(Get.arguments[1] == "push"){
+      List<String?> numbers = controller.extractNumbersFromString(Get.arguments[0]);
+      controller.rechargeNumber.value = numbers[1]!;
+      controller.amount.value = numbers[0]!;
+      controller.commission.value = numbers[2]!;
+    }
+    print('Recharge number : ${controller.rechargeNumber.value}, amount is +++ ${controller.amount.value}');
+
+
+
+
     print('cashback amount : ${controller.cashBackAmount.value}');
 
     // print('cashback amount : ${controller.amountController.clear}');
@@ -669,7 +675,7 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
 
                                 suffixIcon: IconButton(
                                   onPressed: () {
-                                    controller.rechargeFromNotification(operatorId: "4");
+                                    controller.rechargeFromNotification();
                                     print("sahed");
                                     controller.pinController.value.clear();
                                   },

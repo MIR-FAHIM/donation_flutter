@@ -25,13 +25,13 @@ class SalesOptionWidget extends GetWidget<HomeController> {
           crossAxisSpacing: 4.0,
           mainAxisSpacing: 20.0,
           childAspectRatio: 1.6,
-          children: List.generate(sales.length, (index) {
+          children: List.generate(saless.length, (index) {
             return GestureDetector(
-              onTap: () {},
+              onTap: saless[index].press,
               child: AnimationConfiguration.staggeredGrid(
                 position: index,
                 duration: const Duration(milliseconds: 475),
-                columnCount: sales.length,
+                columnCount: saless.length,
                 child: SlideAnimation(
                   horizontalOffset: 50.0,
                   child: FadeInAnimation(
@@ -39,9 +39,9 @@ class SalesOptionWidget extends GetWidget<HomeController> {
                       width: 55,
                       aspectRetio: 1.2,
                       colors: Color(0xFF652981),
-                      image: sales[index].image,
+                      image: saless[index].image,
                       allpadding: 0.0,
-                      name: sales[index].title!.tr,
+                      name: saless[index].title!.tr,
                     ),
                   ),
                 ),

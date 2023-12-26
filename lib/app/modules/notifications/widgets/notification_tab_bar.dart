@@ -64,21 +64,21 @@ class NotificationsTabBar extends StatelessWidget {
               ),
             ),
           )),
-          // Tab(
-          //     icon: Text(
-          //   'Transaction'.tr,
-          //   style: TextStyle(
-          //     color: AppColors.primaryColor,
-          //     fontSize: 16,
-          //     fontWeight: FontWeight.w600,
-          //     // shadows: [
-          //     //   Shadow(
-          //     //       color: Colors.black.withOpacity(0.4),
-          //     //       offset: Offset(2, 2),
-          //     //       blurRadius: 1),
-          //     // ]
-          //   ),
-          // )),
+          Tab(
+              icon: Text(
+            'Transaction'.tr,
+            style: TextStyle(
+              color: AppColors.primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              // shadows: [
+              //   Shadow(
+              //       color: Colors.black.withOpacity(0.4),
+              //       offset: Offset(2, 2),
+              //       blurRadius: 1),
+              // ]
+            ),
+          )),
         ],
       ),
     );

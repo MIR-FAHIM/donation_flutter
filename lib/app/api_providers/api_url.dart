@@ -153,6 +153,7 @@ class ApiClient {
 
   static const String addCustomer = '${baseUrl}public/api/appapi/addEditCustomer';
 
+
   static const String addVendor = '${baseUrl}public/api/appapi/addEditVendor';
 
   static const String productList = '${baseUrl}public/api/appapi/itemList';

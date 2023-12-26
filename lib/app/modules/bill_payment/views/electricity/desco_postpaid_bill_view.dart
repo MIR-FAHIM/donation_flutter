@@ -210,13 +210,13 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
                                     color: AppColors.primaryColor,
                                   ),
                                 ),
-                                Text(
-                                  _bll_dt_frm + " to " + _bll_dt_to,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
+                                // Text(
+                                //   _bll_dt_frm + " to " + _bll_dt_to,
+                                //   style: TextStyle(
+                                //     fontSize: 16,
+                                //     color: AppColors.homeTextColor3,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
