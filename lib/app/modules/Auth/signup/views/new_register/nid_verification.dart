@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../../common/Color.dart';
 import '../../../../../routes/app_pages.dart';
@@ -103,8 +104,27 @@ class NewNidVerification extends GetView<SignupController> {
                           height: 10,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            showPopup(context, 'nid_front');
+                          onTap: () async {
+                            PermissionStatus status = await Permission.camera.status;
+
+                            if (status.isGranted) {
+                              // Camera permission is granted
+                              print('Camera permission is granted.');
+                              showPopup(context, 'nid_front');
+                            } else {
+                              // Camera permission is not granted
+                              print('Camera permission is not granted. Requesting permission...');
+                              // Request camera permission
+                              status = await Permission.camera.request();
+                              if (status.isGranted) {
+                                showPopup(context, 'nid_front');
+                              } else {
+                                print('Camera permission is still not granted.');
+                                Get.showSnackbar(Ui.ErrorSnackBar(message: "Camera permission is still not granted.", title: 'Error'));
+
+                              }
+                            }
+
                             // controller.getImage(ImageSource.camera, 'nid_front');
                             // controller.readNId();
                             // controller.readNId();

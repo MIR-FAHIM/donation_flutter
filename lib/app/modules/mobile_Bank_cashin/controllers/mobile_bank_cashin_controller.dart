@@ -32,7 +32,7 @@ class MobileBankCashinController extends GetxController {
 
   sendRequestForCashin(String pin) async {
     Ui.customLoaderDialog();
-    MobileBankingRepository().submitCashIn(numberController.text, amountController.text, pin).then((resp) {
+    MobileBankingRepository().submitCashIn( number: numberController.text, amount: amountController.text, pin: pin).then((resp) {
       Get.back();
       if (resp['result'] == 'success') {
         showSuccessPopup(resp['message']);

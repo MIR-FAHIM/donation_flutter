@@ -34,6 +34,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
     var bll_vat = Get.arguments["bll_vat"] ?? "";
     var ekpay_fee =Get.arguments["bll_no"] ?? "";
     var is_bill_paid = Get.arguments["bll_no"] ?? "";
+    var bill_amount = Get.arguments["bll_amnt"] ?? "";
 
     var bll_amnt_ttl = Get.arguments["bll_amnt_ttl"] ?? "";
 
@@ -272,7 +273,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                                   ),
                                 ),
                                 Text(
-                                  '৳ ' + _bll_amnt,
+                                  '৳ ' + bill_amount,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -281,28 +282,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Vat",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + bll_vat,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+
                           Padding(
                             padding: const EdgeInsets.only(top: 8, bottom: 8),
                             child: Row(
@@ -430,50 +410,50 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                     ).paddingSymmetric(vertical: 10, horizontal: 20),
                     SizedBox(height: 20,),
 
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (builder) =>
-
-                                  REBPdfPreviewPage(
-                                    title : _title,
-                                    images : _images,
-
-                                    billPaymentId : _bill_payment_id,
-                                    billReferId : _bill_refer_id,
-
-                                    bllNo : _bll_no,
-
-
-
-                                    bllDtDue : _bll_dt_due,
-                                    bllAmnt : bll_amnt_ttl,
-
-                                  ),
-                            ),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/icons/utility_expense.png',
-                                      ))),
-                            ),
-                            Text(
-                              "View PDF",
-                              style: TextStyle(
-                                  color: Colors.black54),
-                            ),
-                          ],
-                        )),
+                    // GestureDetector(
+                    //     onTap: () {
+                    //       Navigator.of(context).push(
+                    //         MaterialPageRoute(
+                    //           builder: (builder) =>
+                    //
+                    //               REBPdfPreviewPage(
+                    //                 title : _title,
+                    //                 images : _images,
+                    //
+                    //                 billPaymentId : _bill_payment_id,
+                    //                 billReferId : _bill_refer_id,
+                    //
+                    //                 bllNo : _bll_no,
+                    //
+                    //
+                    //
+                    //                 bllDtDue : _bll_dt_due,
+                    //                 bllAmnt : bll_amnt_ttl,
+                    //
+                    //               ),
+                    //         ),
+                    //       );
+                    //     },
+                    //     child: Row(
+                    //       mainAxisAlignment:
+                    //       MainAxisAlignment.center,
+                    //       children: [
+                    //         Container(
+                    //           height: 50,
+                    //           width: 50,
+                    //           decoration: BoxDecoration(
+                    //               image: DecorationImage(
+                    //                   image: AssetImage(
+                    //                     'assets/icons/utility_expense.png',
+                    //                   ))),
+                    //         ),
+                    //         Text(
+                    //           "View PDF",
+                    //           style: TextStyle(
+                    //               color: Colors.black54),
+                    //         ),
+                    //       ],
+                    //     )),
                   ],
                 ),
               );

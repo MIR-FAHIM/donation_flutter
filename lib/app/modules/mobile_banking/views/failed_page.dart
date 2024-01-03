@@ -20,11 +20,7 @@ class MBankingFailedView extends GetView<MobileBankingController> {
           automaticallyImplyLeading: false,
           backgroundColor: Color(0xFF652981),
           centerTitle: true,
-          title: controller.currentTabIndex.value == 0
-              ? Text('Cash In'.tr)
-              : controller.currentTabIndex.value == 0
-                  ? Text('Cash Out'.tr)
-                  : Text('Money Out'.tr),
+          title: Text(Get.arguments[1]),
 
           elevation: 0,
           // leading: IconButton(
@@ -82,14 +78,7 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      controller.currentTabIndex.value == 0
-                          ? Text('Cash In'.tr,
-                              style: TextStyle(fontSize: 22, color: Colors.red))
-                          : controller.currentTabIndex.value == 0
-                              ? Text('Cash Out'.tr,
-                                  style: TextStyle(
-                                      fontSize: 22, color: Colors.red))
-                              : Text('Money Out'.tr,
+                     Text(Get.arguments[1],
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.red)),
                       SizedBox(

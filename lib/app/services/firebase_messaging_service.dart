@@ -196,6 +196,7 @@ class FireBaseMessagingService extends GetxService {
           // Get.find<RechargeController>().rechargeNumber.value =  numbers[1]!;
           // Get.find<RechargeController>().amount.value =  numbers[0]!;
           // Get.find<RechargeController>().commission.value =  numbers[2]!;
+          print("image notification 111111++++++++++++++");
           Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
               arguments: [notification.body, "mir"]);
         }
@@ -205,8 +206,14 @@ class FireBaseMessagingService extends GetxService {
           Get.toNamed(Routes.COLLECTION,
               arguments: message.data['notification_type'].toString());
         } else {
-          Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
-              arguments: [notification.body, "push"]);
+          print("image notification ++++++++++++++");
+          // Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
+          //     arguments: [notification.body, "push"]);
+          Get.put(InboxController());
+          Get.find<InboxController>().getNotifications();
+          Get.toNamed(
+            Routes.Notification_View,
+          );
         }
       }
     });

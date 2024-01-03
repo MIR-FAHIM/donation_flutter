@@ -23,7 +23,9 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
 
     var _bill_payment_id = Get.arguments['bill_payment_id'];
     var _bill_refer_id = Get.arguments['bill_refer_id'];
-
+    var _biller_name = Get.arguments['customer_name'];
+    var meter_type = Get.arguments['meter_type'];
+    var tariff_program = Get.arguments['tariff_program'];
     var _bll_no = Get.arguments['bll_no'];
     var _bllr_accno = Get.arguments['bllr_accno'];
     var _bll_mobno = Get.arguments['bll_mobno'];
@@ -177,6 +179,88 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
+                                  "Biller Name",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  _biller_name,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biller Meter Type.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  meter_type,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biller Tarrif.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  tariff_program,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
                                   "Biller Mobile No.",
                                   style: TextStyle(
                                     fontSize: 16,
@@ -193,6 +277,11 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                               ],
                             ),
                           ),
+
+
+
+
+                          //
                           Container(
                             width: _size.width,
                             height: 1,

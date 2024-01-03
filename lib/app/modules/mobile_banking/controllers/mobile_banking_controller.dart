@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:latest_payplus_agent/app/models/mbanking_gateway_model.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/mfsPayment_type_repositoy.dart';
 import 'package:latest_payplus_agent/app/repositories/mobile_banking_repository.dart';
@@ -17,7 +18,8 @@ import 'package:latest_payplus_agent/common/custom_data.dart';
 
 import '../../../models/add_balance_model/mfs_list_model.dart';
 
-class MobileBankingController extends GetxController with GetSingleTickerProviderStateMixin{
+class MobileBankingController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final currentTabIndex = 0.obs;
   final box = GetStorage().obs;
   final mobileNumber = ''.obs;
@@ -44,7 +46,6 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
 
   final number_type = 'Prepaid'.obs;
 
-
   final internetLoaded = false.obs;
 
   final minuteLoaded = false.obs;
@@ -53,7 +54,6 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
 
   final bundleLoaded = false.obs;
 
-
   final amountOfferFound = false.obs;
   final contactListClicked = false.obs;
   final loading = false.obs;
@@ -61,40 +61,41 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
   TextEditingController searchController = TextEditingController();
   //TextEditingController pinController = TextEditingController();
   final currentIndex = 0.obs;
-
   final keyboardText = ''.obs;
+  final gateWayID = ''.obs;
   final searchString = "".obs;
   final keyboardType = ''.obs;
-
   final contacts = <Contact>[].obs;
-  final   contactsResult = <Contact>[].obs;
+  final contactsResult = <Contact>[].obs;
   final contactLoaded = false.obs;
   final cashBackPackageName = ''.obs;
   final imageUrl = ''.obs;
-
   final cashBackValidaity = ''.obs;
   final cashBackAmount = ''.obs;
   final balance = ''.obs;
-
   final random = Random();
-  final  numberController = TextEditingController().obs;
-  final  amountController = TextEditingController().obs;
-  final  pinController = TextEditingController().obs;
+  final numberController = TextEditingController().obs;
+  final amountController = TextEditingController().obs;
+  final pinController = TextEditingController().obs;
+  final otpController = TextEditingController().obs;
   final paymentTypesMFS = <MFSListModel>[].obs;
+  final mfsGateWayListCashInOut = <DatumCashINOutGateWay>[].obs;
 
   TabController? tabController;
+
   //TODO: Implement MobileBankingController
   List<IconModel> banks = [
-    IconModel(title: 'Rocket', image: "assets/mobilebank/rocket.png", press: () {}),
+    IconModel(
+        title: 'Rocket', image: "assets/mobilebank/rocket.png", press: () {}),
     IconModel(title: 'My Cash', image: "assets/mobilebank/1.png", press: () {}),
     IconModel(title: 'Wallet', image: "assets/mobilebank/2.png", press: () {}),
     IconModel(title: 'MFS', image: "assets/mobilebank/3.png", press: () {}),
   ];
   @override
   void onInit() {
-
-   // getPhoneContact();
+    // getPhoneContact();
     getPaymentType();
+    getMfsGateway();
     tabController = TabController(length: 3, vsync: this);
 
     super.onInit();
@@ -109,47 +110,93 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
   void onClose() {
     super.onClose();
   }
+
   getPaymentType() async {
     mfsPaymentTypeRepository().getBusinessType().then((resp) {
       paymentTypesMFS.value = resp;
 
-
-
       return resp;
     });
-
   }
-  sendRequestForCashOut() async {
+
+  getMfsGateway() async {
+    mfsPaymentTypeRepository().getMFSGateWayList().then((resp) {
+      mfsGateWayListCashInOut.value = resp.data;
+
+      return mfsGateWayListCashInOut.value;
+    });
+  }
+
+  // cash in function start
+
+  sendRequestForCashin(String pin, String gateWayId,) async {
     Ui.customLoaderDialog();
-    MobileBankingRepository().submitCashOut(numberController.value.text, amountController.value.text).then((resp) {
+    MobileBankingRepository()
+        .submitCashIn(
+        number: numberController.value.text, amount: amountController.value.text, pin: pin , gateWayID:  gateWayId  )
+        .then((resp) {
       Get.back();
       if (resp['result'] == 'success') {
+        Get.toNamed(Routes.MBANKINGSUCCESS, arguments: [resp['message'], "Cash In"], );
         numberController.value.clear();
         amountController.value.clear();
-
+        pinController.value.clear();
         //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
       } else {
-        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        Get.toNamed(Routes.MBANKINGFAIL, arguments: [resp['message'],"Cash In"]);
+        //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
       }
     }).catchError((onError) {});
   }
-  moneyTransferController() async {
-    Ui.customLoaderDialog();
-    MobileBankingRepository().moneyTransfer(numberController.value.text, amountController.value.text, gateWay.value, pinController.value.text).then((resp) {
-      print("money transfr res is controller ${resp['result']}");
 
+//
+  sendRequestForCashOut(String pin, String gatewayId, String otp) async {
+    Ui.customLoaderDialog();
+    MobileBankingRepository()
+        .submitCashOut(number: numberController.value.text, amount:  amountController.value.text, pin: pin, gateWayID: gatewayId , otp:  otp)
+        .then((resp) {
+      Get.back();
       if (resp['result'] == 'success') {
-        Get.toNamed(Routes.MBANKINGSUCCESS,arguments: [resp['message']]);
+        Get.toNamed(Routes.MBANKINGSUCCESS, arguments: [resp['message'], "Cash Out"],);
         numberController.value.clear();
         amountController.value.clear();
         pinController.value.clear();
 
-
-      //  Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
-
+        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
       } else {
-        Get.toNamed(Routes.MBANKINGFAIL,arguments: [resp['message']]);
-      //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        Get.toNamed(Routes.MBANKINGFAIL, arguments: [resp['message'], "Cash Out"]);
+        //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+      }
+    }).catchError((onError) {});
+  }
+
+
+
+// money transfer
+  moneyTransferController() async {
+    Ui.customLoaderDialog();
+    MobileBankingRepository()
+        .moneyTransfer(numberController.value.text, amountController.value.text,
+            gateWay.value, pinController.value.text)
+        .then((resp) {
+      print("money transfr res is controller ${resp['result']}");
+
+      if (resp['result'] == 'success') {
+        Get.toNamed(Routes.MBANKINGSUCCESS, arguments: [resp['message'], "Money Out"]);
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+
+        //  Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+      } else {
+        Get.toNamed(Routes.MBANKINGFAIL, arguments: [resp['message'], "Money Out"]);
+        //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
         numberController.value.clear();
         amountController.value.clear();
         pinController.value.clear();
@@ -157,18 +204,12 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
       }
     }).catchError((onError) {});
   }
-  sendRequestForCashin(String pin) async {
-    Ui.customLoaderDialog();
-    MobileBankingRepository().submitCashIn(numberController.value.text, amountController.value.text, pin).then((resp) {
-      Get.back();
-      if (resp['result'] == 'success') {
 
-        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
-      } else {
-        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
-      }
-    }).catchError((onError) {});
-  }
+
+
+
+  // cash in out transfer end
+
   showCashinCashoutOption() {
     return showDialog(
       context: Get.context!,
@@ -284,26 +325,25 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
     // );
   }
 
-  getStoredData(){
+  getStoredData() {
     contactsResult.clear();
     print("store data");
 
-    try{
-      contactsResult.value =  GetStorage().read('contactbook').map((e) => Contact.fromJson(e))
+    try {
+      contactsResult.value = GetStorage()
+          .read('contactbook')
+          .map((e) => Contact.fromJson(e))
           .toList()
           .cast<Contact>();
-    }catch(e){
-      contactsResult.value =  GetStorage().read('contactbook');
+    } catch (e) {
+      contactsResult.value = GetStorage().read('contactbook');
     }
 
-
-
-        contactListClicked
-        .value = true;
-
+    contactListClicked.value = true;
   }
+
 //
-  getPhoneContact()async{
+  getPhoneContact() async {
     box.value.remove('contactbook');
     contactLoad.value = true;
     if (await FlutterContacts.requestPermission()) {
@@ -316,41 +356,37 @@ class MobileBankingController extends GetxController with GetSingleTickerProvide
 
       // Get contact with specific ID (fully fetched)
 
-     // print("my all contact are ${jsonDecode(source)}");
+      // print("my all contact are ${jsonDecode(source)}");
 
       contactsResult.value = contacts;
       await box.value.write('contactbook', contacts);
-      print("hlw bro ***********************${GetStorage().read('contactbook')}");
+      print(
+          "hlw bro ***********************${GetStorage().read('contactbook')}");
       contactLoad.value = true;
 
-      contactListClicked
-          .value = true;
+      contactListClicked.value = true;
     }
   }
+
   void setSearchText(String text) {
     searchString.value = text;
   }
 
   List<Contact> get filteredContacts {
-
     return contactsResult.value.where((contact) {
       final name = contact.displayName.toLowerCase();
-      final number = contact.phones.isEmpty? "000" : contact.phones.first.toString().toLowerCase();
+      final number = contact.phones.isEmpty
+          ? "000"
+          : contact.phones.first.toString().toLowerCase();
       final searchTerm = searchString.value.toLowerCase();
-      if(searchString.value.isNum){
+      if (searchString.value.isNum) {
         return number.contains(searchTerm);
-
-      }else{
+      } else {
         return name.contains(searchTerm);
-
       }
-
-
-
     }).toList();
-
-
   }
+
   showComingsoonPopup() {
     return showDialog(
       context: Get.context!,

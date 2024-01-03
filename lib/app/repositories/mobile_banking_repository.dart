@@ -5,13 +5,15 @@ import 'package:latest_payplus_agent/app/models/mobile_bank_tran_history.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
 class MobileBankingRepository {
-  Future submitCashIn(String number, String amount, String pin) async {
+  Future submitCashIn(
+      {String? number, String? amount, String? pin, String? gateWayID}) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map body = {
       'number': number,
       'amount': amount,
       'pin': pin,
+      "gateway_id" : gateWayID,
     };
 
     var headers = {'token': token};
@@ -23,12 +25,15 @@ class MobileBankingRepository {
     return response;
   }
 
-  Future submitCashOut(String number, String amount) async {
+  Future submitCashOut({String? number, String? amount, String? pin, String? gateWayID, String? otp}) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map body = {
       'number': number,
       'amount': amount,
+      'pin': pin,
+      "gateway_id" : gateWayID,
+      "otp" : otp
     };
 
     var headers = {'token': token};

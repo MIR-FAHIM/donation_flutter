@@ -87,174 +87,174 @@ class _NotificationsViewState extends State<NotificationsView>
                         ),
                       ),
 
-                      //Recharge Notifications
-                      Obx(() {
-                        if (controller.rechargeReportLoaded.isTrue) {
-                          return SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(
-                                  controller.rechargeReport.value.data!.length, (index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Card(
-                                    elevation: 5,
-                                    child: Container(
-                                      height: _size.width * 0.22,
-                                      width: _size.width,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: SingleChildScrollView(
-                                                scrollDirection: Axis.horizontal,
-                                                child: Row(
-                                                  children: [
-                                                    Logo(index),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
-                                                      children: [
-                                                        // Text(
-                                                        //   'Recharge'.tr,
-                                                        //   style: TextStyle(
-                                                        //     fontSize: 16,
-                                                        //   ),
-                                                        // ),
-                                                        SizedBox(
-                                                          height: 25,
-                                                        ),
-                                                        Text(
-                                                          controller
-                                                              .rechargeReport
-                                                              .value
-                                                              .data![index]
-                                                              .rechargeMobileNumber!,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight.bold),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          controller
-                                                              .rechargeReport
-                                                              .value
-                                                              .data![index]
-                                                              .transactionId!,
-                                                          style: TextStyle(
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      DateFormat.yMMMd().format(
-                                                              DateTime.parse(controller
-                                                                  .rechargeReport
-                                                                  .value
-                                                                  .data![index]
-                                                                  .rechargeTime!)) +
-                                                          ' ' +
-                                                          DateFormat.jm().format(
-                                                              DateTime.parse(controller
-                                                                  .rechargeReport
-                                                                  .value
-                                                                  .data![index]
-                                                                  .rechargeTime!)),
-                                                      style: TextStyle(
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      controller.rechargeReport.value
-                                                                  .data![index].status!
-                                                                  .toLowerCase() ==
-                                                              'failed'
-                                                          ? '- ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}'
-                                                          : '৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Color(0xFF652981),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '${controller.rechargeReport.value.data![index].status!}',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: controller
-                                                                    .rechargeReport
-                                                                    .value
-                                                                    .data![index]
-                                                                    .status!
-                                                                    .toLowerCase() ==
-                                                                'failed'
-                                                            ? Colors.red
-                                                            : controller
-                                                                        .rechargeReport
-                                                                        .value
-                                                                        .data![index]
-                                                                        .status!
-                                                                        .toLowerCase() ==
-                                                                    'success'
-                                                                ? Colors.green
-                                                                : Colors.yellow,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          );
-                        } else {
-                          return Container(
-                            height: Get.size.width,
-                            child: Center(
-                              child: Ui.customLoader(),
-                            ),
-                          );
-                        }
-                      }),
-
-                      //Transactions Notifications
-
-                      SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                           // NotificationWidget(),
-                            TransactionsWidget()
-                          ],
-                        ),
-                      ),
+                      // //Recharge Notifications
+                      // Obx(() {
+                      //   if (controller.rechargeReportLoaded.isTrue) {
+                      //     return SingleChildScrollView(
+                      //       child: Column(
+                      //         children: List.generate(
+                      //             controller.rechargeReport.value.data!.length, (index) {
+                      //           return Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Card(
+                      //               elevation: 5,
+                      //               child: Container(
+                      //                 height: _size.width * 0.22,
+                      //                 width: _size.width,
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.all(5.0),
+                      //                   child: Row(
+                      //                     mainAxisAlignment:
+                      //                         MainAxisAlignment.spaceBetween,
+                      //                     children: [
+                      //                       Expanded(
+                      //                         child: SingleChildScrollView(
+                      //                           scrollDirection: Axis.horizontal,
+                      //                           child: Row(
+                      //                             children: [
+                      //                               Logo(index),
+                      //                               SizedBox(
+                      //                                 width: 10,
+                      //                               ),
+                      //                               Column(
+                      //                                 crossAxisAlignment:
+                      //                                     CrossAxisAlignment.start,
+                      //                                 children: [
+                      //                                   // Text(
+                      //                                   //   'Recharge'.tr,
+                      //                                   //   style: TextStyle(
+                      //                                   //     fontSize: 16,
+                      //                                   //   ),
+                      //                                   // ),
+                      //                                   SizedBox(
+                      //                                     height: 25,
+                      //                                   ),
+                      //                                   Text(
+                      //                                     controller
+                      //                                         .rechargeReport
+                      //                                         .value
+                      //                                         .data![index]
+                      //                                         .rechargeMobileNumber!,
+                      //                                     style: TextStyle(
+                      //                                         fontSize: 12,
+                      //                                         fontWeight:
+                      //                                             FontWeight.bold),
+                      //                                   ),
+                      //                                   SizedBox(
+                      //                                     height: 5,
+                      //                                   ),
+                      //                                   Text(
+                      //                                     controller
+                      //                                         .rechargeReport
+                      //                                         .value
+                      //                                         .data![index]
+                      //                                         .transactionId!,
+                      //                                     style: TextStyle(
+                      //                                       fontSize: 12,
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                       Expanded(
+                      //                         child: SingleChildScrollView(
+                      //                           child: Column(
+                      //                             crossAxisAlignment:
+                      //                                 CrossAxisAlignment.end,
+                      //                             children: [
+                      //                               Text(
+                      //                                 DateFormat.yMMMd().format(
+                      //                                         DateTime.parse(controller
+                      //                                             .rechargeReport
+                      //                                             .value
+                      //                                             .data![index]
+                      //                                             .rechargeTime!)) +
+                      //                                     ' ' +
+                      //                                     DateFormat.jm().format(
+                      //                                         DateTime.parse(controller
+                      //                                             .rechargeReport
+                      //                                             .value
+                      //                                             .data![index]
+                      //                                             .rechargeTime!)),
+                      //                                 style: TextStyle(
+                      //                                   fontSize: 12,
+                      //                                 ),
+                      //                               ),
+                      //                               SizedBox(
+                      //                                 height: 5,
+                      //                               ),
+                      //                               Text(
+                      //                                 controller.rechargeReport.value
+                      //                                             .data![index].status!
+                      //                                             .toLowerCase() ==
+                      //                                         'failed'
+                      //                                     ? '- ৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}'
+                      //                                     : '৳ ${controller.rechargeReport.value.data![index].rechargeAmount!}',
+                      //                                 style: TextStyle(
+                      //                                   fontSize: 18,
+                      //                                   color: Color(0xFF652981),
+                      //                                 ),
+                      //                               ),
+                      //                               Text(
+                      //                                 '${controller.rechargeReport.value.data![index].status!}',
+                      //                                 style: TextStyle(
+                      //                                   fontSize: 18,
+                      //                                   color: controller
+                      //                                               .rechargeReport
+                      //                                               .value
+                      //                                               .data![index]
+                      //                                               .status!
+                      //                                               .toLowerCase() ==
+                      //                                           'failed'
+                      //                                       ? Colors.red
+                      //                                       : controller
+                      //                                                   .rechargeReport
+                      //                                                   .value
+                      //                                                   .data![index]
+                      //                                                   .status!
+                      //                                                   .toLowerCase() ==
+                      //                                               'success'
+                      //                                           ? Colors.green
+                      //                                           : Colors.yellow,
+                      //                                 ),
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           );
+                      //         }),
+                      //       ),
+                      //     );
+                      //   } else {
+                      //     return Container(
+                      //       height: Get.size.width,
+                      //       child: Center(
+                      //         child: Ui.customLoader(),
+                      //       ),
+                      //     );
+                      //   }
+                      // }),
+                      //
+                      // //Transactions Notifications
+                      //
+                      // SingleChildScrollView(
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //      // NotificationWidget(),
+                      //       TransactionsWidget()
+                      //     ],
+                      //   ),
+                      // ),
 
                     ],
                   ),

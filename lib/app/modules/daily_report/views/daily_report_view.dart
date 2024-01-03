@@ -5,7 +5,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:latest_payplus_agent/app/modules/billpay_report/controllers/billpay_report_controller.dart';
 import 'package:latest_payplus_agent/app/modules/daily_report/views/widget/progress_line_widget.dart';
+import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/recharge_report_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -174,7 +176,8 @@ class DailyReportView extends GetView<DailyReportController> {
                           Padding(
                             padding: const EdgeInsets.only(top: 15),
                             child: Text(
-                              DateFormat.yMMMd().format(controller.selectedDate.value),
+                              DateFormat.yMMMd()
+                                  .format(controller.selectedDate.value),
                               style: TextStyle(
                                   color: AppColors.homeTextColor3,
                                   fontWeight: FontWeight.bold,
@@ -187,38 +190,28 @@ class DailyReportView extends GetView<DailyReportController> {
                             },
                             child: Container(
                               margin: EdgeInsets.only(top: 3),
-                              width: MediaQuery.of(context)
-                                  .size
-                                  .width *
-                                  0.42,
+                              width: MediaQuery.of(context).size.width * 0.42,
                               decoration: BoxDecoration(
-                                color:
-                                AppColors.primarydeepLightColor,
-                                borderRadius:
-                                BorderRadius.circular(10),
+                                color: AppColors.primarydeepLightColor,
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(width: 20),
                                     Image.asset(
                                       'assets/icons/calender.png',
                                       height: 10,
                                       width: 10,
-                                      color:
-                                      AppColors.homeTextColor1,
+                                      color: AppColors.homeTextColor1,
                                     ),
-
                                     Text(
                                       "তারিখ",
                                       style: TextStyle(
-                                          color: AppColors
-                                              .homeTextColor1,
-                                          fontWeight:
-                                          FontWeight.w400,
+                                          color: AppColors.homeTextColor1,
+                                          fontWeight: FontWeight.w400,
                                           fontSize: 13),
                                     ),
                                     SizedBox(width: 20),
@@ -226,8 +219,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                       'assets/icons/down_arrow.png',
                                       height: 10,
                                       width: 10,
-                                      color:
-                                      AppColors.homeTextColor1,
+                                      color: AppColors.homeTextColor1,
                                     ),
                                   ],
                                 ),
@@ -236,7 +228,9 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -269,7 +263,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                         ),
                                         child: Image(
                                           image: AssetImage(
-                                              "assets/images/Opening_Balance.png"),
+                                              "assets/icons/amountof.png"),
                                         )),
                                     Icon(Icons.more_vert,
                                         color: Colors.deepPurple)
@@ -347,7 +341,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                         ),
                                         child: Image(
                                           image: AssetImage(
-                                              "assets/images/Closing_Balance.png"),
+                                              "assets/icons/lastbalance.png"),
                                         )),
                                     Icon(Icons.more_vert,
                                         color: Colors.deepPurple)
@@ -369,8 +363,11 @@ class DailyReportView extends GetView<DailyReportController> {
                                     Row(
                                       children: [
                                         Text(
-                                          controller.dailyReportDetails.value
-                                              .closing_balance!,
+                                          double.parse(controller
+                                                  .dailyReportDetails
+                                                  .value
+                                                  .closing_balance!)
+                                              .toStringAsFixed(2),
                                           style: TextStyle(
                                               color: AppColors.primaryColor,
                                               fontSize: 16,
@@ -502,7 +499,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                                         ],
                                                       ),
                                                       Text(
-                                                        "Online Recieved Balance".tr,
+                                                        "Online Recieved Balance"
+                                                            .tr,
                                                         maxLines: 3,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -609,7 +607,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                                         ],
                                                       ),
                                                       Text(
-                                                        "Offline Recieved Balance".tr,
+                                                        "Offline Recieved Balance"
+                                                            .tr,
                                                         maxLines: 3,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -629,7 +628,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                 controller
                                                                     .dailyReportDetails
                                                                     .value
-                                                                    .online_receive_balance!,
+                                                                    .receive_balance!,
                                                                 style: TextStyle(
                                                                     color: AppColors
                                                                         .primaryColor,
@@ -846,7 +845,15 @@ class DailyReportView extends GetView<DailyReportController> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.toNamed(Routes.RECHARGE_REPORT);
+                              Get.put(RechargeReportController());
+                              Get.find<RechargeReportController>()
+                                  .getRechargeReport(
+                                      fromNotiFi: true,
+                                      dateFil: DateFormat('yyyy-MM-dd').format(
+                                          controller.selectedDate.value));
+
+                                Get.toNamed(Routes.RECHARGE_REPORT);
+
                             },
                             child: Container(
                               height: Get.height * .2,
@@ -878,7 +885,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                           ),
                                           child: Image(
                                             image: AssetImage(
-                                                "assets/images/Total_Recharge.png"),
+                                                "assets/icons/totalrecharge.png"),
                                           )),
                                       InkWell(
                                           onTap: () {
@@ -1039,7 +1046,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               ],
                                                             ),
                                                             Text(
-                                                              "Recharge Commision".tr,
+                                                              "Recharge Commision"
+                                                                  .tr,
                                                               maxLines: 3,
                                                               overflow:
                                                                   TextOverflow
@@ -1061,7 +1069,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       controller
                                                                           .dailyReportDetails
                                                                           .value
-                                                                          .online_receive_balance!,
+                                                                          .recharge_commission!,
                                                                       style: TextStyle(
                                                                           color: AppColors
                                                                               .primaryColor,
@@ -1159,7 +1167,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               ],
                                                             ),
                                                             Text(
-                                                              "Bill Pay Commision".tr,
+                                                              "Bill Pay Commision"
+                                                                  .tr,
                                                               maxLines: 3,
                                                               overflow:
                                                                   TextOverflow
@@ -1181,7 +1190,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       controller
                                                                           .dailyReportDetails
                                                                           .value
-                                                                          .online_receive_balance!,
+                                                                          .bill_pay_commission!,
                                                                       style: TextStyle(
                                                                           color: AppColors
                                                                               .primaryColor,
@@ -1283,7 +1292,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               ],
                                                             ),
                                                             Text(
-                                                              "ETicket Commision".tr,
+                                                              "ETicket Commision"
+                                                                  .tr,
                                                               maxLines: 3,
                                                               overflow:
                                                                   TextOverflow
@@ -1305,7 +1315,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       controller
                                                                           .dailyReportDetails
                                                                           .value
-                                                                          .online_receive_balance!,
+                                                                          .ticket_commission!,
                                                                       style: TextStyle(
                                                                           color: AppColors
                                                                               .primaryColor,
@@ -1403,7 +1413,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               ],
                                                             ),
                                                             Text(
-                                                              "MBanking Commision".tr,
+                                                              "MBanking Commision"
+                                                                  .tr,
                                                               maxLines: 3,
                                                               overflow:
                                                                   TextOverflow
@@ -1425,7 +1436,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       controller
                                                                           .dailyReportDetails
                                                                           .value
-                                                                          .online_receive_balance!,
+                                                                          .mbanking_commission!,
                                                                       style: TextStyle(
                                                                           color: AppColors
                                                                               .primaryColor,
@@ -1528,7 +1539,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                         children: [
                                           Text(
                                             controller.dailyReportDetails.value
-                                                .commission!,
+                                                .total_commision!,
                                             style: TextStyle(
                                                 color: AppColors.primaryColor,
                                                 fontSize: 16,
@@ -1569,7 +1580,7 @@ class DailyReportView extends GetView<DailyReportController> {
                             decoration: BoxDecoration(
                               color: Colors.yellow.withOpacity(.1),
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1577,7 +1588,7 @@ class DailyReportView extends GetView<DailyReportController> {
                               children: [
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                         padding: EdgeInsets.all(4),
@@ -1590,7 +1601,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                         ),
                                         child: Image(
                                           image: AssetImage(
-                                              "assets/drawer/report.png"),
+                                              "assets/icons/mbanking.png"),
                                         )),
                                     InkWell(
                                       onTap: () {
@@ -1612,7 +1623,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
@@ -1645,82 +1656,91 @@ class DailyReportView extends GetView<DailyReportController> {
                               ],
                             ),
                           ),
-                          Container(
-                            height: Get.height * .2,
-                            width: Get.width * .4,
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.greenAccent.withOpacity(.1),
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        padding: EdgeInsets.all(4),
-                                        height: 40,
-                                        width: 40,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                        ),
-                                        child: Image(
-                                          image: AssetImage(
-                                              "assets/eticket/bus.png"),
-                                        )),
-                                    Icon(Icons.more_vert,
-                                        color: Colors.deepPurple)
-                                  ],
-                                ),
-                                Text(
-                                  "Bill Pay".tr,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                ProgressLine(
-                                  color: Colors.green,
-                                  percentage: 11,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          controller.dailyReportDetails.value
-                                              .packagePurchase!,
-                                          style: TextStyle(
-                                              color: AppColors.primaryColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "Tk",
-                                          style: TextStyle(
-                                              color: AppColors.primaryColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                      ],
-                                    ),
-                                    // Text(
-                                    //   "77",
-                                    //   style: Theme.of(context)
-                                    //       .textTheme
-                                    //       .caption!
-                                    //       .copyWith(color: Colors.white),
-                                    // ),
-                                  ],
-                                )
-                              ],
+                          InkWell(
+                            onTap: (){
+                              Get.put(BillpayReportController());
+                              Get.find<BillpayReportController>().getBillHistory(fromNoti: true, dateTo:DateFormat('yyyy-MM-dd').format(
+                                  controller.selectedDate.value), dateFrom : DateFormat('yyyy-MM-dd').format(
+                                  controller.selectedDate.value) );
+                              Get.toNamed(Routes.BILLPAY_REPORT);
+                            },
+                            child: Container(
+                              height: Get.height * .2,
+                              width: Get.width * .4,
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.greenAccent.withOpacity(.1),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          padding: EdgeInsets.all(4),
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/icons/billpay.png"),
+                                          )),
+                                      Icon(Icons.more_vert,
+                                          color: Colors.deepPurple)
+                                    ],
+                                  ),
+                                  Text(
+                                    "Bill Pay".tr,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  ProgressLine(
+                                    color: Colors.green,
+                                    percentage: 11,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            controller.dailyReportDetails.value
+                                                .bill_pay_amount!,
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Tk",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ],
+                                      ),
+                                      // Text(
+                                      //   "77",
+                                      //   style: Theme.of(context)
+                                      //       .textTheme
+                                      //       .caption!
+                                      //       .copyWith(color: Colors.white),
+                                      // ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -1986,8 +2006,6 @@ class DailyReportView extends GetView<DailyReportController> {
           }
         }));
   }
-
-
 }
 
 // Obx(() {

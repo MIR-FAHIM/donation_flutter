@@ -30,7 +30,7 @@ class NumberCheckController extends GetxController {
 
   getRechargeReportAll() async {
     rechargeReportLoaded.value = false;
-    RechargeRepository().getRechargeReports().then((resp) {
+    RechargeRepository().getRechargeReports("all").then((resp) {
       rechargeReport.value = resp;
       rechargeReportLoaded.value = true;
     });

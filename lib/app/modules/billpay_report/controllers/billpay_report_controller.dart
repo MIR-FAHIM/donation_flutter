@@ -8,7 +8,7 @@ class BillpayReportController extends GetxController {
   final billReportLoaded = false.obs;
   @override
   void onInit() {
-    getBillHistory();
+
     super.onInit();
   }
 
@@ -17,8 +17,8 @@ class BillpayReportController extends GetxController {
     super.onReady();
   }
 
-  getBillHistory() async {
-    BillPayReportRepo().getBillHistory().then((resp) {
+  getBillHistory({String? dateTo, String?dateFrom, bool? fromNoti}) async {
+    BillPayReportRepo().getBillHistory(dateTo: fromNoti == false ? "0" : dateTo!, dateFrom: fromNoti == false ? "0" :dateFrom!,  ).then((resp) {
       billReport.value = resp;
       billReportLoaded.value = true;
     });

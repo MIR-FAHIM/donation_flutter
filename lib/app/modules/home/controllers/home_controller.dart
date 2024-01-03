@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
 import 'package:latest_payplus_agent/app/models/dashboardReportModel.dart';
+import 'package:latest_payplus_agent/app/models/get_permission_model.dart';
+import 'package:latest_payplus_agent/app/models/get_profile_info_model.dart';
+import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/balance_check_repository.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
@@ -19,10 +23,19 @@ class HomeController extends GetxController {
   //TODO: Implement HomeController
   final currentPackageModel = CurrentPackageModel().obs;
   final balance = '0.0'.obs;
+  final phoneController = TextEditingController().obs;
+   final outletNameController = TextEditingController().obs;
+   final ownerController = TextEditingController().obs;
+   final addressController = TextEditingController().obs;
+  // final phoneController = TextEditingController().obs;
+  // final phoneController = TextEditingController().obs;
   final status = false.obs;
   final packageName = "".obs;
+  final profileInfoModel = GetProfileInfo().obs;
   final packageLoad = false.obs;
+  final ownerName = "".obs;
   final packageListModel = PackageListModel().obs;
+  final getPermissionModel = GetPermissionModel().obs;
   final AdBanner = <AdBannerModel>[].obs;
   final AdBannerLoad = false.obs;
   final box = GetStorage().obs;
@@ -54,6 +67,8 @@ class HomeController extends GetxController {
     getBalance();
     getAdBanner();
     getDashBoardReport();
+    getProfileInfo();
+    getAllDisablePermission();
     if(GetStorage().read<List<Contact>>('contact') == null){
       getPhoneContact();
     }else{
@@ -140,7 +155,20 @@ class HomeController extends GetxController {
       dashboardReport.value = resp;
     });
   }
+  // profile info
+  getProfileInfo() async {
+    BalanceCheckRepository().getProfileInfo().then((resp) {
+      profileInfoModel.value = resp;
+    });
+  }
+  getAllDisablePermission() async {
+    BalanceCheckRepository().getDisablePermission().then((resp) {
+      getPermissionModel.value = resp;
+    });
+  }
 
+
+  // get permission
   getDashBoardWithoutLoadReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {
       dashboardReport.value = resp;

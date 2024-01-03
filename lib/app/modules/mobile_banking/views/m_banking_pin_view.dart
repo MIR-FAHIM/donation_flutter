@@ -267,8 +267,49 @@ class MBankingPinView extends GetView<MobileBankingController> {
 
 
 
+controller.currentTabIndex.value == 1 ?
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                          width: _size.width,
+                          //  height: 50,
+                          decoration: Ui.getBoxDecoration(radius: 5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: TextFormField(
+                              obscureText: true,
+                              controller: controller.otpController.value,
+                              cursorColor: const Color(0xFF652981),
+                              textAlign: TextAlign.center,
+                              maxLength: 6,
+
+                              decoration: InputDecoration(
+                                counterText: "",
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: InputBorder.none,
+                                hintText: 'Enter OTP here'.tr,
+                                hintStyle: const TextStyle(color: Color(0xFF652981), fontSize: 15),
+                                prefixIcon: const Icon(
+                                  CupertinoIcons.lock,
+                                  color: Color(0xFF652981),
+                                ).marginOnly(right: 14),
 
 
+                                // floatingLabelBehavior: FloatingLabelBehavior.never,
+                                focusColor: const Color(0xFF652981),
+                              ),
+
+                              keyboardType: TextInputType.phone,
+                              // validator: (String? value) {
+                              //
+                              // },
+                              onChanged: (input) {
+
+                              },
+                            ),
+                          )),
+                    ) : Container(),
 
 
                     //pin
@@ -306,9 +347,9 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                         print("money transfer >>>>>>>");
                                         controller.moneyTransferController();
                                       }else if(controller.currentTabIndex.value == 0){
-                                        controller.sendRequestForCashin(controller.pinController.value.text);
+                                        controller.sendRequestForCashin(controller.pinController.value.text, controller.gateWayID.value);
                                       } else{
-                                        controller.sendRequestForCashin(controller.pinController.value.text);
+                                        controller.sendRequestForCashOut(controller.pinController.value.text, controller.gateWayID.value, controller.otpController.value.text );
                                       }
                                     }else{
                                       Get.showSnackbar(Ui.ErrorSnackBar(message: "Provide pin number", title: 'Error'.tr));

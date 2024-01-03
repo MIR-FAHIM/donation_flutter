@@ -4,14 +4,21 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
+import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:latest_payplus_agent/common/color_constant_custom.dart';
+import 'package:latest_payplus_agent/common/custom_widget/custom_widget.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/material.dart';
 
 class ProfileView extends GetView<HomeController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -31,13 +38,18 @@ class ProfileView extends GetView<HomeController> {
             ),
             child: Column(
               children: [
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Padding(
-                  padding:  EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10, right: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Profile", style: TextStyle(color: Colors.white, fontSize: 20),),
+                      Text(
+                        "Profile",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                       Obx(() {
                         return badges.Badge(
                           badgeStyle: badges.BadgeStyle(
@@ -80,19 +92,17 @@ class ProfileView extends GetView<HomeController> {
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(false),
                       //return false when click on "NO"
-                      child:Text('No'),
+                      child: Text('No'),
                     ),
-
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(true),
                       //return true when click on "Yes"
-                      child:Text('Yes'),
+                      child: Text('Yes'),
                     ),
                   ],
                 );
-              }
-          );
-         return value == true;
+              });
+          return value == true;
         },
         child: SingleChildScrollView(
           child: Column(
@@ -119,48 +129,10 @@ class ProfileView extends GetView<HomeController> {
                           Stack(
                             children: [
                               Container(
-                                height: MediaQuery.of(context).size.height * .13,
+                                height:
+                                    MediaQuery.of(context).size.height * .13,
                                 width: MediaQuery.of(context).size.width * .3,
-                                child: InkWell(
-                                  onTap: () {
-                                    showPopup(context, 'profile');
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 70,
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius: BorderRadius.circular(20),
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) => const Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Image(
-                                          image: AssetImage(
-                                            'assets/images/jayga_logo.png',
-                                          ),
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          const Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Image(
-                                          image: AssetImage(
-                                            'assets/images/jayga_logo.png',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                child: ProfileImage(),
                               ),
                               Positioned(
                                 right: -5,
@@ -184,9 +156,11 @@ class ProfileView extends GetView<HomeController> {
                             ],
                           ),
                           SizedBox(
-                            height: Get.height*.07,
-                              width: Get.width*.3,
-                              child: Image(image: AssetImage("assets/Logow.png"), ))
+                              height: Get.height * .07,
+                              width: Get.width * .3,
+                              child: Image(
+                                image: AssetImage("assets/Logow.png"),
+                              ))
                         ],
                       ),
                       SizedBox(
@@ -194,7 +168,10 @@ class ProfileView extends GetView<HomeController> {
                       ),
                       ListTile(
                         title: Text(
-                          Get.find<AuthService>().currentUser.value.outletName ??
+                          Get.find<AuthService>()
+                                  .currentUser
+                                  .value
+                                  .outletName ??
                               '',
                           style: TextStyle(
                               color: Colors.white,
@@ -217,15 +194,14 @@ class ProfileView extends GetView<HomeController> {
                   ),
                 ),
               ),
-
-
               Container(
-                height: Get.height*.6,
+                height: Get.height * .6,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20),)
-                ),
-
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    )),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,82 +211,95 @@ class ProfileView extends GetView<HomeController> {
                         //Get.toNamed(Routes.CREATEOWNJAYGA);
                       },
                       child: Container(
-                        height: Get.find<AuthService>().currentUser.value.kyc_status ==
-                            "none"
+                        height: Get.find<AuthService>()
+                                    .currentUser
+                                    .value
+                                    .kyc_status ==
+                                "none"
                             ? Get.height * .01
                             : Get.height * .1,
                         decoration: BoxDecoration(
                             color: AppColors.backgroundColor,
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10),)),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                            )),
                         child: SizedBox(
                           height: Get.height * .1,
                           width: MediaQuery.of(context).size.width,
-                          child: Get.find<AuthService>().currentUser.value.kyc_status ==
-                              "none"
+                          child: Get.find<AuthService>()
+                                      .currentUser
+                                      .value
+                                      .kyc_status ==
+                                  "none"
                               ? Container()
-                              : Get.find<AuthService>().currentUser.value.kyc_status ==
-                              "required"
-                              ? Card(
-                            color: Colors.red.withOpacity(.4),
-                            child: ListTile(
-                              title: Text(
-                                "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              trailing: InkWell(
-                                onTap: () {
-                                  Get.toNamed(Routes.NEWNID);
-                                },
-                                child: Container(
-                                  height: 30,
-                                  width: Get.width * .2,
-                                  decoration:
-                                  Ui.getBoxDecoration(radius: 5.0),
-                                  child: Center(
-                                    child: Text(
-                                      "তথ্য দিন",
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
                               : Get.find<AuthService>()
-                              .currentUser
-                              .value
-                              .kyc_status ==
-                              "rejected"
-                              ? Card(
-                            color: Colors.red.withOpacity(.4),
-                            child: ListTile(
-                              title: Text(
-                                "আপনার এনআইডি ও ছবির মিল না থাকায় রেজিষ্ট্রেশন সফল হয়নি। আগামী ৭২ ঘন্টার মধ্যে আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে। বিস্তারিতঃ ০৯৬১৩৮২৮৪৮২",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              trailing: InkWell(
-                                onTap: () {
-                                  Get.toNamed(Routes.NEWNID);
-                                },
-                                child: Container(
-                                  height: 30,
-                                  width: Get.width * .2,
-                                  decoration:
-                                  Ui.getBoxDecoration(radius: 5.0),
-                                  child: Center(
-                                    child: Text(
-                                      "তথ্য দিন",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                              : Container(),
+                                          .currentUser
+                                          .value
+                                          .kyc_status ==
+                                      "required"
+                                  ? Card(
+                                      color: Colors.red.withOpacity(.4),
+                                      child: ListTile(
+                                        title: Text(
+                                          "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন",
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        trailing: InkWell(
+                                          onTap: () {
+                                            Get.toNamed(Routes.NEWNID);
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: Get.width * .2,
+                                            decoration: Ui.getBoxDecoration(
+                                                radius: 5.0),
+                                            child: Center(
+                                              child: Text(
+                                                "তথ্য দিন",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Get.find<AuthService>()
+                                              .currentUser
+                                              .value
+                                              .kyc_status ==
+                                          "rejected"
+                                      ? Card(
+                                          color: Colors.red.withOpacity(.4),
+                                          child: ListTile(
+                                            title: Text(
+                                              "আপনার এনআইডি ও ছবির মিল না থাকায় রেজিষ্ট্রেশন সফল হয়নি। আগামী ৭২ ঘন্টার মধ্যে আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে। বিস্তারিতঃ ০৯৬১৩৮২৮৪৮২",
+                                              style: TextStyle(fontSize: 12),
+                                            ),
+                                            trailing: InkWell(
+                                              onTap: () {
+                                                Get.toNamed(Routes.NEWNID);
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: Get.width * .2,
+                                                decoration: Ui.getBoxDecoration(
+                                                    radius: 5.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    "তথ্য দিন",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),
                         ),
                       ),
                     ),
@@ -323,101 +312,74 @@ class ProfileView extends GetView<HomeController> {
                         height: MediaQuery.of(context).size.height * .4,
                         child: ListView(
                           children: [
-                            Text(
-                              "Services",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  30.heightBox,
 
-                            Divider(),
+                                  "Profile Information".text.size(16).color(blackC).semiBold.make(),
+                                  20.heightBox,
+                                  CustomTextField(
+                                      context: context,
+                                      controller: controller.ownerController.value,
+                                      title: "Owner Name",
+                                      keyboardType: TextInputType.number,
+                                      obsecure: false,
+                                      hint: controller.profileInfoModel.value.data!.customerName == null ? "No Data"
+                                          :controller.profileInfoModel.value.data!.customerName ,
 
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed(Routes.PACKAGELIST);
-                              },
-                              child: Container(
-                                height: 40,
-                                child: ListTile(
-                                  leading:Image(image: AssetImage("assets/icons/package.png"),),
-                                  title: Text("Current Packages"),
-                                  trailing: Icon(Icons.navigate_next),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Settings",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                //   Get.toNamed(Routes.PROFILEDETAIL);
-                              },
-                              child: Container(
-                                height: 40,
-                                child: ListTile(
-                                  leading: Image(image: AssetImage("assets/icons/report.png"),),
-                                  title: Text("Personal information"),
-                                  trailing: Icon(Icons.navigate_next),
-                                ),
-                              ),
-                            ),
-                            Divider(),
-                            InkWell(
-                              onTap: () {
-                                // Get.to(PaymentWeb(
-                                //   appBar: "Payments and Payouts",
-                                //   url: "https://jayga.io/refund.html",
-                                // ));
-                              },
-                              child: Container(
-                                height: 40,
-                                child: ListTile(
-                                  leading:Image(image: AssetImage("assets/icons/account_setting.png"),),
-                                  title: Text("Account Settings"),
-                                  trailing: Icon(Icons.navigate_next),
-                                ),
-                              ),
-                            ),
-                            Divider(),
-                            InkWell(
-                              onTap: () {
-                                // Get.to(PaymentWeb(
-                                //   appBar: "Payments and Payouts",
-                                //   url: "https://jayga.io/refund.html",
-                                // ));
-                              },
-                              child: Container(
-                                height: 40,
-                                child: ListTile(
-                                  leading:Image(image: AssetImage("assets/icons/report.png"),),
-                                  title: Text("Payment Settings"),
-                                  trailing: Icon(Icons.navigate_next),
-                                ),
-                              ),
-                            ),
-                            Divider(),
-                            InkWell(
-                              onTap: () {
-                                //   Get.toNamed(Routes.HOSTPROFILESETTING);
-                              },
-                              child: ListTile(
-                                leading:Image(image: AssetImage("assets/icons/report.png"),),
-                                title: Text("Privacy and Security"),
-                                trailing: Icon(Icons.navigate_next),
+                                      iconName: Icons.edit_outlined),
+                                  20.heightBox, CustomTextField(
+                                      context: context,
+                                      controller: controller.outletNameController.value,
+                                      title: "Outlet Name",
+                                      keyboardType: TextInputType.number,
+                                      obsecure: false,
+                                      hint: Get.find<AuthService>()
+                                          .currentUser
+                                          .value
+                                          .outletName ??
+                                          'Add Outlet Name',
+                                      iconName: Icons.edit_outlined),
+                                  20.heightBox,
+                                  ///Phone Number TextField
+                                  CustomTextField(
+                                      context: context,
+                                      controller: controller.phoneController.value,
+                                      title: "Personal Mobile no",
+                                      keyboardType: TextInputType.number,
+                                      obsecure: false,
+                                      hint:  Get.find<AuthService>()
+                                          .currentUser
+                                          .value
+                                          .mobileNumber!,
+                                      iconName: Icons.edit_outlined),
+                                  20.heightBox,
+                                  CustomTextField(
+                                      context: context,
+
+                                      controller: controller.addressController.value,
+                                      title: "Address",
+                                      keyboardType: TextInputType.number,
+                                      obsecure: false,
+                                      hint: controller.profileInfoModel.value.data!.outletAddress == null ? "No Data" :controller.profileInfoModel.value.data!.outletAddress ,
+                                      iconName: Icons.edit_outlined),
+                                  20.heightBox,
+                                  ///Email TextField
+                                  CustomTextField(
+                                      context: context,
+                                      controller:  controller.phoneController.value,
+                                      keyboardType: TextInputType.text,
+                                      title: "Email",
+                                      obsecure: false,
+                                      hint: controller.profileInfoModel.value.data!.email == null ? "No Data" : controller.profileInfoModel.value.data!.email ,
+                                      iconName: Icons.edit_outlined),
+                                  20.heightBox,
+
+
+                                ],
                               ),
                             ),
                             Text(
@@ -435,7 +397,9 @@ class ProfileView extends GetView<HomeController> {
                               child: Container(
                                 height: 40,
                                 child: ListTile(
-                                  leading: Image(image: AssetImage("assets/icons/help.png"),),
+                                  leading: Image(
+                                    image: AssetImage("assets/icons/help.png"),
+                                  ),
                                   title: Text("Get help"),
                                   trailing: Icon(Icons.navigate_next),
                                 ),
@@ -460,7 +424,10 @@ class ProfileView extends GetView<HomeController> {
                               child: Container(
                                 height: 40,
                                 child: ListTile(
-                                  leading: Image(image: AssetImage("assets/icons/report.png"),),
+                                  leading: Image(
+                                    image:
+                                        AssetImage("assets/icons/report.png"),
+                                  ),
                                   title: Text("Terms of Service"),
                                   trailing: Icon(Icons.navigate_next),
                                 ),
@@ -487,7 +454,10 @@ class ProfileView extends GetView<HomeController> {
                               child: Container(
                                 height: 40,
                                 child: ListTile(
-                                  leading: Image(image: AssetImage("assets/icons/report.png"),),
+                                  leading: Image(
+                                    image:
+                                        AssetImage("assets/icons/report.png"),
+                                  ),
                                   title: Text("Privacy Policy"),
                                   trailing: Icon(Icons.navigate_next),
                                 ),
@@ -496,7 +466,6 @@ class ProfileView extends GetView<HomeController> {
                             SizedBox(
                               height: 20,
                             ),
-
                           ],
                         ),
                       ),
@@ -521,7 +490,6 @@ class ProfileView extends GetView<HomeController> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),

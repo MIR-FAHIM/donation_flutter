@@ -84,12 +84,13 @@ class RechargeRepository {
     return List.from(response.map((item) => PackageModel.fromJson(item)));
   }
 
-  Future<RechargeReportModel> getRechargeReports() async {
+  Future<RechargeReportModel> getRechargeReports(String date) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map numberCheck = {
       'token': '$token',
       'recharge_number': 'no_num',
+      "date" : date,
     };
     var headers = {'token': token};
     APIManager _manager = APIManager();

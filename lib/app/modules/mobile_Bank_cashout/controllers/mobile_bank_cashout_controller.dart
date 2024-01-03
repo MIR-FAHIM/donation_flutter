@@ -12,6 +12,7 @@ class MobileBankCashoutController extends GetxController {
   TextEditingController numberController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController pinController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
 
   late GlobalKey<FormState> cashoutFormKey;
   final enable = 1.obs;
@@ -34,7 +35,7 @@ class MobileBankCashoutController extends GetxController {
 
   sendRequestForCashOut() async {
     Ui.customLoaderDialog();
-    MobileBankingRepository().submitCashOut(numberController.text, amountController.text).then((resp) {
+    MobileBankingRepository().submitCashOut(number: numberController.text, amount: amountController.text).then((resp) {
       Get.back();
       if (resp['result'] == 'success') {
         numberController.clear();

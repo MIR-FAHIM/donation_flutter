@@ -153,6 +153,7 @@ abstract class Routes {
   static const REPORTANALITYC = _Paths.REPORTANALITYC;
   static const MBANKINGFAIL = _Paths.MBANKINGFAIL;
 
+  static const NOTIDETAILS = _Paths.NOTIDETAILS;
 
   static const CONFIRM_BANK_PAY = _Paths.CONFIRM_BANK_PAY;
   static const MOBILE_BANK_TRANSACTION_HISTORY =
@@ -250,6 +251,8 @@ abstract class _Paths {
   static const SALE_PAYMENT_SYSTEM = '/sale-payment-system';
   static const Forget_password = '/forget-password';
   static const Forget_pass_otp = '/forget-pass-otp';
+  static const NOTIDETAILS = '/noti-details';
+
 
   static const Due_DashBoard = '/due-dashboard';
   static const Notification_View = '/notification-view';

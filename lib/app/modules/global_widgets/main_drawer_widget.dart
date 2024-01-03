@@ -31,6 +31,8 @@ class MainDrawerWidget extends StatelessWidget {
           children: [
             DrawerHeader(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //         Center(
                 //   child: Text(
@@ -141,13 +143,7 @@ class MainDrawerWidget extends StatelessWidget {
             //     Get.toNamed(Routes.WITHDRAW);
             //   },
             // ),
-            DrawerLinkWidget(
-              icon: 'assets/drawer/7.png',
-              text: "Profile".tr,
-              onTap: (e) {
-                Get.toNamed(Routes.PROFILEVIEW);
-              },
-            ),
+
             DrawerLinkWidget(
               icon: 'assets/drawer/account_statement.png',
               text: "Current Package".tr,
@@ -166,7 +162,9 @@ class MainDrawerWidget extends StatelessWidget {
                   icon: 'assets/drawer/3.png',
                   text: "Report".tr,
                   id: 0,
-                  onTap: (e) async {},
+                  onTap: (e) async {
+
+                  },
                 ),
                 expanded: Padding(
                   padding: const EdgeInsets.only(left: 20),
@@ -174,13 +172,13 @@ class MainDrawerWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DrawerLinkWidget(
-                        icon: 'assets/drawer/account_statement.png',
-                        text: "Account Statement".tr,
-                        onTap: (e) {
-                          Get.toNamed(Routes.ACCOUNTSTATEMENT);
-                        },
-                      ),
+                      // DrawerLinkWidget(
+                      //   icon: 'assets/drawer/account_statement.png',
+                      //   text: "Account Statement".tr,
+                      //   onTap: (e) {
+                      //     Get.toNamed(Routes.ACCOUNTSTATEMENT);
+                      //   },
+                      // ),
                       SizedBox(
                         height: 10,
                       ),

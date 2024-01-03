@@ -1,6 +1,3 @@
-
-
-
 //import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -25,6 +22,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import '../../../../main.dart';
 import '../../../services/auth_service.dart';
 import 'package:get_storage/get_storage.dart';
+
 class RechargeController extends GetxController {
   //TODO: Implement RechargeController
 
@@ -60,7 +58,7 @@ class RechargeController extends GetxController {
 
   final cashBackOffer = CashBackReportModel().obs;
   final contacts = <Contact>[].obs;
-  final   contactsResult = <Contact>[].obs;
+  final contactsResult = <Contact>[].obs;
   final contactLoaded = false.obs;
   final cashBackPackageName = ''.obs;
   final cashBackValidaity = ''.obs;
@@ -98,12 +96,9 @@ class RechargeController extends GetxController {
     'Z'
   ].obs;
 
-
   final mobileNumberFocus = FocusNode().obs;
-  final  amountFocusFocus = FocusNode().obs;
+  final amountFocusFocus = FocusNode().obs;
   final pinFocusFocus = FocusNode().obs;
-
-
 
   final amountOfferList = <PackageModel>[].obs;
   final robiAirtelOfferList = <Datumm>[].obs;
@@ -133,7 +128,6 @@ class RechargeController extends GetxController {
   final keyboardType = ''.obs;
 
   final pages = [
-
     AmountRechargeWidget(),
     CashBackPackageWidget(),
     InternetPackageWidget(),
@@ -144,8 +138,7 @@ class RechargeController extends GetxController {
   ];
   @override
   void onInit() {
-  // getPhoneContact();
-
+    // getPhoneContact();
 
     getCashBackOffer();
 
@@ -166,8 +159,6 @@ class RechargeController extends GetxController {
     amountFocusFocus.value.dispose();
     pinFocusFocus.value.dispose();
     amountOfferListLoaded.value = false;
-
-
 
     rechargeNumberController.value.clear();
     simLogoController.value.clear();
@@ -194,17 +185,17 @@ class RechargeController extends GetxController {
       count.value++;
     }
   }
-getOperatorId(code){
-  operatorLogos.forEach((element) { 
-    if(element.name == code){
-      simOperator.value =
-          element.id!.toString();
-      print("my sim operator id is ${simOperator.value}");
-    }
-    
-  });
-  return simOperator.value;
-}
+
+  getOperatorId(code) {
+    operatorLogos.forEach((element) {
+      if (element.name == code) {
+        simOperator.value = element.id!.toString();
+        print("my sim operator id is ${simOperator.value}");
+      }
+    });
+    return simOperator.value;
+  }
+
   onKeyboardTap(String value) {
     keyboardText.value = keyboardText.value + value;
   }
@@ -214,6 +205,7 @@ getOperatorId(code){
   void changePage(int page) {
     currentIndex.value = page;
   }
+
   // addAlphabet() {
   //   for (int index = 0; index < alphabetList.length; index++) {
   //     for (var item in contacts) {
@@ -225,8 +217,8 @@ getOperatorId(code){
   //     }
   //   }
   // }
-  RobiAirtelOfferModel getRobiAir(resp){
-    return  RobiAirtelOfferModel.fromJson(resp);
+  RobiAirtelOfferModel getRobiAir(resp) {
+    return RobiAirtelOfferModel.fromJson(resp);
   }
 
   List<String?> extractNumbersFromString(String input) {
@@ -235,116 +227,103 @@ getOperatorId(code){
   }
 
   getRobiAndAirtelOfferList() async {
-
-    print("robi ++++++++${simOperator.value} token +++++++++++${Get.find<AuthService>().currentUser.value.token}");
+    print(
+        "robi ++++++++${simOperator.value} token +++++++++++${Get.find<AuthService>().currentUser.value.token}");
     pinPage.value = false;
     loading.value = true;
-      amountFocusFocus.value.requestFocus();
+    amountFocusFocus.value.requestFocus();
 
-      var oparetor = simOperator.value;
-      RechargeRepository().getRobiAirtelOffer(oparetor, rechargeNumber.value).then((resp) {
-        print("fhwruuw $resp");
-           if(resp["result"] == "success"){
-
-
-
-             robiAirtelOfferList.value =  getRobiAir(resp).data;
-             print("+++++++++ ${robiAirtelOfferList.length.toString()}");
-             amountOfferListLoaded.value = true;
-             loading.value = false;
-             selected.value = true;
-             Get.to(RobiAirtelPackageWidget());
-
-
-           }else {
-             loading.value = false;
-             print("fhwruuw ");
-             Get.showSnackbar(Ui.ErrorSnackBar(message: 'No Offer Available'.tr, title: 'Error'.tr));
-
-           }
-
-
-
-
-      });
-
-
+    var oparetor = simOperator.value;
+    RechargeRepository()
+        .getRobiAirtelOffer(oparetor, rechargeNumber.value)
+        .then((resp) {
+      print("fhwruuw $resp");
+      if (resp["result"] == "success") {
+        robiAirtelOfferList.value = getRobiAir(resp).data;
+        print("+++++++++ ${robiAirtelOfferList.length.toString()}");
+        amountOfferListLoaded.value = true;
+        loading.value = false;
+        selected.value = true;
+        Get.to(RobiAirtelPackageWidget());
+      } else {
+        loading.value = false;
+        print("fhwruuw ");
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message: 'No Offer Available'.tr, title: 'Error'.tr));
+      }
+    });
   }
 
   getOfferList(String operatorId) async {
     amountFocusFocus.value.requestFocus();
-   // Ui.customLoaderDialog();
+    // Ui.customLoaderDialog();
     RechargeRepository().getAmountOffer(operatorId).then((resp) {
       amountOfferList.value = resp;
       amountOfferListLoaded.value = true;
-     // Get.back();
+      // Get.back();
     });
   }
-  getPhoneContact()async{
+
+  getPhoneContact() async {
     contactLoad.value = true;
     box.value.remove('contactbook');
     if (await FlutterContacts.requestPermission()) {
-    // Get all contacts (lightly fetched)
-    List<Contact> contacts = await FlutterContacts.getContacts();
+      // Get all contacts (lightly fetched)
+      List<Contact> contacts = await FlutterContacts.getContacts();
 
-    // Get all contacts (fully fetched)
-    contacts = await FlutterContacts.getContacts(
-    withProperties: true, withPhoto: false);
+      // Get all contacts (fully fetched)
+      contacts = await FlutterContacts.getContacts(
+          withProperties: true, withPhoto: false);
 
-    // Get contact with specific ID (fully fetched)
+      // Get contact with specific ID (fully fetched)
 
-    print("my all contact are $contacts");
+      print("my all contact are $contacts");
 
-    contactsResult.value = contacts;
-    await box.value.write('contactbook', contacts);
-    print("hlw bro ***********************${GetStorage().read('contactbook')}");
-    contactLoad.value = false;
+      contactsResult.value = contacts;
+      await box.value.write('contactbook', contacts);
+      print(
+          "hlw bro ***********************${GetStorage().read('contactbook')}");
+      contactLoad.value = false;
 
-    contactListClicked
-        .value = true;
-
+      contactListClicked.value = true;
     }
   }
+
   void setSearchText(String text) {
     searchString.value = text;
   }
-  getStoredData(){
+
+  getStoredData() {
     print("hlw contact");
     contactsResult.clear();
-    try{
-      contactsResult.value =  GetStorage().read('contactbook').map((e) => Contact.fromJson(e))
+    try {
+      contactsResult.value = GetStorage()
+          .read('contactbook')
+          .map((e) => Contact.fromJson(e))
           .toList()
           .cast<Contact>();
-    }catch(e){
-      contactsResult.value =  GetStorage().read('contactbook');
+    } catch (e) {
+      contactsResult.value = GetStorage().read('contactbook');
     }
 
-
-    contactListClicked
-        .value = true;
-
+    contactListClicked.value = true;
   }
+
   List<Contact> get filteredContacts {
-
-
-      return contactsResult.value.where((contact) {
-        final name = contact.displayName.toLowerCase();
-        final number = contact.phones.isEmpty? "000" : contact.phones.first.toString().toLowerCase();
-        final searchTerm = searchString.value.toLowerCase();
-        if(searchString.value.isNum){
-          return number.contains(searchTerm);
-
-        }else{
-          return name.contains(searchTerm);
-
-        }
-
-
-
-      }).toList();
-
-
+    return contactsResult.value.where((contact) {
+      final name = contact.displayName.toLowerCase();
+      final number = contact.phones.isEmpty
+          ? "000"
+          : contact.phones.first.toString().toLowerCase();
+      final searchTerm = searchString.value.toLowerCase();
+      if (searchString.value.isNum) {
+        return number.contains(searchTerm);
+      } else {
+        return name.contains(searchTerm);
+      }
+    }).toList();
   }
+
   getContacts() async {
     print("hlw bro contact");
     try {
@@ -363,7 +342,7 @@ getOperatorId(code){
 
         print('MobileRechargeController.getContacts: ${contacts.first.phones}');
 
-     //  await addAlphabet();
+        //  await addAlphabet();
         // print('MobileRechargeController.alphabet: ${alphabetFoundList[0].contacts!.length}');
 
         contactLoaded.value = true;
@@ -373,6 +352,7 @@ getOperatorId(code){
       rethrow;
     }
   }
+
   amountCheck() {
     amountOfferFound.value = false;
     amountOffer.value = PackageModel();
@@ -393,30 +373,42 @@ getOperatorId(code){
       cashBackOfferLoaded.value = true;
     });
   }
-  rechargeRobiAirtelOffer()async {
+
+  rechargeRobiAirtelOffer() async {
     rechargeLoad.value = true;
 
-    RechargeRepository().rechargeRobiAirtel(amount:amount.value, operatorId:simOperator.value, number: rechargeNumber.value, pin:pinController.value.text,
-        adminCom: robiOfferAdminComission.value, cusCom: robiOfferCusComission.value,com: robiOfferComission.value, packageId: robiOfferID.value,rechargeCom: robiRechargeCom.value).then((resp) {
+    RechargeRepository()
+        .rechargeRobiAirtel(
+            amount: amount.value,
+            operatorId: simOperator.value,
+            number: rechargeNumber.value,
+            pin: pinController.value.text,
+            adminCom: robiOfferAdminComission.value,
+            cusCom: robiOfferCusComission.value,
+            com: robiOfferComission.value,
+            packageId: robiOfferID.value,
+            rechargeCom: robiRechargeCom.value)
+        .then((resp) {
       if (resp['result'] == 'success') {
         rechargeLoad.value = false;
-       // Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+        // Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
         pinPage.value = false;
         rechargeLoad.value = false;
-        Map data = { "result": resp['result'], "message": resp['message']};
+        Map data = {"result": resp['result'], "message": resp['message']};
         // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
         Get.offNamed(Routes.ROBIRECHARGESUCCESS, arguments: data);
-
       } else {
         rechargeLoad.value = false;
-        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
-
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       }
     });
   }
 
   getCommission() async {
-    RechargeRepository().getCommission(amountController.value.text, simOperator.value).then((resp) {
+    RechargeRepository()
+        .getCommission(amountController.value.text, simOperator.value)
+        .then((resp) {
       if (resp['result'] == 'success') {
         commission.value = resp['commission'].toString();
         print("commission.value");
@@ -425,25 +417,29 @@ getOperatorId(code){
         if (rechargeNumber.value.length == 11) {
           Get.toNamed(Routes.RECHARGEPIN);
         } else {
-          Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please provide valid phone number'.tr, title: 'Error'.tr));
+          Get.showSnackbar(Ui.ErrorSnackBar(
+              message: 'Please provide valid phone number'.tr,
+              title: 'Error'.tr));
         }
       }
     });
   }
+
   rechargeFromNotification() async {
     print(number_type.value);
     print(rechargeNumberController.value.text);
     print(amountController.value.text);
     print(simOperator.value);
     print(pinNumber.value);
-    print("my num code is ${rechargeNumber.value.substring(0,3)}");
-    getOperatorId(rechargeNumber.value.substring(0,3));
+    print("my num code is ${rechargeNumber.value.substring(0, 3)}");
+    getOperatorId(rechargeNumber.value.substring(0, 3));
     // Get.focusScope!.unfocus();
     // pinFocusFocus.dispose();
     Ui.customLoaderDialog();
 
     RechargeRepository()
-        .recharge(rechargeNumber.value, amount.value,  simOperator.value, number_type.value, pinNumber.value)
+        .recharge(rechargeNumber.value, amount.value, simOperator.value,
+            number_type.value, pinNumber.value)
         .then((resp) {
       print('Recharge Response :  $resp');
 
@@ -452,10 +448,15 @@ getOperatorId(code){
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Failed", body: resp['message'], fln: flutterLocalNotificationsPlugin);
 
-        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       } else {
         // refresh();
-        Map data = {"status_code": resp['status_code'].toString(), "result": resp['result'], "message": resp['message']};
+        Map data = {
+          "status_code": resp['status_code'].toString(),
+          "result": resp['result'],
+          "message": resp['message']
+        };
         // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
         Get.offNamed(Routes.RECHARGESUCCESS, arguments: data);
       }
@@ -464,6 +465,7 @@ getOperatorId(code){
       Get.find<HomeController>().getDashBoardWithoutLoadReport();
     });
   }
+
   recharge() async {
     print(number_type.value);
     print(rechargeNumberController.value.text);
@@ -475,7 +477,12 @@ getOperatorId(code){
     Ui.customLoaderDialog();
 
     RechargeRepository()
-        .recharge(rechargeNumberController.value.text, amountController.value.text,  simOperator.value, number_type.value, pinNumber.value)
+        .recharge(
+            rechargeNumberController.value.text,
+            amountController.value.text,
+            simOperator.value,
+            number_type.value,
+            pinNumber.value)
         .then((resp) {
       print('Recharge Response :  $resp');
 
@@ -484,10 +491,15 @@ getOperatorId(code){
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Failed", body: resp['message'], fln: flutterLocalNotificationsPlugin);
 
-        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       } else {
         // refresh();
-        Map data = {"status_code": resp['status_code'].toString(), "result": resp['result'], "message": resp['message']};
+        Map data = {
+          "status_code": resp['status_code'].toString(),
+          "result": resp['result'],
+          "message": resp['message']
+        };
         // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
         Get.offNamed(Routes.RECHARGESUCCESS, arguments: data);
       }

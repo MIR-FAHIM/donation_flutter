@@ -6,10 +6,11 @@ import 'package:latest_payplus_agent/app/models/billpayhistorymodel.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
 class BillPayReportRepo {
-  Future<BillPayHistory> getBillHistory() async {
+  Future<BillPayHistory> getBillHistory(
+      {String? dateTo, String? dateFrom}) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    Map body = {'bill_type_id': '0', 'from': '0', 'to': '0', 'search_key': '0'};
+    Map body = {'bill_type_id': '0', 'from': dateTo, 'to': dateFrom, 'search_key': '0'};
 
     var headers = {'token': token};
     APIManager _manager = APIManager();

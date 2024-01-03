@@ -75,6 +75,8 @@ class ApiClient {
 
   static const String cashbackOffer = '${baseUrl}api/appapi/cashback-offer';
   static const String robiairtelOffer = '${baseUrl}api/appapi/offer-recharge/get-offer-list';
+  static const String getProfileInfo = '${baseUrl}api/appapi/getProfileInfo';
+  static const String getPermissionData = '${baseUrl}api/appapi/checkDisabledService';
 
   static const String amountOffer = '${baseUrl}api/appapi/offer-list-all/';
 
@@ -116,6 +118,9 @@ class ApiClient {
   static const String regPaymentUrl = '${baseUrl}api/appapi/online-registration-fee-collection';
   //add balance
   static const String mfsPaymentType = '${baseUrl}api/appapi/payment-method-list';
+  static const String cashInGateWay = '${baseUrl}api/appapi/mbanking/cashin-gateway-list';
+
+
   static const String mfsPaymentOPTION = '${baseUrl}api/appapi/payment-collection/payment-option';
   static const String transactionVerifyPaymentMethod = '${baseUrl}api/appapi/payment-method-list';
   static const String balanceAddpaymentURL = '${baseUrl}api/appapi/payment-collection';

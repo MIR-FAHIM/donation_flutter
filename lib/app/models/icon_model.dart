@@ -4,10 +4,13 @@ import 'package:latest_payplus_agent/app/Page/Transaction_successful.dart';
 import 'package:latest_payplus_agent/app/Page/installment_page.dart';
 import 'package:latest_payplus_agent/app/Page/sale_page.dart';
 import 'package:latest_payplus_agent/app/modules/Buy/buy_item_list.dart';
+import 'package:latest_payplus_agent/app/modules/billpay_report/controllers/billpay_report_controller.dart';
 import 'package:latest_payplus_agent/app/modules/contacts_list/contact_list_view.dart';
 import 'package:latest_payplus_agent/app/modules/customers/views/customers_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_web_view.dart';
 import 'package:latest_payplus_agent/app/modules/expense/expense_dashboard.dart';
+import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
+import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/recharge_report_controller.dart';
 import 'package:latest_payplus_agent/app/modules/vendors/views/vendors_view.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -25,22 +28,49 @@ List<IconModel> iconButtonData = [
       title: 'Mobile Recharge',
       image: "assets/images/phone.png",
       press: () {
-        // Get.offNamed(Routes.RECHARGE);
+        // Get.offNamed(Routes.RECHARGE);;
+        Get.put(RechargeReportController());
         Get.toNamed(Routes.RECHARGE);
+        Get.find<RechargeReportController>()
+            .getRechargeReport(fromNotiFi: false);
       }),
   IconModel(
       title: 'Mobile Banking',
       image: "assets/images/mobile_banking.png",
       press: () {
-        // Get.showSnackbar(
-        //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-        Get.toNamed(Routes.CASHINOUT);
+        if (Get.find<HomeController>()
+                    .getPermissionModel
+                    .value
+                    .data!
+                    .allowCashin ==
+                0 &&
+            Get.find<HomeController>()
+                    .getPermissionModel
+                    .value
+                    .data!
+                    .allowCashout ==
+                0 &&
+            Get.find<HomeController>()
+                    .getPermissionModel
+                    .value
+                    .data!
+                    .allowMoneyout ==
+                1) {
+          Get.showSnackbar(Ui.ErrorSnackBar(
+              message:
+                  "আপনার বর্তমান প্যাকেজটির জন্য এম-ব্যাংকিং সার্ভিস টি অনুমোদিত নয়",
+              title: 'Error'.tr));
+        } else {
+          Get.toNamed(Routes.CASHINOUT);
+        }
       }),
   IconModel(
       title: 'Bill Payment',
       image: "assets/images/bill_payment.png",
       press: () {
+        Get.put(BillpayReportController());
         Get.toNamed(Routes.BILL_PAYMENT);
+        Get.find<BillpayReportController>().getBillHistory(fromNoti: false);
       }),
   // IconModel(
   //     title: 'Add Balance',
@@ -53,8 +83,9 @@ List<IconModel> iconButtonData = [
       title: 'E-ticketing',
       image: "assets/images/booking.png",
       press: () {
-
-        Get.to(BusTicketWeb(),);
+        Get.to(
+          BusTicketWeb(),
+        );
         //Get.toNamed(Routes.BUS_TICKET);
       }),
   IconModel(
@@ -63,8 +94,8 @@ List<IconModel> iconButtonData = [
       press: () {
         // Get.showSnackbar(
         //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-        Get.toNamed(Routes.SALES);
-       //  Get.to(SalePage());
+        //   Get.toNamed(Routes.SALES);
+        //  Get.to(SalePage());
       }),
   IconModel(
       title: 'My shop',
@@ -121,25 +152,25 @@ List<IconModel> saless = [
       image: "assets/sales/sell.png",
       press: () {
         print("sell tapped");
-         Get.toNamed(Routes.SALE_NOW);
+        Get.toNamed(Routes.SALE_NOW);
       }),
   IconModel(
       title: 'Buy',
       image: "assets/sales/buy.png",
       press: () {
-         Get.toNamed(Routes.BUY_PRODUCT);
+        Get.toNamed(Routes.BUY_PRODUCT);
       }),
   IconModel(
       title: 'Due',
       image: "assets/sales/due.png",
       press: () {
-         Get.toNamed(Routes.Due_DashBoard);
+        Get.toNamed(Routes.Due_DashBoard);
       }),
   IconModel(
       title: 'Consumption',
       image: "assets/sales/cost.png",
       press: () {
-         Get.toNamed(Routes.EXPENSES_REPORT);
+        Get.toNamed(Routes.EXPENSES_REPORT);
         //Get.to(ExpenseDashBoard());
       }),
   IconModel(
@@ -152,13 +183,13 @@ List<IconModel> saless = [
       title: 'Vendors',
       image: "assets/images/shop.png",
       press: () {
-         Get.toNamed(Routes.VENDORS);
+        Get.toNamed(Routes.VENDORS);
       }),
   IconModel(
       title: 'Product',
       image: "assets/sales/product.png",
       press: () {
-         Get.toNamed(Routes.PRODUCT_LIST_FOR_BUY);
+        Get.toNamed(Routes.PRODUCT_LIST_FOR_BUY);
         //Get.to(BuyListItem());
       }),
 ];
@@ -197,11 +228,14 @@ List<IconModel> simOperators = [
 
 List<IconModel> eticket = [
   IconModel(title: 'Biman', image: "assets/eticket/plane.png", press: () {}),
-  IconModel(title: 'Bus', image: "assets/eticket/bus.png", press: () {
-    print("bus working ");
-    Get.back();
-    Get.toNamed(Routes.BUS_TICKET);
-  }),
+  IconModel(
+      title: 'Bus',
+      image: "assets/eticket/bus.png",
+      press: () {
+        print("bus working ");
+        Get.back();
+        Get.toNamed(Routes.BUS_TICKET);
+      }),
   IconModel(title: 'Launch', image: "assets/eticket/ship.png", press: () {}),
   IconModel(title: 'Movie', image: "assets/eticket/movie.png", press: () {}),
   IconModel(title: 'Train', image: "assets/eticket/train.png", press: () {}),
@@ -210,36 +244,60 @@ List<IconModel> eticket = [
 List<IconModel> waterBill = [
   IconModel(title: 'Khulna WASA', image: "assets/bill/dwasa.png", press: () {}),
   IconModel(title: 'Dhaka WASA', image: "assets/bill/kwasa.png", press: () {}),
-  IconModel(title: 'Rajshahi WASA', image: "assets/bill/rwasa.jpg", press: () {}),
+  IconModel(
+      title: 'Rajshahi WASA', image: "assets/bill/rwasa.jpg", press: () {}),
 ];
 
 List<IconModel> gasBill = [
-  IconModel(title: 'Jalalabad', image: "assets/bill/jalalabad.png", press: () {}),
-  IconModel(title: 'Bakhrabad Gas', image: "assets/bill/bakhrabad.png", press: () {}),
-  IconModel(title: 'Pashchimanchal Gas', image: "assets/bill/pgcl.png", press: () {}),
+  IconModel(
+      title: 'Jalalabad', image: "assets/bill/jalalabad.png", press: () {}),
+  IconModel(
+      title: 'Bakhrabad Gas', image: "assets/bill/bakhrabad.png", press: () {}),
+  IconModel(
+      title: 'Pashchimanchal Gas', image: "assets/bill/pgcl.png", press: () {}),
 ];
 
 List<IconModel> tvBill = [
-  IconModel(title: 'Akash DTH', image: "assets/bill/Akash-Logo.png", press: () {}),
-  IconModel(title: 'Sylhet Cable Vision', image: "assets/bill/scs.jpg", press: () {}),
-  IconModel(title: 'Bengal Digital', image: "assets/bill/bengal_digital.jpg", press: () {}),
-  IconModel(title: 'Bumbell Bee', image: "assets/bill/bumbell.png", press: () {}),
-  IconModel(title: 'Nation Electronics & Cable Networks', image: "assets/bill/nation.jpeg", press: () {}),
+  IconModel(
+      title: 'Akash DTH', image: "assets/bill/Akash-Logo.png", press: () {}),
+  IconModel(
+      title: 'Sylhet Cable Vision', image: "assets/bill/scs.jpg", press: () {}),
+  IconModel(
+      title: 'Bengal Digital',
+      image: "assets/bill/bengal_digital.jpg",
+      press: () {}),
+  IconModel(
+      title: 'Bumbell Bee', image: "assets/bill/bumbell.png", press: () {}),
+  IconModel(
+      title: 'Nation Electronics & Cable Networks',
+      image: "assets/bill/nation.jpeg",
+      press: () {}),
 ];
 
 List<IconModel> internetBill = [
-  IconModel(title: 'BTCL Bangladesh', image: "assets/bill/btcl.png", press: () {}),
-  IconModel(title: 'Carnival', image: "assets/bill/carnival.jpeg", press: () {}),
-  IconModel(title: 'ICC Communication', image: "assets/bill/icc.jpeg", press: () {}),
-  IconModel(title: 'Sam Online', image: "assets/bill/sam_online.jpeg", press: () {}),
+  IconModel(
+      title: 'BTCL Bangladesh', image: "assets/bill/btcl.png", press: () {}),
+  IconModel(
+      title: 'Carnival', image: "assets/bill/carnival.jpeg", press: () {}),
+  IconModel(
+      title: 'ICC Communication', image: "assets/bill/icc.jpeg", press: () {}),
+  IconModel(
+      title: 'Sam Online', image: "assets/bill/sam_online.jpeg", press: () {}),
   IconModel(title: 'Amber IT', image: "assets/bill/amber.jpeg", press: () {}),
 ];
 
 List<IconModel> telephoneBill = [
   IconModel(title: 'BTCL', image: "assets/bill/btcl.png", press: () {}),
-  IconModel(title: 'AmberIT IP Phone', image: "assets/bill/amber_phone.jpeg", press: () {}),
-  IconModel(title: 'BTCL Alaap', image: "assets/bill/BTCL_Alaap.png", press: () {}),
-  IconModel(title: 'Brilliant Connect', image: "assets/bill/brilliant_connect.jpg", press: () {}),
+  IconModel(
+      title: 'AmberIT IP Phone',
+      image: "assets/bill/amber_phone.jpeg",
+      press: () {}),
+  IconModel(
+      title: 'BTCL Alaap', image: "assets/bill/BTCL_Alaap.png", press: () {}),
+  IconModel(
+      title: 'Brilliant Connect',
+      image: "assets/bill/brilliant_connect.jpg",
+      press: () {}),
 ];
 
 List<IconModel> paymentMethod = [
@@ -255,7 +313,8 @@ List<IconModel> paymentMethod = [
       press: () {
         InstallmentPage();
       }),
-  IconModel(title: 'Digital Payment', image: "assets/sales/cost.png", press: () {}),
+  IconModel(
+      title: 'Digital Payment', image: "assets/sales/cost.png", press: () {}),
   IconModel(
       title: 'Due Book',
       image: "assets/images/list.png",

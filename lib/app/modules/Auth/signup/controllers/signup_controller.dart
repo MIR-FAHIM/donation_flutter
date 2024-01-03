@@ -10,6 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ml_kit_ocr/ml_kit_ocr.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:latest_payplus_agent/app/models/address/get_area_model.dart';
 import 'package:latest_payplus_agent/app/models/address/get_city_model.dart';
@@ -217,13 +218,32 @@ class SignupController extends GetxController {
     );
 
     if (pickedDate != null) {
-
       print(pickedDate);
       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       print(formattedDate);
       dateOfBirth.value = formattedDate;
       dateInput.text = formattedDate;
     } else {}
+  }
+
+  Future<void> checkCameraPermission() async {
+    // Check if the camera permission is granted
+    PermissionStatus status = await Permission.camera.status;
+
+    if (status.isGranted) {
+      // Camera permission is granted
+      print('Camera permission is granted.');
+    } else {
+      // Camera permission is not granted
+      print('Camera permission is not granted. Requesting permission...');
+      // Request camera permission
+      status = await Permission.camera.request();
+      if (status.isGranted) {
+        print('Camera permission has been granted.');
+      } else {
+        print('Camera permission is still not granted.');
+      }
+    }
   }
 
   nidRead() async {
@@ -455,7 +475,6 @@ class SignupController extends GetxController {
         // nidVerify(
         //
         // );
-
       }
     }).catchError((onError) {
       Get.back();
@@ -1027,9 +1046,13 @@ class SignupController extends GetxController {
   }
 
   void newNIDVerificationController() async {
-    print("nid data is  dob is ${dateInput.text}", );
+    print(
+      "nid data is  dob is ${dateInput.text}",
+    );
 
-    print("nid data is image: ${userData.value.image} dob is ${userData.value.dob}", );
+    print(
+      "nid data is image: ${userData.value.image} dob is ${userData.value.dob}",
+    );
     var data = {
       // 'nid_front': userData.value.nid_front,
       // 'nid_back': userData.value.nid_front,
@@ -1046,7 +1069,6 @@ class SignupController extends GetxController {
     try {
       AuthRepository().newNIDVerify(data).then((response) {
         if (response['result'] == 'success') {
-
           Get.back();
           Get.showSnackbar(Ui.SuccessSnackBar(
             message: 'KYC submitted',

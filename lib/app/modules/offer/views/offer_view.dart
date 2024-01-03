@@ -5,34 +5,126 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/main_drawer_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
+import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import '../controllers/offer_controller.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:badges/badges.dart' as badges;
+
+//// ---> Custom Card Design <--- ////
 
 class OfferView extends GetView<OfferController> {
   const OfferView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      endDrawer: MainDrawerWidget(),
+      backgroundColor: Vx.white,
+
+      /// ---> appbar <----
       appBar: PreferredSize(
         preferredSize: const Size(65, 65),
         child: AppBar(
           backgroundColor: const Color(0xFF652981),
-          centerTitle: true,
-          title: Text('Offer'.tr),
           automaticallyImplyLeading: false,
+          centerTitle: false,
+          title: Padding(
+            padding: const EdgeInsets.only(right: 50.0),
+            child: Row(
+              children: [
+                ProfileImage(),
+
+                SizedBox(
+                  width: 10,
+                ),
+                Obx(() {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        Get.find<AuthService>().currentUser.value.outletName ??
+                            '',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        Get.find<AuthService>()
+                                .currentUser
+                                .value
+                                .mobileNumber ??
+                            '',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                      // controller.packageLoad.value == true
+                      //     ? SizedBox(
+                      //         height: 10,
+                      //         width: 10,
+                      //         child: CircularProgressIndicator())
+                      //     : InkWell(
+                      //         onTap: () {
+                      //           Get.toNamed(Routes.PACKAGELIST);
+                      //         },
+                      //         child: Text(
+                      //           controller.currentPackageModel.value.data!
+                      //               .packageName,
+                      //           style: const TextStyle(
+                      //             fontSize: 12,
+                      //             color: Colors.white,
+                      //           ),
+                      //         ),
+                      //       ),
+                    ],
+                  );
+                }),
+                // Ui.offsetPopup()
+              ],
+            ),
+          ),
           elevation: 0,
           actions: [
-            IconButton(
-                onPressed: () {
-                  Get.toNamed(Routes.Notification_View);
-                },
-                icon: const Icon(
-                  CupertinoIcons.bell,
-                  color: Colors.white70,
-                )),
+            Obx(() {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  badges.Badge(
+                    badgeStyle: badges.BadgeStyle(
+                      badgeColor: Colors.redAccent,
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    badgeContent: Text(Get.find<InboxController>()
+                        .newNotificationNum
+                        .toString()),
+                    child: IconButton(
+                        onPressed: () {
+                          Get.lazyPut<RechargeController>(
+                            () => RechargeController(),
+                          );
+                          Get.find<InboxController>().removeNewMsgNum();
+                          Get.toNamed(Routes.Notification_View);
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.bell,
+                          color: Colors.white70,
+                        )),
+                  )
+                ],
+              );
+            }),
             IconButton(
                 onPressed: () => {Scaffold.of(context).openEndDrawer()},
                 icon: const Icon(
@@ -42,59 +134,83 @@ class OfferView extends GetView<OfferController> {
           ],
         ),
       ),
-      body: Obx(() {
-        return controller.offerBannerLoaded.isTrue
-            ? SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: List.generate(controller.offerBanner.length, (index) {
-                    return AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 375),
-                      child: SlideAnimation(
-                        horizontalOffset: 50.0,
-                        child: FadeInAnimation(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: CachedNetworkImage(
-                                height: Get.size.width * .3,
-                                width: Get.size.width,
-                                imageUrl:
-                                    controller.offerBanner[index].advertisementBanner ??
-                                        '',
-                                imageBuilder: (context, imageProvider) => Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                placeholder: (context, url) => const Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Image(
-                                    image: AssetImage('assets/Logo.png'),
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) => const Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Image(
-                                    image: AssetImage('assets/Logo.png'),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+
+      ///---> Body Part Showing coupon cards <---
+      body: Center(
+        child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Expanded(
+              child: ListView.builder(
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return couponWidget(
+                        context: context,
+                        cardColor: controller.cardColorList[index],
+                        offColor: controller.offColorList[index],
+                        offString: controller.offString[index],
+                        couponString: controller.couponString[index],
+                        shopName: controller.shopName[index],
+                        iconName: controller.iconList[index]);
                   }),
-                ),
-              )
-            : Center(child: Ui.customLoader());
-      }),
+            )),
+      ),
     );
+  }
+
+  Widget couponWidget(
+      {context,
+      offColor,
+      cardColor,
+      String? offString,
+      String? couponString,
+      String? shopName,
+      required IconData iconName}) {
+    return Stack(children: [
+      Positioned(
+        top: 30.0,
+        left: 16.0,
+        right: 16.0,
+        child: SizedBox(
+                child: Row(
+          children: [
+            Icon(
+              iconName,
+              size: 100,
+              color: Vx.white,
+            ),
+            SizedBox(
+              width: 40,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                10.heightBox,
+                "You Get".text.size(14).gray200.make(),
+                40.heightBox,
+                shopName!.text.white.size(22).semiBold.make(),
+                5.heightBox,
+                couponString!.text.white.size(15).make(),
+              ],
+            )
+          ],
+        ))
+            .box
+            .size(Get.width * 0.9, Get.height * 0.2)
+            .rounded
+            .color(cardColor)
+            .make(),
+      ),
+      Positioned(
+          top: 20,
+          right: 10,
+          child: offString!.text.white
+              .size(25)
+              .makeCentered()
+              .box
+              .size(50, 50)
+              .color(offColor)
+              .roundedFull
+              .make())
+    ]).box.size(Get.width * 0.9, Get.height * 0.25).make();
   }
 }

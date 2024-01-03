@@ -29,22 +29,19 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () => Get.back(),
             ),
-
           ),
         ),
         body: Obx(() {
           if (controller.dailyReportLoaded.isTrue) {
             return Padding(
-
               padding: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
                 child: Container(
-                  height: _size.height * 1.6,
+                  height: _size.height * 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       // DefaultTabController(
                       //   initialIndex: controller.monthSelection.value - 1,
                       //   length: 12,
@@ -163,30 +160,36 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                       //   ),
                       // ),
 
-                      Text("Earned Report",style: TextStyle(fontWeight: FontWeight.bold),),
-                      SizedBox(height: 50,),
+                      Text(
+                        "Earned Report",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            height: Get.height*.15,
-                            width: Get.width*.5,
+                            height: Get.height * .18,
+                            width: Get.width * .5,
                             child: AspectRatio(
                               aspectRatio: 1,
                               child: PieChart(
                                 PieChartData(
                                   pieTouchData: PieTouchData(
-                                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
-
+                                    touchCallback:
+                                        (FlTouchEvent event, pieTouchResponse) {
                                       if (!event.isInterestedForInteractions ||
                                           pieTouchResponse == null ||
-                                          pieTouchResponse.touchedSection == null) {
+                                          pieTouchResponse.touchedSection ==
+                                              null) {
                                         controller.touchedIndex.value = -1;
                                         return;
                                       }
-                                      controller.touchedIndex.value = pieTouchResponse
-                                          .touchedSection!.touchedSectionIndex;
-
+                                      controller.touchedIndex.value =
+                                          pieTouchResponse.touchedSection!
+                                              .touchedSectionIndex;
                                     },
                                   ),
                                   borderData: FlBorderData(
@@ -194,7 +197,9 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                                   ),
                                   sectionsSpace: 0,
                                   centerSpaceRadius: 40,
-                                  sections: "0" == "0" ? controller.showingDemoSections() : controller.showingSections(),
+                                  sections: "0" == "0"
+                                      ? controller.showingDemoSections()
+                                      : controller.showingSections(),
                                 ),
                               ),
                             ),
@@ -205,22 +210,14 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                             children: <Widget>[
                               Indicator(
                                 color: Colors.green.withOpacity(.3),
-                                text: 'Commission',
+                                text: 'Recharge Commission',
                                 isSquare: true,
                               ),
                               SizedBox(
                                 height: 4,
                               ),
                               Indicator(
-                                color:Colors.blue.withOpacity(.3),
-                                text: 'CashBack',
-                                isSquare: true,
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Indicator(
-                                color:Colors.purple.withOpacity(.3),
+                                color: Colors.blue.withOpacity(.3),
                                 text: 'Bill Pay Commission',
                                 isSquare: true,
                               ),
@@ -228,8 +225,16 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                                 height: 4,
                               ),
                               Indicator(
+                                color: Colors.purple.withOpacity(.3),
+                                text: 'E Ticket Commission',
+                                isSquare: true,
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Indicator(
                                 color: Colors.red.withOpacity(.3),
-                                text: 'Daily Charge',
+                                text: 'M Banking Commission',
                                 isSquare: true,
                               ),
                               SizedBox(
@@ -240,7 +245,9 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                         ],
                       ),
 
-                      SizedBox(height: 40,),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Divider(),
                       Padding(
                         padding: const EdgeInsets.all(16),
@@ -251,13 +258,15 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                             children: <Widget>[
                               const Text(
                                 'Transactions',
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 38,
                               ),
                               Container(
-                                height: Get.height*.3,
+                                height: Get.height * .3,
                                 child: BarChart(
                                   BarChartData(
                                     maxY: 20,
@@ -266,60 +275,85 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                                         tooltipBgColor: Colors.grey,
                                         getTooltipItem: (a, b, c, d) => null,
                                       ),
-                                      touchCallback: (FlTouchEvent event, response) {
-                                        if (response == null || response.spot == null) {
-
-                                            controller.touchedGroupIndex.value = -1;
-                                            controller.showingBarGroups.value = List.of(controller.rawBarGroups.value);
+                                      touchCallback:
+                                          (FlTouchEvent event, response) {
+                                        if (response == null ||
+                                            response.spot == null) {
+                                          controller.touchedGroupIndex.value =
+                                              -1;
+                                          controller.showingBarGroups.value =
+                                              List.of(controller
+                                                  .rawBarGroups.value);
 
                                           return;
                                         }
 
-                                        controller.touchedGroupIndex.value = response.spot!.touchedBarGroupIndex;
+                                        controller.touchedGroupIndex.value =
+                                            response.spot!.touchedBarGroupIndex;
 
-
-                                          if (!event.isInterestedForInteractions) {
-                                            controller.touchedGroupIndex.value = -1;
-                                            controller.showingBarGroups.value = List.of(controller.rawBarGroups.value);
-                                            return;
+                                        if (!event
+                                            .isInterestedForInteractions) {
+                                          controller.touchedGroupIndex.value =
+                                              -1;
+                                          controller.showingBarGroups.value =
+                                              List.of(controller
+                                                  .rawBarGroups.value);
+                                          return;
+                                        }
+                                        controller.showingBarGroups.value =
+                                            List.of(
+                                                controller.rawBarGroups.value);
+                                        if (controller
+                                                .touchedGroupIndex.value !=
+                                            -1) {
+                                          var sum = 0.0;
+                                          for (final rod in controller
+                                              .showingBarGroups[controller
+                                                  .touchedGroupIndex.value]
+                                              .barRods) {
+                                            sum += rod.toY;
                                           }
-                                          controller.showingBarGroups.value = List.of(controller.rawBarGroups.value);
-                                          if (controller.touchedGroupIndex.value != -1) {
-                                            var sum = 0.0;
-                                            for (final rod
-                                            in controller.showingBarGroups[controller.touchedGroupIndex.value].barRods) {
-                                              sum += rod.toY;
-                                            }
-                                            final avg = sum /
-                                                controller.showingBarGroups[controller.touchedGroupIndex.value]
-                                                    .barRods
-                                                    .length;
+                                          final avg = sum /
+                                              controller
+                                                  .showingBarGroups[controller
+                                                      .touchedGroupIndex.value]
+                                                  .barRods
+                                                  .length;
 
-                                            controller.showingBarGroups[controller.touchedGroupIndex.value] =
-                                                controller.showingBarGroups[controller.touchedGroupIndex.value].copyWith(
-                                                  barRods: controller.showingBarGroups[controller.touchedGroupIndex.value]
-                                                      .barRods
-                                                      .map((rod) {
-                                                    return rod.copyWith(
-                                                        toY: avg, color: Colors.blue);
-                                                  }).toList(),
-                                                );
-                                          }
-
+                                          controller.showingBarGroups[controller
+                                                  .touchedGroupIndex.value] =
+                                              controller.showingBarGroups[
+                                                      controller
+                                                          .touchedGroupIndex
+                                                          .value]
+                                                  .copyWith(
+                                            barRods: controller
+                                                .showingBarGroups[controller
+                                                    .touchedGroupIndex.value]
+                                                .barRods
+                                                .map((rod) {
+                                              return rod.copyWith(
+                                                  toY: avg, color: Colors.blue);
+                                            }).toList(),
+                                          );
+                                        }
                                       },
                                     ),
                                     titlesData: FlTitlesData(
                                       show: true,
-                                      rightTitles:  AxisTitles(
-                                        sideTitles: SideTitles(showTitles: false),
+                                      rightTitles: AxisTitles(
+                                        sideTitles:
+                                            SideTitles(showTitles: false),
                                       ),
-                                      topTitles:  AxisTitles(
-                                        sideTitles: SideTitles(showTitles: false),
+                                      topTitles: AxisTitles(
+                                        sideTitles:
+                                            SideTitles(showTitles: false),
                                       ),
                                       bottomTitles: AxisTitles(
                                         sideTitles: SideTitles(
                                           showTitles: true,
-                                          getTitlesWidget: controller.bottomTitles,
+                                          getTitlesWidget:
+                                              controller.bottomTitles,
                                           reservedSize: 42,
                                         ),
                                       ),
@@ -328,42 +362,50 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                                           showTitles: true,
                                           reservedSize: 28,
                                           interval: 1,
-                                          getTitlesWidget: controller.leftTitles,
+                                          getTitlesWidget:
+                                              controller.leftTitles,
                                         ),
                                       ),
                                     ),
                                     borderData: FlBorderData(
                                       show: false,
                                     ),
-                                    barGroups: controller.showingBarGroups.value,
-                                    gridData:  FlGridData(show: false),
+                                    barGroups:
+                                        controller.showingBarGroups.value,
+                                    gridData: FlGridData(show: false),
                                   ),
                                 ),
                               ),
                               const SizedBox(
                                 height: 12,
                               ),
-
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-
                                   Card(
                                     elevation: 15,
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                        color: AppColors.primaryColor.withOpacity(.3),
-                                        borderRadius: BorderRadius.all(Radius.circular(4))
-
-                                      ),
-                                      height: Get.height*.1,
-                                        width: Get.width*.25,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.primaryColor
+                                                .withOpacity(.3),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4))),
+                                        height: Get.height * .1,
+                                        width: Get.width * .25,
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             children: [
-                                              Text("100",style: TextStyle(fontSize: 15),),
-                                              Text("Total Recharge Amount", style: TextStyle(fontSize: 12),),
+                                              Text(
+                                                controller.dailyReportDetails
+                                                    .value.total_commision!,
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                              Text(
+                                                "Total Earning",
+                                                style: TextStyle(fontSize: 12),
+                                              ),
                                             ],
                                           ),
                                         )),
@@ -371,87 +413,99 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
                                   Card(
                                     elevation: 15,
                                     child: Container(
-                                        height: Get.height*.1,
-                                        width: Get.width*.25,
+                                        height: Get.height * .1,
+                                        width: Get.width * .25,
                                         decoration: BoxDecoration(
                                             color: Colors.green.withOpacity(.3),
-                                            borderRadius: BorderRadius.all(Radius.circular(4))
-
-                                        ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4))),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             children: [
-                                              Text("100",style: TextStyle(fontSize: 15),),
-                                              Text("Total Recharge Amount", style: TextStyle(fontSize: 12),),
+                                              Text(
+                                                controller.dailyReportDetails
+                                                    .value.recharge_amount!,
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                              Text(
+                                                "Total Recharge Amount",
+                                                style: TextStyle(fontSize: 12),
+                                              ),
                                             ],
                                           ),
                                         )),
                                   ),
                                   Card(
-
                                     elevation: 15,
                                     child: Container(
-                                        height: Get.height*.1,
-                                        width: Get.width*.25,
+                                        height: Get.height * .1,
+                                        width: Get.width * .25,
                                         decoration: BoxDecoration(
                                             color: Colors.blue.withOpacity(.3),
-                                            borderRadius: BorderRadius.all(Radius.circular(4))
-
-                                        ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4))),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             children: [
-                                              Text("100",style: TextStyle(fontSize: 15),),
-                                              Text("Total Recharge Amount", style: TextStyle(fontSize: 12),),
+                                              Text(
+                                                controller.dailyReportDetails
+                                                    .value.recharge_commission!,
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                              Text(
+                                                "Total Recharge Commission",
+                                                style: TextStyle(fontSize: 12),
+                                              ),
                                             ],
                                           ),
                                         )),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(
+                                height: 20,
+                              ),
                               Divider(),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 18,
-                                      left: 12,
-                                      top: 24,
-                                      bottom: 12,
-                                    ),
-                                    child: Container(
-                                      height: Get.height*.3,
-                                      child: LineChart(
-                                        controller.showAvg ? controller.avgData() : controller.mainData(),
-                                      ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 18,
+                                  left: 12,
+                                  top: 24,
+                                  bottom: 12,
+                                ),
+                                child: Container(
+                                  height: Get.height * .3,
+                                  child: LineChart(
+                                    controller.showAvg
+                                        ? controller.avgData()
+                                        : controller.mainData(),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 60,
+                                height: 34,
+                                child: TextButton(
+                                  onPressed: () {
+                                    controller.showAvg = !controller.showAvg;
+                                  },
+                                  child: Text(
+                                    'avg',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: controller.showAvg
+                                          ? Colors.white.withOpacity(0.5)
+                                          : Colors.white,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 60,
-                                    height: 34,
-                                    child: TextButton(
-                                      onPressed: () {
-
-                                        controller.showAvg = !controller.showAvg;
-
-                                      },
-                                      child: Text(
-                                        'avg',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: controller.showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -465,8 +519,6 @@ class DailyReportAnalyticView extends GetView<DailyReportController> {
           }
         }));
   }
-
-
 }
 
 // Obx(() {

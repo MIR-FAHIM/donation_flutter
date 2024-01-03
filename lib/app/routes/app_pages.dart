@@ -23,6 +23,7 @@ import 'package:latest_payplus_agent/app/modules/mobile_banking/views/cash_in_ou
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/failed_page.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/m_banking_pin_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/succes_page.dart';
+import 'package:latest_payplus_agent/app/modules/notifications/notification_view_details.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/pay_now_option.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_package.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
@@ -319,6 +320,12 @@ class AppPages {
       page: () => RechargePINViewFromNotification(),
       binding: RechargeBinding(),
     ),
+    GetPage(
+      name: _Paths.NOTIDETAILS,
+      page: () => NotificationDetailsWidget(),
+      binding: InboxBinding(),
+    ),
+
     GetPage(
       name: _Paths.RECHARGEPINROBI,
       page: () => RechargePINViewRobiAirtel(),

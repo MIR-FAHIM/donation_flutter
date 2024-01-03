@@ -3,6 +3,8 @@ import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
 import 'package:latest_payplus_agent/app/models/dashboardReportModel.dart';
+import 'package:latest_payplus_agent/app/models/get_permission_model.dart';
+import 'package:latest_payplus_agent/app/models/get_profile_info_model.dart';
 import 'package:latest_payplus_agent/app/models/transaction_verify_payment.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
@@ -36,6 +38,40 @@ class BalanceCheckRepository {
     print('dashboard data: ${response}');
     return DahsboardReportModel.fromJson(response);
   }
+//profile info ++++++++++++++++++++
+  Future<GetProfileInfo> getProfileInfo() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+
+    print(headers);
+
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(ApiClient.getProfileInfo, {},headers);
+
+    print('profile data: ${response}');
+    return GetProfileInfo.fromJson(response);
+  }
+
+
+  // profile info end
+
+  //get all disable permission
+  Future<GetPermissionModel> getDisablePermission() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+
+    print(headers);
+
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(ApiClient.getPermissionData, {},headers);
+
+    print('permission data ****** ****** ******: ${response}');
+    return GetPermissionModel.fromJson(response);
+  }
+
+  // get all disable permission
 
   Future<List<AdBannerModel>> getBanner() async {
     String token = Get.find<AuthService>().currentUser.value.token!;

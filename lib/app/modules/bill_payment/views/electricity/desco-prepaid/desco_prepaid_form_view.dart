@@ -84,18 +84,7 @@ class DescoPrepaidFormView extends GetView {
                       ),
                     ),
                   ),
-                  TextFieldWidget(
-                    onChanged: (value) {
-                      billpayController.meterNo.value = value;
-                    },
-                    labelText: "Meter No".tr,
-                    hintText: "Enter Biller No".tr,
-                    // onSaved: (input) =>
-                    // controller.currentUser.value.email = input,
-                    // validator: (input) => !input!.contains('@') ? "Should be a valid email".tr : null,
-                    iconData: null,
-                    imageData: 'assets/bill/account.png',
-                  ),
+
                   TextFieldWidget(
                     onChanged: (value) {
                       billpayController.accountID.value = value;
@@ -152,50 +141,56 @@ class DescoPrepaidFormView extends GetView {
                       var bill_ref;
                       var datas;
 
-                     if(billpayController.meterNo.value.isNotEmpty && billpayController.amount.value.isNotEmpty && billpayController.accountID.value.isNotEmpty){
-                       var res = getBillDetail(meterNo: billpayController.meterNo.value,
-                           amount: billpayController.amount.value, mobileNo: billpayController.mobile.value, billNumber: billpayController.accountID.value);
-                       Ui.customLoaderDialog();
-                       res.then((value) => {
-                         Get.back(),
-                         result = value['result'],
-                         print("hle bro+++++++ ${value['result']}"),
-                         if (value['result'] == 'success')
-                           {
-                             data = value['data'],
-                             bill_ref = value['bill_ref'],
-                             // Ui.SuccessSnackBar(message: value['result']),
-                             // print(data['bllr_accno']),
-                             datas = {
-                               "title": _title,
-                               "images": _images,
-                               "bill_payment_id": bill_ref['bill_payment_id'],
-                               "bill_refer_id": bill_ref['bill_refer_id'],
-                               "bll_no": data['bill_no'],
-                               "bill_name": data['bill_name'],
-                               "bllr_accno": data['biller_acc_no'],
-                               "bll_mobno": data['biller_mobile'],
-
-                               "charge": data['charge'],
-
-
-
-                               "bll_vat": data['bill_vat'],
-                               "bll_late_fee": data['bill_late_fee'],
-                               "ekpay_fee": data['ekpay_fee'],
-                               "is_bill_paid": data['is_bill_paid'],
-                               "bll_amnt_ttl": data['bill_total_amount'],
-                             },
-                             Get.toNamed(Routes.DESCOPREPAIDDETAILS, arguments: datas)
-                           }
-                         else
-                           Get.showSnackbar(Ui.ErrorSnackBar(message: "Please add more than 200 taka", title: 'Error'.tr))
-                       });
-                     }else{
-                       Get.showSnackbar(Ui.ErrorSnackBar(message: "Fill all the field", title: 'Failed'.tr));
-
-                     }
-
+                      if (billpayController.amount.value.isNotEmpty &&
+                          billpayController.accountID.value.isNotEmpty) {
+                        var res = getBillDetail(
+                            meterNo: billpayController.meterNo.value,
+                            amount: billpayController.amount.value,
+                            mobileNo: billpayController.mobile.value,
+                            billNumber: billpayController.accountID.value);
+                        Ui.customLoaderDialog();
+                        res.then((value) => {
+                              Get.back(),
+                              result = value['result'],
+                              print("hle bro+++++++ ${value['result']}"),
+                              if (value['result'] == 'success')
+                                {
+                                  data = value['data'],
+                                  bill_ref = value['bill_ref'],
+                                  // Ui.SuccessSnackBar(message: value['result']),
+                                  // print(data['bllr_accno']),
+                                  datas = {
+                                    "title": _title,
+                                    "images": _images,
+                                    "bill_payment_id":
+                                        bill_ref['bill_payment_id'],
+                                    "bill_refer_id": bill_ref['bill_refer_id'],
+                                    "bll_no": data['bill_no'],
+                                    "bill_name": data['bill_name'],
+                                    "bllr_accno": data['biller_acc_no'],
+                                    "bll_mobno": data['biller_mobile'],
+                                    "charge": data['charge'],
+                                    "bll_vat": data['bill_vat'],
+                                    "bll_late_fee": data['bill_late_fee'],
+                                    "ekpay_fee": data['ekpay_fee'],
+                                    "is_bill_paid": data['is_bill_paid'],
+                                    "bll_amnt_ttl": data['bill_total_amount'],
+                                    "customer_name": data['customer_name'],
+                                    "meter_type": data['meter_type'],
+                                    "tariff_program": data['tariff_program'],
+                                  },
+                                  Get.toNamed(Routes.DESCOPREPAIDDETAILS,
+                                      arguments: datas)
+                                }
+                              else
+                                Get.showSnackbar(Ui.ErrorSnackBar(
+                                    message: "Please add more than 200 taka",
+                                    title: 'Error'.tr))
+                            });
+                      } else {
+                        Get.showSnackbar(Ui.ErrorSnackBar(
+                            message: "Fill all the field", title: 'Failed'.tr));
+                      }
                     },
                     color: Color(0xFF652981),
                     text: Text(
@@ -208,7 +203,9 @@ class DescoPrepaidFormView extends GetView {
             ),
           ),
         ));
+
   }
+
   Future<Map<dynamic, dynamic>> getBillDetail(
       {String? billNumber,
       String? meterNo,
@@ -218,10 +215,10 @@ class DescoPrepaidFormView extends GetView {
     print(meterNo);
     print(amount);
 
-
     Map data = {
+      // "33041338", //
       'biller_acc_no': billNumber,
-      'meter_no': meterNo,
+
       'biller_mobile_no': mobileNo,
       "amount": amount,
     };
@@ -235,7 +232,8 @@ class DescoPrepaidFormView extends GetView {
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Detail : $resp');
     return resp;

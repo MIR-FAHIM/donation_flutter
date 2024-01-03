@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/add_balance_model/mfs_list_model.dart';
+import 'package:latest_payplus_agent/app/models/mbanking_gateway_model.dart';
 import 'package:latest_payplus_agent/app/models/mfsPaymentType.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
@@ -19,6 +20,26 @@ class mfsPaymentTypeRepository {
     return List.from(
         response.map((item) => MFSListModel.fromJson(item)));
   }
+
+  Future <GetMbankingGatewayModel>  getMFSGateWayList() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.cashInGateWay, {}, headers);
+
+    print('payment type mfs cash in : ${response}');
+
+    return GetMbankingGatewayModel.fromJson(response);
+  }
+
+
+
+
+
+
+  // mfs list end
   Future<List<MFSPaymentTypeModel>> getPaymentType(int type) async {
     print('++++++++++++++ hlw bro ++++++++');
     String token = Get.find<AuthService>().currentUser.value.token!;

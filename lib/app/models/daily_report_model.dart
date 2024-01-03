@@ -8,7 +8,11 @@ class DailyReportModel {
   String? commission;
   String? otf;
   String? bill_pay_amount;
+  String? recharge_commission;
+  String? ticket_commission;
   String? bill_pay_commission;
+  String? mbanking_commission;
+  String? total_commision;
   String? daily_charge;
   String? closing_balance;
   String? ticketPurchase;
@@ -23,12 +27,17 @@ class DailyReportModel {
     this.recharge_amount,
     this.commission,
     this.otf,
+    this.mbanking_commission,
+    this.ticket_commission,
+    this.recharge_commission,
+    this.total_commision,
     this.bill_pay_amount,
     this.bill_pay_commission,
     this.daily_charge,
     this.closing_balance,
     this.packagePurchase,
     this.ticketPurchase
+
   });
 
   DailyReportModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +45,13 @@ class DailyReportModel {
     mobile_no = json['mobile_no'];
     opening_balance = json['opening_balance'];
     receive_balance = json['receive_balance'];
+
+    recharge_commission = json['commission'];
+    mbanking_commission = json['mbanking_commission'].toString();
+    ticket_commission = json['ticket_purchase_commission'].toString();
+    bill_pay_commission = json['bill_pay_commission'].toString();
+    total_commision = json['total_commission'].toString();
+
     online_receive_balance = json['online_receive_balance'];
     recharge_amount = json['recharge_amount'];
     commission = json['commission'];
@@ -58,12 +74,14 @@ class DailyReportModel {
     data['recharge_amount'] = this.recharge_amount;
     data['commission'] = this.commission;
     data['otf'] = this.otf;
-    data['bill_pay_amount'] = this.bill_pay_amount;
-    data['bill_pay_commission'] = this.bill_pay_commission;
-    data['daily_charge'] = this.daily_charge;
-    data['closing_balance'] = this.closing_balance;
-    data['package_purchase'] = this.packagePurchase;
-    data['ticket_purchase'] = this.ticketPurchase;
+
+
+    data['commission'] = this.recharge_commission;
+    data['mbanking_commission'] = this.mbanking_commission;
+    data['ticket_purchase_commission'] = this.ticket_commission;
+    data['bill_pay_commission'] = this.mbanking_commission;
+    data['total_commission'] = this.total_commision;
+
 
     return data;
   }

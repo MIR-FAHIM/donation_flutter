@@ -4,7 +4,10 @@ import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 class OTPRepository {
   Future otpSend(String mobileNumber) async {
     print("my mobile no bro $mobileNumber");
-    Map number = {'number': '$mobileNumber'};
+    Map number = {
+      'number': '$mobileNumber',
+      "remark": "Agent",
+    };
 
     var headers = {
       'token':
