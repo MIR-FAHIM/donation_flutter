@@ -23,7 +23,7 @@ class CollectionDetailsList extends GetView<AddbalanceController> {
         child: AppBar(
           backgroundColor: const Color(0xFF652981),
           centerTitle: true,
-          title: Text('Add Balance'.tr),
+          title: Text('Balance Report'.tr),
           elevation: 0,
           leading: IconButton(
             onPressed: () {

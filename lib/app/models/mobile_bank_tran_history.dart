@@ -1,15 +1,15 @@
 class MobileBankTransactionHistoryModel {
   String? result;
-  List<Data>? data;
+  List<DataHis>? data;
 
   MobileBankTransactionHistoryModel({this.result, this.data});
 
   MobileBankTransactionHistoryModel.fromJson(Map<String, dynamic> json) {
     result = json['result'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataHis>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(DataHis.fromJson(v));
       });
     }
   }
@@ -24,7 +24,7 @@ class MobileBankTransactionHistoryModel {
   }
 }
 
-class Data {
+class DataHis {
   String? typeName;
   String? mfsName;
   String? number;
@@ -36,9 +36,9 @@ class Data {
   String? amountColor;
   String? logo;
 
-  Data({this.typeName, this.mfsName, this.number, this.amount, this.commission, this.trxStatus, this.trxId, this.trxTime, this.amountColor, this.logo});
+  DataHis({this.typeName, this.mfsName, this.number, this.amount, this.commission, this.trxStatus, this.trxId, this.trxTime, this.amountColor, this.logo});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataHis.fromJson(Map<String, dynamic> json) {
     typeName = json['type_name'] ?? '';
     mfsName = json['mfs_name'] ?? '';
     number = json['number'] ?? '';

@@ -66,7 +66,9 @@ class WebviewView extends GetView<WebviewController> {
               onWebViewCreated: (WebViewController webViewController) async {
                 controller.webcontroller.complete(webViewController);
               },
-              onPageStarted: (String string) async {},
+              onPageStarted: (String string) async {
+                print("my page url is $string");
+              },
               onPageFinished: (finish) {
                 print(finish);
 

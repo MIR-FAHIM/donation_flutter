@@ -59,6 +59,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       width: 10,
                     ),
+
                     Obx(() {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

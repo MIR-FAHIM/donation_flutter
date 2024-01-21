@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
+
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
@@ -155,12 +155,17 @@ class ProfileView extends GetView<HomeController> {
                               )
                             ],
                           ),
-                          SizedBox(
-                              height: Get.height * .07,
-                              width: Get.width * .3,
-                              child: Image(
-                                image: AssetImage("assets/Logow.png"),
-                              ))
+                          InkWell(
+                            onTap: (){
+                              controller.getAllCompany();
+                            },
+                            child: SizedBox(
+                                height: Get.height * .07,
+                                width: Get.width * .3,
+                                child: Image(
+                                  image: AssetImage("assets/Logow.png"),
+                                )),
+                          )
                         ],
                       ),
                       SizedBox(
@@ -216,7 +221,7 @@ class ProfileView extends GetView<HomeController> {
                                     .value
                                     .kyc_status ==
                                 "none"
-                            ? Get.height * .01
+                            ? Get.height * .0
                             : Get.height * .1,
                         decoration: BoxDecoration(
                             color: AppColors.backgroundColor,
@@ -304,7 +309,7 @@ class ProfileView extends GetView<HomeController> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -319,39 +324,52 @@ class ProfileView extends GetView<HomeController> {
                                 children: [
                                   30.heightBox,
 
-                                  "Profile Information".text.size(16).color(blackC).semiBold.make(),
+                                  "Profile Information".tr
+                                      .text
+                                      .size(16)
+                                      .color(blackC)
+                                      .semiBold
+                                      .make(),
                                   20.heightBox,
                                   CustomTextField(
                                       context: context,
-                                      controller: controller.ownerController.value,
-                                      title: "Owner Name",
+                                      controller:
+                                          controller.ownerController.value,
+                                      title: "Owner Name".tr,
                                       keyboardType: TextInputType.number,
                                       obsecure: false,
-                                      hint: controller.profileInfoModel.value.data!.customerName == null ? "No Data"
-                                          :controller.profileInfoModel.value.data!.customerName ,
-
+                                      hint: controller.profileInfoModel.value
+                                                  .data!.customerName ==
+                                              null
+                                          ? "No Data"
+                                          : controller.profileInfoModel.value
+                                              .data!.customerName,
                                       iconName: Icons.edit_outlined),
-                                  20.heightBox, CustomTextField(
+                                  20.heightBox,
+                                  CustomTextField(
                                       context: context,
-                                      controller: controller.outletNameController.value,
-                                      title: "Outlet Name",
+                                      controller:
+                                          controller.outletNameController.value,
+                                      title: "Outlet Name".tr,
                                       keyboardType: TextInputType.number,
                                       obsecure: false,
                                       hint: Get.find<AuthService>()
-                                          .currentUser
-                                          .value
-                                          .outletName ??
+                                              .currentUser
+                                              .value
+                                              .outletName ??
                                           'Add Outlet Name',
                                       iconName: Icons.edit_outlined),
                                   20.heightBox,
+
                                   ///Phone Number TextField
                                   CustomTextField(
                                       context: context,
-                                      controller: controller.phoneController.value,
-                                      title: "Personal Mobile no",
+                                      controller:
+                                          controller.phoneController.value,
+                                      title: "Personal Mobile no".tr,
                                       keyboardType: TextInputType.number,
                                       obsecure: false,
-                                      hint:  Get.find<AuthService>()
+                                      hint: Get.find<AuthService>()
                                           .currentUser
                                           .value
                                           .mobileNumber!,
@@ -359,31 +377,41 @@ class ProfileView extends GetView<HomeController> {
                                   20.heightBox,
                                   CustomTextField(
                                       context: context,
-
-                                      controller: controller.addressController.value,
-                                      title: "Address",
+                                      controller:
+                                          controller.addressController.value,
+                                      title: "Address".tr,
                                       keyboardType: TextInputType.number,
                                       obsecure: false,
-                                      hint: controller.profileInfoModel.value.data!.outletAddress == null ? "No Data" :controller.profileInfoModel.value.data!.outletAddress ,
+                                      hint: controller.profileInfoModel.value
+                                                  .data!.outletAddress ==
+                                              null
+                                          ? "No Data"
+                                          : controller.profileInfoModel.value
+                                              .data!.outletAddress,
                                       iconName: Icons.edit_outlined),
                                   20.heightBox,
+
                                   ///Email TextField
                                   CustomTextField(
                                       context: context,
-                                      controller:  controller.phoneController.value,
+                                      controller:
+                                          controller.phoneController.value,
                                       keyboardType: TextInputType.text,
-                                      title: "Email",
+                                      title: "Email".tr,
                                       obsecure: false,
-                                      hint: controller.profileInfoModel.value.data!.email == null ? "No Data" : controller.profileInfoModel.value.data!.email ,
+                                      hint: controller.profileInfoModel.value
+                                                  .data!.email ==
+                                              null
+                                          ? "No Data"
+                                          : controller.profileInfoModel.value
+                                              .data!.email,
                                       iconName: Icons.edit_outlined),
                                   20.heightBox,
-
-
                                 ],
                               ),
                             ),
                             Text(
-                              "Support",
+                              "Support".tr,
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,

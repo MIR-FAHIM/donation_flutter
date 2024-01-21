@@ -204,7 +204,7 @@ class AddbalanceController extends GetxController {
     print("get add balance history ++++++++++++++ working ++++++ started");
     //Ui.customLoaderDialog();
     mfsPaymentTypeRepository().getAddBalanceHistory().then((resp) {
-      print("get add balance history ++++++++++++++ working ++++++ 3started");
+      print("get add balance history ++++++++++++++ working ++++++ 3started $resp");
       var data = AddBalanceHistoryModel.fromJson(resp);
 
       addBalanceHistoryList.value = data.data!;

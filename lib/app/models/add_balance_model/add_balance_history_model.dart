@@ -55,7 +55,7 @@ class DatumHistory {
     paymentMethod: json["payment_method"],
     trxId: json["trxId"],
       mobile: json["payer_acc_no"] ,
-    invoiceNumber: json["invoice_number"],
+    invoiceNumber: json["invoice_number"]??"no data",
     description: json["description"],
 
     logoLink:   json["logo_url"]

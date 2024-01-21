@@ -37,6 +37,10 @@ class BillPaymentPdf {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text("From: PayStation", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
+import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/billpay_report_controller.dart';
 
 class BillpayReportView extends GetView<BillpayReportController> {
@@ -40,65 +39,53 @@ class BillpayReportView extends GetView<BillpayReportController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    // Container(
-                                    //   decoration: BoxDecoration(
-                                    //     color: Colors.grey.shade100,
-                                    //     borderRadius: BorderRadius.circular(50),
-                                    //   ),
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.all(8.0),
-                                    //     child: Image.asset(
-                                    //       Helper().operatorCheck(controller.rechargeReport.value.data![index].rechargeMobileNumber!),
-                                    //       height: 35,
-                                    //       width: 35,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
+                              Row(
+                                children: [
+                                  Image.network(
+                                    controller.billReport.value.data![index].logo_url!,
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                   SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: Get.width*.37,
+                                    child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
-                                          child: Text(
-                                            controller.billReport.value.data![index].billerType!,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                            ),
+                                        Text(
+                                          controller.billReport.value.data![index].billerType!,
+                                          style: const TextStyle(
+                                            fontSize: 16,
                                           ),
                                         ),
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            controller.billReport.value.data![index].billName!,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                            ),
+                                        Text(
+                                          controller.billReport.value.data![index].billName!,
+                                          style: const TextStyle(
+                                            fontSize: 14,
                                           ),
                                         ),
-                                        const SizedBox(
+                                         SizedBox(
                                           height: 5,
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            'Tr No: ${controller.billReport.value.data![index].transactionId!}',
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                            ),
+                                        Text(
+                                          'Bill No: ${controller.billReport.value.data![index].billNo!}',
+                                          style:  TextStyle(
+                                            fontSize: 13,
+                                            color: AppColors.primaryColor
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              Expanded(
+                              SizedBox(
+                                width: Get.width*.35,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [

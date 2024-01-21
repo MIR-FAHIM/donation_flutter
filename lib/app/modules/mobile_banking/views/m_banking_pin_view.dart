@@ -7,15 +7,10 @@ import 'package:latest_payplus_agent/app/modules/mobile_banking/bindings/mobile_
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-
-
 class MBankingPinView extends GetView<MobileBankingController> {
-
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
-
-
     // print('cashback amount : ${controller.amountController.clear}');
 
     return Scaffold(
@@ -26,7 +21,11 @@ class MBankingPinView extends GetView<MobileBankingController> {
             automaticallyImplyLeading: false,
             backgroundColor: const Color(0xFF652981),
             centerTitle: true,
-            title: controller.currentTabIndex.value == 0 ? Text('Cash In'.tr): controller.currentTabIndex.value == 1 ? Text('Cash Out'.tr) : Text('Money Out'.tr),
+            title: controller.currentTabIndex.value == 0
+                ? Text('Cash In'.tr)
+                : controller.currentTabIndex.value == 1
+                    ? Text('Cash Out'.tr)
+                    : Text('Money Out'.tr),
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
@@ -52,8 +51,6 @@ class MBankingPinView extends GetView<MobileBankingController> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-
-
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Card(
@@ -75,68 +72,53 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 25.0, top: 5),
+                                          padding: const EdgeInsets.only(
+                                              left: 25.0, top: 5),
                                           child: Row(
                                             children: [
                                               Container(
                                                 height: 60,
                                                 width: 60,
-                                                decoration:
-                                                BoxDecoration(
+                                                decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius
-                                                      .circular(
-                                                      30),
+                                                      BorderRadius.circular(30),
                                                 ),
-                                                child:
-                                                ClipRRect(
+                                                child: ClipRRect(
                                                   borderRadius:
-                                                  BorderRadius
-                                                      .circular(
-                                                      30),
-                                                  child:
-                                                  CachedNetworkImage(
-                                                    imageUrl: controller.imageUrl.value,
-                                                    imageBuilder:
-                                                        (context,
-                                                        imageProvider) =>
+                                                      BorderRadius.circular(30),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: controller
+                                                        .imageUrl.value,
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
                                                         Container(
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            image:
-                                                            DecorationImage(
-                                                              image:
-                                                              imageProvider,
-                                                              fit: BoxFit
-                                                                  .fill,
-                                                            ),
-                                                          ),
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.fill,
                                                         ),
+                                                      ),
+                                                    ),
                                                     placeholder:
-                                                        (context,
-                                                        url) =>
-                                                    const Padding(
+                                                        (context, url) =>
+                                                            const Padding(
                                                       padding:
-                                                      EdgeInsets.all(
-                                                          5.0),
-                                                      child:
-                                                      Image(
+                                                          EdgeInsets.all(5.0),
+                                                      child: Image(
                                                         image: AssetImage(
                                                             'assets/images/default_image.png'),
                                                       ),
                                                     ),
-                                                    errorWidget: (context,
-                                                        url,
-                                                        error) =>
-                                                    const Padding(
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            const Padding(
                                                       padding:
-                                                      EdgeInsets.all(
-                                                          5.0),
-                                                      child:
-                                                      Image(
+                                                          EdgeInsets.all(5.0),
+                                                      child: Image(
                                                         image: AssetImage(
                                                             'assets/images/default_image.png'),
                                                       ),
@@ -147,10 +129,17 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                               Container(
                                                 width: _size.width * .5,
                                                 child: TextFormField(
-
-                                                  keyboardType: TextInputType.phone,
-                                                  initialValue: controller.numberController.value.text,
-                                                  validator: (input) => input!.length < 11 ? 'Please provide valid phone number' : null,
+                                                  keyboardType:
+                                                      TextInputType.phone,
+                                                  initialValue: controller
+                                                      .numberController
+                                                      .value
+                                                      .text,
+                                                  validator: (input) => input!
+                                                              .length <
+                                                          11
+                                                      ? 'Please provide valid phone number'
+                                                      : null,
                                                   style: const TextStyle(
                                                     fontSize: 20.0,
                                                     color: Color(0xFF652981),
@@ -158,24 +147,36 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                                   obscureText: false,
                                                   textAlign: TextAlign.start,
                                                   readOnly: true,
-                                                  cursorColor: const Color(0xFF652981),
-                                                  decoration: const InputDecoration(
+                                                  cursorColor:
+                                                      const Color(0xFF652981),
+                                                  decoration:
+                                                      const InputDecoration(
                                                     hintText: '01xxxxxxxxx',
                                                     hintStyle: TextStyle(
                                                       fontSize: 20,
                                                       color: Colors.grey,
                                                     ),
-                                                    focusColor: Color(0xFF652981),
-                                                    border: OutlineInputBorder(borderSide: BorderSide.none),
-                                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                                                    focusColor:
+                                                        Color(0xFF652981),
+                                                    border: OutlineInputBorder(
+                                                        borderSide:
+                                                            BorderSide.none),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide
+                                                                    .none),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide
+                                                                    .none),
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -193,11 +194,13 @@ class MBankingPinView extends GetView<MobileBankingController> {
                           children: [
                             Expanded(
                               child: Container(
-                                decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                                decoration: Ui.getBoxDecoration(
+                                    color: Colors.white, radius: 5),
                                 child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Center(
                                           child: Text(
@@ -228,11 +231,13 @@ class MBankingPinView extends GetView<MobileBankingController> {
                             ),
                             Expanded(
                               child: Container(
-                                decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                                decoration: Ui.getBoxDecoration(
+                                    color: Colors.white, radius: 5),
                                 child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Center(
                                           child: Text(
@@ -258,59 +263,54 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                     )),
                               ),
                             ),
-
-
                           ],
                         ),
                       ),
                     ),
 
+                    controller.currentTabIndex.value == 1
+                        ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Container(
+                                width: _size.width,
+                                //  height: 50,
+                                decoration: Ui.getBoxDecoration(radius: 5.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: TextFormField(
+                                    obscureText: true,
+                                    controller: controller.otpController.value,
+                                    cursorColor: const Color(0xFF652981),
+                                    textAlign: TextAlign.center,
+                                    maxLength: 6,
 
+                                    decoration: InputDecoration(
+                                      counterText: "",
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      border: InputBorder.none,
+                                      hintText: 'Enter OTP here'.tr,
+                                      hintStyle: const TextStyle(
+                                          color: Color(0xFF652981),
+                                          fontSize: 15),
+                                      prefixIcon: const Icon(
+                                        CupertinoIcons.lock,
+                                        color: Color(0xFF652981),
+                                      ).marginOnly(right: 14),
 
-controller.currentTabIndex.value == 1 ?
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                          width: _size.width,
-                          //  height: 50,
-                          decoration: Ui.getBoxDecoration(radius: 5.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5.0),
-                            child: TextFormField(
-                              obscureText: true,
-                              controller: controller.otpController.value,
-                              cursorColor: const Color(0xFF652981),
-                              textAlign: TextAlign.center,
-                              maxLength: 6,
+                                      // floatingLabelBehavior: FloatingLabelBehavior.never,
+                                      focusColor: const Color(0xFF652981),
+                                    ),
 
-                              decoration: InputDecoration(
-                                counterText: "",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: InputBorder.none,
-                                hintText: 'Enter OTP here'.tr,
-                                hintStyle: const TextStyle(color: Color(0xFF652981), fontSize: 15),
-                                prefixIcon: const Icon(
-                                  CupertinoIcons.lock,
-                                  color: Color(0xFF652981),
-                                ).marginOnly(right: 14),
-
-
-                                // floatingLabelBehavior: FloatingLabelBehavior.never,
-                                focusColor: const Color(0xFF652981),
-                              ),
-
-                              keyboardType: TextInputType.phone,
-                              // validator: (String? value) {
-                              //
-                              // },
-                              onChanged: (input) {
-
-                              },
-                            ),
-                          )),
-                    ) : Container(),
-
+                                    keyboardType: TextInputType.phone,
+                                    // validator: (String? value) {
+                                    //
+                                    // },
+                                    onChanged: (input) {},
+                                  ),
+                                )),
+                          )
+                        : Container(),
 
                     //pin
                     Padding(
@@ -334,7 +334,8 @@ controller.currentTabIndex.value == 1 ?
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
                                 hintText: 'Enter PIN here'.tr,
-                                hintStyle: const TextStyle(color: Color(0xFF652981), fontSize: 15),
+                                hintStyle: const TextStyle(
+                                    color: Color(0xFF652981), fontSize: 15),
                                 prefixIcon: const Icon(
                                   CupertinoIcons.lock,
                                   color: Color(0xFF652981),
@@ -342,21 +343,30 @@ controller.currentTabIndex.value == 1 ?
 
                                 suffixIcon: IconButton(
                                   onPressed: () {
-                                    if(controller.pinController.value.text.isNotEmpty){
-                                      if(controller.currentTabIndex.value == 2){
+                                    if (controller
+                                        .pinController.value.text.isNotEmpty) {
+                                      if (controller.currentTabIndex.value ==
+                                          2) {
                                         print("money transfer >>>>>>>");
                                         controller.moneyTransferController();
-                                      }else if(controller.currentTabIndex.value == 0){
-                                        controller.sendRequestForCashin(controller.pinController.value.text, controller.gateWayID.value);
-                                      } else{
-                                        controller.sendRequestForCashOut(controller.pinController.value.text, controller.gateWayID.value, controller.otpController.value.text );
+                                      } else if (controller
+                                              .currentTabIndex.value ==
+                                          0) {
+                                        controller.sendRequestForCashin(
+                                            controller.pinController.value.text,
+                                            controller.gateWayID.value);
+                                      } else {
+                                        controller.sendRequestForCashOut(
+                                            controller.pinController.value.text,
+                                            controller.gateWayID.value,
+                                            controller
+                                                .otpController.value.text);
                                       }
-                                    }else{
-                                      Get.showSnackbar(Ui.ErrorSnackBar(message: "Provide pin number", title: 'Error'.tr));
-
+                                    } else {
+                                      Get.showSnackbar(Ui.ErrorSnackBar(
+                                          message: "Provide pin number",
+                                          title: 'Error'.tr));
                                     }
-
-
                                   },
                                   icon: const Icon(
                                     CupertinoIcons.arrow_right,
@@ -372,9 +382,7 @@ controller.currentTabIndex.value == 1 ?
                               // validator: (String? value) {
                               //
                               // },
-                              onChanged: (input) {
-
-                              },
+                              onChanged: (input) {},
                             ),
                           )),
                     ),

@@ -92,7 +92,10 @@ class BillPaymentSuccessView extends GetView {
               Center(
                 child: Text(
                   "Payment Successful",
-                  style: TextStyle(fontSize: 20, color: AppColors.greenTextColor, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: AppColors.greenTextColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(
@@ -102,7 +105,8 @@ class BillPaymentSuccessView extends GetView {
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
-                  decoration: Ui.getBoxDecoration(color: Colors.white, radius: 8),
+                  decoration:
+                      Ui.getBoxDecoration(color: Colors.white, radius: 8),
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Column(
@@ -111,14 +115,19 @@ class BillPaymentSuccessView extends GetView {
                       children: [
                         Text(
                           "Bill Information : ",
-                          style: TextStyle(fontSize: 16, color: AppColors.homeTextColor1, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.homeTextColor1,
+                              fontWeight: FontWeight.bold),
                         ),
                         _bll_no == null || _bll_no == ""
                             ? Container()
                             : Padding(
-                                padding: const EdgeInsets.only(top: 12, bottom: 8),
+                                padding:
+                                    const EdgeInsets.only(top: 12, bottom: 8),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Bill No.",
@@ -147,9 +156,11 @@ class BillPaymentSuccessView extends GetView {
                                     color: AppColors.SectionHighLightCardBg,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                    padding: const EdgeInsets.only(
+                                        top: 8, bottom: 8),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Biller Acc No.",
@@ -159,7 +170,9 @@ class BillPaymentSuccessView extends GetView {
                                           ),
                                         ),
                                         Text(
-                                          _bllr_accno == null ? "" : _bllr_accno,
+                                          _bllr_accno == null
+                                              ? ""
+                                              : _bllr_accno,
                                           style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.homeTextColor3,
@@ -180,9 +193,11 @@ class BillPaymentSuccessView extends GetView {
                                     color: AppColors.SectionHighLightCardBg,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                    padding: const EdgeInsets.only(
+                                        top: 8, bottom: 8),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Biller Mobile No.",
@@ -203,7 +218,10 @@ class BillPaymentSuccessView extends GetView {
                                   ),
                                 ],
                               ),
-                        _bll_dt_frm == null || _bll_dt_frm == "" || _bll_dt_to == null || _bll_dt_to == ''
+                        _bll_dt_frm == null ||
+                                _bll_dt_frm == "" ||
+                                _bll_dt_to == null ||
+                                _bll_dt_to == ''
                             ? Container()
                             : Column(
                                 children: [
@@ -213,9 +231,11 @@ class BillPaymentSuccessView extends GetView {
                                     color: AppColors.SectionHighLightCardBg,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                    padding: const EdgeInsets.only(
+                                        top: 8, bottom: 8),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Biller For",
@@ -246,9 +266,11 @@ class BillPaymentSuccessView extends GetView {
                                     color: AppColors.SectionHighLightCardBg,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                    padding: const EdgeInsets.only(
+                                        top: 8, bottom: 8),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Bill Due Date",
@@ -276,14 +298,18 @@ class BillPaymentSuccessView extends GetView {
                         ),
                         Text(
                           "Transaction Information :",
-                          style: TextStyle(fontSize: 16, color: AppColors.homeTextColor1, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.homeTextColor1,
+                              fontWeight: FontWeight.bold),
                         ),
                         transaction_id == null || transaction_id == ""
                             ? Container()
                             : Padding(
                                 padding: const EdgeInsets.only(top: 12),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Transaction Id",
@@ -307,7 +333,8 @@ class BillPaymentSuccessView extends GetView {
                             : Padding(
                                 padding: const EdgeInsets.only(top: 8),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Payment Date",
@@ -331,7 +358,8 @@ class BillPaymentSuccessView extends GetView {
                             : Padding(
                                 padding: const EdgeInsets.only(top: 8),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Charge",
@@ -383,8 +411,19 @@ class BillPaymentSuccessView extends GetView {
                 child: InkWell(
                   onTap: () async {
                     print('BillPaymentSuccessView.build');
-                    final pdfFile = await BillPaymentPdf.generateCenteredText(_title, _images, _bllr_accno, _bll_no, _bll_mobno, _bll_dt_frm,
-                        _bll_dt_to, _bll_dt_due, charge, transaction_id, bll_amnt_ttl, payment_date);
+                    final pdfFile = await BillPaymentPdf.generateCenteredText(
+                        _title,
+                        _images,
+                        _bllr_accno,
+                        _bll_no,
+                        _bll_mobno,
+                        _bll_dt_frm,
+                        _bll_dt_to,
+                        _bll_dt_due,
+                        charge,
+                        transaction_id,
+                        bll_amnt_ttl,
+                        payment_date);
                     // makePdf(
                     //     'DPDC Postpaid', '', _bllr_accno, _bll_no, _bll_mobno, _bll_dt_frm, _bll_dt_to, _bll_dt_due, charge, transaction_id, bll_amnt_ttl, payment_date);
                     //
@@ -407,7 +446,8 @@ class BillPaymentSuccessView extends GetView {
                   child: Container(
                     width: _size.width,
                     height: _size.width * .12,
-                    decoration: Ui.getBoxDecoration(color: Color(0xFF652981), radius: 10),
+                    decoration: Ui.getBoxDecoration(
+                        color: Color(0xFF652981), radius: 10),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Center(
@@ -416,7 +456,8 @@ class BillPaymentSuccessView extends GetView {
                           children: [
                             const Icon(
                               Icons.print,
-                              color: Colors.white, //The color which you want set.
+                              color:
+                                  Colors.white, //The color which you want set.
                             ),
                             // Image.asset(
                             //   "assets/sales/sale_from_list.png",
@@ -426,8 +467,9 @@ class BillPaymentSuccessView extends GetView {
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
-                                'Print',
-                                style: Get.textTheme.bodyText1!.merge(TextStyle(color: Colors.white)),
+                                'Print/Share',
+                                style: Get.textTheme.bodyText1!
+                                    .merge(TextStyle(color: Colors.white)),
                               ),
                             ),
                           ],
@@ -460,5 +502,4 @@ class BillPaymentSuccessView extends GetView {
   //   print('Bill Detail : $resp');
   //   return resp;
   // }
-
 }

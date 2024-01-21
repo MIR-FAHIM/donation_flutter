@@ -1,7 +1,10 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
+import 'package:latest_payplus_agent/app/modules/payment_collection/controllers/payment_collection_controller.dart';
+import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/recharge_report_controller.dart';
 
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/notificationlocal.dart';
@@ -170,14 +173,23 @@ class FireBaseMessagingService extends GetxService {
       print("hlw noti 1111111 ");
       Map data = {"msg": "hlw"};
       if (message.data.isNotEmpty) {
+        Get.put(InboxController());
+        Get.find<InboxController>().getNotifications();
+
+        print("bro my push notification type is ${message.data['notification_type'].toString()}");
         print(
-            'FireBaseMessagingService.firebaseCloudMessagingListeners 3: ${message.data['notification_type'].runtimeType}');
+            'FireBaseMessagingService.firebaseCloudMessagingListeners my notification type is ++++++++ ${message.data['notification_type'].toString()} is bro ${message.messageType} +++++++++: ${message.data['notification_type'].runtimeType}');
         if (message.data['notification_type'].toString() == '1') {
-          Get.toNamed(Routes.OFFER,
+          Get.put(AddbalanceController());
+          Get.find<AddbalanceController>().getAddBalanceHistory();
+          Get.toNamed(Routes.COLLECTION,
               arguments: message.data['notification_type'].toString());
         }
 
         if (message.data['notification_type'].toString() == '2') {
+
+          Get.put(RechargeReportController());
+          Get.find<RechargeReportController>().getRechargeReport();
           Get.toNamed(Routes.RECHARGE_REPORT,
               arguments: message.data['notification_type'].toString());
         }

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
-import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/WestZone_Postpaid/westzone_pdf_preview.dart';
-import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_pdf_preview.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/views/bill_payment_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/widgets/bill_payment-success_view.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -14,30 +13,31 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class RebPostpaidBillView extends GetView<BillPaymentController> {
+class NescoPrepaidBillView extends GetView<BillPaymentController> {
   final _size = Get.size;
-
   @override
   Widget build(BuildContext context) {
     final _size = Get.size;
-    var _title = Get.arguments["title"] ?? "";
-    var _bll_no = Get.arguments["bll_no"] ?? "";
-    var biller_mobile = Get.arguments["bll_mobno"] ?? "";
-    var _bill_address =Get.arguments["bll_no"] ?? "";
-    //bill_payment_id
+    var _title = Get.arguments['title'];
     var _images = Get.arguments['images'];
-    var _bllr_accno = Get.arguments['bllr_accno'];
+
     var _bill_payment_id = Get.arguments['bill_payment_id'];
     var _bill_refer_id = Get.arguments['bill_refer_id'];
-    var _bll_dt_due = Get.arguments["bll_dt_due"] ?? "";
-    var _bll_amnt = Get.arguments["bll_no"] ?? "";
-    var _bll_vat = Get.arguments["bll_vat"] ?? "";
-    var _bll_late_fee= Get.arguments['bill_late_fee'];
-    var _ekpay_fee =Get.arguments["bll_no"] ?? "";
-    var is_bill_paid = Get.arguments["bll_no"] ?? "";
-    var bill_amount = Get.arguments["bll_amnt"] ?? "";
-
-    var bll_amnt_ttl = Get.arguments["bll_amnt_ttl"] ?? "";
+    var _biller_name = Get.arguments['customer_name'];
+    var meter_type = Get.arguments['meter_type'];
+    var tariff_program = Get.arguments['tariff_program'];
+    var _bll_no = Get.arguments['bll_no'];
+    var _bllr_accno = Get.arguments['bllr_accno'];
+    var _bll_mobno = Get.arguments['bll_mobno'];
+    var _bll_dt_frm = Get.arguments['bll_dt_frm'];
+    var _bll_dt_to = Get.arguments['bll_dt_to'];
+    var _bll_dt_due = Get.arguments['bll_dt_due'];
+    var _bll_amnt = Get.arguments['bll_amnt'];
+    var bll_vat = Get.arguments['bll_vat'];
+    var ekpay_fee = Get.arguments['ekpay_fee'];
+    var is_bill_paid = Get.arguments['is_bill_paid'];
+    var bll_late_fee = Get.arguments['bll_late_fee'];
+    var bll_amnt_ttl = Get.arguments['bll_amnt_ttl'];
 
     return Scaffold(
         backgroundColor: Colors.grey.shade100,
@@ -48,10 +48,6 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
             centerTitle: true,
             title: Text(_title),
             elevation: 0,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () => Get.offAllNamed(Routes.BILL_PAYMENT),
-            ),
             // actions: [
             //   IconButton(
             //       onPressed: () {
@@ -62,6 +58,10 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
             //         color: Colors.white70,
             //       )),
             // ],
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () => Get.off(BillPaymentView()),
+            ),
           ),
         ),
         body: WillPopScope(
@@ -71,9 +71,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
           },
           child: Obx(() {
             if (controller.billpayLoaded.isTrue) {
-              var _total = double.parse(bll_amnt_ttl) +
-                  double.parse(controller.online_charge.value) +
-                  double.parse(controller.servic_fee.value);
+              var _total = double.parse(bll_amnt_ttl) + double.parse(controller.online_charge.value) + double.parse(controller.servic_fee.value);
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -121,74 +119,20 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Bill No.",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  _bll_no,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // Container(
-                          //   width: _size.width,
-                          //   height: 1,
-                          //   color: AppColors.SectionHighLightCardBg,
-                          // ),
                           // Padding(
-                          //   padding: const EdgeInsets.only(top: 8, bottom: 8),
+                          //   padding: const EdgeInsets.only(top: 10, bottom: 8),
                           //   child: Row(
                           //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //     children: [
                           //       Text(
-                          //         "Biller Acc No.",
-                          //         style: TextStyle(
-                          //           fontSize: 16,
-                          //           color: AppColors.primaryColor,
-                          //         ),
-                          //       ),
-                          //       // Text(
-                          //       //   _bllr_accno,
-                          //       //   style: TextStyle(
-                          //       //     fontSize: 16,
-                          //       //     color: AppColors.homeTextColor3,
-                          //       //   ),
-                          //       // ),
-                          //     ],
-                          //   ),
-                          // ),
-                          // Container(
-                          //   width: _size.width,
-                          //   height: 1,
-                          //   color: AppColors.SectionHighLightCardBg,
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(top: 8, bottom: 8),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Text(
-                          //         "Biller Address",
+                          //         "Bill No.",
                           //         style: TextStyle(
                           //           fontSize: 16,
                           //           color: AppColors.primaryColor,
                           //         ),
                           //       ),
                           //       Text(
-                          //         _bill_address,
+                          //         _bll_no,
                           //         style: TextStyle(
                           //           fontSize: 16,
                           //           color: AppColors.homeTextColor3,
@@ -202,6 +146,28 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                             height: 1,
                             color: AppColors.SectionHighLightCardBg,
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biller Acc No.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  _bllr_accno,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Container(
                             width: _size.width,
                             height: 1,
@@ -213,14 +179,14 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Bill Due Date",
+                                  "Biller Name",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.primaryColor,
                                   ),
                                 ),
                                 Text(
-                                  _bll_dt_due,
+                                  _biller_name,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -229,6 +195,105 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               ],
                             ),
                           ),
+                          //
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biller Meter Type.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  meter_type,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biller Tarrif.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  tariff_program,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Biller Mobile No.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  _bll_mobno,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+
+
+                          //
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+
+                          Container(
+                            width: _size.width,
+                            height: 1,
+                            color: AppColors.SectionHighLightCardBg,
+                          ),
+
                           Container(
                             width: _size.width,
                             height: 1,
@@ -261,50 +326,6 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                             height: 15,
                             // color: AppColors.SectionHighLightCardBg,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Customer Mobile",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  biller_mobile,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Bill Amount",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + bll_amnt_ttl,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
 
                           Padding(
                             padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -312,7 +333,29 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Platform Fee",
+                                  "Vat",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  '৳ ' + bll_vat.toString(),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Online Charge",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.primaryColor,
@@ -328,52 +371,8 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Service Fee",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + controller.servic_fee.value,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
 
 
-                          _bll_late_fee == null ? Container():  Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Late Fee",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  '৳ ' + _bll_late_fee,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           Container(
                             width: _size.width,
                             height: 1,
@@ -386,10 +385,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               children: [
                                 Text(
                                   "Total : ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.homeTextColor1,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 16, color: AppColors.homeTextColor1, fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '৳ ' + _total.toString(),
@@ -404,15 +400,14 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 20),
                     is_bill_paid == 'Y'
                         ? Center(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
                           "আপনার বিলটি ইতিমধ্যে পরিশোধ করা হয়েছে",
-                          style: TextStyle(
-                              color: AppColors.greenTextColor,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: AppColors.greenTextColor, fontWeight: FontWeight.bold),
                         ),
                       ),
                     )
@@ -451,71 +446,22 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                       color: Color(0xFF652981),
                       text: Text(
                         "Pay Bill".tr,
-                        style:
-                        TextStyle(color: Colors.white, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ).paddingSymmetric(vertical: 10, horizontal: 20),
-                    SizedBox(height: 20,),
 
-                    // GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.of(context).push(
-                    //         MaterialPageRoute(
-                    //           builder: (builder) =>
-                    //
-                    //               REBPdfPreviewPage(
-                    //                 title : _title,
-                    //                 images : _images,
-                    //
-                    //                 billPaymentId : _bill_payment_id,
-                    //                 billReferId : _bill_refer_id,
-                    //
-                    //                 bllNo : _bll_no,
-                    //
-                    //
-                    //
-                    //                 bllDtDue : _bll_dt_due,
-                    //                 bllAmnt : bll_amnt_ttl,
-                    //
-                    //               ),
-                    //         ),
-                    //       );
-                    //     },
-                    //     child: Row(
-                    //       mainAxisAlignment:
-                    //       MainAxisAlignment.center,
-                    //       children: [
-                    //         Container(
-                    //           height: 50,
-                    //           width: 50,
-                    //           decoration: BoxDecoration(
-                    //               image: DecorationImage(
-                    //                   image: AssetImage(
-                    //                     'assets/icons/utility_expense.png',
-                    //                   ))),
-                    //         ),
-                    //         Text(
-                    //           "View PDF",
-                    //           style: TextStyle(
-                    //               color: Colors.black54),
-                    //         ),
-                    //       ],
-                    //     )),
+
                   ],
                 ),
               );
             } else {
-              return Container(
-                  height: _size.height,
-                  width: _size.width,
-                  child: Center(child: Ui.customLoader()));
+              return Container(height: _size.height, width: _size.width, child: Center(child: Ui.customLoader()));
             }
           }),
         ));
   }
 
-  Future<Map<dynamic, dynamic>> BillPaymentChargePreview(
-      int billPaymentID, String billRefId) async {
+  Future<Map<dynamic, dynamic>> BillPaymentChargePreview(int billPaymentID, String billRefId) async {
     // print(billNumber);
     Map data = {
       'bill_payment_id': billPaymentID.toString(),
@@ -530,22 +476,14 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
 
     // var body = json.encode(data);
 
-    var response =
-    await http.post(Uri.parse(url), headers: headers, body: data);
+    var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Charge : $resp');
     return resp;
   }
 
   Future<Map<dynamic, dynamic>> BillPayment(
-      int billPaymentID,
-      String billRefId,
-      String billAmount,
-      String serviceCharge,
-      String onlineCharge,
-      String totalAmount,
-      dynamic pin,
-      ) async {
+      int billPaymentID, String billRefId, String billAmount, String serviceCharge, String onlineCharge, String totalAmount, dynamic pin) async {
     // print(billNumber);
     Map data = {
       'bill_payment_id': billPaymentID.toString(),
@@ -557,8 +495,6 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
       'pin': pin.toString(),
     };
 
-    print("calling these data $data");
-
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     var headers = {'token': token};
@@ -567,24 +503,14 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
 
     // var body = json.encode(data);
 
-    var response =
-    await http.post(Uri.parse(url), headers: headers, body: data);
+    var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
-    print('Bill payment : $resp');
+    print('Bill Detail : $resp');
     return resp;
   }
 
-  void openBottomSheetBill(
-      String currentBalance,
-      String billAmount,
-      String serviceCharge,
-      String onlineCharge,
-      String totalAmount,
-      dynamic accountNumber,
-      dynamic title,
-      dynamic image,
-      dynamic paymentId,
-      dynamic referId) {
+  void openBottomSheetBill(String currentBalance, String billAmount, String serviceCharge, String onlineCharge, String totalAmount,
+      dynamic accountNumber, dynamic title, dynamic image, dynamic paymentId, dynamic referId) {
     Get.bottomSheet(
       SingleChildScrollView(
         child: Column(
@@ -606,10 +532,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                             child: Center(
                               child: Text(
                                 'Recipient'.tr,
-                                style: TextStyle(
-                                    color: AppColors.homeTextColor3,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
+                                style: TextStyle(color: AppColors.homeTextColor3, fontWeight: FontWeight.bold, fontSize: 12),
                               ),
                             ),
                           ),
@@ -618,10 +541,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                       double.parse(totalAmount) > double.parse(currentBalance)
                           ? Text(
                         'insufficient funds'.tr,
-                        style: TextStyle(
-                            color: AppColors.redTextColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                        style: TextStyle(color: AppColors.redTextColor, fontWeight: FontWeight.bold, fontSize: 16),
                       )
                           : Container(),
                       Padding(
@@ -651,15 +571,13 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                         const SizedBox(width: 10),
                         Text(
                           title,
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding:
-                    const EdgeInsets.only(left: 22, top: 15, right: 22),
+                    padding: const EdgeInsets.only(left: 22, top: 15, right: 22),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -668,15 +586,12 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                           children: [
                             Text(
                               'Account Number'.tr,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.homeTextColor3),
+                              style: TextStyle(fontSize: 13, color: AppColors.homeTextColor3),
                             ),
                             const SizedBox(height: 3),
                             Text(
                               accountNumber,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             //Amount
                             const SizedBox(height: 12),
@@ -690,10 +605,20 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                             const SizedBox(height: 3),
                             Text(
                               '৳ ' + billAmount,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
-
+                            //Amount
+                            const SizedBox(height: 12),
+                            Text(
+                              'Service Fee'.tr,
+                              style: TextStyle(fontSize: 13, color: AppColors.homeTextColor3),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              '৳ ' + serviceCharge,
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 5),
                           ],
                         ),
                         Column(
@@ -701,29 +626,23 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                           children: [
                             Text(
                               'Present Balance'.tr,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.homeTextColor3),
+                              style: TextStyle(fontSize: 13, color: AppColors.homeTextColor3),
                             ),
                             const SizedBox(height: 3),
                             Text(
                               '৳ ' + currentBalance,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             //Amount
                             const SizedBox(height: 12),
                             Text(
                               'Online Charge'.tr,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.homeTextColor3),
+                              style: TextStyle(fontSize: 13, color: AppColors.homeTextColor3),
                             ),
                             const SizedBox(height: 3),
                             Text(
                               '৳ ' + onlineCharge,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             //Amount
                             const SizedBox(height: 12),
@@ -737,8 +656,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                             const SizedBox(height: 3),
                             Text(
                               '৳ ' + totalAmount,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 5),
                           ],
@@ -764,14 +682,14 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                       cursorColor: Color(0xFF652981),
                       textAlign: TextAlign.center,
                       maxLength: 6,
+                      obscureText: true,
                       decoration: InputDecoration(
                         counterText: "",
                         filled: true,
                         fillColor: Colors.white,
                         border: InputBorder.none,
                         hintText: 'Enter PIN here'.tr,
-                        hintStyle: TextStyle(
-                            color: Color(0xFF652981), fontSize: 15),
+                        hintStyle: TextStyle(color: Color(0xFF652981), fontSize: 15),
                         prefixIcon: Icon(
                           CupertinoIcons.lock,
                           color: Color(0xFF652981),
@@ -789,6 +707,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                     ),
                   )),
             ),
+
             double.parse(totalAmount) > double.parse(currentBalance)
                 ? BlockButtonWidget(
               onPressed: () {
@@ -803,38 +722,32 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                 ),
               ),
             ).paddingSymmetric(vertical: 10, horizontal: 10)
-                : controller.disable.value == false
-                ? BlockButtonWidget(
+                : BlockButtonWidget(
               onPressed: () {
                 var result;
                 var data;
                 var datas;
                 print(controller.pin.value);
-
-
-                if (double.parse(totalAmount) >
-                    double.parse(currentBalance)) {
+                if (double.parse(totalAmount) > double.parse(currentBalance)) {
                   print("disable");
                 } else {
-                  controller.disable.value == true;
                   print("enable");
                   var res = BillPayment(
-                      paymentId,
-                      referId,
-                      billAmount,
-                      serviceCharge,
-                      onlineCharge,
-                      totalAmount,
-                      controller.pin.value);
+                    paymentId,
+                    referId,
+                    billAmount,
+                    serviceCharge,
+                    onlineCharge,
+                    totalAmount,
+                    controller.pin.value,
+                  );
                   Ui.customLoaderDialog();
                   res.then((value) => {
-
                     Get.back(),
                     result = value['result'],
                     data = value['data'],
                     if (value['result'] == 'success')
                       {
-                      controller.disable.value = false,
                         data = value['data'],
                         datas = {
                           "title": title,
@@ -850,24 +763,16 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                           "transaction_id": data['transaction_id'],
                           "payment_date": data['payment_date'],
                         },
-                        Get.offAll(BillPaymentSuccessView(),
-                            arguments: datas)
+                        Get.offAll(BillPaymentSuccessView(), arguments: datas)
                         // print(data['bllr_accno'])
                       }
                     else
-                      controller.disable.value = false,
-                      Get.showSnackbar(Ui.ErrorSnackBar(
-                          message: value['message'],
-                          title: 'error'.tr))
+                      Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'error'.tr))
                   });
                 }
               },
-              color:
-              double.parse(totalAmount) > double.parse(currentBalance)
-                  ? Colors.grey
-                  : Color(0xFF652981),
-              text: double.parse(totalAmount) >
-                  double.parse(currentBalance)
+              color: double.parse(totalAmount) > double.parse(currentBalance) ? Colors.grey : Color(0xFF652981),
+              text: double.parse(totalAmount) > double.parse(currentBalance)
                   ? Text(
                 "insufficient Funds".tr,
                 style: TextStyle(color: Colors.red, fontSize: 16),
@@ -876,7 +781,35 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                 "Confirm Bill Payment".tr,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
-            ).paddingSymmetric(vertical: 10, horizontal: 20) : Container(),
+            ).paddingSymmetric(vertical: 10, horizontal: 20)
+
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: 15, right: 15, top: 15, bottom: 15),
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       // Get.to(SalePaymentSystem());
+            //     },
+            //     child: Container(
+            //       width: _size.width * 0.6,
+            //       height: _size.width * .12,
+            //       decoration:
+            //           Ui.getBoxDecoration(color: Color(0xFF652981), radius: 10),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           Text(
+            //             'Confirm Bill Payment'.tr,
+            //             style: TextStyle(
+            //               fontSize: 14,
+            //               color: AppColors.homeCardBg,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

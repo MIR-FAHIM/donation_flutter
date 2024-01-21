@@ -34,6 +34,7 @@ class BillPayDetailsData {
   String? billTotalAmount;
   String? paymentStatus;
   String? transactionId;
+  String? logo;
   String? paymentDate;
   String? createdAt;
 
@@ -48,6 +49,7 @@ class BillPayDetailsData {
       this.billTo,
       this.billGenDate,
       this.billDueDate,
+        this.logo,
       this.charge,
       this.billTotalAmount,
       this.paymentStatus,
@@ -59,14 +61,15 @@ class BillPayDetailsData {
     id = json['id'];
     billerType = json['biller_type'];
     billName = json['bill_name'];
-    billNo = json['bill_no'];
-    billerAccNo = json['biller_acc_no'];
-    billerMobile = json['biller_mobile'];
+    billNo = json['bill_no']?? "No Data";
+    billerAccNo = json['biller_acc_no']?? "No Data";
+    billerMobile = json['biller_mobile']?? "No Data";
     billFrom = json['bill_from'];
     billTo = json['bill_to'];
     billGenDate = json['bill_gen_date'];
     billDueDate = json['bill_due_date'];
-    charge = json['charge'];
+    logo = json['logo_url'];
+    charge = json['charge']?? "No Data";
     billTotalAmount = json['bill_total_amount'];
     paymentStatus = json['payment_status'];
     transactionId = json['transaction_id'];
@@ -80,6 +83,7 @@ class BillPayDetailsData {
     data['biller_type'] = this.billerType;
     data['bill_name'] = this.billName;
     data['bill_no'] = this.billNo;
+    data['logo_url'] = this.logo;
     data['biller_acc_no'] = this.billerAccNo;
     data['biller_mobile'] = this.billerMobile;
     data['bill_from'] = this.billFrom;

@@ -26,138 +26,160 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              children: List.generate(controller.history.value.data!.length, (index) {
-                var data = controller.history.value.data![index];
-                return Padding(
+              children: [
+                Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 5,
-                    child: Container(
-                      height: size.width * .23,
-                      width: size.width,
+                  child: Container(
+                    height: 50,
+                    child: TextField(
+                      onChanged: (e) {
+                        controller.setSearchText(e);
+                        // controller.contactsResult.value =
+                        //     _search(controller.contacts.value);
+                      },
+                      controller:
+                      controller.searchController.value,
+                      decoration: InputDecoration(
+                          labelText: "Search by number",
+                          hintText: "Search by number",
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(25.0)))),
+                    ),
+                  ),
+                ),
+                Column(
+                  children: List.generate(controller.filteredHistory!.length, (index) {
+                    var data = controller.filteredHistory![index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 5,
+                        child: Container(
+                          height: size.width * .23,
+                          width: size.width,
 
-                      color:  data.trxStatus == "FAILED" ? Colors.redAccent.withOpacity(.1) : AppColors.primaryColor.withOpacity(.1),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Column(
+                          color:  data.trxStatus == "FAILED" ? Colors.redAccent.withOpacity(.1) : AppColors.primaryColor.withOpacity(.1),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Row(
                                     children: [
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration:
-                                        BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(
-                                              30),
-                                        ),
-                                        child:
-                                        ClipRRect(
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(
-                                              30),
-                                          child:
-                                          CachedNetworkImage(
-                                            imageUrl:    controller.history.value.data![index].logo!,
-                                            imageBuilder:
-                                                (context,
-                                                imageProvider) =>
-                                                Container(
-                                                  decoration:
-                                                  BoxDecoration(
-                                                    image:
-                                                    DecorationImage(
-                                                      image:
-                                                      imageProvider,
-                                                      fit: BoxFit
-                                                          .fill,
+                                      Column(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration:
+                                            BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(
+                                                  30),
+                                            ),
+                                            child:
+                                            ClipRRect(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(
+                                                  30),
+                                              child:
+                                              CachedNetworkImage(
+                                                imageUrl:    data.logo!,
+                                                imageBuilder:
+                                                    (context,
+                                                    imageProvider) =>
+                                                    Container(
+                                                      decoration:
+                                                      BoxDecoration(
+                                                        image:
+                                                        DecorationImage(
+                                                          image:
+                                                          imageProvider,
+                                                          fit: BoxFit
+                                                              .fill,
+                                                        ),
+                                                      ),
                                                     ),
+                                                placeholder:
+                                                    (context,
+                                                    url) =>
+                                                const Padding(
+                                                  padding:
+                                                  EdgeInsets.all(
+                                                      5.0),
+                                                  child:
+                                                  Image(
+                                                    image: AssetImage(
+                                                        'assets/images/default_image.png'),
                                                   ),
                                                 ),
-                                            placeholder:
-                                                (context,
-                                                url) =>
-                                            const Padding(
-                                              padding:
-                                              EdgeInsets.all(
-                                                  5.0),
-                                              child:
-                                              Image(
-                                                image: AssetImage(
-                                                    'assets/images/default_image.png'),
-                                              ),
-                                            ),
-                                            errorWidget: (context,
-                                                url,
-                                                error) =>
-                                            const Padding(
-                                              padding:
-                                              EdgeInsets.all(
-                                                  5.0),
-                                              child:
-                                              Image(
-                                                image: AssetImage(
-                                                    'assets/images/default_image.png'),
+                                                errorWidget: (context,
+                                                    url,
+                                                    error) =>
+                                                const Padding(
+                                                  padding:
+                                                  EdgeInsets.all(
+                                                      5.0),
+                                                  child:
+                                                  Image(
+                                                    image: AssetImage(
+                                                        'assets/images/default_image.png'),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ),
 
-                                      Expanded(
-                                        child: Text(
-                                          controller.history.value.data![index].mfsName!,
-                                          style: const TextStyle(
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                      ),
-
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *.35,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            controller.history.value.data![index].typeName!,
+                                          Text(
+                                            data.mfsName!,
                                             style: const TextStyle(
-                                              fontSize: 16,
+                                              fontSize: 10,
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            controller.history.value.data![index].number!,
-                                            style:  TextStyle(
-                                              fontSize: 14,
-                                              color: AppColors.primaryColor,
+
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width *.35,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                              data.typeName!,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        data.trxStatus == "FAILED" ?
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                data.number!,
+                                                style:  TextStyle(
+                                                  fontSize: 14,
+                                                  color: AppColors.primaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            data.trxStatus == "FAILED" ?
                                             Row(
                                               children: [
                                                 SizedBox(
-                                                  height: Get.height*.02,
+                                                    height: Get.height*.02,
                                                     width: Get.width*.06,
                                                     child: Image(image: AssetImage("assets/icons/cancel.png"),)),
                                                 Text(
@@ -168,71 +190,73 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
                                                 ),
                                               ],
                                             )
-                                        :Expanded(
-                                          child:  Text(
-                                            'Trans ID:' + controller.history.value.data![index].trxId!,
-                                            style: const TextStyle(
-                                              fontSize: 12,
+                                                :Expanded(
+                                              child:  Text(
+                                                'Trans ID:' + data.trxId!,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width *.4,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      data.trxStatus == "FAILED" ?
+                                      Text(
+                                        data.typeName!.toLowerCase() == 'cashout'
+                                            ? '- ৳ ${data.amount}'
+                                            : '+৳ ${data.amount}',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.green),
+                                      ) :
+                                      Text('-৳ ${data.amount}',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.red),
+                                      ),
+                                      Text(
+                                        'Com: ' + uniCodeTk + ' ' + data.commission!,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          //  controller.history.value.data![index].trxTime!,
+                                          DateFormat.yMMMd().format(DateTime.parse(data.trxTime!)) +
+                                              ', ' +
+                                              DateFormat.jm().format(DateTime.parse(data.trxTime!)),
+                                          style: const TextStyle(
+                                            fontSize: 12,
                                           ),
                                         ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width *.4,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  data.trxStatus == "FAILED" ?
-                                  Text(
-                                    controller.history.value.data![index].typeName!.toLowerCase() == 'cashout'
-                                        ? '- ৳ ${controller.history.value.data![index].amount}'
-                                        : '+৳ ${controller.history.value.data![index].amount}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.green),
-                                  ) :
-                                  Text('-৳ ${controller.history.value.data![index].amount}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.red),
-                                  ),
-                                  Text(
-                                    'Com: ' + uniCodeTk + ' ' + controller.history.value.data![index].commission!,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                    //  controller.history.value.data![index].trxTime!,
-                                      DateFormat.yMMMd().format(DateTime.parse(controller.history.value.data![index].trxTime!)) +
-                                          ', ' +
-                                          DateFormat.jm().format(DateTime.parse(controller.history.value.data![index].trxTime!)),
-                                      style: const TextStyle(
-                                        fontSize: 12,
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
+                ),
+              ],
             ),
           );
         } else {

@@ -13,7 +13,7 @@ class Helper {
     number = number.replaceAll('+88', '');
     late String logo;
     for (var item in operators) {
-      print(item.name);
+      //print(item.name);
       if (number.length > 3) {
         if (number.substring(0, 3) == item.name) {
           logo = item.logo!;

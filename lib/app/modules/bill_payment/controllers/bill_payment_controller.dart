@@ -8,6 +8,7 @@ class BillPaymentController extends GetxController {
 
   final count = 0.obs;
   final pin = "".obs;
+  final disable = false.obs;
   final payment_id = ''.obs;
   final subscription_id = ''.obs;
   final amount = 0.0.obs;
@@ -40,6 +41,8 @@ class BillPaymentController extends GetxController {
       'bill_refer_id': refer_id.value,
     };
 
+    print("my charge parameter inbo are $data");
+
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     // var headers = {'token': token};
@@ -51,6 +54,7 @@ class BillPaymentController extends GetxController {
 
     var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
+    print("my charge payment structure are ${resp['data']}");
     var datas = resp['data'];
 
     servic_fee.value = datas['service_charge'];
@@ -59,6 +63,7 @@ class BillPaymentController extends GetxController {
     print('Bill Charge : $resp');
     billpayLoaded.value = true;
   }
+
   akashPayment() async {
     print("aksh called");
     Map data = {

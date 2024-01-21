@@ -6,6 +6,7 @@ import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
 import 'package:latest_payplus_agent/app/models/dashboardReportModel.dart';
 import 'package:latest_payplus_agent/app/models/get_permission_model.dart';
 import 'package:latest_payplus_agent/app/models/get_profile_info_model.dart';
+import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/balance_check_repository.dart';
@@ -22,6 +23,7 @@ import '../../package/controller/package_list_controller.dart';
 class HomeController extends GetxController {
   //TODO: Implement HomeController
   final currentPackageModel = CurrentPackageModel().obs;
+
   final balance = '0.0'.obs;
   final phoneController = TextEditingController().obs;
    final outletNameController = TextEditingController().obs;
@@ -69,6 +71,7 @@ class HomeController extends GetxController {
     getDashBoardReport();
     getProfileInfo();
     getAllDisablePermission();
+
     if(GetStorage().read<List<Contact>>('contact') == null){
       getPhoneContact();
     }else{
@@ -150,6 +153,7 @@ class HomeController extends GetxController {
       }
     });
   }
+
   getDashBoardReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {
       dashboardReport.value = resp;
@@ -162,7 +166,9 @@ class HomeController extends GetxController {
     });
   }
   getAllDisablePermission() async {
+    print("hlw all permission");
     BalanceCheckRepository().getDisablePermission().then((resp) {
+      print("My All permission are ${resp.data!.allowMoneyout.toString()}");
       getPermissionModel.value = resp;
     });
   }
@@ -190,7 +196,12 @@ class HomeController extends GetxController {
       AdBannerLoad.value = true;
     });
   }
-
+  //test
+  getAllCompany() async {
+    BuySellRepository().getAllCompany().then((resp) {
+     print("my all company data are $resp");
+    });
+  }
   // void changeState() async {
   //   // getBalance();
 
@@ -210,6 +221,7 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     // TODO: implement onReady
+
     super.onReady();
   }
 }

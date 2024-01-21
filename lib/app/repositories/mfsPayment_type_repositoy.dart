@@ -184,7 +184,7 @@ class mfsPaymentTypeRepository {
     // print(amount);
 
     Map paymentCollectionData = {
-      'no_of_records': "100",
+      'no_of_records': "1000",
     };
 
     var headers = {'token': token};

@@ -24,6 +24,11 @@ class BillDetailsView extends GetView<BillDetailsController> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
+                  Image.network(
+                    controller.billDetails.value.data!.logo!,
+                    height: 60,
+                    width: 60,
+                  ),
                   SizedBox(
                     height: size.width * .04,
                   ),

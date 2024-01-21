@@ -11,7 +11,7 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class DescoPrepaidFormView extends GetView {
+class NescoPrepaidFormView extends GetView {
   BillFormController billpayController = Get.put(BillFormController());
   @override
   Widget build(BuildContext context) {
@@ -203,7 +203,6 @@ class DescoPrepaidFormView extends GetView {
             ),
           ),
         ));
-
   }
 
   Future<Map<dynamic, dynamic>> getBillDetail(
@@ -228,7 +227,7 @@ class DescoPrepaidFormView extends GetView {
     var headers = {'token': token};
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/desco-prepaid';
+    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/nesco-prepaid';
 
     // var body = json.encode(data);
 

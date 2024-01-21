@@ -41,101 +41,108 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
           // decoration: Ui.getBoxDecoration(color: Colors.white),
           child: Column(
             children: [
-              SizedBox(
-                // margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                // padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-                height: 100,
-                child: TabBar(
-                  controller: controller.tabController,
-                  indicatorColor: AppColors.primaryColor,
-                  // indicator: ShapeDecoration(
-                  //     color: AppColors.primaryColor,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     )),
-                  unselectedLabelColor: AppColors.homeTextColor3,
-                  labelColor: AppColors.primaryColor,
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SizedBox(
+                  // margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                  // padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                  height: 100,
+                  child: TabBar(
+                    controller: controller.tabController,
+                    indicatorColor: AppColors.primaryColor,
+                    indicator: ShapeDecoration(
+                        color: AppColors.primaryColor.withOpacity(.4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        )),
+                    unselectedLabelColor: AppColors.homeTextColor3,
+                    labelColor: AppColors.primaryColor,
 
-                  onTap: (int? index) {
-                    controller.currentTabIndex.value = index!;
-                  },
-                  tabs: [
-                    Tab(
-                        icon: Container(
-                      height: 60,
-                      width: _size.width * .18,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 12, child: Icon(Icons.arrow_downward)),
-                          Text(
-                            'Cash In'.tr,
-                            style: const TextStyle(
-                              // color: AppColors.primaryColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              // shadows: [
-                              //   Shadow(
-                              //       color: Colors.black.withOpacity(0.4),
-                              //       offset: Offset(2, 2),
-                              //       blurRadius: 1),
-                              // ]
+                    onTap: (int? index) {
+                      controller.currentTabIndex.value = index!;
+                    },
+                    tabs: [
+                      Tab(
+                          icon: Container(
+                        height: 60,
+                        width: _size.width * .18,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+
+                                radius: 12, child: Icon(Icons.arrow_downward)),
+                            Text(
+                              'Cash In'.tr,
+                              style: const TextStyle(
+                                // color: AppColors.primaryColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                // shadows: [
+                                //   Shadow(
+                                //       color: Colors.black.withOpacity(0.4),
+                                //       offset: Offset(2, 2),
+                                //       blurRadius: 1),
+                                // ]
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                    Tab(
-                        icon: Container(
-                      height: 60,
-                      width: _size.width * .23,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 12, child: Icon(Icons.arrow_upward)),
-                          Text(
-                            'Cash Out'.tr,
-                            style: const TextStyle(
-                              // color: AppColors.primaryColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              // shadows: [
-                              //   Shadow(
-                              //       color: Colors.black.withOpacity(0.4),
-                              //       offset: Offset(2, 2),
-                              //       blurRadius: 1),
-                              // ]
+                          ],
+                        ),
+                      )),
+                      Tab(
+                          icon: Container(
+                        height: 60,
+                        width: _size.width * .23,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                                radius: 12, child: Icon(Icons.arrow_upward)),
+                            Text(
+                              'Cash Out'.tr,
+                              style: const TextStyle(
+                                // color: AppColors.primaryColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                // shadows: [
+                                //   Shadow(
+                                //       color: Colors.black.withOpacity(0.4),
+                                //       offset: Offset(2, 2),
+                                //       blurRadius: 1),
+                                // ]
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                    Tab(
-                        icon: Container(
-                      height: 60,
-                      width: _size.width * .25,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 12, child: Icon(Icons.arrow_upward)),
-                          Text(
-                            'Money Out'.tr,
-                            style: const TextStyle(
-                              // color: AppColors.primaryColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              // shadows: [
-                              //   Shadow(
-                              //       color: Colors.black.withOpacity(0.4),
-                              //       offset: Offset(2, 2),
-                              //       blurRadius: 1),
-                              // ]
+                          ],
+                        ),
+                      )),
+                      Tab(
+                          icon: Container(
+                        height: 60,
+                        width: _size.width * .25,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                                radius: 12, child: Icon(Icons.arrow_upward)),
+                            Text(
+                              'Money Out'.tr,
+                              style: const TextStyle(
+                                // color: AppColors.primaryColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                // shadows: [
+                                //   Shadow(
+                                //       color: Colors.black.withOpacity(0.4),
+                                //       offset: Offset(2, 2),
+                                //       blurRadius: 1),
+                                // ]
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                  ],
+                          ],
+                        ),
+                      )),
+                    ],
+                  ),
                 ),
               ),
               Expanded(

@@ -164,6 +164,7 @@ class MobileBankingController extends GetxController
         numberController.value.clear();
         amountController.value.clear();
         pinController.value.clear();
+        otpController.value.clear();
 
         //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
       } else {
@@ -172,6 +173,7 @@ class MobileBankingController extends GetxController
         numberController.value.clear();
         amountController.value.clear();
         pinController.value.clear();
+        otpController.value.clear();
       }
     }).catchError((onError) {});
   }

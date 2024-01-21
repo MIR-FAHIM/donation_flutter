@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/mobile_bank_tran_history.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
@@ -9,6 +10,8 @@ class MobileBankTransactionHistoryController extends GetxController {
   final history = MobileBankTransactionHistoryModel().obs;
   final historyLoaded = false.obs;
   final logo = "".obs;
+  final searchString = "".obs;
+  final searchController = TextEditingController().obs;
 
   @override
   void onInit() {
@@ -38,6 +41,19 @@ class MobileBankTransactionHistoryController extends GetxController {
 
     }
     return logo.value;
+  }
+  void setSearchText(String text) {
+    searchString.value = text;
+  }
+  List<DataHis> get filteredHistory {
+    return history.value.data!.where((e) {
+
+      final number =  e.number.toString();
+      final searchTerm = searchString.value;
+
+        return number.contains(searchTerm);
+
+    }).toList();
   }
   getHistory() async {
     MobileBankingRepository().getMobileBankHistory().then((response) {

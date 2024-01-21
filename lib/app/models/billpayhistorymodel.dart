@@ -41,12 +41,14 @@ class BillPayHistoryData {
   String? transactionId;
   String? paymentDate;
   String? createdAt;
+  String? logo_url;
 
   BillPayHistoryData(
       {this.id,
       this.billerType,
       this.billName,
       this.billNo,
+        this.logo_url,
       this.billerAccNo,
       this.billerMobile,
       this.billFrom,
@@ -65,8 +67,8 @@ class BillPayHistoryData {
     billerType = json['biller_type'];
     billName = json['bill_name'];
     billNo = json['bill_no'];
-    billerAccNo = json['biller_acc_no'];
-    billerMobile = json['biller_mobile'];
+    billerAccNo = json['biller_acc_no'] ??"No Data";
+    billerMobile = json['biller_mobile']??"No Data";
     billFrom = json['bill_from'];
     billTo = json['bill_to'];
     billGenDate = json['bill_gen_date'];
@@ -77,6 +79,7 @@ class BillPayHistoryData {
     transactionId = json['transaction_id'];
     paymentDate = json['payment_date'];
     createdAt = json['created_at'];
+    logo_url = json['logo_url']  ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
   }
 
   Map<String, dynamic> toJson() {
@@ -92,6 +95,7 @@ class BillPayHistoryData {
     data['bill_gen_date'] = this.billGenDate;
     data['bill_due_date'] = this.billDueDate;
     data['charge'] = this.charge;
+    data['logo_url'] = this.logo_url;
     data['bill_total_amount'] = this.billTotalAmount;
     data['payment_status'] = this.paymentStatus;
     data['transaction_id'] = this.transactionId;

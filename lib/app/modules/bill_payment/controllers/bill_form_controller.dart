@@ -13,8 +13,8 @@ class BillFormController extends GetxController {
   final isChecked = false.obs;
   final refName = ''.obs;
   final bill_id = ''.obs;
-  final selectedMonth = DateTime.now().month.obs;
-  final selectedYear = DateTime.now().year.obs;
+  final selectedMonth = DateTime(DateTime.now().year, DateTime.now().month-1, DateTime.now().day).month.obs;
+  final selectedYear = DateTime(DateTime.now().year, DateTime.now().month-1, DateTime.now().day).year.obs;
   final meterNo = ''.obs;
   final amount = ''.obs;
   final accountID = ''.obs;

@@ -8,6 +8,7 @@ import 'package:latest_payplus_agent/app/models/barcode_product_model.dart';
 import 'package:latest_payplus_agent/app/models/buy_model.dart';
 import 'package:latest_payplus_agent/app/models/categoriesmodel.dart';
 import 'package:latest_payplus_agent/app/models/customerlistmodel.dart';
+import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/models/package%20model/package_list_model.dart';
 import 'package:latest_payplus_agent/app/models/product_model.dart';
 import 'package:latest_payplus_agent/app/models/sell_model.dart';
@@ -75,7 +76,19 @@ class BuySellRepository {
     print('package list: ${response}');
     return CurrentPackageModel.fromJson(response);
   }
-  Future buyPackage(id, pin, packageId, gateway) async {
+
+
+  Future<PopUpImageNotificarionModel> getPopUpImageNotification() async {
+    APIManager _manager = APIManager();
+    final response = await _manager.get("${ApiClient.getPopUpImageNotification}${Get.find<AuthService>().currentUser.value.customerCode.toString()}/Agent",);
+
+    print('notification image popup list: ${response}');
+    return PopUpImageNotificarionModel.fromJson(response);
+  }
+
+
+
+    Future buyPackage(id, pin, packageId, gateway) async {
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(ApiClient.buyPackage,
         {
@@ -240,4 +253,16 @@ class BuySellRepository {
     print('buysell list: ${response}');
     return response;
   }
+
+
+  // test
+
+  Future getAllCompany() async {
+    APIManager _manager = APIManager();
+    final response = await _manager.get("http://192.168.10.209:8000/api/v1/companies/",);
+
+    print('company list: ${response}');
+    return response;
+  }
+
 }

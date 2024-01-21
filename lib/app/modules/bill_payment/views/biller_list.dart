@@ -70,6 +70,8 @@ class BillerList extends GetView {
                               Get.toNamed(Routes.Westzone_Postpaid_From_View, arguments: data);
                             }else if (billerList[index]['bill_code'] == 'palli_bidyut_postpaid') {
                               Get.toNamed(Routes.Reb_Postpaid_Form_View, arguments: data);
+                            }else if (billerList[index]['bill_code'] == 'nesco_postpaid') {
+                              Get.toNamed(Routes.nesco_From_View, arguments: data);
                             }
                             // else if (billerList[index]['bill_code'] ==
                             //     'dhaka_wasa') {

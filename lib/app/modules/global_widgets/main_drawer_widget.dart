@@ -31,7 +31,7 @@ class MainDrawerWidget extends StatelessWidget {
           children: [
             DrawerHeader(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //         Center(
@@ -162,9 +162,7 @@ class MainDrawerWidget extends StatelessWidget {
                   icon: 'assets/drawer/3.png',
                   text: "Report".tr,
                   id: 0,
-                  onTap: (e) async {
-
-                  },
+                  onTap: (e) {},
                 ),
                 expanded: Padding(
                   padding: const EdgeInsets.only(left: 20),
@@ -421,7 +419,7 @@ class MainDrawerWidget extends StatelessWidget {
                       ),
                       DrawerLinkWidget(
                         icon: 'assets/drawer/deactivate_account.png',
-                        text: "App Id: 120".tr,
+                        text: "App Id: 10+33".tr,
                         onTap: (e) {
                           //  Get.toNamed(Routes.DEACTIVATE_ACCCOUNT);
                           // Get.toNamed(Routes.Test);

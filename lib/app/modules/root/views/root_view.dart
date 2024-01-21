@@ -60,10 +60,41 @@ class RootView extends GetView<RootController> {
                     ],
                   ),
                 ),
+                // MaterialButton(
+                //   minWidth: 30,
+                //   onPressed: () {
+                //
+                //     controller.currentIndex.value = 1;
+                //   },
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: <Widget>[
+                //       Image(
+                //         height: 16,
+                //         width: 16,
+                //         image: const AssetImage('assets/icons/gift.png'),
+                //         color: controller.currentIndex.value == 1 ? const Color(0xFF652981) : Colors.grey,
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.only(top: 5),
+                //         child: Text(
+                //           'Offer'.tr,
+                //           style: TextStyle(
+                //             color: controller.currentIndex.value == 1 ? const Color(0xFF652981) : Colors.grey,
+                //             fontWeight: FontWeight.normal,
+                //             fontSize: 12,
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
+
+
                 MaterialButton(
                   minWidth: 30,
                   onPressed: () {
-
                     controller.currentIndex.value = 1;
                   },
                   child: Column(
@@ -72,43 +103,16 @@ class RootView extends GetView<RootController> {
                       Image(
                         height: 16,
                         width: 16,
-                        image: const AssetImage('assets/icons/gift.png'),
-                        color: controller.currentIndex.value == 1 ? const Color(0xFF652981) : Colors.grey,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          'Offer'.tr,
-                          style: TextStyle(
-                            color: controller.currentIndex.value == 1 ? const Color(0xFF652981) : Colors.grey,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                MaterialButton(
-                  minWidth: 30,
-                  onPressed: () {
-                    controller.currentIndex.value = 2;
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image(
-                        height: 16,
-                        width: 16,
                         image: const AssetImage('assets/icons/avatar.png'),
-                        color: controller.currentIndex.value == 2 ? const Color(0xFF652981) : Colors.grey,
+                        color: controller.currentIndex.value == 1 ? const Color(0xFF652981) : Colors.grey,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
                           'Profile'.tr,
                           style: TextStyle(
-                            color: controller.currentIndex.value == 2 ? const Color(0xFF652981) : Colors.grey,
+                            color: controller.currentIndex.value == 1
+                                ? const Color(0xFF652981) : Colors.grey,
                             fontWeight: FontWeight.normal,
                             fontSize: 12,
                           ),

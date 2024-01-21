@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
+import 'package:latest_payplus_agent/app/modules/splashscreen/controllers/splashscreen_controller.dart';
+import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
+import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
@@ -18,12 +22,16 @@ import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:latest_payplus_agent/main.dart';
 import 'package:latest_payplus_agent/service/shared_pref.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class RootController extends GetxController {
   //TODO: Implement RootController
   final currentIndex = 0.obs;
   final notificationType = ''.obs;
-
+  final popNoti = true.obs;
+  final imagePopUrl = "".obs;
+  final imageUrlPop = "".obs;
+  final imageNotificationPopList = <NotiDatum>[].obs;
   @override
   void onInit() {
     super.onInit();
@@ -39,6 +47,9 @@ class RootController extends GetxController {
           fln: flutterLocalNotificationsPlugin);
     }
     advancedStatusCheck();
+//test pop up notification with before date - comment out here and comment in function sharedpreff
+//     SharedPreff.to.prefss.setString(
+//         "popDate", DateTime.now().subtract(Duration(days: 1)).toString());
     loginDuration().then((e) {
       int day = DateTime.parse(DateTime.now().toString())
           .difference(DateTime.parse(e))
@@ -74,6 +85,15 @@ class RootController extends GetxController {
         Get.to(PaymentHistoryView());
         break;
     }
+
+    if (DateTime.parse(SharedPreff.to.prefss.getString("popDate")!).day ==
+        DateTime.now().day) {
+      print(
+          "it will show next day ${SharedPreff.to.prefss.getString("popDate")}");
+    } else {
+      showPopupForImage();
+      print("day is  ${SharedPreff.to.prefss.getString("popDate")}");
+    }
   }
 
   @override
@@ -81,18 +101,20 @@ class RootController extends GetxController {
 
   List<Widget> pages = [
     HomeView(),
-    HomeView(),
-    //OfferView(),
     ProfileView(),
+    //   HomeView(),
+    //OfferView(),
   ];
 
   Widget get currentPage => pages[currentIndex.value];
+
   getAppInformation() async {
     print("calling APp update ++++++++++++++");
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     AppInfoRepository().getAppinfo(packageInfo.version).then((response) async {
       print("working 111 ++++++++++++++");
-      print("hlw response from app update +++++++++++++ $response");
+      print("hlw re"
+          "sponse from app update +++++++++++++ $response");
       if (response[0]['update_required'].toString() == '1') {
         Ui.showAwesomeDialog(
             'INFO',
@@ -115,6 +137,76 @@ class RootController extends GetxController {
 
       throw (onError);
     });
+  }
+
+  showPopupForImage() {
+    SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
+    return showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            //title: Text('Select '),
+            content: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: Get.height * .45,
+                  decoration: BoxDecoration(
+                    color: Get.theme.scaffoldBackgroundColor,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(0),
+                    child: CachedNetworkImage(
+                      imageUrl: SharedPreff.to.prefss
+                          .getString("popImage")
+                          .toString(),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) => Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Image(
+                          image: AssetImage('assets/images/noti.jpeg'),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Image(
+                          image: AssetImage('assets/images/noti.jpeg'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.cancel,
+                        color: Colors.white,
+                      )),
+                )
+              ],
+            )
+            // actions: <Widget>[
+
+            // ],
+            );
+      },
+    );
   }
 
   loginDuration() async {

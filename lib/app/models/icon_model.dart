@@ -55,7 +55,7 @@ List<IconModel> iconButtonData = [
                     .value
                     .data!
                     .allowMoneyout ==
-                1) {
+                0) {
           Get.showSnackbar(Ui.ErrorSnackBar(
               message:
                   "আপনার বর্তমান প্যাকেজটির জন্য এম-ব্যাংকিং সার্ভিস টি অনুমোদিত নয়",
@@ -94,7 +94,7 @@ List<IconModel> iconButtonData = [
       press: () {
         // Get.showSnackbar(
         //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-        //   Get.toNamed(Routes.SALES);
+      //  Get.toNamed(Routes.SALES);
         //  Get.to(SalePage());
       }),
   IconModel(
