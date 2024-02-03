@@ -1,3 +1,4 @@
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/all_notification_model.dart';
 import 'package:latest_payplus_agent/app/models/all_notification_model.dart';
@@ -6,6 +7,7 @@ import 'package:latest_payplus_agent/app/models/transaction_report_model.dart';
 import 'package:latest_payplus_agent/app/models/transaction_type_model.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/widgets/notification_widget.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/widgets/transactions_widget.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/modules/transaction_history/controllers/transaction_history_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/notification_repository.dart';
 
@@ -15,6 +17,8 @@ class InboxController extends GetxController {
   final selectedIndex = 0.obs;
   final notifications = NotificationModel().obs;
   final newNotificationNum = 0.obs;
+  final isIconAnimated = false.obs;
+
 
   final allnotifications = AllNotificationModel().obs;
   final notificationLoaded = false.obs;
@@ -26,13 +30,16 @@ class InboxController extends GetxController {
   final transactionReportLoaded = false.obs;
 
   final selectedType = 0.obs;
-
+  final notiId = 0.obs;
   final pages = [NotificationWidget(), TransactionsWidget()].obs;
+
   @override
   Future<void> onInit() async {
+    Get.put(RechargeController());
     getNotifications();
     //Get.put(TransactionHistoryController());
     await getTransactionReport();
+
     super.onInit();
   }
 
@@ -48,15 +55,17 @@ class InboxController extends GetxController {
   }
 
   changeNotiStatus(noti) async {
-    notificationLoaded.value = false;
+
     NotificationRepository().changeNotificationStatus(noti).then((resp) {
       if (resp['result'] == 'success') {
-        print("status changed");
+        print("status changed $noti");
         getNotifications();
       }
     });
   }
-
+  void toggleIconAnimation() {
+    isIconAnimated.toggle();
+  }
   getallNotifications() async {
     notificationLoaded.value = false;
     NotificationRepository().getAllNotifications().then((resp) {
@@ -99,5 +108,13 @@ class InboxController extends GetxController {
       print('tesssssssssssss : $resp');
       transactionReportLoaded.value = true;
     });
+  }
+}
+
+class AnimationController extends GetxController {
+  RxBool isIconAnimated = false.obs;
+
+  void toggleIconAnimation() {
+    isIconAnimated.toggle();
   }
 }

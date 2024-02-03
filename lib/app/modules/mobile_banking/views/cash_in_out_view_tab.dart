@@ -405,7 +405,7 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                                 .value
                                 .data!
                                 .allowCashout ==
-                            0
+                            1
                         ? Container(
                             height: Get.height * .8,
                             child: Padding(
@@ -416,7 +416,7 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                                     height: 40,
                                   ),
                                   Text(
-                                      "আপনার বর্তমান প্যাকেজটির জন্য এম-ব্যাংকিং Cash In সার্ভিস টি অনুমোদিত নয় ."),
+                                      "আপনার বর্তমান প্যাকেজটির জন্য এম-ব্যাংকিং Cash Out সার্ভিস টি অনুমোদিত নয় ."),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(

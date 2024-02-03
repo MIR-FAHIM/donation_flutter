@@ -244,6 +244,13 @@ class MainDrawerWidget extends StatelessWidget {
                           }
                         },
                       ),
+                      // DrawerLinkWidget(
+                      //   icon: 'assets/drawer/terms.png',
+                      //   text: "Test Module".tr,
+                      //   onTap: (e) async {
+                      //  Get.toNamed(Routes.COLLECTORHOMEPAGE);
+                      //   },
+                      // ),
                       SizedBox(
                         height: 10,
                       ),
@@ -271,14 +278,7 @@ class MainDrawerWidget extends StatelessWidget {
               ),
             ),
 
-            // DrawerLinkWidget(
-            //   icon: 'assets/drawer/2.png',
-            //   text: "Hot".tr,
-            //   onTap: (e) {
-            //     Get.to(Tesst());
-            //     // Get.toNamed(Routes.Test);
-            //   },
-            // ),
+
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: ExpandablePanel(
@@ -414,7 +414,7 @@ class MainDrawerWidget extends StatelessWidget {
                           Get.find<AuthService>().removeCurrentUser();
                           SharedPreff.to.prefss.remove("logindate");
 
-                          Get.offAndToNamed(Routes.LOGIN, arguments: number);
+                          Get.offAndToNamed(Routes.SPLASHSCREEN, arguments: number);
                         },
                       ),
                       DrawerLinkWidget(

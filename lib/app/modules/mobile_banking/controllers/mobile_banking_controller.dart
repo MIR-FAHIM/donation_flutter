@@ -132,6 +132,7 @@ class MobileBankingController extends GetxController
   sendRequestForCashin(String pin, String gateWayId,) async {
     Ui.customLoaderDialog();
     MobileBankingRepository()
+
         .submitCashIn(
         number: numberController.value.text, amount: amountController.value.text, pin: pin , gateWayID:  gateWayId  )
         .then((resp) {
@@ -155,27 +156,54 @@ class MobileBankingController extends GetxController
 //
   sendRequestForCashOut(String pin, String gatewayId, String otp) async {
     Ui.customLoaderDialog();
-    MobileBankingRepository()
-        .submitCashOut(number: numberController.value.text, amount:  amountController.value.text, pin: pin, gateWayID: gatewayId , otp:  otp)
-        .then((resp) {
-      Get.back();
-      if (resp['result'] == 'success') {
-        Get.toNamed(Routes.MBANKINGSUCCESS, arguments: [resp['message'], "Cash Out"],);
-        numberController.value.clear();
-        amountController.value.clear();
-        pinController.value.clear();
-        otpController.value.clear();
+    if(gatewayId == "3"){
+      MobileBankingRepository()
+          .submitRocketCashOut(number: numberController.value.text, amount:  amountController.value.text, pin: pin, gateWayID: gatewayId ,)
+          .then((resp) {
+        Get.back();
+        if (resp['result'] == 'success') {
+          Get.toNamed(Routes.MBANKINGSUCCESS, arguments: [resp['message'], "Cash Out"],);
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
 
-        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
-      } else {
-        Get.toNamed(Routes.MBANKINGFAIL, arguments: [resp['message'], "Cash Out"]);
-        //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
-        numberController.value.clear();
-        amountController.value.clear();
-        pinController.value.clear();
-        otpController.value.clear();
-      }
-    }).catchError((onError) {});
+          //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+        }
+        else {
+          Get.toNamed(Routes.MBANKINGFAIL, arguments: [resp['message'], "Cash Out"]);
+          //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+        }
+      }).catchError((onError) {});
+
+    }else{
+      MobileBankingRepository()
+          .submitCashOut(number: numberController.value.text, amount:  amountController.value.text, pin: pin, gateWayID: gatewayId , otp:  otp)
+          .then((resp) {
+        Get.back();
+        if (resp['result'] == 'success') {
+          Get.toNamed(Routes.MBANKINGSUCCESS, arguments: [resp['message'], "Cash Out"],);
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+
+          //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+        } else {
+          Get.toNamed(Routes.MBANKINGFAIL, arguments: [resp['message'], "Cash Out"]);
+          //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+        }
+      }).catchError((onError) {});
+    }
+
   }
 
 
@@ -202,6 +230,8 @@ class MobileBankingController extends GetxController
         numberController.value.clear();
         amountController.value.clear();
         pinController.value.clear();
+
+
         //Get.toNamed(Routes.MBANKINGNUMAMOUNT);
       }
     }).catchError((onError) {});

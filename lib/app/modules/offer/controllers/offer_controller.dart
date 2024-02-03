@@ -9,6 +9,7 @@ class OfferController extends GetxController {
 
   final offerBanner = <AdBannerModel>[].obs;
   final offerBannerLoaded = false.obs;
+  final isCollector = false.obs;
   //card color list
   List<Color> cardColorList = [
     Colors.purpleAccent.withOpacity(0.7),
@@ -38,10 +39,10 @@ class OfferController extends GetxController {
 
   //shop Name List
 
-  List shopName = ["Lorem Shop", "Ipsum Shop", "Dolor Shop", "Amet Shop"];
+  List shopName = ["Fahim Rahman", "Abdur Rahim", "Dolor Shop", "Shafiq"];
 
   //coupon String list
-  List couponString = ["18 Coupon", "12 Coupon", "21 Coupon", "19 Coupon"];
+  List couponString = ["700 tk", "1500  tk", "400 tk", "300 tk"];
   @override
   void onInit() {
     super.onInit();

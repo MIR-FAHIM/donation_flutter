@@ -9,6 +9,7 @@ class ApiClient {
       '${baseUrl}api/appapi/myNotifications/changeStatus';
 
   static const String baseUrl = 'https://shl.com.bd/';
+  static const String newBaseUrl = 'https://new.shl.com.bd/';
   static const String busStationList =
       "${baseUrl}api/appapi/ticketing/bus/all/station-list";
   static const String coachList =
@@ -262,6 +263,7 @@ class ApiClient {
       '${baseUrl}api/appapi/billpay/bill-payment-receipt';
 
   static const String cashin = '${baseUrl}api/appapi/mbanking/cashin';
+  static const String cashInTest = '${baseUrl}/api/appapi/mbanking/cashin';
 
   static const String cashout = '${baseUrl}api/appapi/mbanking/cashout';
   static const String moneyTransfer =

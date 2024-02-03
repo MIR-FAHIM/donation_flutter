@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/payment_collection/controllers/payment_collection_controller.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/recharge_report_controller.dart';
+import 'package:latest_payplus_agent/app/modules/recharge_report_number_check/controllers/number_check_controller.dart';
 
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/notificationlocal.dart';
@@ -53,7 +55,7 @@ class FireBaseMessagingService extends GetxService {
             ? message.data['notification_type'].toString()
             : message.data['notification_sub_type'].toString();
         print(
-            'FireBaseMessagingService.firebaseCloudMessagingListeners 1:${message.data['notification_type']}');
+            'i am in get initial message function:${message.data['notification_type']}');
 
         // flutterLocalNotificationsPlugin.show(
         //     message.data.hashCode,
@@ -92,8 +94,7 @@ class FireBaseMessagingService extends GetxService {
       RemoteNotification notification = message.notification!;
       print(notification.title!);
 
-      print(
-          'FireBaseMessagingService.firebaseCloudMessagingListeners:${message.data['notification_type']}');
+      print('I am in on message function:${message.data['notification_type']}');
       //new added
       // NotificationLocal.showBigTextNotification(title: notification.title!, body: "hlw",
       //     fln: flutterLocalNotificationsPlugin, payload:"3" );
@@ -117,7 +118,11 @@ class FireBaseMessagingService extends GetxService {
         ),
         payload: notification.title!.contains("Robi Recharge")
             ? notification.body!
-            : message.data['notification_type'].toString(),
+            : notification.title!.contains("Airtel Recharge")
+                ? notification.body!
+                : notification.title!.contains("Teletalk Recharge")
+                    ? notification.body!
+                    : message.data['notification_type'].toString(),
       );
       Get.find<InboxController>().getNotifications();
       // print('get notificationbody is 1:${notification.body!}');
@@ -144,18 +149,20 @@ class FireBaseMessagingService extends GetxService {
       //   }
       // }
     });
-    print("hlw noti 66666666 ");
+    print("starting on message opened app function ++++++++++++++++++++++ ");
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print("hlw noti 5555555 ");
+      print("i am in on message opened app function ");
       RemoteNotification notification = message.notification!;
+      String? payloadOfOpenedApp =
+          message.data['notification_type']?.toString() ?? '';
 
       // Get.showSnackbar(Ui.notificationSnackBar(
       //   title: notification.title!,
       //   message: notification.body!,
       // ));
       print(
-          'FireBaseMessagingService.firebaseCloudMessagingListeners 2:${message.data['notification_type']}');
-      print("hlw noti 7777777 ");
+          'on message opened app ${payloadOfOpenedApp} : ${message.notification!.title!}');
+      print("on message opened app 7777777 ");
       // flutterLocalNotificationsPlugin.show(
       //     message.data.hashCode,
       //     notification.title!,
@@ -170,13 +177,14 @@ class FireBaseMessagingService extends GetxService {
       //         // icon: message.notification!.android!.smallIcon,
       //       ),
       //     ));
-      print("hlw noti 1111111 ");
+
       Map data = {"msg": "hlw"};
       if (message.data.isNotEmpty) {
         Get.put(InboxController());
         Get.find<InboxController>().getNotifications();
 
-        print("bro my push notification type is ${message.data['notification_type'].toString()}");
+        print(
+            "bro my push notification type is ${message.data['notification_type'].toString()}");
         print(
             'FireBaseMessagingService.firebaseCloudMessagingListeners my notification type is ++++++++ ${message.data['notification_type'].toString()} is bro ${message.messageType} +++++++++: ${message.data['notification_type'].runtimeType}');
         if (message.data['notification_type'].toString() == '1') {
@@ -187,11 +195,14 @@ class FireBaseMessagingService extends GetxService {
         }
 
         if (message.data['notification_type'].toString() == '2') {
-
-          Get.put(RechargeReportController());
-          Get.find<RechargeReportController>().getRechargeReport();
-          Get.toNamed(Routes.RECHARGE_REPORT,
+          Get.put(NumberCheckController());
+          Get.find<NumberCheckController>().getRechargeReportAll();
+          Get.toNamed(Routes.NUMBER_CHECK,
               arguments: message.data['notification_type'].toString());
+        }
+        if (message.data['notification_type'] == null) {
+          Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
+              arguments: [notification.body, "mir"]);
         }
         if (message.data['notification_type'].toString() == '3') {
           print("hlw noti 22222 ");
@@ -213,12 +224,60 @@ class FireBaseMessagingService extends GetxService {
               arguments: [notification.body, "mir"]);
         }
       } else {
-        print("hlw noti 44444444 ");
+        print("on message opened app is not empty 44444444 ");
         if (notification.title!.contains("Payment Notification")) {
           Get.toNamed(Routes.COLLECTION,
               arguments: message.data['notification_type'].toString());
+        } else if (notification.title!
+            .contains("Robi Recharge Request from PayPos")) {
+
+          Get.put(RechargeController());
+          extractNumbersFromString(notification.body!).then((e) {
+            Get.put(RechargeController());
+            Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
+              numbers[0],
+              numbers[1],
+              numbers[2],
+
+            ]);
+          });
+
+        } else if (notification.title!
+            .contains("Airtel Recharge Request from PayPos")) {
+          Get.put(RechargeController());
+          extractNumbersFromString(notification.body!).then((e) {
+            Get.put(RechargeController());
+            Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
+              numbers[0],
+              numbers[1],
+              numbers[2],
+
+            ]);
+          });
+        } else if (notification.title!
+            .contains("Teletalk Recharge Request from PayPos")) {
+          print("i am here +++++");
+          Get.put(RechargeController());
+          extractNumbersFromString(notification.body!).then((e) {
+            Get.put(RechargeController());
+            Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
+              numbers[0],
+              numbers[1],
+              numbers[2],
+
+            ]);
+          });
         } else {
-          print("image notification ++++++++++++++");
+          print("i am here in else on message opened app");
+          if (notification.title!
+              .contains("Teletalk Recharge Request from PayPos")) {
+            print(
+                "i am here in elseon message opened app  ${notification.body}");
+            Get.put(RechargeController());
+            Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
+                arguments: [notification.body, "push"]);
+          }
+          print("image notification ${notification.title}++++++++++++++");
           // Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
           //     arguments: [notification.body, "push"]);
           Get.put(InboxController());
@@ -226,6 +285,7 @@ class FireBaseMessagingService extends GetxService {
           Get.toNamed(
             Routes.Notification_View,
           );
+          print("am i here on message opened app?????");
         }
       }
     });
@@ -236,23 +296,45 @@ class FireBaseMessagingService extends GetxService {
         (await FirebaseMessaging.instance.getToken())!;
   }
 
-  void onSelectNotification(String? payload) async {
-    print("My Payload is $payload");
-    // final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-    //     await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  Future<bool> extractNumbersFromString(String input) async  {
+    RegExp regExp = RegExp(r'\d+');
+     numbers =
+        regExp.allMatches(input).map((match) => match.group(0)).toList();
+  return true;
 
+  }
+
+  void onSelectNotification(String? payload) async {
+    print("I am in onselect notification function $payload");
+
+    if (payload!.contains("Request amount")) {
+      print(
+          "i am here in else Request amount onSelectNotification ++++++++++ ${payload!}");
+      extractNumbersFromString(payload!).then((e) {
+        Get.put(RechargeController());
+        Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
+          numbers[0],
+          numbers[1],
+          numbers[2],
+
+        ]);
+      });
+    }
     if (payload == "3") {
       Get.toNamed(Routes.COLLECTION);
-    } else if (payload == "2") {
+    }
+    if (payload == "2") {
       Get.toNamed(
-        Routes.RECHARGE_REPORT,
-      );
-    } else {
-      print("my payload is $payload");
-      Get.toNamed(
-        Routes.Notification_View,
+        Routes.NUMBER_CHECK,
       );
     }
+    // else {
+    //   print("my payload else onSelectNotification$payload");
+    //   Get.toNamed(
+    //     Routes.Notification_View,
+    //   );
+    //   print("onSelectNotification am i here in last?????");
+    // }
 
     // Map notificationModelMap = jsonDecode(payload!);
   }

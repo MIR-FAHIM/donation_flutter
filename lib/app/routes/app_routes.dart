@@ -154,8 +154,13 @@ abstract class Routes {
   static const MBANKINGFAIL = _Paths.MBANKINGFAIL;
 
   static const NOTIDETAILS = _Paths.NOTIDETAILS;
+  static const ADDPAYER = _Paths.ADDPAYER;
 
   static const CONFIRM_BANK_PAY = _Paths.CONFIRM_BANK_PAY;
+  static const COLLECTORHOMEPAGE = _Paths.COLLECTORHOMEPAGE;
+  static const ADDCOLLECTIONFORM = _Paths.ADDCOLLECTIONFORM;
+  static const USERTYPE = _Paths.USERTYPE;
+  static const PAYERVIEW = _Paths.PAYERVIEW;
   static const MOBILE_BANK_TRANSACTION_HISTORY =
       _Paths.MOBILE_BANK_TRANSACTION_HISTORY;
 }
@@ -168,10 +173,14 @@ abstract class _Paths {
   static const NEWNID = '/new-nid';
   static const DESCOPREPAIDDETAILS = '/desco-pre-details';
   static const REPORTANALITYC = '/report-analytic';
+  static const ADDPAYER = '/add-payer';
+  static const USERTYPE = '/USER-TYPE';
+  static const PAYERVIEW = '/payer-view';
 
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
   static const NEWSIGNUP = '/new-signup';
+  static const ADDCOLLECTIONFORM = '/add-collection-form';
 
   static const ROOT = '/root';
   static const TASKD = '/root';
@@ -252,6 +261,7 @@ abstract class _Paths {
   static const Forget_password = '/forget-password';
   static const Forget_pass_otp = '/forget-pass-otp';
   static const NOTIDETAILS = '/noti-details';
+  static const COLLECTORHOMEPAGE = '/collector-home-page';
 
 
   static const Due_DashBoard = '/due-dashboard';

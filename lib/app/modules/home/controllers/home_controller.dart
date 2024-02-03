@@ -42,6 +42,7 @@ class HomeController extends GetxController {
   final AdBannerLoad = false.obs;
   final box = GetStorage().obs;
   final   contactsResult = <Contact>[].obs;
+  final   paymentCollectionModel = <PaymentCollectModel>[].obs;
   // PickedFile? imageFile = null.obs as PickedFile?;
 
   // void _openCamera() async {
@@ -162,6 +163,7 @@ class HomeController extends GetxController {
   // profile info
   getProfileInfo() async {
     BalanceCheckRepository().getProfileInfo().then((resp) {
+      print("my profile info is $resp");
       profileInfoModel.value = resp;
     });
   }
@@ -224,4 +226,12 @@ class HomeController extends GetxController {
 
     super.onReady();
   }
+}
+
+
+class PaymentCollectModel {
+  String? title;
+  String? amount;
+  String? totalUser;
+  PaymentCollectModel({this.amount, this.title, this.totalUser});
 }

@@ -162,7 +162,8 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
                   child: DropdownButton<BoxOption>(
                     isExpanded: true,
                     underline: SizedBox(),
-                    icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).accentColor),
+                    icon: Icon(Icons.arrow_drop_down,
+                        color: Theme.of(context).accentColor),
                     value: _selectedbox,
                     items: _boxItems,
                     hint: Text('Select bill'),
@@ -180,49 +181,59 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
               BlockButtonWidget(
                 onPressed: () {
                   // Get.to(DescoPostpaidBillView());
+                  if (ph_number.length == 11) {
+                    var result;
+                    var data;
+                    var datas;
+                    double total;
+                    var ref;
 
-                  var result;
-                  var data;
-                  var datas;
-                  double total;
-                  var ref;
+                    var res =
+                        getBillDetail(acc_number, ph_number, _selectedbox.key);
+                    Ui.customLoaderDialog();
 
-                  var res = getBillDetail(acc_number, ph_number, _selectedbox.key);
-                  Ui.customLoaderDialog();
+                    _selectedbox.key == '1'
+                        ? ErrorBillerType()
+                        : res.then((value) => {
+                              Get.back(),
+                              result = value['result'],
+                              data = value['data'],
+                              ref = value['bill_ref'],
+                              if (value['result'] == 'success')
+                                {
+                                  // Ui.SuccessSnackBar(message: value['result']),
 
-                  _selectedbox.key == '1'
-                      ? ErrorBillerType()
-                      : res.then((value) => {
-                            Get.back(),
-                            result = value['result'],
-                            data = value['data'],
-                            ref = value['bill_ref'],
-                            if (value['result'] == 'success')
-                              {
-                                // Ui.SuccessSnackBar(message: value['result']),
-
-                                datas = {
-                                  "title": _title,
-                                  "images": _images,
-                                  "bllr_accno": data['biller_acc_no'],
-                                  "bll_mobno": data['biller_mobile'],
-                                  "bll_typ": _selectedbox.key,
-                                  "bll_amnt": data['bill_amount'],
-                                  "bll_amnt_ttl": double.parse(data['bill_amount'].toString()) +
-                                      double.parse(data['bill_late_fee'].toString()) +
-                                      double.parse(data['ekpay_fee'].toString()),
-                                  "is_bll_pd": data['is_bill_paid'],
-                                  "bll_late_fee": data['bill_late_fee'],
-                                  "ekpay_fee": data['ekpay_fee'],
-                                  "bllr_id": data['bllr_id'],
-                                  "bill_payment_id": ref['bill_payment_id'],
-                                  "bill_refer_id": ref['bill_refer_id'],
-                                },
-                                Get.to(JalalabadBillView(), arguments: datas)
-                              }
-                            else
-                              Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'Failed'.tr))
-                          });
+                                  datas = {
+                                    "title": _title,
+                                    "images": _images,
+                                    "bllr_accno": data['biller_acc_no'],
+                                    "bll_mobno": data['biller_mobile'],
+                                    "bll_typ": _selectedbox.key,
+                                    "bll_amnt": data['bill_amount'],
+                                    "bll_amnt_ttl": double.parse(
+                                            data['bill_amount'].toString()) +
+                                        double.parse(
+                                            data['bill_late_fee'].toString()) +
+                                        double.parse(
+                                            data['ekpay_fee'].toString()),
+                                    "is_bll_pd": data['is_bill_paid'],
+                                    "bll_late_fee": data['bill_late_fee'],
+                                    "ekpay_fee": data['ekpay_fee'],
+                                    "bllr_id": data['bllr_id'],
+                                    "bill_payment_id": ref['bill_payment_id'],
+                                    "bill_refer_id": ref['bill_refer_id'],
+                                  },
+                                  Get.to(JalalabadBillView(), arguments: datas)
+                                }
+                              else
+                                Get.showSnackbar(Ui.ErrorSnackBar(
+                                    message: value['message'],
+                                    title: 'Failed'.tr))
+                            });
+                  } else {
+                    Get.showSnackbar(Ui.ErrorSnackBar(
+                        message: "Phone no not valid", title: 'Failed'.tr));
+                  }
                 },
                 color: Color(0xFF652981),
                 text: Text(
@@ -235,7 +246,8 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
         ));
   }
 
-  Future<Map<dynamic, dynamic>> getBillDetail(String accNumber, String phNumber, String billType) async {
+  Future<Map<dynamic, dynamic>> getBillDetail(
+      String accNumber, String phNumber, String billType) async {
     print(accNumber);
     print(phNumber);
     print(billType);
@@ -249,7 +261,9 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: {'token': Get.find<AuthService>().currentUser.value.token!}, body: data);
+    var response = await http.post(Uri.parse(url),
+        headers: {'token': Get.find<AuthService>().currentUser.value.token!},
+        body: data);
     var resp = json.decode(response.body);
     print('Bill Detail : $resp');
     return resp;
@@ -257,7 +271,8 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
 
   ErrorBillerType() {
     Get.back();
-    Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please Select Biller Type', title: 'Failed'.tr));
+    Get.showSnackbar(Ui.ErrorSnackBar(
+        message: 'Please Select Biller Type', title: 'Failed'.tr));
   }
 }
 

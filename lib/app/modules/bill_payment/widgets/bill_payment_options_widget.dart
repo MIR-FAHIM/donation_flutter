@@ -6,6 +6,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/widgets/billpay_card_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
@@ -95,13 +96,13 @@ class BillPaymentOptionWidget extends GetWidget {
           }),
     );
   }
-
+//1002036521355
   Future<Map<dynamic, dynamic>> postRequest() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     var headers = {'token': token};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/bill-type';
+    var url = '${ApiClient.baseUrl}api/appapi/billpay/bill-type';
 
     // var url =
     //     'http://103.219.160.235:8989/paystation/public/api/appapi/billpay/bill-type';

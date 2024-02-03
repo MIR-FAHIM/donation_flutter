@@ -7,6 +7,7 @@ import 'package:latest_payplus_agent/app/models/operator_model.dart';
 import 'package:latest_payplus_agent/app/models/package_model.dart';
 import 'package:latest_payplus_agent/app/models/recharge/robiairtelmodel.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
+import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/amount_recharge_widget.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/bundle_widget.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/cash_back_widget.dart';
@@ -139,6 +140,7 @@ class RechargeController extends GetxController {
   @override
   void onInit() {
     // getPhoneContact();
+
 
     getCashBackOffer();
 
@@ -390,11 +392,13 @@ class RechargeController extends GetxController {
             rechargeCom: robiRechargeCom.value)
         .then((resp) {
       if (resp['result'] == 'success') {
+        Get.find<InboxController>().changeNotiStatus(Get.find<InboxController>().notiId);
         rechargeLoad.value = false;
         // Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
         pinPage.value = false;
         rechargeLoad.value = false;
         Map data = {"result": resp['result'], "message": resp['message']};
+
         // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
         Get.offNamed(Routes.ROBIRECHARGESUCCESS, arguments: data);
       } else {
@@ -425,32 +429,34 @@ class RechargeController extends GetxController {
     });
   }
 
-  rechargeFromNotification() async {
-    print(number_type.value);
-    print(rechargeNumberController.value.text);
-    print(amountController.value.text);
-    print(simOperator.value);
-    print(pinNumber.value);
-    print("my num code is ${rechargeNumber.value.substring(0, 3)}");
-    getOperatorId(rechargeNumber.value.substring(0, 3));
+  rechargeFromNotification(String num, String amount ) async {
+    // print(number_type.value);
+    // print(rechargeNumberController.value.text);
+    // print(amountController.value.text);
+    // print(simOperator.value);
+    // print(pinNumber.value);
+    // print("my num code is ${rechargeNumber.value.substring(0, 3)}");
+    getOperatorId(num.substring(0, 3));
     // Get.focusScope!.unfocus();
     // pinFocusFocus.dispose();
     Ui.customLoaderDialog();
 
     RechargeRepository()
-        .recharge(rechargeNumber.value, amount.value, simOperator.value,
+        .recharge(num, amount, simOperator.value,
             number_type.value, pinNumber.value)
         .then((resp) {
       print('Recharge Response :  $resp');
 
       if (resp['result'] == 'failed') {
-        Get.back();
+      //  Get.back();
+        Get.toNamed(Routes.RECHARGE);
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Failed", body: resp['message'], fln: flutterLocalNotificationsPlugin);
 
         Get.showSnackbar(
             Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       } else {
+        Get.find<InboxController>().changeNotiStatus(Get.find<InboxController>().notiId);
         // refresh();
         Map data = {
           "status_code": resp['status_code'].toString(),

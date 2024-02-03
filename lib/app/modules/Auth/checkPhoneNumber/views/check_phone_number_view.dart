@@ -7,15 +7,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/Page/termandcondition.dart';
 import 'package:latest_payplus_agent/app/models/icon_model.dart';
-import 'package:latest_payplus_agent/app/models/registration_payment_info_model.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/firebase_analytic.dart';
 import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
-
-import 'package:url_launcher/url_launcher.dart';
-
 import '../controllers/check_phone_number_controller.dart';
 
 class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
@@ -97,9 +91,15 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                               // print(controller.textEditingController.text.substring(0, 3));
                               for (var item in simOperators) {
                                 print(item.title);
-                                if (controller.textEditingController.text.length > 3) {
-                                  if (controller.textEditingController.text.substring(0, 3) == item.title) {
-                                    print(controller.textEditingController.text.substring(0, 3) == item.title);
+                                if (controller
+                                        .textEditingController.text.length >
+                                    3) {
+                                  if (controller.textEditingController.text
+                                          .substring(0, 3) ==
+                                      item.title) {
+                                    print(controller.textEditingController.text
+                                            .substring(0, 3) ==
+                                        item.title);
                                     controller.simOperator.value = item.image!;
                                   }
                                 }
@@ -110,7 +110,9 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                               //     ? "Should be valid mobile number with country code"
                               //     : null;
 
-                              return input!.length < 11 || input.length > 11 ? 'Please enter valid number' : null;
+                              return input!.length < 11 || input.length > 11
+                                  ? 'Please enter valid number'
+                                  : null;
                             },
                             imageData: 'assets/icons/number_pad.png',
                           ),
@@ -124,10 +126,11 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                 child: Center(
                                   child: CheckboxListTile(
                                     title: GestureDetector(
-                                      onTap: (){
+                                      onTap: () {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
-                                            builder: (builder) => TermAndCOndition(),
+                                            builder: (builder) =>
+                                                TermAndCOndition(),
                                           ),
                                         );
                                       },
@@ -141,29 +144,23 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                     ),
                                     value: controller.checkTerm.value,
                                     onChanged: (newValue) {
-
-
-                                       controller.checkTerm.value = newValue!;
+                                      controller.checkTerm.value = newValue!;
                                       // print("my term $newValue and check ${controller.checkTerm.value}");
-
                                     },
                                     controlAffinity: ListTileControlAffinity
                                         .leading, //  <-- leading Checkbox
                                   ),
                                 ),
                               ),
-
                             ],
                           ),
                           InkWell(
                             onTap: () {
-                              if(controller.checkTerm.value == true){
-
+                              if (controller.checkTerm.value == true) {
                                 controller.checkNumberDuplicacy();
-                              }else {
+                              } else {
                                 final snackBar = SnackBar(
-
-                                  content:  Text(
+                                  content: Text(
                                       'User must agree on Terms and Condition!'),
                                   action: SnackBarAction(
                                     label: 'Undo',
@@ -173,9 +170,9 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                   ),
                                 );
 
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               }
-
                             },
                             child: Container(
                               // width: MediaQuery.of(context).size.width * 0.17,
@@ -187,16 +184,23 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                 color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.circular(200),
                                 boxShadow: [
-                                  BoxShadow(color: Color(0xFF652981).withOpacity(0.4), blurRadius: 6, spreadRadius: 1, offset: Offset(0, 4)),
+                                  BoxShadow(
+                                      color: Color(0xFF652981).withOpacity(0.4),
+                                      blurRadius: 6,
+                                      spreadRadius: 1,
+                                      offset: Offset(0, 4)),
                                 ],
                               ),
                               child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.1,
-                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
                                   padding: const EdgeInsets.all(15),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage('assets/images/arrow_for.png'),
+                                      image: AssetImage(
+                                          'assets/images/arrow_for.png'),
                                       fit: BoxFit.contain,
                                     ),
                                   )),
@@ -223,5 +227,4 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
       }),
     );
   }
-
 }

@@ -268,7 +268,7 @@ class MBankingPinView extends GetView<MobileBankingController> {
                       ),
                     ),
 
-                    controller.currentTabIndex.value == 1
+                    controller.currentTabIndex.value == 1 && controller.gateWayID.value == "5"
                         ? Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Container(

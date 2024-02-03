@@ -14,6 +14,7 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_postpaid_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_form.dart';
+import 'package:latest_payplus_agent/app/modules/collectorApp/view/home_page_c.dart';
 import 'package:latest_payplus_agent/app/modules/daily_report/views/report_analytic.dart';
 import 'package:latest_payplus_agent/app/modules/demo/task_dashboard.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/bindings/bus_ticket_binding.dart';
@@ -24,6 +25,9 @@ import 'package:latest_payplus_agent/app/modules/mobile_banking/views/failed_pag
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/m_banking_pin_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/succes_page.dart';
 import 'package:latest_payplus_agent/app/modules/notifications/notification_view_details.dart';
+import 'package:latest_payplus_agent/app/modules/offer/views/add_payer.dart';
+import 'package:latest_payplus_agent/app/modules/offer/views/payer_view.dart';
+import 'package:latest_payplus_agent/app/modules/offer/views/user_type.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/pay_now_option.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_package.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
@@ -205,6 +209,11 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.COLLECTORHOMEPAGE,
+      page: () => CollectorHomePage(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -797,6 +806,21 @@ class AppPages {
     GetPage(
       name: _Paths.OFFER,
       page: () => const OfferView(),
+      binding: OfferBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDPAYER,
+      page: () => const AddPayer(),
+      binding: OfferBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYERVIEW,
+      page: () => const PayerView(),
+      binding: OfferBinding(),
+    ),
+    GetPage(
+      name: _Paths.USERTYPE,
+      page: () => const UserType(),
       binding: OfferBinding(),
     ),
     GetPage(

@@ -12,20 +12,6 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
-    if(Get.arguments[1] == "push"){
-      List<String?> numbers = controller.extractNumbersFromString(Get.arguments[0]);
-      controller.rechargeNumber.value = numbers[1]!;
-      controller.amount.value = numbers[0]!;
-      controller.commission.value = numbers[2]!;
-    }
-    print('Recharge number : ${controller.rechargeNumber.value}, amount is +++ ${controller.amount.value}');
-
-
-
-
-    print('cashback amount : ${controller.cashBackAmount.value}');
-
-    // print('cashback amount : ${controller.amountController.clear}');
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -52,6 +38,25 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
           ),
         ),
         body: Obx(() {
+
+          // if(Get.arguments[1] == "push"){
+          //   print("my argument request ${Get.arguments[0]}");
+          //   List<String?> numbers = controller.extractNumbersFromString(Get.arguments[0]);
+          //   controller.amount.value = numbers[0]!;
+          //   controller.rechargeNumber.value = numbers[1]!;
+          //
+          //   controller.commission.value = numbers[2]!;
+          //
+          //
+          // }
+          // print('Recharge number : ${controller.rechargeNumber.value}, amount is +++ ${controller.amount.value}');
+          //
+          //
+          //
+          //
+          // print('cashback amount : ${controller.cashBackAmount.value}');
+          //
+          // // print('cashback amount : ${controller.amountController.clear}');
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Container(
@@ -175,7 +180,7 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
                                                 width: _size.width * .5,
                                                 child: TextFormField(
                                                   keyboardType: TextInputType.phone,
-                                                  initialValue: controller.rechargeNumber.value,
+                                                  initialValue: Get.arguments[1],
                                                   validator: (input) => input!.length < 11 ? 'Please provide valid phone number' : null,
                                                   style: const TextStyle(
                                                     fontSize: 20.0,
@@ -260,7 +265,8 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
                                         Center(
                                           child: Text(
                                             //                                            '৳ ${controller.amountController.text}',
-                                            '৳ ${controller.amount.value}',
+                                            //'৳ ${controller.amount.value}',
+                                            '৳ ${Get.arguments[0]}',
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -295,7 +301,7 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
                                         ),
                                         Center(
                                           child: Text(
-                                            '৳ ${(int.parse(controller.amount.value) * int.parse(controller.commission.value))/ 100}',
+                                            '৳ ${(int.parse(Get.arguments[0]) * int.parse(Get.arguments[2]))/ 100}',
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
@@ -675,7 +681,7 @@ class RechargePINViewFromNotification extends GetView<RechargeController> {
 
                                 suffixIcon: IconButton(
                                   onPressed: () {
-                                    controller.rechargeFromNotification();
+                                    controller.rechargeFromNotification(Get.arguments[1]!,Get.arguments[0]!);
                                     print("sahed");
                                     controller.pinController.value.clear();
                                   },

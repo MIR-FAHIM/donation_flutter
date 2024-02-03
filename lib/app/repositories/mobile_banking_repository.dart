@@ -18,7 +18,7 @@ class MobileBankingRepository {
 
     var headers = {'token': token};
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.cashin, body, headers);
+    final response = await _manager.postAPICallWithHeader( ApiClient.cashInTest, body, headers);
 
     print('cashin: ${response}');
 
@@ -29,14 +29,33 @@ class MobileBankingRepository {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map body = {
-      'number': number,
+      'number': "019186420758",
       'amount': amount,
       'pin': pin,
       "gateway_id" : gateWayID,
       "otp" : otp
     };
 
-    var headers = {'token': token};
+    var headers = {'token': "c"};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(ApiClient.cashout, body, headers);
+
+    print('cashout: ${response}');
+
+    return response;
+  }
+  Future submitRocketCashOut({String? number, String? amount, String? pin, String? gateWayID,}) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    Map body = {
+      'number': "019186420758",
+      'amount': amount,
+      'pin': pin,
+      "gateway_id" : gateWayID,
+
+    };
+
+    var headers = {'token': "jdMSmZ7wc0fvo9NyGShtUgVpeouEOQO5qbFKo7VL"};
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(ApiClient.cashout, body, headers);
 

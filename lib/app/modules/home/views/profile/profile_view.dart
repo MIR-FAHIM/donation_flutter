@@ -15,6 +15,8 @@ import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/color_constant_custom.dart';
 import 'package:latest_payplus_agent/common/custom_widget/custom_widget.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:latest_payplus_agent/service/shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:velocity_x/velocity_x.dart';
@@ -156,7 +158,7 @@ class ProfileView extends GetView<HomeController> {
                             ],
                           ),
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               controller.getAllCompany();
                             },
                             child: SizedBox(
@@ -324,7 +326,8 @@ class ProfileView extends GetView<HomeController> {
                                 children: [
                                   30.heightBox,
 
-                                  "Profile Information".tr
+                                  "Profile Information"
+                                      .tr
                                       .text
                                       .size(16)
                                       .color(blackC)
@@ -339,7 +342,7 @@ class ProfileView extends GetView<HomeController> {
                                       keyboardType: TextInputType.number,
                                       obsecure: false,
                                       hint: controller.profileInfoModel.value
-                                                  .data!.customerName ==
+                                                  .data ==
                                               null
                                           ? "No Data"
                                           : controller.profileInfoModel.value
@@ -383,7 +386,7 @@ class ProfileView extends GetView<HomeController> {
                                       keyboardType: TextInputType.number,
                                       obsecure: false,
                                       hint: controller.profileInfoModel.value
-                                                  .data!.outletAddress ==
+                                                  .data ==
                                               null
                                           ? "No Data"
                                           : controller.profileInfoModel.value
@@ -399,9 +402,7 @@ class ProfileView extends GetView<HomeController> {
                                       keyboardType: TextInputType.text,
                                       title: "Email".tr,
                                       obsecure: false,
-                                      hint: controller.profileInfoModel.value
-                                                  .data!.email ==
-                                              null
+                                      hint: controller.profileInfoModel.value.data!.email == null
                                           ? "No Data"
                                           : controller.profileInfoModel.value
                                               .data!.email,
@@ -501,10 +502,21 @@ class ProfileView extends GetView<HomeController> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
-                        onTap: () {
-                          // Get.find<AuthService>()
-                          //     .removeCurrentUser();
-                          // Get.toNamed(Routes.SPLASHSCREEN);
+                        onTap: () async {
+                          SharedPreferences saveimage =
+                              await SharedPreferences.getInstance();
+                          final success = await saveimage.remove('imagepath');
+                          // userdata.remove('imeiNumber');
+                          // userdata.remove('mobile_number');
+                          String number = Get.find<AuthService>()
+                              .currentUser
+                              .value
+                              .mobileNumber!;
+                          Get.find<AuthService>().removeCurrentUser();
+                          SharedPreff.to.prefss.remove("logindate");
+
+                          Get.offAndToNamed(Routes.SPLASHSCREEN,
+                              arguments: number);
                         },
                         child: Text(
                           "Log out",

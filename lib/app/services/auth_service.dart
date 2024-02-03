@@ -46,6 +46,7 @@ class AuthService extends GetxService {
     }
   }
 
+
   Future getUsed() async {
     if (_box.hasData('used')) {
       used.value = await _box.read('used');
@@ -61,6 +62,7 @@ class AuthService extends GetxService {
 
   Future removeCurrentUser() async {
     currentUser.value = CustomerModel();
+    await _box.remove('alreadyLogged');
     await _box.remove('current_user');
   }
 

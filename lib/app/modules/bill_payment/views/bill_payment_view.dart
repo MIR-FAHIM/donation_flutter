@@ -116,36 +116,36 @@ class BillPaymentView extends GetView<BillPaymentController> {
                       const SizedBox(
                         width: 10,
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: _size.width * .2,
-                          width: _size.width * .4,
-                          decoration: Ui.getBoxDecoration(
-                              color: Colors.white, radius: 10),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  'assets/bill/Rosid.png',
-                                  height: 30,
-                                  width: 30,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Center(
-                                  child: Text(
-                                    'Receipt'.tr,
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     height: _size.width * .2,
+                      //     width: _size.width * .4,
+                      //     decoration: Ui.getBoxDecoration(
+                      //         color: Colors.white, radius: 10),
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: Row(
+                      //         children: [
+                      //           Image.asset(
+                      //             'assets/bill/Rosid.png',
+                      //             height: 30,
+                      //             width: 30,
+                      //           ),
+                      //           const SizedBox(
+                      //             width: 10,
+                      //           ),
+                      //           Center(
+                      //             child: Text(
+                      //               'Receipt'.tr,
+                      //               style: const TextStyle(color: Colors.black),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

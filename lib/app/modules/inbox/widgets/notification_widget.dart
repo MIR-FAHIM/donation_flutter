@@ -31,31 +31,28 @@ class NotificationWidget extends GetWidget<InboxController> {
                       if (controller.notifications.value.data![index].title! ==
                               "Robi Recharge Request from PayPos" ||
                           controller.notifications.value.data![index].title! ==
-                              "Airtel Recharge Request from PayPos") {
+                              "Airtel Recharge Request from PayPos" ||
+                          controller.notifications.value.data![index].title! ==
+                              "Teletalk Recharge Request from PayPos") {
+                        controller.notiId.value = controller.notifications.value.data![index].notiId!;
                         List<String?> numbers =
                             controller.extractNumbersFromString(controller
                                 .notifications.value.data![index].message!);
                         if (numbers.isNotEmpty) {
-                          Get.find<RechargeController>().rechargeNumber.value =
-                              numbers[1]!;
-                          Get.find<RechargeController>().amount.value =
-                              numbers[0]!;
-                          Get.find<RechargeController>().commission.value =
-                              numbers[2]!;
+
                           Get.toNamed(
                             Routes.RECHARGEPINNOTIFICATION,
                             arguments: [
-                              controller
-                                  .notifications.value.data![index].message!,
-                              "mir",
+                              numbers[0],
+                              numbers[1],
+                              numbers[2],
                             ],
                           );
                         } else {
                           print("message num list is empty bhai >>>>>>");
                         }
 
-                        controller.changeNotiStatus(
-                            controller.notifications.value.data![index].notiId);
+
                       }
                     }
                   },
@@ -124,20 +121,52 @@ class NotificationWidget extends GetWidget<InboxController> {
                                                       ),
                                                       placeholder:
                                                           (context, url) =>
-                                                              const Padding(
+                                                               Padding(
                                                         padding:
                                                             EdgeInsets.all(5.0),
-                                                        child: Icon(
+                                                        child:  Icon(
                                                           Icons.notifications,
+                                                          color: controller
+                                                              .notifications
+                                                              .value
+                                                              .data![
+                                                          index]
+                                                              .activityStatus ==
+                                                              0 &&
+                                                              controller
+                                                                  .notifications
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .title!.contains("Recharge Request from PayPos")
+
+
+                                                              ? Colors.redAccent
+                                                              : Colors.black,
                                                         ),
                                                       ),
                                                       errorWidget: (context,
                                                               url, error) =>
-                                                          const Padding(
+                                                           Padding(
                                                         padding:
                                                             EdgeInsets.all(5.0),
-                                                        child: Icon(
+                                                        child:  Icon(
                                                           Icons.notifications,
+                                                          color: controller
+                                                              .notifications
+                                                              .value
+                                                              .data![
+                                                          index]
+                                                              .activityStatus ==
+                                                              0 &&
+                                                              controller
+                                                                  .notifications
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .title!.contains("Recharge Request from PayPos")
+                                                              ? Colors.redAccent
+                                                              : Colors.black,
                                                         ),
                                                       ),
                                                     ),
@@ -164,14 +193,13 @@ class NotificationWidget extends GetWidget<InboxController> {
                                                                         .data![
                                                                             index]
                                                                         .activityStatus ==
-                                                                    1 &&
+                                                                    0 &&
                                                                 controller
                                                                         .notifications
                                                                         .value
                                                                         .data![
                                                                             index]
-                                                                        .title! ==
-                                                                    "Robi Recharge Request from PayPos"
+                                                                        .title!.contains("Recharge Request from PayPos")
                                                             ? Colors.redAccent
                                                             : Colors.black,
                                                       ),

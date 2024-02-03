@@ -34,7 +34,7 @@ class AddbalanceController extends GetxController {
   final paymentOptionId = ''.obs;
   final functionIsBank = false.obs;
   final paymentTypes = <MFSPaymentTypeModel>[].obs;
-  final  paymentTypesBnk= <BankkPaymentTypeModel>[].obs;
+  final paymentTypesBnk = <BankkPaymentTypeModel>[].obs;
   final paymentTypesMFS = <MFSListModel>[].obs;
   final bankChargeList = <BankChargeListModel>[].obs;
   final collectionDetailsList = <DatumCollection>[].obs;
@@ -68,26 +68,23 @@ class AddbalanceController extends GetxController {
     mfsPaymentTypeRepository().getBusinessType().then((resp) {
       paymentTypesMFS.value = resp;
       print("hlw pay plus 1 ________________${paymentTypesMFS.value.length}");
-      print("hlw pay plus 1 ________________${paymentTypesMFS.value[0].charge}");
+      print(
+          "hlw pay plus 1 ________________${paymentTypesMFS.value[0].charge}");
       // userData.value.businessType = businessTypes[0].id!.toString();
 
       dailyReportLoaded.value = true;
       return resp;
     });
-
   }
-
-
-
 
   getPaymentUrlProceed() async {
     //  Ui.customLoaderDialog();
 
     mfsPaymentTypeRepository()
         .getPaymentCollectionUrlProceed(
-        amount: amount.value,
-        paymentMethodId: paymentMethodId.value,
-        paymentOptionId: paymentOptionId.value)
+            amount: amount.value,
+            paymentMethodId: paymentMethodId.value,
+            paymentOptionId: paymentOptionId.value)
         .then((resp) {
       if (resp['data']['status'] == 'success') {
         Get.back();
@@ -112,6 +109,7 @@ class AddbalanceController extends GetxController {
     });
     return functionIsBank.value;
   }
+
   getAddPaymentUrl() async {
     Ui.customLoaderDialog();
 
@@ -131,6 +129,9 @@ class AddbalanceController extends GetxController {
           };
           Get.toNamed(Routes.WEBVIEW, arguments: data);
         }
+      } else {
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       }
     });
   }
@@ -163,8 +164,6 @@ class AddbalanceController extends GetxController {
     });
   }
 
-
-
   getCollectionDetailsController() {
     print("get collection details ++++++++++++++ working ++++++ started");
     //Ui.customLoaderDialog();
@@ -191,20 +190,23 @@ class AddbalanceController extends GetxController {
     )
         .then((resp) {
       print("my response $resp");
-      if(resp["message"] == "Your collection request has been recorded."){
-       // Get.showSnackbar(Ui.SuccessSnackBar(message: resp["message"], title: 'success'.tr));
-        Map data = {"message": resp['message'].toString(), "data": resp['data'].toString(), };
-        Get.offAndToNamed(Routes.ADDBALANCESUCCESS, arguments: data );
-
+      if (resp["message"] == "Your collection request has been recorded.") {
+        // Get.showSnackbar(Ui.SuccessSnackBar(message: resp["message"], title: 'success'.tr));
+        Map data = {
+          "message": resp['message'].toString(),
+          "data": resp['data'].toString(),
+        };
+        Get.offAndToNamed(Routes.ADDBALANCESUCCESS, arguments: data);
       }
     });
-
   }
+
   getAddBalanceHistory() {
     print("get add balance history ++++++++++++++ working ++++++ started");
     //Ui.customLoaderDialog();
     mfsPaymentTypeRepository().getAddBalanceHistory().then((resp) {
-      print("get add balance history ++++++++++++++ working ++++++ 3started $resp");
+      print(
+          "get add balance history ++++++++++++++ working ++++++ 3started $resp");
       var data = AddBalanceHistoryModel.fromJson(resp);
 
       addBalanceHistoryList.value = data.data!;
@@ -213,6 +215,7 @@ class AddbalanceController extends GetxController {
     });
   }
 }
+
 class StickyColors {
   static final List colors = [
     const Color(0xffb771d5),
