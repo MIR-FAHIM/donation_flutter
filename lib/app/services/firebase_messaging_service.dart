@@ -230,7 +230,6 @@ class FireBaseMessagingService extends GetxService {
               arguments: message.data['notification_type'].toString());
         } else if (notification.title!
             .contains("Robi Recharge Request from PayPos")) {
-
           Get.put(RechargeController());
           extractNumbersFromString(notification.body!).then((e) {
             Get.put(RechargeController());
@@ -238,10 +237,8 @@ class FireBaseMessagingService extends GetxService {
               numbers[0],
               numbers[1],
               numbers[2],
-
             ]);
           });
-
         } else if (notification.title!
             .contains("Airtel Recharge Request from PayPos")) {
           Get.put(RechargeController());
@@ -251,7 +248,6 @@ class FireBaseMessagingService extends GetxService {
               numbers[0],
               numbers[1],
               numbers[2],
-
             ]);
           });
         } else if (notification.title!
@@ -264,7 +260,6 @@ class FireBaseMessagingService extends GetxService {
               numbers[0],
               numbers[1],
               numbers[2],
-
             ]);
           });
         } else {
@@ -296,12 +291,10 @@ class FireBaseMessagingService extends GetxService {
         (await FirebaseMessaging.instance.getToken())!;
   }
 
-  Future<bool> extractNumbersFromString(String input) async  {
+  Future<bool> extractNumbersFromString(String input) async {
     RegExp regExp = RegExp(r'\d+');
-     numbers =
-        regExp.allMatches(input).map((match) => match.group(0)).toList();
-  return true;
-
+    numbers = regExp.allMatches(input).map((match) => match.group(0)).toList();
+    return true;
   }
 
   void onSelectNotification(String? payload) async {
@@ -316,7 +309,6 @@ class FireBaseMessagingService extends GetxService {
           numbers[0],
           numbers[1],
           numbers[2],
-
         ]);
       });
     }

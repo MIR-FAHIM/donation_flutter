@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../../common/Color.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/auth_service.dart';

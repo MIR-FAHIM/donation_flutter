@@ -405,7 +405,7 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                                 .value
                                 .data!
                                 .allowCashout ==
-                            1
+                            0
                         ? Container(
                             height: Get.height * .8,
                             child: Padding(

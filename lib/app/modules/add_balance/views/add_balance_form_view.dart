@@ -1,9 +1,7 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
@@ -189,13 +187,14 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               groupValue: controller.grpValue.value,
                               onChanged: (value) {
-                               // controller.grpValue.value = 3;
+                                // controller.grpValue.value = 3;
                                 // Get.snackbar("hlw bro", "Is everything okay");
                                 // Get.showSnackbar(
                                 //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-                                  controller.grpValue.value = int.parse(value.toString());
+                                controller.grpValue.value =
+                                    int.parse(value.toString());
                                 //
-                                 print("+++++++${ controller.grpValue.value}");
+                                print("+++++++${controller.grpValue.value}");
                               },
                             ),
                           ),

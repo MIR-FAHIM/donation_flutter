@@ -38,16 +38,17 @@ class Ui {
     Get.log("[$title] $message", isError: true);
     return GetSnackBar(
       titleText: Text(title.tr,
-          style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white))),
+          style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.red))),
       messageText: Text(message.tr,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Colors.white))),
+          style: Get.textTheme.caption!.merge(TextStyle(color: Colors.red))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
-      backgroundColor: Colors.redAccent,
+      borderColor: Colors.red,
+      backgroundColor: Colors.white,
       icon: Icon(Icons.remove_circle_outline, size: 32, color: Colors.white),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       borderRadius: 8,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 3),
     );
   }
 

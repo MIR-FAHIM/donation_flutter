@@ -14,6 +14,7 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_postpaid_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_form.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/views/failed_page.dart';
 import 'package:latest_payplus_agent/app/modules/collectorApp/view/home_page_c.dart';
 import 'package:latest_payplus_agent/app/modules/daily_report/views/report_analytic.dart';
 import 'package:latest_payplus_agent/app/modules/demo/task_dashboard.dart';
@@ -502,6 +503,11 @@ class AppPages {
     GetPage(
       name: _Paths.Reb_Postpaid_Form_View,
       page: () => RebPostpaidFormView(),
+      binding: BillPaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.ERRORBILL,
+      page: () => ErrorViewBill(),
       binding: BillPaymentBinding(),
     ),
     GetPage(

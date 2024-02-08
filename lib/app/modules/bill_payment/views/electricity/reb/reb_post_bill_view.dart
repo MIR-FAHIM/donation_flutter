@@ -320,7 +320,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                                   ),
                                 ),
                                 Text(
-                                  '৳ ' + controller.online_charge.value,
+                                  '৳ ' + controller.servic_fee.value,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -335,14 +335,14 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Service Fee",
+                                  "Online Balance Charge",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.primaryColor,
                                   ),
                                 ),
                                 Text(
-                                  '৳ ' + controller.servic_fee.value,
+                                  '৳ ' + controller.online_charge.value,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,

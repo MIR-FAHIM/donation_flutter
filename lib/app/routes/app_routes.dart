@@ -152,6 +152,7 @@ abstract class Routes {
   static const PROFILEVIEW = _Paths.PROFILEVIEW;
   static const REPORTANALITYC = _Paths.REPORTANALITYC;
   static const MBANKINGFAIL = _Paths.MBANKINGFAIL;
+  static const ERRORBILL = _Paths.ERRORBILL;
 
   static const NOTIDETAILS = _Paths.NOTIDETAILS;
   static const ADDPAYER = _Paths.ADDPAYER;
@@ -228,6 +229,7 @@ abstract class _Paths {
   static const WITHDRAW_SUCCESS = '/withdraw/success';
   static const INBOX = '/inbox';
   static const MBANKINGFAIL = '/m-banking-fail';
+  static const ERRORBILL = '/error-bill';
     static const SETTINGS = '/settings';
   static const ELECTRICITY_BILL = '/electricity_bill';
   static const ELECTRICITY_BILL_FORM = '/electricity_bill_form';

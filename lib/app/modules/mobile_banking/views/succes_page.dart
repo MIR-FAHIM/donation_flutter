@@ -7,13 +7,10 @@ import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobi
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 
-
-
 class MBankingSuccessView extends GetView<MobileBankingController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
-
     var argument = Get.arguments;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -23,7 +20,11 @@ class MBankingSuccessView extends GetView<MobileBankingController> {
           automaticallyImplyLeading: false,
           backgroundColor: Color(0xFF652981),
           centerTitle: true,
-          title: controller.currentTabIndex.value == 0 ? Text('Cash In'.tr): controller.currentTabIndex.value == 0 ? Text('Cash Out'.tr) : Text('Money Out'.tr),
+          title: controller.currentTabIndex.value == 0
+              ? Text('Cash In'.tr)
+              : controller.currentTabIndex.value == 1
+                  ? Text('Cash Out'.tr)
+                  : Text('Money Out'.tr),
 
           elevation: 0,
           // leading: IconButton(
@@ -70,20 +71,26 @@ class MBankingSuccessView extends GetView<MobileBankingController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      controller.currentTabIndex.value == 0 ? Text('Cash In'.tr,
-                  style: TextStyle(fontSize: 22, color: Colors.green)): controller.currentTabIndex.value == 0 ? Text('Cash Out'.tr,
-                style: TextStyle(fontSize: 22, color: Colors.green)) : Text('Money Out'.tr,
-    style: TextStyle(fontSize: 22, color: Colors.green)),
-                      SizedBox(width: 10,),
+                      controller.currentTabIndex.value == 0
+                          ? Text('Cash In'.tr,
+                              style:
+                                  TextStyle(fontSize: 22, color: Colors.green))
+                          : controller.currentTabIndex.value == 1
+                              ? Text('Cash Out'.tr,
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.green))
+                              : Text('Money Out'.tr,
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.green)),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Text(
                         'Successful'.tr,
                         style: TextStyle(fontSize: 22, color: Colors.green),
                       ),
-
                     ],
                   ),
-
-
 
                   SizedBox(
                     height: 15,
@@ -103,7 +110,7 @@ class MBankingSuccessView extends GetView<MobileBankingController> {
                       Get.back();
                       Get.back();
 
-                         controller.refresh();
+                      controller.refresh();
 
                       // Get.offAndToNamed(Routes.RECHARGE);
                       // Get.offAllNamed(Routes.RECHARGE);

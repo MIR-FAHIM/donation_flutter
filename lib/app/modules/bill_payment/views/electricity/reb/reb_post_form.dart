@@ -13,6 +13,7 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/app/services/settings_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:latest_payplus_agent/common/loader/full_screen_loader.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class RebPostpaidFormView extends GetView {
@@ -306,13 +307,15 @@ class RebPostpaidFormView extends GetView {
                           print('bill numer:  $Bill_No');
                           var res = getBillDetail(
                             mobile: mobile_number,
-                            billNumber: bill_number,
+                            billNumber:  bill_number, //1023115691667
                             isBillSave: billpayController.isChecked.value,
                             refName: billpayController.refName.value,
                           );
-                          Ui.customLoaderDialog();
+                          CustomFullScreenLoader.openLoadingDialog(
+                              "Loading....", "assets/animation/docer_processing.json");
                           res.then((value) => {
-                            Get.back(),
+
+                            CustomFullScreenLoader.stoploader(),
                             result = value['result'],
                             print("hle bro+++++++ ${value['result']}"),
                             if (value['result'] == 'success')
