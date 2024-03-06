@@ -7,6 +7,7 @@ class ApiClient {
   //     'http://103.219.160.235:8989/paystation/public/';
   static const String changeNotificationStatus =
       '${baseUrl}api/appapi/myNotifications/changeStatus';
+  static const String deleteBankInfo = '${baseUrl}api/appapi/delete-bank-information';
 
   static const String baseUrl = 'https://shl.com.bd/';
   static const String newBaseUrl = 'https://new.shl.com.bd/';
@@ -40,6 +41,7 @@ class ApiClient {
       '${baseUrl}api/appapi/numberDuplicacyCheck';
 
   static const String otpSend = '${baseUrl}api/appapi/sendOTP';
+  static const String updateBankInfo = '${baseUrl}api/appapi/update-bank-information';
 
   static const String verifyOTP = '${baseUrl}api/appapi/OTPVerify';
 

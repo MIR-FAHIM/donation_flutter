@@ -153,12 +153,18 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
-                                              child: Text(
-                                              data.typeName!,
+                                              child: data.typeName == "Money Transfer" ?
+                                              Text(
+                                              "Withdraw",
                                                 style: const TextStyle(
                                                   fontSize: 16,
                                                 ),
-                                              ),
+                                              ) : Text(
+                                                data.typeName!,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ) ,
                                             ),
                                             const SizedBox(
                                               height: 5,
@@ -222,13 +228,23 @@ class MobileBankTransactionHistoryView extends GetView<MobileBankTransactionHist
                                             fontSize: 18,
                                             color: Colors.green),
                                       ) :
-                                      Text('-৳ ${data.amount}',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.red),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Text('-৳ ',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.red),
+                                          ),
+                                          Text('${data.amount}',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.green),
+                                          ),
+                                        ],
                                       ),
                                       Text(
-                                        'Com: ' + uniCodeTk + ' ' + data.commission!,
+                                        'Cashback: ' + uniCodeTk + ' ' + data.commission!,
                                         style: const TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey,

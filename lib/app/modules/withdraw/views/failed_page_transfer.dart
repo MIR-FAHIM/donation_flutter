@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
+import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:lottie/lottie.dart';
 
-class MBankingFailedView extends GetView<MobileBankingController> {
+
+class MBankingFailedView extends GetView<WithdrawController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class MBankingFailedView extends GetView<MobileBankingController> {
           automaticallyImplyLeading: false,
           backgroundColor: Color(0xFF652981),
           centerTitle: true,
-          title: Text(Get.arguments[1]),
+          title: Text('Withdraw'.tr),
 
           elevation: 0,
           // leading: IconButton(
@@ -66,11 +65,12 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                   //   ),
                   // ),
                   Container(
-                    width: Get.width * .15,
-                    height: Get.height * .1,
-                    child: Lottie.asset(
-                      'assets/animation/failed_ani.json',
-                    ),
+                    width: Get.width * .1,
+                    height: Get.height * .05,
+                    child: Center(
+                        child: Image(
+                          image: AssetImage("assets/icons/cancel.png"),
+                        )),
                   ),
                   SizedBox(
                     height: 20,
@@ -78,9 +78,7 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Text(Get.arguments[1],
-                                  style: TextStyle(
-                                      fontSize: 22, color: Colors.red)),
+
                       SizedBox(
                         width: 10,
                       ),
@@ -114,13 +112,13 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                       // Get.offAndToNamed(Routes.RECHARGE);
                       // Get.offAllNamed(Routes.RECHARGE);
 
-                      Get.toNamed(Routes.CASHINOUT);
+                      Get.toNamed(Routes.MOBILE_BANK_FOR_WITHDRAW);
 
                       // controller.amountFocusFocus.requestFocus();
                     },
                     color: Color(0xFF652981),
                     text: Text(
-                      "BACK TO Mobile Banking".tr,
+                      "BACK".tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,

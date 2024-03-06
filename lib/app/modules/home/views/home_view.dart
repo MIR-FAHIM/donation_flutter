@@ -10,8 +10,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
+import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
+import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/nid_verification.dart';
@@ -147,7 +150,11 @@ class HomeView extends GetView<HomeController> {
                   );
                 }),
                 IconButton(
-                    onPressed: () => {Scaffold.of(context).openEndDrawer()},
+                    onPressed: () {
+                      controller.getAllDisablePermission();
+                      Get.put(WithdrawController());
+                      Scaffold.of(context).openEndDrawer();
+                    },
                     icon: const Icon(
                       Icons.menu,
                       color: Colors.white70,
@@ -178,7 +185,8 @@ class HomeView extends GetView<HomeController> {
                                 ),
                                 trailing: InkWell(
                                   onTap: () {
-                                    Get.toNamed(Routes.NEWNID);
+                                    Get.find<SignupController>().checkCameraPermission();
+
                                   },
                                   child: Container(
                                     height: 30,

@@ -8,6 +8,7 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const SIGNUP = _Paths.SIGNUP;
   static const RobiAirtelOffer = _Paths.ROBIAIRTELOFFER;
+  static const CHANGE_BANK_INFORMATION = _Paths.CHANGE_BANK_INFORMATION;
 
 
   static const ROOT = _Paths.ROOT;
@@ -162,6 +163,7 @@ abstract class Routes {
   static const ADDCOLLECTIONFORM = _Paths.ADDCOLLECTIONFORM;
   static const USERTYPE = _Paths.USERTYPE;
   static const PAYERVIEW = _Paths.PAYERVIEW;
+  static const CHANGEACCOUNT = _Paths.CHANGEACCOUNT;
   static const MOBILE_BANK_TRANSACTION_HISTORY =
       _Paths.MOBILE_BANK_TRANSACTION_HISTORY;
 }
@@ -177,7 +179,8 @@ abstract class _Paths {
   static const ADDPAYER = '/add-payer';
   static const USERTYPE = '/USER-TYPE';
   static const PAYERVIEW = '/payer-view';
-
+  static const CHANGE_BANK_INFORMATION = '/update-bank';
+  static const CHANGEACCOUNT = '/change-account';
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
   static const NEWSIGNUP = '/new-signup';

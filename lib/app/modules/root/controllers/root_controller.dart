@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
-import 'package:latest_payplus_agent/app/modules/splashscreen/controllers/splashscreen_controller.dart';
-import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
-import 'package:latest_payplus_agent/app/modules/inbox/views/inbox_view.dart';
-import 'package:latest_payplus_agent/app/modules/offer/views/offer_view.dart';
 import 'package:latest_payplus_agent/app/modules/package/controller/package_list_controller.dart';
 import 'package:latest_payplus_agent/app/modules/payment_collection/views/payment_history_view.dart';
 import 'package:latest_payplus_agent/app/repositories/appinfor_repo.dart';
@@ -138,7 +131,113 @@ class RootController extends GetxController {
       throw (onError);
     });
   }
+  showPopupForReg() {
+    SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
+    return showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            content: Stack(
+              children: [
+                Container(
+                  // height: Get.size.width + 5,
+                  width: Get.size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.transparent,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: CachedNetworkImage(
+                      imageUrl: SharedPreff.to.prefss
+                          .getString("popImage")
+                          .toString(),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) => Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Image(
+                          image: AssetImage( 'assets/number.jpeg',),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Image(
+                          image:AssetImage( 'assets/number.jpeg',),
+                        ),
+                      ),
+                    ),
+                  ),
 
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     // Image(
+                  //     //   height: Get.size.width * 0.3,
+                  //     //   width: Get.size.width * 0.35,
+                  //     //   image: const AssetImage(
+                  //     //     'assets/Logo.png',
+                  //     //   ),
+                  //     // ),
+                  //
+                  //     Image.asset(
+                  //       'assets/number.jpeg',
+                  //     ),
+                  //
+                  //     const SizedBox(
+                  //       height: 10,
+                  //     ),
+                  //     // Padding(
+                  //     //   padding: const EdgeInsets.symmetric(
+                  //     //     horizontal: 25.0,
+                  //     //     vertical: 10,
+                  //     //   ),
+                  //     //   child: BlockButtonWidget(
+                  //     //     onPressed: () {
+                  //     //       Get.back();
+                  //     //     },
+                  //     //     color: Get.theme.primaryColor,
+                  //     //     radius: 30,
+                  //     //     text: const Text(
+                  //     //       'Okay',
+                  //     //       style: TextStyle(
+                  //     //         color: Colors.white,
+                  //     //       ),
+                  //     //     ),
+                  //     //   ),
+                  //     // )
+                  //   ],
+                  // ),
+                ),
+                Positioned(
+                    top: 0,
+                    left: 0,
+                    child: IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.clear,
+                        color: Colors.red,
+                        size: 35,
+                      ),
+                    )),
+              ],
+            )
+          // actions: <Widget>[
+
+          // ],
+        );
+      },
+    );
+  }
   showPopupForImage() {
     SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
     return showDialog(
@@ -151,7 +250,7 @@ class RootController extends GetxController {
               children: [
                 Container(
                   width: double.infinity,
-                  height: Get.height * .45,
+                  //height: Get.height * .45,
                   decoration: BoxDecoration(
                     color: Get.theme.scaffoldBackgroundColor,
                     borderRadius: const BorderRadius.all(

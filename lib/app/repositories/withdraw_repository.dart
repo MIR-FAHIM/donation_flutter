@@ -5,7 +5,7 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
 
 class WithdrawRepository {
-  Future withdrawMoney(String bankId, String amount) async {
+  Future withdrawMoney(String bankId, String amount, String pin) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     print(token);
@@ -13,6 +13,8 @@ class WithdrawRepository {
     Map withdrawData = {
       'banking_id': bankId,
       'amount': amount,
+      'remark':'Agent',
+      'pin' : pin,
     };
 
     var headers = {'token': token};

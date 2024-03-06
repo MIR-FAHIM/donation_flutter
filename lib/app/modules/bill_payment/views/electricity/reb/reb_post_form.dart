@@ -322,13 +322,11 @@ class RebPostpaidFormView extends GetView {
                               {
                                 data = value['data'],
                                 bill_ref = value['bill_ref'],
-                                // Ui.SuccessSnackBar(message: value['result']),
-                                // print(data['bllr_accno']),
                                 datas = {
                                   "title": _title,
                                   "images": _images,
                                   "bill_payment_id":
-                                  bill_ref['bill_payment_id'],
+                                   bill_ref['bill_payment_id'],
                                   "bill_refer_id": bill_ref['bill_refer_id'],
                                   "bll_no": data['bill_no'],
                                   "bllr_accno": Bill_No,
@@ -381,7 +379,6 @@ class RebPostpaidFormView extends GetView {
       'bill_no': billpayController.billAccountController.value.text,
       'bill_month': billpayController.selectedMonth.value.toString(),
       'bill_year': billpayController.selectedYear.value.toString(),
-
       "biller_mobile_no": billpayController.mobileController.value.text,
     };
     print("my bill details ${data.toString()}");

@@ -29,14 +29,14 @@ class MobileBankingRepository {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map body = {
-      'number': "019186420758",
+      'number': number,
       'amount': amount,
       'pin': pin,
       "gateway_id" : gateWayID,
       "otp" : otp
     };
 
-    var headers = {'token': "c"};
+    var headers = {'token': token};
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(ApiClient.cashout, body, headers);
 
@@ -52,7 +52,6 @@ class MobileBankingRepository {
       'amount': amount,
       'pin': pin,
       "gateway_id" : gateWayID,
-
     };
 
     var headers = {'token': token};

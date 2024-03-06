@@ -99,7 +99,7 @@ class Data {
     presentAddress: json["present_address"],
     packageId: json["package_id"],
     packageStartDate: DateTime.parse(json["package_start_date"]),
-    packageEndDate: json["package_end_date"],
+    packageEndDate: json["package_end_date"] ?? DateTime.now().toString(),
     image: json["image"],
   );
 

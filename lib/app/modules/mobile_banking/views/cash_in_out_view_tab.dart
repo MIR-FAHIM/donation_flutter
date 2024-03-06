@@ -1,18 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/Due/Widget/tab_bar.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/square_card_widget.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/widgets/mobile_bank_drawer.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../../../routes/app_pages.dart';
-import '../../add_balance/controllers/add_balance_controller.dart';
 import '../controllers/mobile_banking_controller.dart';
 
 class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {

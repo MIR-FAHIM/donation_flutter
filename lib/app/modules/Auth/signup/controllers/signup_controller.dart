@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -233,6 +234,7 @@ class SignupController extends GetxController {
     if (status.isGranted) {
       // Camera permission is granted
       print('Camera permission is granted.');
+      Get.toNamed(Routes.NEWNID);
     } else {
       // Camera permission is not granted
       print('Camera permission is not granted. Requesting permission...');
@@ -240,6 +242,7 @@ class SignupController extends GetxController {
       status = await Permission.camera.request();
       if (status.isGranted) {
         print('Camera permission has been granted.');
+        Get.toNamed(Routes.NEWNID);
       } else {
         print('Camera permission is still not granted.');
       }
@@ -716,7 +719,81 @@ class SignupController extends GetxController {
       userData.value.union = thanas[0].id!.toString();
     });
   }
+  void getImageAndroid13(ImageSource imageSource, String type) async {
+    selectedImagePath = ''.obs;
+    selectedImageSize = ''.obs;
 
+    // Crop code
+    cropImagePath = ''.obs;
+    cropImageSize = ''.obs;
+
+    // Compress code
+    compressImagePath = ''.obs;
+    compressImageSize = ''.obs;
+
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+    );
+    if (result != null) {
+      selectedImagePath.value = result.files.first.path.toString();
+      selectedImageSize.value = ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+
+      // Crop
+      final cropImageFile = await ImageCropper().cropImage(sourcePath: selectedImagePath.value, maxWidth: 512, maxHeight: 512, compressFormat: ImageCompressFormat.jpg);
+      cropImagePath.value = cropImageFile!.path;
+      cropImageSize.value = ((File(cropImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+
+      // Compress
+      print('compress path: ${cropImagePath.value}');
+      final dir = Directory.systemTemp;
+      final targetPath = dir.absolute.path + '/' + cropImagePath.value.split('/').last;
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(cropImagePath.value, targetPath, quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
+      compressImagePath.value = compressedFile!.path;
+      compressImageSize.value = ((File(compressImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+
+      // final bytes = compressedFile.readAsBytesSync();
+
+      List<int> bytes = compressedFile.readAsBytesSync();
+
+      if (type == 'nid_front') {
+        selectedNIDFront.value = File(compressedFile.path);
+        // nidRead();
+
+        userData.value.nid_front = base64Encode(bytes);
+        userData.update((val) {});
+      } else if (type == 'nid_back') {
+        userData.value.nid_back = base64Encode(bytes);
+        userData.update((val) {});
+      } else if (type == 'trade') {
+        userData.value.trade_license = base64Encode(bytes);
+        userData.update((val) {});
+      } else if (type == 'trade2') {
+        userData.value.trade_license2 = base64Encode(bytes);
+        userData.update((val) {});
+      }
+
+      // if (type == 'user') {
+      //   userData.value.image = base64Encode(bytes);
+      //   userData.update((val) {});
+      // }
+
+      print(userData.value.nid_front);
+
+      debugPrint(userData.value.nid_front);
+
+      debugPrint('nid_front : ${userData.value.nid_front}');
+
+      debugPrint(userData.value.nid_front, wrapWidth: 2024);
+
+      log('data: ${userData.value.nid_front}');
+
+      // uploadImage(compressedFile);
+    } else {
+      Get.snackbar('Error', 'No image selected', snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
   void getImage(ImageSource imageSource, String type) async {
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
@@ -934,10 +1011,10 @@ class SignupController extends GetxController {
         'thana_id': userData.value.thana,
         'union_id': userData.value.union,
         'post_code': userData.value.post_code,
-
         'service_fee_type': serviceFeeTypeId.value,
         'password': userData.value.password,
         'imei': Get.find<LocationService>().imei.value,
+        "phone_model" : Get.find<LocationService>().model.value,
         'customer_latitude':
             Get.find<LocationService>().currentLocation['lat'].toString(),
         'customer_longitude':

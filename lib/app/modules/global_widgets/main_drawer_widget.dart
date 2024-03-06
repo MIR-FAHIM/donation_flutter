@@ -5,6 +5,8 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
+import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latest_payplus_agent/app/modules/package/controller/package_list_controller.dart';
@@ -129,21 +131,32 @@ class MainDrawerWidget extends StatelessWidget {
             //   },
             // ),
 
-            // DrawerLinkWidget(
-            //   icon: 'assets/drawer/5.png',
-            //   text: "Bank Information".tr,
-            //   onTap: (e) {
-            //     Get.toNamed(Routes.BANK_INFORMATION);
-            //   },
-            // ),
+            DrawerLinkWidget(
+              icon: 'assets/drawer/5.png',
+              text: "Bank Information".tr,
+              onTap: (e) {
+                print("fff----${Get.find<WithdrawController>().userBankInformation.length}");
+      Get.find<WithdrawController>().userBankInformation.isEmpty ?
+                Get.toNamed(Routes.BANK_INFORMATION)
+                : Get.toNamed(Routes.CHANGEACCOUNT);
+              },
+            ),
+            DrawerLinkWidget(
+              icon: 'assets/drawer/4.png',
+              text: "Withdraw money".tr,
+              onTap: (e) {
+
+                Get.toNamed(Routes.WITHDRAW);
+              },
+            ),
+
             // DrawerLinkWidget(
             //   icon: 'assets/drawer/4.png',
-            //   text: "Withdraw money".tr,
+            //   text: "Change Account".tr,
             //   onTap: (e) {
-            //     Get.toNamed(Routes.WITHDRAW);
+            //     Get.toNamed(Routes.CHANGEACCOUNT);
             //   },
             // ),
-
             DrawerLinkWidget(
               icon: 'assets/drawer/account_statement.png',
               text: "Current Package".tr,
@@ -187,16 +200,16 @@ class MainDrawerWidget extends StatelessWidget {
                           Get.toNamed(Routes.DAILY_REPORT);
                         },
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      DrawerLinkWidget(
-                        icon: 'assets/drawer/3.png',
-                        text: "Report Analytic".tr,
-                        onTap: (e) {
-                          Get.toNamed(Routes.REPORTANALITYC);
-                        },
-                      ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // DrawerLinkWidget(
+                      //   icon: 'assets/drawer/3.png',
+                      //   text: "Report Analytic".tr,
+                      //   onTap: (e) {
+                      //     Get.toNamed(Routes.REPORTANALITYC);
+                      //   },
+                      // ),
                     ],
                   ),
                 ),

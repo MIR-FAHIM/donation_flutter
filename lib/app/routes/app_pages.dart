@@ -8,6 +8,7 @@ import 'package:latest_payplus_agent/app/modules/account_statement/views/stateme
 import 'package:latest_payplus_agent/app/modules/add_balance/views/collection_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/mfs_list_view.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/success_page_add_balance.dart';
+import 'package:latest_payplus_agent/app/modules/bank_information/views/change_bank_info.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_form.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_form.dart';
@@ -34,6 +35,7 @@ import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_packa
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/text_field_pin_code_dialog.dart';
+import 'package:latest_payplus_agent/app/modules/withdraw/views/change_account_view.dart';
 
 
 import '../Page/Transaction_successful.dart';
@@ -45,6 +47,8 @@ import '../modules/Auth/checkPhoneNumber/bindings/check_phone_number_binding.dar
 
 import '../modules/Auth/login/bindings/login_binding.dart';
 import '../modules/Auth/login/views/login_view.dart';
+import '../modules/Auth/phoneVerificationWtihOTP/bindings/phone_verification_wtih_o_t_p_binding.dart';
+import '../modules/Auth/phoneVerificationWtihOTP/views/phone_verification_wtih_o_t_p_view.dart';
 import '../modules/Auth/signup/bindings/signup_binding.dart';
 import '../modules/Auth/signup/views/new_register/address_field.dart';
 import '../modules/Auth/signup/views/new_register/nid_input_field.dart';
@@ -145,8 +149,7 @@ import '../modules/payment_collection/views/link_share_view.dart';
 import '../modules/payment_collection/views/make_bill_for_payment.dart';
 import '../modules/payment_collection/views/payment_collection_bank_selection_view.dart';
 import '../modules/payment_collection/views/payment_collection_view.dart';
-import '../modules/phoneVerificationWtihOTP/bindings/phone_verification_wtih_o_t_p_binding.dart';
-import '../modules/phoneVerificationWtihOTP/views/phone_verification_wtih_o_t_p_view.dart';
+
 import '../modules/previous_due/bindings/previous_due_binding.dart';
 import '../modules/previous_due/views/previous_due_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
@@ -584,6 +587,16 @@ class AppPages {
       name: _Paths.DEACTIVATE_ACCCOUNT_PIN,
       page: () => DeActivateAccountPinCode(),
       binding: AccountSettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGEACCOUNT,
+      page: () => ChangeAccountView(),
+      binding: WithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_BANK_INFORMATION,
+      page: () => ChangeBankInformationView(),
+      binding: BankInformationBinding(),
     ),
     GetPage(
       name: _Paths.SETTINGS,

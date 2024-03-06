@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:latest_payplus_agent/app/models/user_model.dart';
 import 'package:latest_payplus_agent/app/repositories/number_check_repositories.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-import '../../../../models/user_model.dart';
+import 'package:device_information/device_information.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart';
+import 'package:device_information/device_information.dart';
+
 
 class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
@@ -18,6 +26,8 @@ class CheckPhoneNumberController extends GetxController {
   late GlobalKey<FormState> mobileFormKey;
   final userData = UserModel().obs;
   final isChecked = false.obs;
+  final imei = ''.obs;
+  final imeiLoaded = false.obs;
   final box = GetStorage().obs;
   final contactsResult = <Contact>[].obs;
   @override
@@ -73,7 +83,27 @@ class CheckPhoneNumberController extends GetxController {
       print("hlw bro ***********************${GetStorage().read('contact')}");
     }
   }
+  getDeviceInfo() async {
+    try {
+      var status = Permission.phone;
+      if (await Permission.phone.request().isGranted) {
+        print('hlw bro hlw bro imei: ${imei.value}');
+        imei.value = await DeviceInformation.deviceIMEINumber;
 
+        print('hlw bro imei imei: ${imei.value}');
+      } else {
+        Permission.phone.request();
+        imei.value = await DeviceInformation.deviceIMEINumber;
+
+        imei.update((val) {});
+
+        print('hlw bro imei imei: ${imei.value}');
+      }
+    } on PlatformException catch (e) {
+      // Permission.phone.request();
+      print('Failed to get platform version: $e');
+    }
+  }
   Future checkNumberDuplicacy() async {
     MyData.phone_no = textEditingController.text;
     if (mobileFormKey.currentState!.validate()) {
@@ -92,7 +122,7 @@ class CheckPhoneNumberController extends GetxController {
           if (resp['result'] == 1) {
             Get.back();
             // bypasss otp from here with making isFalse
-            if (Get.find<AuthService>().alreadyLogged.isTrue ||  textEditingController.text == "01782084390" || textEditingController.text == "01716536455" ) {
+            if (Get.find<AuthService>().alreadyLogged.isFalse ||  textEditingController.text == "01782084390" || textEditingController.text == "01716536455" ) {
               Get.offAllNamed(Routes.LOGIN,
                   arguments: textEditingController.text);
             } else {

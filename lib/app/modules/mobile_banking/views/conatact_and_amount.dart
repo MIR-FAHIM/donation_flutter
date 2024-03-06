@@ -712,6 +712,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                             onTap: () {
                                               if(controller.amountController.value.text.isNotEmpty && controller.numberController.value.text.length >= 11){
                                                 Get.toNamed(Routes.MBANKINGPIN,);
+                                              //  Get.toNamed(Routes.MBANKINGFAIL,);
                                               }else{
                                                 Get.showSnackbar(Ui.ErrorSnackBar(message: "Please provide valid amount and phone number", title: 'Error'.tr));
                                               }

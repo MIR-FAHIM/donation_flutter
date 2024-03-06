@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/app/models/bank_model.dart';
+import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/bank_info_repo.dart';
+import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class BankInformationController extends GetxController {
@@ -10,7 +12,11 @@ class BankInformationController extends GetxController {
   final bankList = <BankModel>[].obs;
   final bankListLoaded = false.obs;
   final selectedBankId = ''.obs;
+  final bankAccountController = TextEditingController().obs;
 
+  final accountNoController = TextEditingController().obs;
+
+  final routingController = TextEditingController().obs;
   final bankAccountHolderName = ''.obs;
   final bankAccountNo = ''.obs;
   final bankRouting = ''.obs;
@@ -73,6 +79,46 @@ class BankInformationController extends GetxController {
     });
   }
 
+  Future deleteBankDetails(String selectAcccountId) async {
+    Get.focusScope!.unfocus();
+    Ui.customLoaderDialog();
+    BankInfoRepository()
+        .deleteBankInfo(selectAcccountId.toString())
+        .then((resp) {
+      Get.back();
+      if (resp['result'] == 'success') {
+        Get.find<WithdrawController>().getUserBankInfo();
+        buildSuccessDialog();
+      } else {
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+      }
+    });
+  }
+
+  Future editBankDetails(
+      {String? selectAcccountId,
+      String? accountName,
+      String? accRouting,
+      String? accNo}) async {
+    Get.focusScope!.unfocus();
+    Ui.customLoaderDialog();
+    BankInfoRepository()
+        .editBankInfo(
+            selectAcccountId.toString(), accountName!, accNo!, accRouting!)
+        .then((resp) {
+      Get.back();
+      print("bank update response is ${resp['result']}");
+      if (resp['result'] == 'success') {
+        Get.find<WithdrawController>().getUserBankInfo();
+        buildSuccessDialog();
+      } else {
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+      }
+    });
+  }
+
   buildSuccessDialog() {
     return Get.defaultDialog(
         title: '',
@@ -98,7 +144,8 @@ class BankInformationController extends GetxController {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.back();
+              Get.find<WithdrawController>().getUserBankInfo();
+              Get.offNamed(Routes.WITHDRAW);
             },
             child: Container(
               decoration:

@@ -13,7 +13,48 @@ class BankInfoRepository {
     print('bank list: ${response}');
     return List.from(response.map((item) => BankModel.fromJson(item)));
   }
+  Future deleteBankInfo(String accId) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    APIManager _manager = APIManager();
+    print(token);
+    // --form 'account_id="29"' \
+    // --form 'acc_name=""' \
+    // --form 'acc_no="01743911996"' \
+    // --form 'routing_no=""
+    Map bankData = {
+      'account_id': accId,
+    };
 
+    var headers = {'token': token};
+
+    final response = await _manager.postAPICallWithHeader(ApiClient.deleteBankInfo, bankData, headers);
+
+    print('bank save: ${response}');
+    return response;
+  }
+  Future editBankInfo(String bankId, String accountName, String accounNo, String routingNo) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    APIManager _manager = APIManager();
+    print(token);
+    // --form 'account_id="29"' \
+    // --form 'acc_name=""' \
+    // --form 'acc_no="01743911996"' \
+    // --form 'routing_no=""
+    Map bankData = {
+      'account_id': bankId,
+      'acc_name': accountName ?? '',
+      'acc_no': accounNo,
+      'routing_no': routingNo ?? '',
+      'remark': "Agent"
+    };
+
+    var headers = {'token': token};
+
+    final response = await _manager.postAPICallWithHeader(ApiClient.updateBankInfo, bankData, headers);
+
+    print('bank updaTE: ${response}');
+    return response;
+  }
   Future saveBankInfo(String bankId, String accountName, String accounNo,
       String routingNo) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
@@ -25,6 +66,7 @@ class BankInfoRepository {
       'acc_name': accountName,
       'acc_no': accounNo,
       'routing_no': routingNo,
+      'remark': 'Agent'
     };
 
     var headers = {'token': token};

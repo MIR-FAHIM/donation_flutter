@@ -6,6 +6,7 @@ import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_wid
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:lottie/lottie.dart';
 
 class MBankingSuccessView extends GetView<MobileBankingController> {
   final _size = Get.size;
@@ -57,6 +58,16 @@ class MBankingSuccessView extends GetView<MobileBankingController> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
+                  Container(
+                    width: Get.width * .15,
+                    height: Get.height * .1,
+                    child: Lottie.asset(
+                      'assets/animation/success.json',
+                    ),
+                  ),
+
+                  SizedBox(height: 10,),
                   // Container(
                   //   width: Get.width,
                   //   color: Colors.blue,
@@ -83,7 +94,7 @@ class MBankingSuccessView extends GetView<MobileBankingController> {
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.green)),
                       SizedBox(
-                        width: 10,
+                        width: 5,
                       ),
                       Text(
                         'Successful'.tr,

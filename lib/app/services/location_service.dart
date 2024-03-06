@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 class LocationService extends GetxService {
   final currentLocation = {}.obs;
   final imei = ''.obs;
+  final model = ''.obs;
   final imeiLoaded = false.obs;
   @override
   void onInit() async {
@@ -51,10 +52,12 @@ class LocationService extends GetxService {
       } else {
         Permission.phone.request();
         imei.value = await DeviceInformation.deviceIMEINumber;
+        model.value = await DeviceInformation.deviceModel;
 
         imei.update((val) {});
 
         print('hlw bro imei imei: ${imei.value}');
+        print('hlw bro device model: ${model.value}');
       }
     } on PlatformException catch (e) {
       // Permission.phone.request();

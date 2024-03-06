@@ -173,6 +173,8 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               }
+
+                             // controller.getDeviceInfo();
                             },
                             child: Container(
                               // width: MediaQuery.of(context).size.width * 0.17,

@@ -5,8 +5,8 @@ class UserBankInformationModel {
   String? accNo;
   String? accName;
   String? routingNo;
-
-  UserBankInformationModel({this.id, this.bankType, this.bankName, this.accNo, this.accName, this.routingNo});
+  String? logo_name;
+  UserBankInformationModel({this.id, this.bankType, this.bankName, this.accNo, this.accName, this.routingNo, this.logo_name});
 
   UserBankInformationModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -15,6 +15,8 @@ class UserBankInformationModel {
     accNo = json['acc_no'];
     accName = json['acc_name'];
     routingNo = json['routing_no'];
+    logo_name=json['logo_name'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +27,7 @@ class UserBankInformationModel {
     data['acc_no'] = this.accNo;
     data['acc_name'] = this.accName;
     data['routing_no'] = this.routingNo;
+    data['logo_name'] = this.logo_name;
     return data;
   }
 }

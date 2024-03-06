@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class BankView extends GetView<WithdrawController> {
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Container(
-            height: 80,
+            height: Get.height * .15,
             padding: EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
             margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
@@ -73,19 +74,42 @@ class BankView extends GetView<WithdrawController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: Get.size.width * .7,
+                      width: Get.size.width * .6,
                       child: Text(
                           controller.selectedBankInfo.value.bankName ?? ''),
                     ),
                     Container(
+                      height: 70,
+                      width: 70,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      child: Image(
-                        image: AssetImage('assets/city.jpeg'),
-                        height: 30,
-                        width: 30,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://shl.com.bd/public/uploads/bank-logo/${controller.selectedBankInfo.value.logo_name!}',
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage('assets/images/bank.png'),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage('assets/images/bank.png'),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],

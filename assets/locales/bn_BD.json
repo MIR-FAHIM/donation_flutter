@@ -4,6 +4,7 @@
   "Message": " মেসেজ",
   "Profile": " প্রোফাইল",
   "Menu": "মেনু",
+  "Change Account": "ব্যাংক তথ্য পরিবর্তন করুন",
 "Payment Collection": "পেমেন্ট কালেকশন",
 "Payment ": "পেমেন্ট",
  "Current Package": "বর্তমান প্যাকেজ",
@@ -583,7 +584,7 @@
 
  "Cash In": "ক্যাশ ইন",
  "Cash Out": "ক্যাশ আউট",
- "Money Out": "মানি আউট",
+ "Money Out": "উত্তোলন",
  "Please enter valid account number": "অনুগ্রহ করে সঠিক অ্যাকাউন্ট নম্বর লিখুন",
  "Please enter amount": "অনুগ্রহ করে পরিমাণ লিখুন",
  "Enter your 6 digits pin no.": "আপনার 6 সংখ্যার পিন নম্বর লিখুন",

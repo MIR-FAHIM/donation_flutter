@@ -172,48 +172,54 @@ class _DPDCPostpaidFormViewState extends State<DPDCPostpaidFormView> {
                         style: TextStyle(fontSize: 18, color: AppColors.primaryColor, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5, bottom: 8, left: 20, right: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            monthName,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: InkWell(
-                                onTap: (){
-                                  selectMonth(context);
-                                },
-                                child: Container(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        'Select Month'.tr,
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Theme.of(context).primaryColor,
-                                        size: 15,
-                                      ),
-                                    ],
-                                  ),
+                    SizedBox(
+                      height: 20,
+                    ),
 
+                    InkWell(
+                      onTap: () {
+                        billpayController.openBottomSheetBill();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 8,top: 8),
+                        child: Container(
+                          height: Get.height * .08,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryLightColor,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color:
+                                  const Color(0xFF652981).withOpacity(0.2),
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)),
+                            ],
+                            //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${billpayController.getMonthName(billpayController.selectedMonth.value)}, ${billpayController.selectedYear.value}',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.primaryColor,
+                                      fontWeight: FontWeight.w500
+                                  ),
                                 ),
-                              ),
+                                Icon(Icons.arrow_drop_down)
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
                     SizedBox(
                       height: 10,
                     ),
@@ -353,5 +359,31 @@ class _DPDCPostpaidFormViewState extends State<DPDCPostpaidFormView> {
     var resp = json.decode(response.body);
     // print('Bill Detail : $resp');
     return resp;
+  }
+}
+class MonthList extends StatelessWidget {
+  final int selectedYear;
+
+  MonthList(this.selectedYear);
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> months = List.generate(12, (index) {
+      DateTime date = DateTime(selectedYear, index + 1, 1);
+      return DateFormat('MMMM').format(date);
+    });
+
+    return Column(
+      children: [
+        Text('Months for $selectedYear:'),
+        Column(
+          children: months
+              .map((month) => ListTile(
+            title: Text(month),
+          ))
+              .toList(),
+        ),
+      ],
+    );
   }
 }

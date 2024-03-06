@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
 
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
@@ -287,7 +288,8 @@ class ProfileView extends GetView<HomeController> {
                                             ),
                                             trailing: InkWell(
                                               onTap: () {
-                                                Get.toNamed(Routes.NEWNID);
+                                                Get.find<SignupController>().checkCameraPermission();
+                                              //  Get.toNamed(Routes.NEWNID);
                                               },
                                               child: Container(
                                                 height: 30,
@@ -402,10 +404,7 @@ class ProfileView extends GetView<HomeController> {
                                       keyboardType: TextInputType.text,
                                       title: "Email".tr,
                                       obsecure: false,
-                                      hint: controller.profileInfoModel.value.data!.email == null
-                                          ? "No Data"
-                                          : controller.profileInfoModel.value
-                                              .data!.email,
+                                      hint: "example@gmail.com" ,
                                       iconName: Icons.edit_outlined),
                                   20.heightBox,
                                 ],

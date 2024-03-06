@@ -54,143 +54,17 @@ class DailyReportView extends GetView<DailyReportController> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // DefaultTabController(
-                      //   initialIndex: controller.monthSelection.value - 1,
-                      //   length: 12,
-                      //   child: Container(
-                      //     height: 30,
-                      //     child: Row(
-                      //       children: [
-                      //         Padding(
-                      //           padding: const EdgeInsets.only(left: 8),
-                      //           child: Container(
-                      //             width: 70,
-                      //             child: DropdownButton<String>(
-                      //               value: controller.dropdownValue.value,
-                      //               isExpanded: true,
-                      //               icon:
-                      //               Icon(Icons.arrow_drop_down_outlined),
-                      //               elevation: 16,
-                      //               style: const TextStyle(
-                      //                   color: Colors.deepPurple),
-                      //               underline: Container(
-                      //                 height: 2,
-                      //                 color: Colors.transparent,
-                      //               ),
-                      //               onChanged: (String? value) {
-                      //                 // This is called when the user selects an item.
-                      //
-                      //                 controller.dropdownValue.value = value!;
-                      //                   controller.yearSelection.value =
-                      //                       int.parse(controller.dropdownValue.value );
-                      //                   controller.getDailyReport(date:DateTime.now());
-                      //
-                      //               },
-                      //               items: controller.yearList
-                      //                   .map<DropdownMenuItem<String>>(
-                      //                       (String value) {
-                      //                     return DropdownMenuItem<String>(
-                      //                       value: value,
-                      //                       child: Text(value),
-                      //                     );
-                      //                   }).toList(),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         Container(
-                      //           width:
-                      //           MediaQuery.of(context).size.width - 150,
-                      //           child: DefaultTabController(
-                      //             initialIndex: controller.monthSelection.value - 1,
-                      //             length: 12,
-                      //             child: TabBar(
-                      //               indicator: BoxDecoration(
-                      //                   borderRadius:
-                      //                   BorderRadius.circular(10),
-                      //                   color: Get.theme.primaryColorLight),
-                      //               isScrollable: true,
-                      //               indicatorColor: Colors.black,
-                      //               labelColor: Colors.black,
-                      //               onTap: (index) {
-                      //
-                      //                   controller.monthSelection.value = index + 1;
-                      //
-                      //               },
-                      //               tabs: controller.tabs
-                      //                   .map((tab) => Tab(
-                      //                 icon: Padding(
-                      //                   padding:
-                      //                   const EdgeInsets.all(4.0),
-                      //                   child: Text(
-                      //                     tab,
-                      //                     style:
-                      //                     TextStyle(fontSize: 12),
-                      //                   ),
-                      //                 ),
-                      //               ))
-                      //                   .toList(),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      //   child: DefaultTabController(
-                      //     initialIndex: controller.daySelection.value - 1,
-                      //     length: 31,
-                      //     child: Column(
-                      //       children: [
-                      //         TabBar(
-                      //           isScrollable: true,
-                      //           indicatorColor: Colors.black38,
-                      //           labelColor: Colors.black,
-                      //           onTap: (index) {
-                      //
-                      //             controller.daySelection.value = index + 1;
-                      //
-                      //           },
-                      //           tabs: controller.dayTab
-                      //               .map((tab) => Tab(
-                      //             icon: Padding(
-                      //               padding:
-                      //               const EdgeInsets.all(8.0),
-                      //               child: Text(
-                      //                 tab.toString(),
-                      //                 style: TextStyle(
-                      //                   fontSize: 12,
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ))
-                      //               .toList(),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: Text(
-                              DateFormat.yMMMd()
-                                  .format(controller.selectedDate.value),
-                              style: TextStyle(
-                                  color: AppColors.homeTextColor3,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12),
-                            ),
-                          ),
                           InkWell(
                             onTap: () {
                               controller.selectDate(context);
+                            //  controller.getDailyReport(startDateC: DateTime.now(), endDateC: DateTime.now());
                             },
                             child: Container(
                               margin: EdgeInsets.only(top: 3),
-                              width: MediaQuery.of(context).size.width * 0.42,
+                              width: MediaQuery.of(context).size.width * 0.25,
                               decoration: BoxDecoration(
                                 color: AppColors.primarydeepLightColor,
                                 borderRadius: BorderRadius.circular(10),
@@ -200,27 +74,89 @@ class DailyReportView extends GetView<DailyReportController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(width: 20),
+
+                                    Text(
+                                      DateFormat('yyyy-MM-dd').format(controller.selectedDate.value),
+                                      style: TextStyle(
+                                          color: AppColors.homeTextColor1,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.getDailyReport(startDateC: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 7), endDateC: DateTime.now());
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 3),
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              decoration: BoxDecoration(
+                                color: AppColors.primarydeepLightColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
                                     Image.asset(
                                       'assets/icons/calender.png',
                                       height: 10,
                                       width: 10,
                                       color: AppColors.homeTextColor1,
                                     ),
+                                    SizedBox(width: 10),
+
                                     Text(
-                                      "তারিখ",
+                                      "Last 7 days",
                                       style: TextStyle(
                                           color: AppColors.homeTextColor1,
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13),
                                     ),
-                                    SizedBox(width: 20),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.getDailyReport(startDateC: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 30), endDateC: DateTime.now());
+
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 3),
+                              width: MediaQuery.of(context).size.width * 0.35,
+                              decoration: BoxDecoration(
+                                color: AppColors.primarydeepLightColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
                                     Image.asset(
-                                      'assets/icons/down_arrow.png',
+                                      'assets/icons/calender.png',
                                       height: 10,
                                       width: 10,
                                       color: AppColors.homeTextColor1,
                                     ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "Last 1 month",
+                                      style: TextStyle(
+                                          color: AppColors.homeTextColor1,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13),
+                                    ),
+
                                   ],
                                 ),
                               ),
@@ -228,6 +164,8 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                         ],
                       ),
+
+
                       SizedBox(
                         height: 20,
                       ),
@@ -1605,7 +1543,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                         )),
                                     InkWell(
                                       onTap: () {
-                                        Get.toNamed(Routes.PACKAGELIST);
+                                      //  Get.toNamed(Routes.PACKAGELIST);
                                       },
                                       child: Icon(Icons.more_vert,
                                           color: Colors.deepPurple),
@@ -1613,8 +1551,8 @@ class DailyReportView extends GetView<DailyReportController> {
                                   ],
                                 ),
                                 Text(
-                                  "Mobile Banking".tr,
-                                  maxLines: 1,
+                                  "MBanking Commision".tr,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 ProgressLine(
@@ -1628,9 +1566,12 @@ class DailyReportView extends GetView<DailyReportController> {
                                     Row(
                                       children: [
                                         Text(
+                                          maxLines: 2,
+
                                           controller.dailyReportDetails.value
-                                              .packagePurchase!,
+                                              .mbanking_commission!,
                                           style: TextStyle(
+
                                               color: AppColors.primaryColor,
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
@@ -1883,7 +1824,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                       children: [
                                         Text(
                                           controller.dailyReportDetails.value
-                                              .packagePurchase!,
+                                              .ticketPurchase!,
                                           style: TextStyle(
                                               color: AppColors.primaryColor,
                                               fontSize: 16,

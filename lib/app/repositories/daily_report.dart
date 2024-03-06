@@ -5,13 +5,14 @@ import 'package:latest_payplus_agent/app/models/daily_report_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
 class DailyReportRepo {
-  Future<DailyReportModel> getDailyReports(String today) async {
+  Future<DailyReportModel> getDailyReports(String startDate, String endDate) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map body = {
       'customer_code':
           Get.find<AuthService>().currentUser.value.customerCode ?? '',
-      'date': today,
+      'start_date': startDate,
+      'end_date': endDate,
     };
 
     var headers = {'token': token};

@@ -106,7 +106,7 @@ class DailyReportController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await getDailyReport();
+    await getDailyReport(startDateC: DateTime.now(), endDateC: DateTime.now());
     monthSelection.value = int.parse(DateTime.now().toString().substring(5, 7));
     daySelection.value = int.parse(DateTime.now().toString().substring(8, 10));
      yearSelection.value = int.parse(DateTime.now().toString().substring(0, 4));
@@ -144,11 +144,12 @@ class DailyReportController extends GetxController {
   }
 
 
-  getDailyReport({DateTime? date}) async {
+  getDailyReport({DateTime? startDateC,  DateTime? endDateC}) async {
     var formatter = new DateFormat('yyyy-MM-dd');
-    String todayDate = formatter.format(selectedDate.value);
+    String startDate = formatter.format(startDateC!);
+    String endDate = formatter.format(endDateC!);
 
-    DailyReportRepo().getDailyReports(todayDate).then((resp) {
+    DailyReportRepo().getDailyReports(startDate, endDate).then((resp) {
       print("daily report");
       print(resp);
 
@@ -214,6 +215,8 @@ class DailyReportController extends GetxController {
           'image': 'assets/images/Closing_Balance.png',
           'balance': dailyReportDetails.value.ticketPurchase
         },
+
+
       ];
 
       dailyReportLoaded.value = true;
@@ -227,7 +230,7 @@ class DailyReportController extends GetxController {
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
-      getDailyReport();
+      getDailyReport(startDateC: selectedDate.value, endDateC: selectedDate.value);
     }
 
 

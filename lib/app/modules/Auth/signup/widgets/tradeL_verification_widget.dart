@@ -191,7 +191,7 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
                 leading: const Icon(Icons.photo_library),
                 title: Text('Photo Library'.tr),
                 onTap: () {
-                  controller.getImage(ImageSource.gallery, type);
+                  controller.getImageAndroid13(ImageSource.gallery, type);
                   Get.back();
                 }),
             ListTile(
@@ -258,7 +258,7 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
                       leading: const Icon(Icons.photo_library),
                       title: Text('Photo Library'.tr),
                       onTap: () {
-                        controller.getImage(ImageSource.gallery, type);
+                        controller.getImageAndroid13(ImageSource.gallery, type);
                         Get.back();
                       }),
                   ListTile(

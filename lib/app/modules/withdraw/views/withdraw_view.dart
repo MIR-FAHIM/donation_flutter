@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -81,17 +82,44 @@ class WithdrawView extends GetView<WithdrawController> {
                     Get.toNamed(Routes.BANK_FOR_WITHDRAW);
                   },
                   child: ListTile(
-                    leading: Image(
-                      image: AssetImage('assets/images/user.png'),
-                      color: Color(0xFF652981),
+                    leading: Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl: 'https://shl.com.bd/public/uploads/bank-logo/${controller.userBankInformation[index].logo_name!}',
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage('assets/images/bank.png'),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage('assets/images/bank.png'),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     title:
                         Text(controller.userBankInformation[index].bankName!),
                     subtitle: Text(
                         'A/C: ${controller.userBankInformation[index].accNo!}'),
-                    trailing: Image(
-                      image: AssetImage('assets/city.jpeg'),
-                    ),
+
                   ),
                 );
               }),

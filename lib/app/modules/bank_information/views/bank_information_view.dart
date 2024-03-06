@@ -55,7 +55,8 @@ class BankInformationView extends GetView<BankInformationController> {
                   DropDownWidget(
                     labelText: "Provide Bank Information".tr,
                     hintText: "Bank".tr,
-                    items: ['Bank', 'Mobile Banking'],
+                    //items: ['Bank', 'Mobile Banking'],
+                    items: ['Bank'],
                     onChanged: (input) {
                       controller.paymentMethod.value = input;
 
@@ -72,9 +73,10 @@ class BankInformationView extends GetView<BankInformationController> {
                     },
                     iconData: null,
                   ),
-                  controller.paymentMethod.value == 'Bank'
-                      ? BankWidget()
-                      : MobileBankingWidget(),
+                  BankWidget(),
+                  // controller.paymentMethod.value == 'Bank'
+                  //     ? BankWidget()
+                  //     : MobileBankingWidget(),
                   SizedBox(
                     height: 20,
                   ),

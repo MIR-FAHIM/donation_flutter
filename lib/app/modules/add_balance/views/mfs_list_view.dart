@@ -169,8 +169,8 @@ class MFSListView extends GetView<AddbalanceController> {
                                     print(
                                         "hi hih hi hi hi hi ++++++++++++++++++++++++++++++++++${controller.paymentOptionId.value}");
 
-                                    if (controller.paymentMethodId.value ==
-                                        3) {
+                                    if (controller.paymentMethodId.value == 3) {
+
                                     } else {
                                       controller
                                           .getAddPaymentUrl()
