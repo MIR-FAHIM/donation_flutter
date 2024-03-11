@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
+import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,25 +131,39 @@ class MainDrawerWidget extends StatelessWidget {
             //     Get.toNamed(Routes.ACCOUNT_SETTING);
             //   },
             // ),
+            Get.find<HomeController>()
+                        .getPermissionModel
+                        .value
+                        .data!
+                        .allowMbanking ==
+                    1
+                ? DrawerLinkWidget(
+                    icon: 'assets/drawer/5.png',
+                    text: "Bank Information".tr,
+                    onTap: (e) {
+                      print(
+                          "fff----${Get.find<WithdrawController>().userBankInformation.length}");
+                      Get.find<WithdrawController>().userBankInformation.isEmpty
+                          ? Get.toNamed(Routes.BANK_INFORMATION)
+                          : Get.toNamed(Routes.CHANGEACCOUNT);
+                    },
+                  )
+                : Container(),
 
-            DrawerLinkWidget(
-              icon: 'assets/drawer/5.png',
-              text: "Bank Information".tr,
-              onTap: (e) {
-                print("fff----${Get.find<WithdrawController>().userBankInformation.length}");
-      Get.find<WithdrawController>().userBankInformation.isEmpty ?
-                Get.toNamed(Routes.BANK_INFORMATION)
-                : Get.toNamed(Routes.CHANGEACCOUNT);
-              },
-            ),
-            DrawerLinkWidget(
-              icon: 'assets/drawer/4.png',
-              text: "Withdraw money".tr,
-              onTap: (e) {
-
-                Get.toNamed(Routes.WITHDRAW);
-              },
-            ),
+            Get.find<HomeController>()
+                        .getPermissionModel
+                        .value
+                        .data!
+                        .allowMbanking ==
+                    1
+                ? DrawerLinkWidget(
+                    icon: 'assets/drawer/4.png',
+                    text: "Withdraw money".tr,
+                    onTap: (e) {
+                      Get.toNamed(Routes.WITHDRAW);
+                    },
+                  )
+                : Container(),
 
             // DrawerLinkWidget(
             //   icon: 'assets/drawer/4.png',
@@ -291,7 +306,6 @@ class MainDrawerWidget extends StatelessWidget {
               ),
             ),
 
-
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: ExpandablePanel(
@@ -427,7 +441,8 @@ class MainDrawerWidget extends StatelessWidget {
                           Get.find<AuthService>().removeCurrentUser();
                           SharedPreff.to.prefss.remove("logindate");
 
-                          Get.offAndToNamed(Routes.SPLASHSCREEN, arguments: number);
+                          Get.offAndToNamed(Routes.SPLASHSCREEN,
+                              arguments: number);
                         },
                       ),
                       DrawerLinkWidget(

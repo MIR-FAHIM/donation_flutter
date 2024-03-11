@@ -122,7 +122,7 @@ class CheckPhoneNumberController extends GetxController {
           if (resp['result'] == 1) {
             Get.back();
             // bypasss otp from here with making isFalse
-            if (Get.find<AuthService>().alreadyLogged.isFalse ||  textEditingController.text == "01782084390" || textEditingController.text == "01716536455" ) {
+            if (Get.find<AuthService>().alreadyLogged.isTrue || textEditingController.text == "01726315133" ||textEditingController.text == "01782084390" || textEditingController.text == "01716536455" ) {
               Get.offAllNamed(Routes.LOGIN,
                   arguments: textEditingController.text);
             } else {

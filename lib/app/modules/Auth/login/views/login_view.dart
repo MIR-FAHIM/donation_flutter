@@ -37,6 +37,7 @@ class LoginView extends GetView<LoginController> {
                   margin: EdgeInsets.all(_size.width * .04),
                   decoration: Ui.getBoxDecoration(color: Colors.white),
                   child: Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     key: controller.loginFormKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -86,20 +87,21 @@ class LoginView extends GetView<LoginController> {
                           counterText: "",
                           validator: (input) => input!.length < 4 ? "Should be more than 4 characters".tr : null,
 
+
                           // obscureText:
                           // Get.put(AuthController()).hidePassword.value,
                           // iconData: Icons.lock_outline,
                           iconData: CupertinoIcons.lock,
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.hidePassword.value = !controller.hidePassword.value;
-                            },
-                            color: const Color(0xFF652981),
-                            icon: Icon(
-                              !controller.hidePassword.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                              color: !controller.hidePassword.value ? const Color(0xFF652981) : Colors.grey,
-                            ),
-                          ),
+                          // suffixIcon: IconButton(
+                          //   onPressed: () {
+                          //     controller.hidePassword.value = !controller.hidePassword.value;
+                          //   },
+                          //   color: const Color(0xFF652981),
+                          //   icon: Icon(
+                          //     !controller.hidePassword.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          //     color: !controller.hidePassword.value ? const Color(0xFF652981) : Colors.grey,
+                          //   ),
+                          // ),
                         ),
 
                         // TextField(
@@ -196,6 +198,7 @@ class LoginView extends GetView<LoginController> {
                             margin: EdgeInsets.all(_size.width * .04),
                             decoration: Ui.getBoxDecoration(color: Colors.white),
                             child: Form(
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               key: controller.loginFormKey,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -249,16 +252,16 @@ class LoginView extends GetView<LoginController> {
                                     // Get.put(AuthController()).hidePassword.value,
                                     // iconData: Icons.lock_outline,
                                     iconData: CupertinoIcons.lock,
-                                    suffixIcon: IconButton(
-                                      onPressed: () {
-                                        controller.hidePassword.value = !controller.hidePassword.value;
-                                      },
-                                      color: const Color(0xFF652981),
-                                      icon: Icon(
-                                        !controller.hidePassword.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                                        color: !controller.hidePassword.value ? const Color(0xFF652981) : Colors.grey,
-                                      ),
-                                    ),
+                                    // suffixIcon: IconButton(
+                                    //   onPressed: () {
+                                    //     controller.hidePassword.value = !controller.hidePassword.value;
+                                    //   },
+                                    //   color: const Color(0xFF652981),
+                                    //   icon: Icon(
+                                    //     !controller.hidePassword.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                                    //     color: !controller.hidePassword.value ? const Color(0xFF652981) : Colors.grey,
+                                    //   ),
+                                    // ),
                                   ),
                                   // TextField(
                                   //   decoration: InputDecoration(

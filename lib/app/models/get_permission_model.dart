@@ -37,6 +37,7 @@ class Data {
   int allowCashin;
   int allowCashout;
   int allowMoneyout;
+  int allowMbanking;
 
   Data({
     required this.allowRecharge,
@@ -47,6 +48,7 @@ class Data {
     required this.allowCashin,
     required this.allowCashout,
     required this.allowMoneyout,
+    required this.allowMbanking
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -58,6 +60,7 @@ class Data {
     allowCashin: json["allow_cashin"],
     allowCashout: json["allow_cashout"],
     allowMoneyout: json["allow_moneyout"],
+    allowMbanking: json["allow_mbanking"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class Data {
     "allow_cashin": allowCashin,
     "allow_cashout": allowCashout,
     "allow_moneyout": allowMoneyout,
+    "allow_mbanking": allowMbanking,
   };
 }

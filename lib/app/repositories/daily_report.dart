@@ -11,7 +11,7 @@ class DailyReportRepo {
     Map body = {
       'customer_code':
           Get.find<AuthService>().currentUser.value.customerCode ?? '',
-      'start_date': startDate,
+      'date': startDate,
       'end_date': endDate,
     };
 

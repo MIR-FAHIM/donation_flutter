@@ -25,6 +25,25 @@ class MobileBankingRepository {
     return response;
   }
 
+  Future getCommision(
+      {String? amount, String? type,  String? gateWayID}) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    Map body = {
+      'type': type,
+      'amount': amount,
+      "gateway_id" : gateWayID,
+    };
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader( ApiClient.getCommision, body, headers);
+
+    print('cashin: ${response}');
+
+    return response;
+  }
+
   Future submitCashOut({String? number, String? amount, String? pin, String? gateWayID, String? otp}) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 

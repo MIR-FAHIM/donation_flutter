@@ -241,7 +241,7 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                       children: [
                                         Center(
                                           child: Text(
-                                            'Commission'.tr,
+                                            'Cash Back'.tr,
                                             style: const TextStyle(
                                               color: Color(0xFF652981),
                                             ),

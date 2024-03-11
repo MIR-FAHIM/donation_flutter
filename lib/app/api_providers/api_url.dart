@@ -265,6 +265,7 @@ class ApiClient {
       '${baseUrl}api/appapi/billpay/bill-payment-receipt';
 
   static const String cashin = '${baseUrl}api/appapi/mbanking/cashin';
+  static const String getCommision = '${baseUrl}api/appapi/mbanking/commission-preview';
   static const String cashInTest = '${baseUrl}/api/appapi/mbanking/cashin';
 
   static const String cashout = '${baseUrl}api/appapi/mbanking/cashout';

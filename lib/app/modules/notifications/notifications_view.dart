@@ -4,12 +4,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/modules/account_statement/widgets/transactions_widget.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/widgets/notification_widget.dart';
-import 'package:latest_payplus_agent/app/modules/inbox/widgets/transactions_widget.dart';
-import 'package:latest_payplus_agent/app/modules/notifications/widgets/notification_tab_bar.dart';
 import 'package:latest_payplus_agent/app/modules/recharge_report_number_check/controllers/number_check_controller.dart';
-import 'package:latest_payplus_agent/app/modules/transaction_history/views/transaction_history_view.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+
 
 class NotificationsView extends StatefulWidget {
   const NotificationsView({Key? key}) : super(key: key);

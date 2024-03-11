@@ -17,6 +17,7 @@ class DailyReportModel {
   String? closing_balance;
   String? ticketPurchase;
   String? packagePurchase;
+  String? totalAddBalance;
 
   DailyReportModel({
     this.customer_name,
@@ -36,7 +37,8 @@ class DailyReportModel {
     this.daily_charge,
     this.closing_balance,
     this.packagePurchase,
-    this.ticketPurchase
+    this.ticketPurchase,
+    this.totalAddBalance,
 
   });
 
@@ -62,6 +64,7 @@ class DailyReportModel {
     closing_balance = json['closing_balance'];
     packagePurchase = json['package_purchase'];
     ticketPurchase = json['ticket_purchase'];
+    totalAddBalance = json['total_add_balance'];
   }
 
   Map<String, dynamic> toJson() {
@@ -81,6 +84,7 @@ class DailyReportModel {
     data['ticket_purchase_commission'] = this.ticket_commission;
     data['bill_pay_commission'] = this.mbanking_commission;
     data['total_commission'] = this.total_commision;
+    data['total_add_balance'] = this.totalAddBalance;
 
 
     return data;

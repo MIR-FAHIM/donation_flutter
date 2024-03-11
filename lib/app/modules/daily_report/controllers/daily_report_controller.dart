@@ -216,6 +216,12 @@ class DailyReportController extends GetxController {
           'balance': dailyReportDetails.value.ticketPurchase
         },
 
+        {
+          'title': 'Total add balance'.tr,
+          'image': 'assets/images/Closing_Balance.png',
+          'balance': dailyReportDetails.value.totalAddBalance
+        },
+
 
       ];
 

@@ -101,6 +101,13 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                       textAlign: TextAlign.center,
                     ),
                   ),
+                  Center(
+                    child: Text(
+                      controller.devMessage.value,
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   SizedBox(
                     height: 25,
                   ),
