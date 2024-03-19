@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
@@ -11,9 +13,10 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class DescoPrepaidFormView extends GetView {
-  BillFormController billpayController = Get.put(BillFormController());
-  BillPaymentController billpaymentController = Get.put(BillPaymentController());
+class BPDBPrepaidFormView extends GetView {
+  BillFormController billformController = Get.put(BillFormController());
+  BillPaymentController billpaymentController =
+      Get.put(BillPaymentController());
   @override
   Widget build(BuildContext context) {
     var _title = Get.arguments['title'];
@@ -28,7 +31,14 @@ class DescoPrepaidFormView extends GetView {
             centerTitle: true,
             title: Text("$_title".tr),
             elevation: 0,
-
+            // actions: [
+            //   IconButton(
+            //       onPressed: () {},
+            //       icon: Icon(
+            //         CupertinoIcons.bell,
+            //         color: Colors.white70,
+            //       )),
+            // ],
           ),
         ),
         body: GestureDetector(
@@ -78,13 +88,12 @@ class DescoPrepaidFormView extends GetView {
                       ),
                     ),
                   ),
-
                   TextFieldWidget(
                     onChanged: (value) {
-                      billpayController.accountID.value = value;
+                      billformController.meterNo.value = value;
                     },
-                    labelText: "Account Number".tr,
-                    hintText: "Enter Account Number".tr,
+                    labelText: "Meter Number".tr,
+                    hintText: "Enter Meter Number".tr,
                     // onSaved: (input) =>
                     // controller.currentUser.value.email = input,
                     // validator: (input) => !input!.contains('@') ? "Should be a valid email".tr : null,
@@ -93,7 +102,7 @@ class DescoPrepaidFormView extends GetView {
                   ),
                   TextFieldWidget(
                     onChanged: (value) {
-                      billpayController.amount.value = value;
+                      billformController.amount.value = value;
                     },
                     labelText: "Recharge Amount".tr,
                     hintText: "Enter Recharge Amount".tr,
@@ -104,9 +113,12 @@ class DescoPrepaidFormView extends GetView {
                     iconData: null,
                     imageData: 'assets/collection/2.png',
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   TextFieldWidget(
                     onChanged: (value) {
-                      billpayController.mobile.value = value;
+                      billformController.mobile.value = value;
                     },
                     labelText: "Mobile No".tr,
                     hintText: "Enter Mobile No.".tr,
@@ -117,7 +129,6 @@ class DescoPrepaidFormView extends GetView {
                     // validator: (input) => !input!.contains('@') ? "Should be a valid email".tr : null,
                     iconData: CupertinoIcons.device_phone_portrait,
                   ),
-
                   SizedBox(
                     height: 20,
                   ),
@@ -127,76 +138,55 @@ class DescoPrepaidFormView extends GetView {
                       //meter - 66110007244
                       //
 
-
                       var result;
                       var data;
                       var bill_ref;
                       var datas;
 
-                      if (billpayController.amount.value.isNotEmpty &&
-                          billpayController.accountID.value.isNotEmpty) {
-
-                        if(billpayController.mobile.value.length != 11){
-                          Get.showSnackbar(Ui.ErrorSnackBar(
-                              message: "Phone no not valid", title: 'Failed'.tr));
-                        }else{
-                          var res = getBillDetail(
-                              meterNo: billpayController.meterNo.value,
-                              amount: billpayController.amount.value,
-                              mobileNo: billpayController.mobile.value,
-                              billNumber: billpayController.accountID.value);
-                          Ui.customLoaderDialog();
-                          res.then((value) => {
-                            Get.back(),
-                            result = value['result'],
-                            print("hle bro+++++++ ${value['result']}"),
-                            if (value['result'] == 'success')
-                              {
-                                billpaymentController.billPaymentChargePreview(
-
-                                  bill_payment_id:value['bill_ref']['bill_payment_id'],
-
-                                  bill_refer_id: value['bill_ref']['bill_refer_id'],
-                                ),
+                      if (billformController.amount.value.isNotEmpty &&
+                          billformController.meterNo.value.isNotEmpty) {
+                        var res = getBillDetail(
+                          meterNo: billformController.meterNo.value,
+                          amount: billformController.amount.value,
+                          mobileNo: billformController.mobile.value,
+                        );
+                        Ui.customLoaderDialog();
+                        res.then((value) => {
+                              Get.back(),
+                              result = value['result'],
+                              print("hle bro+++++++ ${value['result']}"),
+                              if (value['result'] == 'success')
                                 {
-                                  data = value['data'],
-                                  bill_ref = value['bill_ref'],
-                                  // Ui.SuccessSnackBar(message: value['result']),
-                                  // print(data['bllr_accno']),
-                                  datas = {
-                                    "title": _title,
-                                    "images": _images,
-                                    "bill_payment_id":
-                                    bill_ref['bill_payment_id'],
-                                    "bill_refer_id": bill_ref['bill_refer_id'],
-                                    "bll_no": data['bill_no'],
-                                    "bill_name": data['bill_name'],
-                                    "bllr_accno": data['biller_acc_no'],
-                                    "bll_mobno": data['biller_mobile'],
-                                    "charge": data['charge'],
-                                    "bll_vat": data['bill_vat'],
-                                    "bll_late_fee": data['bill_late_fee'],
-                                    "ekpay_fee": data['ekpay_fee'],
-                                    "is_bill_paid": data['is_bill_paid'],
-                                    "bll_amnt_ttl": data['bill_total_amount'],
-                                    "customer_name": data['customer_name'],
-                                    "meter_type": data['meter_type'],
-                                    "tariff_program": data['tariff_program'],
-                                  },
-                                  Get.toNamed(Routes.DESCOPREPAIDDETAILS,
-                                      arguments: datas)
+                                  billformController.fetchBpdbModel.value =
+                                      FetchBpdbModel.fromJson(value),
+                                  print(
+                                      "hlw model ${billformController.fetchBpdbModel.value.result}"),
+                                  billpaymentController
+                                      .billPaymentChargePreview(
+                                    bill_payment_id: billformController
+                                        .fetchBpdbModel
+                                        .value
+                                        .billRef!
+                                        .billPaymentId.toString(),
+                                    bill_refer_id: billformController
+                                        .fetchBpdbModel
+                                        .value
+                                        .billRef!
+                                        .billReferId.toString(),
+                                  ),
+                                  Get.toNamed(Routes.BPDBBILLVIEW, arguments: [
+                                    billformController.fetchBpdbModel.value,
+                                    _title,
+                                    _images
+                                  ]),
                                 }
-                          }
-
-                            else{
-                              Get.showSnackbar(Ui.ErrorSnackBar(
-                                  message: "Please add more than 200 taka",
-                                  title: 'Error'.tr))
-                            }
-
-                          });
-                        }
-
+                              else
+                                {
+                                  Get.showSnackbar(Ui.ErrorSnackBar(
+                                      message: value['message'],
+                                      title: 'Error'.tr))
+                                }
+                            });
                       } else {
                         Get.showSnackbar(Ui.ErrorSnackBar(
                             message: "Fill all the field", title: 'Failed'.tr));
@@ -213,35 +203,30 @@ class DescoPrepaidFormView extends GetView {
             ),
           ),
         ));
-
   }
 
-  Future<Map<dynamic, dynamic>> getBillDetail(
-      {String? billNumber,
-      String? meterNo,
-      String? mobileNo,
-      String? amount}) async {
-    print(billNumber);
+  Future<Map<String, dynamic>> getBillDetail(
+      {String? meterNo, String? mobileNo, String? amount}) async {
     print(meterNo);
     print(amount);
 
     Map data = {
       // "33041338", //
-      'biller_acc_no': billNumber,
+      'meter_no': meterNo,
 
       'biller_mobile_no': mobileNo,
       "amount": amount,
     };
-
+    print("my bpdb data is $data");
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     var headers = {'token': token};
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/desco-prepaid';
+    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/bpdb-prepaid';
 
     // var body = json.encode(data);
-
+//880961763331
     var response =
         await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);

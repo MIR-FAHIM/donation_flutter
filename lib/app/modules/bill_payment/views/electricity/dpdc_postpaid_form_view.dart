@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 //import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -24,6 +25,8 @@ class DPDCPostpaidFormView extends StatefulWidget {
 
 class _DPDCPostpaidFormViewState extends State<DPDCPostpaidFormView> {
   BillFormController billpayController = Get.put(BillFormController());
+  BillPaymentController billpaymentController = Get.put(BillPaymentController());
+
   var bill_number = '';
 
   DateTime initialDate = DateTime.now();
@@ -295,7 +298,12 @@ class _DPDCPostpaidFormViewState extends State<DPDCPostpaidFormView> {
                                 {
                                   // Ui.SuccessSnackBar(message: value['result']),
                                   print(data['bllr_accno']),
+                                  billpaymentController.billPaymentChargePreview(
 
+                                    bill_payment_id:value['bill_ref']['bill_payment_id'],
+
+                                    bill_refer_id: value['bill_ref']['bill_refer_id'],
+                                  ),
                                   datas = {
                                     "title": _title,
                                     "images": _images,
@@ -314,8 +322,10 @@ class _DPDCPostpaidFormViewState extends State<DPDCPostpaidFormView> {
                                   },
                                   Get.toNamed(Routes.DPDC_Postpaid_Billview, arguments: datas)
                                 }
-                              else
+                              else{
                                 Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'error'.tr))
+                              }
+
                             });
                       },
                       color: Color(0xFF652981),

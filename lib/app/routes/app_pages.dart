@@ -13,6 +13,8 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_form.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/Nesco/nesco_postpaid_view.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/bpdb/bpdb_prepaid_bill_view.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/bpdb/bpdb_prepaid_form_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_post_form.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/failed_page.dart';
@@ -420,6 +422,18 @@ class AppPages {
       page: () => DescoPrepaidBillView(),
       binding: BillPaymentBinding(),
     ),
+
+    GetPage(
+      name: _Paths.BPDBBILLVIEW,
+      page: () => BPDBPrepaidBillView(),
+      binding: BillPaymentBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.BPDBFORMVIEW,
+      page: () => BPDBPrepaidFormView(),
+      binding: BillPaymentBinding(),
+    ),
     GetPage(
       name: _Paths.Water_Biller_List_View,
       page: () => WaterBillerList(),
@@ -435,6 +449,8 @@ class AppPages {
       page: () => DescoPostpaidBillView(),
       binding: BillPaymentBinding(),
     ),
+
+
     GetPage(
       name: _Paths.Desco_Postpaid_List_View,
       page: () => DescoPostpaidFormView(),

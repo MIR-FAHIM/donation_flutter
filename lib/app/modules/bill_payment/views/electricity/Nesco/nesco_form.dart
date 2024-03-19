@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -13,6 +14,8 @@ import 'package:latest_payplus_agent/common/ui.dart';
 
 class NescoPostpaidFormView extends GetView {
   BillFormController billpayController = Get.put(BillFormController());
+  BillPaymentController billpaymentController = Get.put(BillPaymentController());
+
   @override
   Widget build(BuildContext context) {
     final _size = Get.size;
@@ -165,6 +168,12 @@ class NescoPostpaidFormView extends GetView {
                           result = value['result'],
                           if (value['result'] == 'success')
                             {
+                              billpaymentController.billPaymentChargePreview(
+
+                                bill_payment_id:value['bill_ref']['bill_payment_id'],
+
+                                bill_refer_id: value['bill_ref']['bill_refer_id'],
+                              ),
                               data = value['data'],
                               bill_ref = value['bill_ref'],
                               // Ui.SuccessSnackBar(message: value['result']),

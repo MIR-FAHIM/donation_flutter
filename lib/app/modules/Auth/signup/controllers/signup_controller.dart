@@ -719,6 +719,7 @@ class SignupController extends GetxController {
       userData.value.union = thanas[0].id!.toString();
     });
   }
+
   void getImageAndroid13(ImageSource imageSource, String type) async {
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
@@ -731,27 +732,42 @@ class SignupController extends GetxController {
     compressImagePath = ''.obs;
     compressImageSize = ''.obs;
 
-
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
     );
     if (result != null) {
       selectedImagePath.value = result.files.first.path.toString();
-      selectedImageSize.value = ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+      selectedImageSize.value =
+          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
 
       // Crop
-      final cropImageFile = await ImageCropper().cropImage(sourcePath: selectedImagePath.value, maxWidth: 512, maxHeight: 512, compressFormat: ImageCompressFormat.jpg);
+      final cropImageFile = await ImageCropper().cropImage(
+          sourcePath: selectedImagePath.value,
+          maxWidth: 512,
+          maxHeight: 512,
+          compressFormat: ImageCompressFormat.jpg);
       cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value = ((File(cropImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+      cropImageSize.value =
+          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
 
       // Compress
       print('compress path: ${cropImagePath.value}');
       final dir = Directory.systemTemp;
-      final targetPath = dir.absolute.path + '/' + cropImagePath.value.split('/').last;
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(cropImagePath.value, targetPath, quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
+      final targetPath =
+          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(
+          cropImagePath.value, targetPath,
+          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
       compressImagePath.value = compressedFile!.path;
-      compressImageSize.value = ((File(compressImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+      compressImageSize.value =
+          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
 
       // final bytes = compressedFile.readAsBytesSync();
 
@@ -791,9 +807,13 @@ class SignupController extends GetxController {
 
       // uploadImage(compressedFile);
     } else {
-      Get.snackbar('Error', 'No image selected', snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+      Get.snackbar('Error', 'No image selected',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
+
   void getImage(ImageSource imageSource, String type) async {
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
@@ -850,6 +870,7 @@ class SignupController extends GetxController {
         selectedNIDFront.value = File(targetPath);
 
         userData.value.nid_front = base64Encode(bytes);
+        print("nid front is ${userData.value.nid_front}");
         nidRead();
         userData.update((val) {});
       }
@@ -1014,7 +1035,7 @@ class SignupController extends GetxController {
         'service_fee_type': serviceFeeTypeId.value,
         'password': userData.value.password,
         'imei': Get.find<LocationService>().imei.value,
-        "phone_model" : Get.find<LocationService>().model.value,
+        "phone_model": Get.find<LocationService>().model.value,
         'customer_latitude':
             Get.find<LocationService>().currentLocation['lat'].toString(),
         'customer_longitude':
@@ -1061,7 +1082,6 @@ class SignupController extends GetxController {
     if (true == true) {
       //  registerFormKey.currentState!.save();
       signupCompleted.value = false;
-
       Ui.customLoaderDialog();
       print(userData.value.lati);
       print(userData.value.longi);

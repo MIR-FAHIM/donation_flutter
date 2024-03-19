@@ -169,9 +169,10 @@ class BillPaymentView extends GetView<BillPaymentController> {
                 // onTap: billPayment[index].press,
                 onTap: () {
                   Get.toNamed(
-
                     Routes.akash_From_View,
                   );
+
+
                   // Get.toNamed(
                   //   Routes.Reb_Postpaid_Form_View,
                   // );

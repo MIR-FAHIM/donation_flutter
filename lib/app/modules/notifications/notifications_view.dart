@@ -91,7 +91,6 @@ class _NotificationsViewState extends State<NotificationsView>
     var banglalink = "assets/sim/bl.png";
     var robi = "assets/sim/robi.png";
     var teletalk = "assets/sim/teletalk.png";
-
     var operator = controller.rechargeReport.value.data![index].operator!;
 
     dynamic Operator() {

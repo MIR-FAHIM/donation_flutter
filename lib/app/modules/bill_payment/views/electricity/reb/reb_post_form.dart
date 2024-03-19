@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
+import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -18,6 +19,7 @@ import 'package:latest_payplus_agent/common/ui.dart';
 
 class RebPostpaidFormView extends GetView {
   BillFormController billpayController = Get.put(BillFormController());
+  BillPaymentController billpaymentController = Get.put(BillPaymentController());
   @override
   Widget build(BuildContext context) {
     final _size = Get.size;
@@ -319,7 +321,14 @@ class RebPostpaidFormView extends GetView {
                             result = value['result'],
                             print("hle bro+++++++ ${value['result']}"),
                             if (value['result'] == 'success')
+
                               {
+                                billpaymentController.billPaymentChargePreview(
+
+                                  bill_payment_id:value['bill_ref']['bill_payment_id'],
+
+                                  bill_refer_id: value['bill_ref']['bill_refer_id'],
+                                ),
                                 data = value['data'],
                                 bill_ref = value['bill_ref'],
                                 datas = {
@@ -343,11 +352,13 @@ class RebPostpaidFormView extends GetView {
                                 },
                                 Get.toNamed(Routes.Reb_Postpaid_Bill_View,
                                     arguments: datas)
-                              }
-                            else
+                              } else {
                               Get.showSnackbar(Ui.ErrorSnackBar(
                                   message: value['message'],
                                   title: 'error'.tr))
+                          }
+
+
                           });
                         }else{
                           Get.showSnackbar(Ui.ErrorSnackBar(

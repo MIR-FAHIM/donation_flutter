@@ -85,6 +85,15 @@ class PhoneVerificationWtihOTPController extends GetxController {
   sendOTP() async {
     print("my phn no for otp is ${mobileNumber.value}");
     OTPRepository().otpSend(mobileNumber.value).then((resp) {
+      if(resp["result"] == "success"){
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message: resp["message"], title: 'Success'.tr));
+      }else{
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message:  resp["message"], title: 'Error'.tr));
+      }
+
+
       // if (resp['result'] == 'success') {
       //   Get.back();
       //   if (isRegistered.value == '1') {

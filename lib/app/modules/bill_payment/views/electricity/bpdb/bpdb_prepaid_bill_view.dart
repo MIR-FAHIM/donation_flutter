@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/bill_payment_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/widgets/bill_payment-success_view.dart';
@@ -13,31 +14,14 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class DescoPrepaidBillView extends GetView<BillPaymentController> {
+class BPDBPrepaidBillView extends GetView<BillPaymentController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
     final _size = Get.size;
-    var _title = Get.arguments['title'];
-    var _images = Get.arguments['images'];
-
-    var _bill_payment_id = Get.arguments['bill_payment_id'];
-    var _bill_refer_id = Get.arguments['bill_refer_id'];
-    var _biller_name = Get.arguments['customer_name'];
-    var meter_type = Get.arguments['meter_type'];
-    var tariff_program = Get.arguments['tariff_program'];
-    var _bll_no = Get.arguments['bll_no'];
-    var _bllr_accno = Get.arguments['bllr_accno'];
-    var _bll_mobno = Get.arguments['bll_mobno'];
-    var _bll_dt_frm = Get.arguments['bll_dt_frm'];
-    var _bll_dt_to = Get.arguments['bll_dt_to'];
-    var _bll_dt_due = Get.arguments['bll_dt_due'];
-    var _bll_amnt = Get.arguments['bll_amnt'];
-    var bll_vat = Get.arguments['bll_vat'];
-    var ekpay_fee = Get.arguments['ekpay_fee'];
-    var is_bill_paid = Get.arguments['is_bill_paid'];
-    var bll_late_fee = Get.arguments['bll_late_fee'];
-    var bll_amnt_ttl = Get.arguments['bll_amnt_ttl'];
+    FetchBpdbModel data = Get.arguments[0];
+    String _title = Get.arguments[1];
+    String _images = Get.arguments[2];
 
     return Scaffold(
         backgroundColor: Colors.grey.shade100,
@@ -71,7 +55,8 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
           },
           child: Obx(() {
             if (controller.billpayLoaded.isTrue) {
-              var _total = double.parse(bll_amnt_ttl) + double.parse(controller.online_charge.value) + double.parse(controller.servic_fee.value);
+             var _total = double.parse(data.data!.billTotalAmount) + double.parse(controller.online_charge.value) + double.parse(controller.servic_fee.value);
+
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -119,28 +104,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Column(
                         children: [
-                          // Padding(
-                          //   padding: const EdgeInsets.only(top: 10, bottom: 8),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Text(
-                          //         "Bill No.",
-                          //         style: TextStyle(
-                          //           fontSize: 16,
-                          //           color: AppColors.primaryColor,
-                          //         ),
-                          //       ),
-                          //       Text(
-                          //         _bll_no,
-                          //         style: TextStyle(
-                          //           fontSize: 16,
-                          //           color: AppColors.homeTextColor3,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+
                           Container(
                             width: _size.width,
                             height: 1,
@@ -159,7 +123,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                                   ),
                                 ),
                                 Text(
-                                  _bllr_accno,
+                                  data.data!.billNo!,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -186,7 +150,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                                   ),
                                 ),
                                 Text(
-                                  _biller_name,
+                                  data.data!.customerName,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -201,54 +165,10 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                             height: 1,
                             color: AppColors.SectionHighLightCardBg,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Biller Meter Type.",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  meter_type,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           Container(
                             width: _size.width,
                             height: 1,
                             color: AppColors.SectionHighLightCardBg,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Biller Tarrif.",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  tariff_program,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.homeTextColor3,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                           Container(
                             width: _size.width,
@@ -268,7 +188,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                                   ),
                                 ),
                                 Text(
-                                  _bll_mobno,
+                                  data.data!.billerMobile,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -312,7 +232,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                                   ),
                                 ),
                                 Text(
-                                  is_bill_paid == 'Y' ? "Paid" : "Not Paid",
+                                  data.data!.isBillPaid == 'Y' ? "Paid" : "Not Paid",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -327,28 +247,28 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                             // color: AppColors.SectionHighLightCardBg,
                           ),
 
-                          // Padding(
-                          //   padding: const EdgeInsets.only(top: 8, bottom: 8),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Text(
-                          //         "Vat",
-                          //         style: TextStyle(
-                          //           fontSize: 16,
-                          //           color: AppColors.primaryColor,
-                          //         ),
-                          //       ),
-                          //       Text(
-                          //         '৳ ' + bll_vat.toString(),
-                          //         style: TextStyle(
-                          //           fontSize: 16,
-                          //           color: AppColors.homeTextColor3,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Amount",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  '৳ ' + data.data!.billAmount!,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 8, bottom: 8),
                             child: Row(
@@ -363,6 +283,29 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                                 ),
                                 Text(
                                   '৳ ' + controller.online_charge.value,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.homeTextColor3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Service Fee",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  '৳ ' + controller.servic_fee.value,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.homeTextColor3,
@@ -401,7 +344,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    is_bill_paid == 'Y'
+                    data.data!.isBillPaid == 'Y'
                         ? Center(
                             child: Padding(
                               padding: const EdgeInsets.only(top: 10),
@@ -414,30 +357,32 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                         : BlockButtonWidget(
                             onPressed: () {
                               var result;
-                              var data;
+                              var preview;
+
                               var current_balance;
                               var bill_amount;
                               var service_charge;
                               var charge_for_online_balance_received;
                               var grand_total_amount;
-                              print(_bill_payment_id);
-                              print(_bill_refer_id);
-                              var res = BillPaymentChargePreview(_bill_payment_id, _bill_refer_id);
+
+                              var res = BillPaymentChargePreview(data.billRef!.billPaymentId, data!.billRef!.billReferId);
                               Ui.customLoaderDialog();
                               res.then((value) => {
                                 Get.back(),
                                 result = value['result'],
-                                data = value['data'],
+                                preview = value['data'],
                                 if (value['result'] == 'success')
                                   {
-                                    data = value['data'],
-                                    current_balance = data['current_balance'],
-                                    bill_amount = data['bill_amount'],
-                                    service_charge = data['service_charge'],
-                                    charge_for_online_balance_received = data['charge_for_online_balance_received'],
-                                    grand_total_amount = data['grand_total_amount'],
-                                    openBottomSheetBill(current_balance, bill_amount, service_charge, charge_for_online_balance_received,
-                                        grand_total_amount, _bllr_accno, _title, _images, _bill_payment_id, _bill_refer_id)
+                                    preview = value['data'],
+                                    current_balance = preview['current_balance'],
+                                    bill_amount = preview['bill_amount'],
+                                    service_charge = preview['service_charge'],
+                                    charge_for_online_balance_received = preview['charge_for_online_balance_received'],
+                                    grand_total_amount = preview['grand_total_amount'],
+                                    openBottomSheetBill(currentBalance: current_balance,billAmount: bill_amount,
+                                      serviceCharge: service_charge,onlineCharge: charge_for_online_balance_received,
+                                      totalAmount:   grand_total_amount, title:  _title,
+                                      image:   _images, paymentID: data.billRef!.billPaymentId, referId: data!.billRef!.billReferId, meterNum: "" ),
                                   }
                                 else
                                   Get.showSnackbar(Ui.ErrorSnackBar(message: value['message'], title: 'error'.tr))
@@ -462,14 +407,20 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
   }
 
   Future<Map<dynamic, dynamic>> BillPaymentChargePreview(int billPaymentID, String billRefId) async {
-
+    // print(billNumber);
     Map data = {
       'bill_payment_id': billPaymentID.toString(),
       'bill_refer_id': billRefId,
     };
+
     String token = Get.find<AuthService>().currentUser.value.token!;
+
     var headers = {'token': token};
+
     var url = 'https://shl.com.bd/api/appapi/billpay/charge/preview';
+
+    // var body = json.encode(data);
+
     var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Charge : $resp');
@@ -477,7 +428,13 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
   }
 
   Future<Map<dynamic, dynamic>> BillPayment(
-      int billPaymentID, String billRefId, String billAmount, String serviceCharge, String onlineCharge, String totalAmount, dynamic pin) async {
+      {int? billPaymentID,
+      String? billRefId,
+      String? billAmount,
+      String? serviceCharge,
+      String? onlineCharge,
+      String? totalAmount,
+      String? pin}) async {
     // print(billNumber);
     Map data = {
       'bill_payment_id': billPaymentID.toString(),
@@ -503,8 +460,9 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
     return resp;
   }
 
-  void openBottomSheetBill(String currentBalance, String billAmount, String serviceCharge, String onlineCharge, String totalAmount,
-      dynamic accountNumber, dynamic title, dynamic image, dynamic paymentId, dynamic referId) {
+  void openBottomSheetBill(
+      {String? currentBalance, String? billAmount, String? serviceCharge, String? onlineCharge, String? totalAmount,
+         dynamic title, dynamic image, dynamic paymentID, dynamic referId, String? meterNum}) {
     Get.bottomSheet(
       SingleChildScrollView(
         child: Column(
@@ -532,7 +490,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                           ),
                         ),
                       ),
-                      double.parse(totalAmount) > double.parse(currentBalance)
+                      double.parse(totalAmount!) > double.parse(currentBalance!)
                           ? Text(
                               'insufficient funds'.tr,
                               style: TextStyle(color: AppColors.redTextColor, fontWeight: FontWeight.bold, fontSize: 16),
@@ -579,12 +537,12 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Account Number'.tr,
+                              'Meter Number'.tr,
                               style: TextStyle(fontSize: 13, color: AppColors.homeTextColor3),
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              accountNumber,
+                              meterNum!,
                               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             //Amount
@@ -598,7 +556,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              '৳ ' + billAmount,
+                              '৳ ' + billAmount!,
                               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             //Amount
@@ -609,7 +567,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              '৳ ' + serviceCharge,
+                              '৳ ' + serviceCharge!,
                               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 5),
@@ -635,7 +593,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              '৳ ' + onlineCharge,
+                              '৳ ' + onlineCharge!,
                               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                             //Amount
@@ -728,13 +686,13 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                         print("enable");
 
                         var res = BillPayment(
-                          paymentId,
-                          referId,
-                          billAmount,
-                          serviceCharge,
-                          onlineCharge,
-                          totalAmount,
-                          controller.pin.value,
+                          billPaymentID: paymentID,
+                          billRefId: referId,
+                          billAmount:  billAmount,
+                          serviceCharge: serviceCharge,
+                          onlineCharge: onlineCharge,
+                          totalAmount:  totalAmount,
+                         pin: controller.pin.value,
                         );
                         Ui.customLoaderDialog();
                         res.then((value) => {
@@ -778,33 +736,7 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
                           ),
                   ).paddingSymmetric(vertical: 10, horizontal: 20)
 
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //       left: 15, right: 15, top: 15, bottom: 15),
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       // Get.to(SalePaymentSystem());
-            //     },
-            //     child: Container(
-            //       width: _size.width * 0.6,
-            //       height: _size.width * .12,
-            //       decoration:
-            //           Ui.getBoxDecoration(color: Color(0xFF652981), radius: 10),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: [
-            //           Text(
-            //             'Confirm Bill Payment'.tr,
-            //             style: TextStyle(
-            //               fontSize: 14,
-            //               color: AppColors.homeCardBg,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
           ],
         ),
       ),

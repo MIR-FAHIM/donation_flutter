@@ -210,6 +210,7 @@ class AddbalanceController extends GetxController {
       var data = AddBalanceHistoryModel.fromJson(resp);
 
       addBalanceHistoryList.value = data.data!;
+      print("my logo in haddbalance his${addBalanceHistoryList.value[1].logoLink}");
       print(
           "get add balance history ^^^^ ${addBalanceHistoryList.value.length}");
     });

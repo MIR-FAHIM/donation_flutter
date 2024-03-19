@@ -157,6 +157,8 @@ abstract class Routes {
 
   static const NOTIDETAILS = _Paths.NOTIDETAILS;
   static const ADDPAYER = _Paths.ADDPAYER;
+  static const BPDBBILLVIEW = _Paths.BPDBBILLVIEW;
+  static const BPDBFORMVIEW = _Paths.BPDBFORMVIEW;
 
   static const CONFIRM_BANK_PAY = _Paths.CONFIRM_BANK_PAY;
   static const COLLECTORHOMEPAGE = _Paths.COLLECTORHOMEPAGE;
@@ -231,6 +233,7 @@ abstract class _Paths {
   static const WITHDRAW_AMOUNT = '/withdraw/withdraw_amount';
   static const WITHDRAW_SUCCESS = '/withdraw/success';
   static const INBOX = '/inbox';
+  static const BPDBBILLVIEW = '/BPDBBILLVIEW';
   static const MBANKINGFAIL = '/m-banking-fail';
   static const ERRORBILL = '/error-bill';
     static const SETTINGS = '/settings';
@@ -312,6 +315,7 @@ abstract class _Paths {
   static const DEACTIVATE_ACCCOUNT = '/deactivate_account_view';
   static const DEACTIVATE_ACCCOUNT_PIN = '/deactivate_account_pin';
   static const ACCOUNTSTATEMENT = '/account_statement';
+  static const BPDBFORMVIEW = '/BPDBFORMVIEW';
 
   static const Test = '/test';
   static const CUSTOMERS = '/customers';

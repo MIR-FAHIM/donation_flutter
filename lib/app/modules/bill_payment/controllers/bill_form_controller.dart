@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
 import 'package:latest_payplus_agent/app/models/favourite_bill_list_model.dart';
 import 'package:latest_payplus_agent/app/repositories/bill_payment_repository.dart';
 import 'package:latest_payplus_agent/app/services/settings_service.dart';
@@ -9,7 +10,7 @@ import 'package:month_year_picker/month_year_picker.dart';
 
 class BillFormController extends GetxController {
   //TODO: Implement BillPaymentController
-
+ final fetchBpdbModel  = FetchBpdbModel().obs;
   final isChecked = false.obs;
   final refName = ''.obs;
   final bill_id = ''.obs;

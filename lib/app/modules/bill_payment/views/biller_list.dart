@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/widgets/bill_drawer.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
@@ -51,27 +52,44 @@ class BillerList extends GetView {
                         var data = billerList[index];
                         return GestureDetector(
                           onTap: () {
-                            print("biller list ${billerList[index]['bill_code']}");
+                            print(
+                                "biller list ${billerList[index]['bill_code']}");
                             var data = {
                               "title": billerList[index]['name'],
                               "images": billerList[index]['image'],
                               "bill_no": '',
                             };
-                            if (billerList[index]['bill_code'] == 'desco_postpaid') {
-                              Get.toNamed(Routes.Desco_Postpaid_List_View, arguments: data);
-                            } else if (billerList[index]['bill_code'] == 'desco_prepaid') {
-                              Get.toNamed(Routes.Desco_Prepaid_From_View, arguments: data);
-                            }else if (billerList[index]['bill_code'] == 'dpdc_postpaid') {
-                              Get.toNamed(Routes.DPDC_Postpaid_From_View, arguments: data);
-                            } else if (billerList[index]['bill_code'] == 'desco_prepaid') {
+                            if (billerList[index]['bill_code'] ==
+                                'desco_postpaid') {
+                              Get.toNamed(Routes.Desco_Postpaid_List_View,
+                                  arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'desco_prepaid') {
                               Get.toNamed(Routes.Desco_Prepaid_From_View,
                                   arguments: data);
-                            } else if (billerList[index]['bill_code'] == 'west_zone_postpaid') {
-                              Get.toNamed(Routes.Westzone_Postpaid_From_View, arguments: data);
-                            }else if (billerList[index]['bill_code'] == 'palli_bidyut_postpaid') {
-                              Get.toNamed(Routes.Reb_Postpaid_Form_View, arguments: data);
-                            }else if (billerList[index]['bill_code'] == 'nesco_postpaid') {
-                              Get.toNamed(Routes.nesco_From_View, arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'dpdc_postpaid') {
+                              Get.toNamed(Routes.DPDC_Postpaid_From_View,
+                                  arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'desco_prepaid') {
+                              Get.toNamed(Routes.Desco_Prepaid_From_View,
+                                  arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'west_zone_postpaid') {
+                              Get.toNamed(Routes.Westzone_Postpaid_From_View,
+                                  arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'palli_bidyut_postpaid') {
+                              Get.toNamed(Routes.Reb_Postpaid_Form_View,
+                                  arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'nesco_postpaid') {
+                              Get.toNamed(Routes.nesco_From_View,
+                                  arguments: data);
+                            } else if (billerList[index]['bill_code'] ==
+                                'bpdb_prepaid') {
+                              Get.toNamed(Routes.BPDBFORMVIEW, arguments: data);
                             }
                             // else if (billerList[index]['bill_code'] ==
                             //     'dhaka_wasa') {
@@ -82,7 +100,8 @@ class BillerList extends GetView {
                             // Get.toNamed(Routes.Desco_Postpaid_List_View);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 10),
                             child: Container(
                               width: _size.width,
                               decoration: Ui.getBoxDecoration(
@@ -92,7 +111,8 @@ class BillerList extends GetView {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       flex: 1,
@@ -109,7 +129,8 @@ class BillerList extends GetView {
                                       flex: 2,
                                       child: Text(
                                         data['name'],
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.start,
@@ -135,25 +156,19 @@ class BillerList extends GetView {
   }
 
   Future<Map<dynamic, dynamic>> getBillerList(int id) async {
-    print(id);
-    Map data = {
-      'type_id': id.toString(),
-    };
+    print("my type id in biller is $id");
+    Map data = {'type_id': id.toString(), 'code': "6054"};
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
-
     var headers = {'token': token};
 
-    // var url =
-    //     'http://103.219.160.235:8989/paystation/public/api/appapi/billpay/biller-list';
-
-    var url = 'https://shl.com.bd/api/appapi/billpay/biller-list';
+    var url = '${ApiClient.baseUrl}api/appapi/billpay/biller-list';
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill List : $resp');
     return resp;

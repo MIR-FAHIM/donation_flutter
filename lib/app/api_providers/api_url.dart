@@ -1,10 +1,8 @@
+//155 api
+
 class ApiClient {
   String api_token = '';
-  // static const String baseUrl =
-  //     'http://103.219.160.235:8989/paystation/public/';
 
-  // static const String baseUrl =
-  //     'http://103.219.160.235:8989/paystation/public/';
   static const String changeNotificationStatus =
       '${baseUrl}api/appapi/myNotifications/changeStatus';
   static const String deleteBankInfo = '${baseUrl}api/appapi/delete-bank-information';

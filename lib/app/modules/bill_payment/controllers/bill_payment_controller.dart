@@ -19,9 +19,8 @@ class BillPaymentController extends GetxController {
   final isChecked = false.obs;
   @override
   void onInit() {
-    refer_id.value = Get.arguments['bill_refer_id'];
-    payment_id.value = Get.arguments['bill_payment_id'].toString();
-    BillPaymentChargePreview();
+
+
     super.onInit();
   }
 
@@ -34,11 +33,11 @@ class BillPaymentController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
 
-  BillPaymentChargePreview() async {
-    // print(billNumber);
+  billPaymentChargePreview({required bill_payment_id, required bill_refer_id}) async {
+    print("my preview data is $bill_payment_id and $bill_refer_id");
     Map data = {
-      'bill_payment_id': payment_id.value.toString(),
-      'bill_refer_id': refer_id.value,
+      'bill_payment_id': bill_payment_id.toString(),
+      'bill_refer_id':bill_refer_id.toString()
     };
 
     print("my charge parameter inbo are $data");
