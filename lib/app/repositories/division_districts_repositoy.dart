@@ -35,7 +35,7 @@ class DivisionDistrictsRepository {
     final response =
     await _manager.postAPICall(ApiClient.zoneType, {'city_id': id});
 
-    print('District: ${response}');
+    print('zone: ${response}');
 
     return ZoneModel.fromJson(response);
   }
@@ -45,7 +45,7 @@ class DivisionDistrictsRepository {
     final response =
     await _manager.postAPICall(ApiClient.areaType,{'zone_id': id});
 
-    print('District: ${response}');
+    print('area: ${response}');
 
     return AreaModel.fromJson(response);
   }

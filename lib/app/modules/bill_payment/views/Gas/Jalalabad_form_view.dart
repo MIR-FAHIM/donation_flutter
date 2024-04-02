@@ -163,7 +163,7 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
                     isExpanded: true,
                     underline: SizedBox(),
                     icon: Icon(Icons.arrow_drop_down,
-                        color: Theme.of(context).accentColor),
+                        color:Colors.black),
                     value: _selectedbox,
                     items: _boxItems,
                     hint: Text('Select bill'),

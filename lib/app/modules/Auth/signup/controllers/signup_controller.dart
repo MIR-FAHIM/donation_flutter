@@ -90,6 +90,7 @@ class SignupController extends GetxController {
   late TextEditingController textEditingController;
   final personalPhone = TextEditingController().obs;
   final outletName = TextEditingController().obs;
+  final customerName = TextEditingController().obs;
   final addressController = TextEditingController().obs;
   final passController = TextEditingController().obs;
 
@@ -1091,7 +1092,7 @@ class SignupController extends GetxController {
         // 'nid_front': userData.value.nid_front,
         // 'nid_back': userData.value.nid_front,
         'mobile_no': userData.value.customerMobileNumber,
-        'customer_name': 'Mr.',
+        'customer_name': customerName.value.text,
         //'personal_mobile': userData.value.personalMobile,
         // 'nid': userData.value.nid,
         // 'dob': dateInput.text,

@@ -62,11 +62,11 @@ class Data {
   String isBillPaid;
   String bllrId;
   String customerName;
-  String tarrifCode;
-  String requestedVendingAmount;
-  String arrearDeductionAmount;
-  String feesAmount;
-  String engAmount;
+  // String tarrifCode;
+  // String requestedVendingAmount;
+  // String arrearDeductionAmount;
+  // String feesAmount;
+  // String engAmount;
 
   Data({
     required this.billName,
@@ -78,11 +78,11 @@ class Data {
     required this.isBillPaid,
     required this.bllrId,
     required this.customerName,
-    required this.tarrifCode,
-    required this.requestedVendingAmount,
-    required this.arrearDeductionAmount,
-    required this.feesAmount,
-    required this.engAmount,
+    // required this.tarrifCode,
+    // required this.requestedVendingAmount,
+    // required this.arrearDeductionAmount,
+    // required this.feesAmount,
+    // required this.engAmount,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -95,11 +95,11 @@ class Data {
     isBillPaid: json["is_bill_paid"],
     bllrId: json["bllr_id"],
     customerName: json["customer_name"],
-    tarrifCode: json["tarrif_code"],
-    requestedVendingAmount: json["requested_vending_amount"],
-    arrearDeductionAmount: json["arrear_deduction_amount"],
-    feesAmount: json["fees_amount"],
-    engAmount: json["eng_amount"],
+    // tarrifCode: json["tarrif_code"],
+    // requestedVendingAmount: json["requested_vending_amount"],
+    // arrearDeductionAmount: json["arrear_deduction_amount"],
+    // feesAmount: json["fees_amount"],
+    // engAmount: json["eng_amount"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -112,10 +112,10 @@ class Data {
     "is_bill_paid": isBillPaid,
     "bllr_id": bllrId,
     "customer_name": customerName,
-    "tarrif_code": tarrifCode,
-    "requested_vending_amount": requestedVendingAmount,
-    "arrear_deduction_amount": arrearDeductionAmount,
-    "fees_amount": feesAmount,
-    "eng_amount": engAmount,
+    // "tarrif_code": tarrifCode,
+    // "requested_vending_amount": requestedVendingAmount,
+    // "arrear_deduction_amount": arrearDeductionAmount,
+    // "fees_amount": feesAmount,
+    // "eng_amount": engAmount,
   };
 }

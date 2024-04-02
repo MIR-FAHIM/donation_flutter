@@ -21,7 +21,7 @@ class SettingsService extends GetxService {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(elevation: 0, foregroundColor: Color(0xFF652981)),
         scaffoldBackgroundColor: Colors.white,
         brightness: Brightness.light,
-        accentColor: const Color(0xFF652981),
+
         dividerColor: Colors.grey.shade800,
         focusColor: const Color(0xFF652981),
         hintColor: Colors.grey,

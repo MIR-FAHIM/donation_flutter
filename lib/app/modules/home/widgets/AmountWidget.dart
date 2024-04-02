@@ -1,6 +1,6 @@
 // import 'dart:html';
 import 'dart:ui';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 
@@ -16,12 +16,12 @@ class AmountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.blue,
-      width: 165,
+      width: Get.width *.4,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            width: 65,
+            width: Get.width *.1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +45,7 @@ class AmountWidget extends StatelessWidget {
           //   width: 5,
           // ),
           Container(
-              width: 100,
+              width: Get.width *.25,
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(

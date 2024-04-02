@@ -37,6 +37,37 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                   children: [
                     SizedBox(height: 20),
                     Text(
+                      "Customer Name".tr + ' *',
+                      style: Get.textTheme.bodyText1,
+                      textAlign: TextAlign.start,
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 300,
+                      child: TextFormField(
+                        controller: controller.customerName.value,
+                        keyboardType: TextInputType.phone,
+                        style: Get.textTheme.bodyText2,
+                        // validator: (input) {
+                        //   if (controller.phoneController.text.length != 11) {
+                        //     return 'Invalid phone number'.tr;
+                        //   } else {
+                        //     return null;
+                        //   }
+                        // },
+                        obscureText: false,
+                        textAlign: TextAlign.start,
+                        cursorColor: Color(0xFF652981),
+                        decoration: Ui.getInputDecoration(
+                          hintText: "Enter Customer Name.".tr,
+                          iconData:
+                          CupertinoIcons.device_phone_portrait,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    SizedBox(height: 20),
+                    Text(
                       "Personal Mobile No".tr + ' *',
                       style: Get.textTheme.bodyText1,
                       textAlign: TextAlign.start,
@@ -76,7 +107,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                     Container(
                       width: 300,
                       child: TextFormField(
-                         controller: controller.outletName.value,
+                        controller: controller.outletName.value,
                         keyboardType: TextInputType.text,
                         style: Get.textTheme.bodyText2,
                         // validator: (input) {

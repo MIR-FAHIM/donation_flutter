@@ -97,6 +97,16 @@ class FavouriteBillerView extends GetView<BillFormController> {
                                     'dpdc_postpaid') {
                                   Get.toNamed(Routes.DPDC_Postpaid_From_View,
                                       arguments: data);
+                                }  else if (billpayController.favBillList.value
+                                    .data![index].bill_code
+                                    .toString() ==
+                                    'bpdb_prepaid') {
+
+                                  billpayController.meterNo.value = billpayController.favBillList.value
+                                      .data![index].saved_bill_no;
+                                  print("saved bill is ${billpayController.meterNo.value}");
+                                  Get.toNamed(Routes.BPDBFORMVIEW,
+                                      arguments: data);
                                 } else if (billpayController.favBillList.value
                                         .data![index].bill_code
                                         .toString() ==

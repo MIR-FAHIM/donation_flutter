@@ -162,7 +162,7 @@ class _PashchimanchalFormViewState extends State<PashchimanchalFormView> {
                   child: DropdownButton<BoxOption>(
                     isExpanded: true,
                     underline: const SizedBox(),
-                    icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).accentColor),
+                    icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                     value: _selectedbox,
                     items: _boxItems,
                     hint: const Text('Select bill'),

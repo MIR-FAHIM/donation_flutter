@@ -15,10 +15,8 @@ class NescoPostpaidPaymentView extends GetView {
     final _size = Get.size;
     var _title = Get.arguments['title'];
     var _images = Get.arguments['images'];
-
     var _bill_payment_id = Get.arguments['bill_payment_id'];
     var _bill_refer_id = Get.arguments['bill_refer_id'];
-
     var _bll_no = Get.arguments['bll_no'];
     var _bllr_accno = Get.arguments['bllr_accno'];
     var _bll_mobno = Get.arguments['bll_mobno'];
@@ -61,6 +59,7 @@ class NescoPostpaidPaymentView extends GetView {
                 height: 10,
               ),
               // Padding(
+
               //   padding: const EdgeInsets.all(8.0),
               //   child: Text(
               //     _title,
