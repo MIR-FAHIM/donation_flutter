@@ -15,6 +15,7 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:latest_payplus_agent/main.dart';
+import 'package:latest_payplus_agent/service/shared_pref.dart';
 
 import '../../../models/package model/my_current_package_model.dart';
 import '../../../models/package model/package_list_model.dart';
@@ -164,8 +165,21 @@ class HomeController extends GetxController {
   getProfileInfo() async {
     BalanceCheckRepository().getProfileInfo().then((resp) {
       print("my profile info is $resp");
-      profileInfoModel.value = resp;
-    });
+      if(resp["message"]== "Invalid token"){
+        String number = Get.find<AuthService>()
+            .currentUser
+            .value
+            .mobileNumber!;
+        Get.find<AuthService>().removeCurrentUser();
+        SharedPreff.to.prefss.remove("logindate");
+
+        Get.offAndToNamed(Routes.SPLASHSCREEN,
+            arguments: number);
+      }else{
+        profileInfoModel.value =   GetProfileInfo.fromJson(resp);
+
+
+    }});
   }
   getAllDisablePermission() async {
     print("hlw all permission");

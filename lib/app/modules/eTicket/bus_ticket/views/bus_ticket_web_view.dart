@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_report_drawer_view.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
@@ -69,10 +70,12 @@ class _InAppWebViewExampleScreenState extends State<BusTicketWeb> {
       },
       child: SafeArea(
         child: Scaffold(
+          endDrawer: BusReportDrawer(),
           appBar: AppBar(
             backgroundColor: AppColors.primaryColor,
-            title: Text("Bus Ticket"),
+            title: Text("Bus Ticket Report"),
             centerTitle: true,
+
           ),
           body: Stack(
             children: [

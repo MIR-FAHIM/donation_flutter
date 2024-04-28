@@ -52,6 +52,7 @@ class PdfPreviewPage extends StatelessWidget {
         canChangeOrientation: false,
         canChangePageFormat: false,
         canDebug: false,
+
         build: (context) => makePdf(
             title, images, bllr_accno, bll_no, bll_mobno, bll_dt_frm, bll_dt_to, bll_dt_due, charge, transaction_id, bll_amnt_ttl, payment_date),
       ),

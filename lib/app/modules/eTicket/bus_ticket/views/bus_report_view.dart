@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/controllers/bus_ticket_controller.dart';
+import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/pdf_bus/pdf_preview.dart';
 import 'package:latest_payplus_agent/app/pdfexport/pdfpreview.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-import '../controllers/billpay_report_controller.dart';
 
-class BillpayReportView extends GetView<BillpayReportController> {
-  const BillpayReportView({Key? key}) : super(key: key);
+
+class BusReportReportView extends GetView<BusTicketController> {
+  const BusReportReportView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +23,16 @@ class BillpayReportView extends GetView<BillpayReportController> {
       ),
       body: Obx(() {
         if (controller.billReportLoaded.isTrue) {
-          return SingleChildScrollView(
+          return controller.busReportList.value!.where((element) => element.status == "PAID").isEmpty ?
+              Center(child: Text("You did not purchase any ticket yet."))
+              :SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              children: List.generate(controller.billReport.value.data!.length, (index) {
-                var data = controller.billReport.value.data![index];
+              children: List.generate(controller.busReportList.value!.where((element) => element.status == "PAID").length, (index) {
+                var data = controller.busReportList.value.where((element) => element.status == "PAID").toList()[index];
                 return GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.BILL_DETAILS, arguments: controller.billReport.value.data![index].id.toString());
+                //    Get.toNamed(Routes.BILL_DETAILS, arguments: controller.busReportList.value[index].id.toString());
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -45,61 +49,57 @@ class BillpayReportView extends GetView<BillpayReportController> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Image.network(
-                                        controller.billReport.value.data![index].logo_url!,
-                                        height: 40,
-                                        width: 40,
-                                      ),
-                                       SizedBox(
-                                        width: 5,
-                                      ),
-                                      SizedBox(
-                                        width: Get.width*.37,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              controller.billReport.value.data![index].billerType!,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                              ),
-                                            ),
+                                  SizedBox(
+                                    width: Get.width*.37,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
 
-                                             SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              controller.billReport.value.data![index].billName!,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                             SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              'Bill No: ${controller.billReport.value.data![index].billNo!}',
-                                              style:  TextStyle(
-                                                fontSize: 13,
-                                                color: AppColors.primaryColor
-                                              ),
-                                            ),
-                                          ],
+
+                                        SizedBox(
+                                          height: 5,
                                         ),
-                                      ),
-                                    ],
+                                        Text(
+                                          data.busName,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ), SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          data.journeyRoute,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Status: ${data.status}',
+                                          style:  TextStyle(
+                                              fontSize: 13,
+                                              color: AppColors.primaryColor
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   SizedBox(
                                     width: Get.width*.35,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
+
                                         Text(
-                                          DateFormat.yMMMd().format(DateTime.parse(controller.billReport.value.data![index].createdAt!)) +
+                                          DateFormat.yMMMd().format(data.journeyDate!) +
                                               ' ' +
-                                              DateFormat.jm().format(DateTime.parse(controller.billReport.value.data![index].createdAt!)),
+                                              DateFormat.jm().format(data.journeyDate),
                                           style: const TextStyle(
                                             fontSize: 12,
                                           ),
@@ -108,23 +108,13 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                           height: 5,
                                         ),
                                         Text(
-                                          uniCodeTk + ' ' + controller.billReport.value.data![index].billTotalAmount!,
+                                          uniCodeTk + ' ' + data.amount!.toString(),
                                           style: const TextStyle(
                                             fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
-                                        Text(
-                                          controller.billReport.value.data![index].paymentStatus!,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: controller.billReport.value.data![index].paymentStatus!.toLowerCase() == 'unpaid'
-                                                ? Colors.red
-                                                : controller.billReport.value.data![index].paymentStatus!.toLowerCase() == 'paid'
-                                                    ? Colors.green
-                                                    : Colors.yellow,
-                                          ),
-                                        ),
+
                                       ],
                                     ),
                                   ),
@@ -136,19 +126,15 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                   InkWell(
                                     onTap: () async {
 
-                                      Get.to(PdfPreviewPage(
-                                        title: data.billName,
-                                        images: '',
-                                        bllr_accno: data.billerAccNo,
-                                        bll_no: data.billName,
-                                        bll_mobno: data.billerMobile,
-                                        bll_dt_frm: data.billFrom,
-                                        bll_dt_to: data.billGenDate,
-                                        bll_dt_due: data.billDueDate,
-                                        charge: data.charge,
-                                        transaction_id: data.transactionId,
-                                        bll_amnt_ttl: data.billTotalAmount,
-                                        payment_date: data.paymentDate,
+                                      Get.to(PdfPreviewPageBus(
+                                        journeyDate: data.journeyDate,
+                                     journeyRoute:  data.journeyRoute,
+                                       busName: data.busName,
+                                       amount: data.amount,
+                                       status: data.status,
+                                     id: data.id,
+
+
                                       ));
                                     },
                                     child: Container(
@@ -162,7 +148,7 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                               Icon(
+                                              Icon(
                                                 Icons.print,
                                                 size: 15,
                                                 color:

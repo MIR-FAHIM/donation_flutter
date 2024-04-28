@@ -39,7 +39,7 @@ class BalanceCheckRepository {
     return DahsboardReportModel.fromJson(response);
   }
 //profile info ++++++++++++++++++++
-  Future<GetProfileInfo> getProfileInfo() async {
+  Future getProfileInfo() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     var headers = {'token': token};
@@ -50,7 +50,7 @@ class BalanceCheckRepository {
     final response = await _manager.postAPICallWithHeader(ApiClient.getProfileInfo, {},headers);
 
     print('profile data: ${response}');
-    return GetProfileInfo.fromJson(response);
+    return response;
   }
 
 

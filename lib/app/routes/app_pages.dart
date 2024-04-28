@@ -22,6 +22,7 @@ import 'package:latest_payplus_agent/app/modules/collectorApp/view/home_page_c.d
 import 'package:latest_payplus_agent/app/modules/daily_report/views/report_analytic.dart';
 import 'package:latest_payplus_agent/app/modules/demo/task_dashboard.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/bindings/bus_ticket_binding.dart';
+import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_report_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_view.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/cash_in_out_view_tab.dart';
@@ -233,6 +234,12 @@ class AppPages {
       page: () => BusTicketView(),
       binding: BusTicketBinding(),
     ),
+
+    GetPage(
+      name: _Paths.BUSREPORT,
+      page: () => BusReportReportView(),
+      binding: BusTicketBinding(),
+    ),
     GetPage(
       name: _Paths.LOGIN,
       page: () => LoginView(),
@@ -406,6 +413,25 @@ class AppPages {
       page: () => TransactionSuccessful(),
       binding: BillPaymentBinding(),
     ),
+
+    GetPage(
+      name: _Paths.ROBIAIRTELOFFER,
+      page: () => RobiAirtelPackageWidget(),
+      binding: RechargeBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.Add_New_Product,
+      page: () => AddNewProduct(),
+      binding: SignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.Add_New_Expense,
+      page: () => AddNewExpense(),
+      binding: SignupBinding(),
+    ),
+    // Westzone bill
+    // bill start
     GetPage(
       name: _Paths.BILL_PAYMENT,
       page: () => BillPaymentView(),
@@ -487,26 +513,10 @@ class AppPages {
       binding: AkashBillPaymentBinding(),
     ),
     GetPage(
-      name: _Paths.ROBIAIRTELOFFER,
-      page: () => RobiAirtelPackageWidget(),
-      binding: RechargeBinding(),
-    ),
-    GetPage(
       name: _Paths.DPDC_Postpaid_Billview,
       page: () => DPDCPostpaidBillView(),
       binding: BillPaymentBinding(),
     ),
-    GetPage(
-      name: _Paths.Add_New_Product,
-      page: () => AddNewProduct(),
-      binding: SignupBinding(),
-    ),
-    GetPage(
-      name: _Paths.Add_New_Expense,
-      page: () => AddNewExpense(),
-      binding: SignupBinding(),
-    ),
-    // Westzone bill
     GetPage(
       name: _Paths.Westzone_Postpaid_From_View,
       page: () => WestZonePostpaidFormView(),
@@ -530,6 +540,16 @@ class AppPages {
       binding: BillPaymentBinding(),
     ),
     GetPage(
+      name: _Paths.BILLPAY_REPORT,
+      page: () => const BillpayReportView(),
+      binding: BillpayReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.BILL_DETAILS,
+      page: () => const BillDetailsView(),
+      binding: BillDetailsBinding(),
+    ),
+    GetPage(
       name: _Paths.Reb_Postpaid_Bill_View,
       page: () => RebPostpaidBillView(),
       binding: BillPaymentBinding(),
@@ -539,6 +559,12 @@ class AppPages {
       page: () => DhakaWasaFormView(),
       binding: BillPaymentBinding(),
     ),
+
+    // bill end
+
+
+
+
     GetPage(
       name: _Paths.MBANKINGFAIL,
       page: () => MBankingFailedView(),
@@ -873,16 +899,7 @@ class AppPages {
       page: () => const MobileBankingView(),
       binding: MobileBankingBinding(),
     ),
-    GetPage(
-      name: _Paths.BILLPAY_REPORT,
-      page: () => const BillpayReportView(),
-      binding: BillpayReportBinding(),
-    ),
-    GetPage(
-      name: _Paths.BILL_DETAILS,
-      page: () => const BillDetailsView(),
-      binding: BillDetailsBinding(),
-    ),
+
     GetPage(
       name: _Paths.MOBILE_BANK_CASHIN,
       page: () => const MobileBankCashinView(),
@@ -903,5 +920,11 @@ class AppPages {
       page: () => const MobileBankTransactionHistoryView(),
       binding: MobileBankTransactionHistoryBinding(),
     ),
+
+    // GetPage(
+    //   name:  _Paths.ACCOUNT_SETTING,
+    //   page: ()=>  AccountSettingView(),
+    //   binding:  MobileBankingBinding()
+    // )
   ];
 }

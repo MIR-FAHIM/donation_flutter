@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/buticket_model/book_ticket_model.dart';
+import 'package:latest_payplus_agent/app/models/buticket_model/bus_report_model.dart';
 import 'package:latest_payplus_agent/app/models/buticket_model/coach_details_seat_layout_model.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_seat_book_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/ready_ticket_view.dart';
@@ -21,8 +22,11 @@ class BusTicketController extends GetxController {
   final journeyDate = DateTime.now().obs;
   final journeyTime = TimeOfDay.now().obs;
   final searchTicket = false.obs;
+  final billReportLoaded = false.obs;
   final seatBookLoading = false.obs;
   final coachList = <Datums>[].obs;
+  final busReportList = <DatumReport>[].obs;
+  final busReportModel = BusReportModel().obs;
   final fromLocationId = "".obs;
   final ref = "".obs;
   final bookNowClicked = false.obs;
@@ -39,7 +43,6 @@ class BusTicketController extends GetxController {
   final seatFare = "".obs;
   final serviceCharge = 0.obs;
 
-
   final toStation = "".obs;
   final nameController = TextEditingController().obs;
   final passengerFirstNameController = TextEditingController().obs;
@@ -47,7 +50,6 @@ class BusTicketController extends GetxController {
   final passengerPhoneController = TextEditingController().obs;
   final passengerGenderController = TextEditingController().obs;
   final passengerEmailController = TextEditingController().obs;
-
 
   final allSeats = <Seat>[].obs;
 
@@ -107,11 +109,28 @@ class BusTicketController extends GetxController {
     });
   }
 
+  getBusReportController() {
+    billReportLoaded.value = false;
+    TicketRepository().getBusReportList().then((e) {
+      if(e['result'] == "success"){
+        busReportModel.value = BusReportModel.fromJson(e);
+        busReportList.value = busReportModel.value.data!;
+        billReportLoaded.value = true;
+      }else{
+        billReportLoaded.value = false;
+      }
+
+
+    });
+  }
+
   getAllCoachList(DateTime date, String fromCode, String toCode) async {
     print("all coach called");
     coachList.value.clear();
     searchTicket.value = true;
-    TicketRepository().getCoachList(journeyDate.value, fromStation.value, toStation.value).then((response) {
+    TicketRepository()
+        .getCoachList(journeyDate.value, fromStation.value, toStation.value)
+        .then((response) {
       coachList.value = response.data.values.map((datum) => datum).toList();
 
       print("fahim coach list ++++++ ${coachList.value.length.toString()}");
@@ -128,71 +147,77 @@ class BusTicketController extends GetxController {
     seatBookLoading.value = true;
 
     seatBookLoading.value = true;
-    TicketRepository().seatStatus(seatId.value, ticketIDs.value, tripROuteId.value).then((value) {
+    TicketRepository()
+        .seatStatus(seatId.value, ticketIDs.value, tripROuteId.value)
+        .then((value) {
       print("hlw bro ++++++++++++++ $value");
-      if(value["data"] != null){
+      if (value["data"] != null) {
         print("ppppppppppppppppp hlw br from book seat from controller");
 
-
         getSeatLayout(1);
-
-    }});
-
+      }
+    });
   }
+
   bookSeatController() {
     seatBookLoading.value = true;
 
-
-    TicketRepository().bookSeat(tripID: tripId.value, tripRouteID: tripROuteId.value,
-        ticketID: ticketIDs.value, boardingPointID: boardingPointIDs.value,
-    passengerFirstName: passengerFirstNameController.value.text, email: passengerEmailController.value.text,
-        mobile: passengerPhoneController.value.text, gender: passengerGenderController.value.text ).then((value) {
+    TicketRepository()
+        .bookSeat(
+            tripID: tripId.value,
+            tripRouteID: tripROuteId.value,
+            ticketID: ticketIDs.value,
+            boardingPointID: boardingPointIDs.value,
+            passengerFirstName: passengerFirstNameController.value.text,
+            email: passengerEmailController.value.text,
+            mobile: passengerPhoneController.value.text,
+            gender: passengerGenderController.value.text)
+        .then((value) {
       print("hlw bro confirm book ++++++++++++++ $value");
-      if(value["data"] != null){
+      if (value["data"] != null) {
         print("ppppppppppppppppp hlw br from book seat from controller");
         var data = BookTicketModel.fromJson(value);
         ref.value = data.data.reservationRef;
         print("hlw bro book or reserve the ticket +++++++++ ${ref.value}");
         seatBookLoading.value = false;
-        if(ref.value== ""){
+        if (ref.value == "") {
           Get.showSnackbar(Ui.ErrorSnackBar(
-              message:"Can not book ticket", title: 'Error'.tr));
-        }else {
+              message: "Can not book ticket", title: 'Error'.tr));
+        } else {
           Get.to(TicketPreview());
         }
-
-
-
-
-
-
-      }});
-
+      }
+    });
   }
+
   confirmBookedSeat() {
     seatBookLoading.value = true;
 
     seatBookLoading.value = true;
     TicketRepository().confirmBookSeat(ref.value).then((value) {
       print("hlw bro confirm book ++++++++++++++ $value");
-      if(value["data"] != null){
+      if (value["data"] != null) {
         print("ppppppppppppppppp hlw br from book seat from controller");
         Get.to(ReadyTicketView());
-
-
-      }});
-
+      }
+    });
   }
+
   getSeatLayout(int page) {
     seatLayout.clear();
 
     bookNowClicked.value = true;
     print("seat layout calling from controller");
-    TicketRepository().getCoachDetailsSeatLayout(tripRouteID: tripROuteId.value, tripID: tripId.value , fromStation: fromStation.value,
-        toStation: toStation.value, date: journeyDate.value).then((response) {
-
-
-      print("ppppppp ++++++++ resposne from controller of seatlayout $response");
+    TicketRepository()
+        .getCoachDetailsSeatLayout(
+            tripRouteID: tripROuteId.value,
+            tripID: tripId.value,
+            fromStation: fromStation.value,
+            toStation: toStation.value,
+            date: journeyDate.value)
+        .then((response) {
+      print(
+          "ppppppp ++++++++ resposne from controller of seatlayout $response");
       allSeats.value = response.data.seats;
       allSeats.forEach((element) {
         print("bro rbro brro rbro ++++++++ ${element.layout![0]}");
@@ -204,7 +229,7 @@ class BusTicketController extends GetxController {
       });
 
       if (seatLayout.isNotEmpty) {
-        if(page == 1){
+        if (page == 1) {
           seatBookedView.value = true;
         }
         bookNowClicked.value = false;
@@ -218,7 +243,6 @@ class BusTicketController extends GetxController {
     });
 
     return 0;
-
   }
 
   // getToLocation(code) async {
@@ -237,6 +261,7 @@ class BusTicketController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getBusReportController();
     print("puku puku");
     getFromLocation();
   }

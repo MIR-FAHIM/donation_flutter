@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
-import 'package:latest_payplus_agent/app/models/favourite_bill_list_model.dart';
+import 'package:latest_payplus_agent/app/models/electricity/favourite_bill_list_model.dart';
 import 'package:latest_payplus_agent/app/repositories/bill_payment_repository.dart';
 import 'package:latest_payplus_agent/app/services/settings_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
@@ -23,7 +23,6 @@ class BillFormController extends GetxController {
   final billAccountController = TextEditingController().obs;
   final mobileController = TextEditingController().obs;
   final years = [].obs;
-
   final mobile = ''.obs;
   final initialDate = DateTime.now().obs;
   final selectedDate = DateTime.now().obs;
@@ -164,7 +163,6 @@ class BillFormController extends GetxController {
       monthsList.add(formattedMonth);
     }
   }
-
   Future selectDate() async {
     selectedDate.value = DateTime.now();
     final DateTime? picked = await showDatePicker(
@@ -179,21 +177,6 @@ class BillFormController extends GetxController {
     print(DateFormat('dd-MM-yyyy').format(selectedDate.value));
   }
 
-  // selectMonth(BuildContext context) {
-  //   showMonthPicker(
-  //     context: context,
-  //     firstDate: DateTime(DateTime.now().year - 1, 5),
-  //     lastDate: DateTime(DateTime.now().year + 1, 9),
-  //     initialDate: selectedDate.value ?? initialDate.value,
-  //     // locale: Locale("en"),
-  //   ).then((date) {
-  //     if (date != null) {
-  //
-  //       selectedDate.value = date;
-  //
-  //     }
-  //   });
-  // }
   DeleteBiller() async {
     BillPaymentRepository().deleteFavBillerTemp(bill_id.value).then((resp) {
       print(resp['result']);

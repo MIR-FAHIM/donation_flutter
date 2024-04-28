@@ -188,6 +188,9 @@ class ApiClient {
   static const String favouriteBiller =
       '${baseUrl}api/appapi/get-favourite-biller';
 
+  static const String getBusReportPur =
+      '${baseUrl}api/appapi/bus-ticket-history';
+
   static const String deleteFavouriteBiller =
       '${baseUrl}api/appapi/remove-favourite-biller';
 

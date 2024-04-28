@@ -9,6 +9,7 @@ abstract class Routes {
   static const SIGNUP = _Paths.SIGNUP;
   static const RobiAirtelOffer = _Paths.ROBIAIRTELOFFER;
   static const CHANGE_BANK_INFORMATION = _Paths.CHANGE_BANK_INFORMATION;
+  static const BUSREPORT = _Paths.BUSREPORT;
 
 
   static const ROOT = _Paths.ROOT;
@@ -24,7 +25,7 @@ abstract class Routes {
       _Paths.MAKE_BILL_FOR_PAYMENT_COLLECTION;
   static const LINK_SHARE_FOR_PAYMENT_COLLECTION =
       _Paths.LINK_SHARE_FOR_PAYMENT_COLLECTION;
-  static const BILL_PAYMENT = _Paths.BILL_PAYMENT;
+
   static const SALES = _Paths.SALES;
   static const BANK_INFORMATION = _Paths.BANK_INFORMATION;
   static const MOBILE_BANK_INFORMATION = _Paths.MOBILE_BANK_INFORMATION;
@@ -35,18 +36,8 @@ abstract class Routes {
   static const WITHDRAW_SUCCESS = _Paths.WITHDRAW_SUCCESS;
   static const INBOX = _Paths.INBOX;
   static const SETTINGS = _Paths.SETTINGS;
-  static const ELECTRICITY_BILL = _Paths.ELECTRICITY_BILL;
-  static const ELECTRICITY_BILL_FORM = _Paths.ELECTRICITY_BILL_FORM;
-  static const WATER_BILL = _Paths.WATER_BILL;
-  static const WATER_BILL_FORM = _Paths.WATER_BILL_FORM;
-  static const GAS_BILL = _Paths.GAS_BILL;
-  static const GAS_BILL_FORM = _Paths.GAS_BILL_FORM;
-  static const INTERNET_BILL = _Paths.INTERNET_BILL;
-  static const INTERNET_BILL_FORM = _Paths.INTERNET_BILL_FORM;
-  static const TELEPHONE_BILL = _Paths.TELEPHONE_BILL;
-  static const TELEPHONE_BILL_FORM = _Paths.TELEPHONE_BILL_FORM;
-  static const DTH_BILL = _Paths.DTH_BILL;
-  static const DTH_BILL_FORM = _Paths.DTH_BILL_FORM;
+
+
   static const CHECK_PHONE_NUMBER = _Paths.CHECK_PHONE_NUMBER;
   static const PHONE_VERIFICATION_WTIH_O_T_P =
       _Paths.PHONE_VERIFICATION_WTIH_O_T_P;
@@ -74,21 +65,8 @@ abstract class Routes {
   static const Due_DashBoard = _Paths.Due_DashBoard;
   static const Notification_View = _Paths.Notification_View;
   static const termandCOndition = _Paths.termandCOndition;
-  static const Biller_List_View = _Paths.Biller_List_View;
-  static const Desco_Postpaid_List_View = _Paths.Desco_Postpaid_List_View;
-  static const Desco_Postpaid_Billview = _Paths.Desco_Postpaid_Billview;
-  static const DPDC_Postpaid_From_View = _Paths.DPDC_Postpaid_From_View;
-  static const DPDC_Postpaid_Billview = _Paths.DPDC_Postpaid_Billview;
-  static const Desco_Prepaid_From_View = _Paths.Desco_Prepaid_From_View;
-  static const Westzone_Postpaid_From_View = _Paths.Westzone_Postpaid_From_View;
-  static const nesco_From_View = _Paths.nesco_From_View;
-  static const Nesco_Bill_View = _Paths.Nesco_Bill_View;
-  static const akash_From_View = _Paths.akash_From_View;
-  static const Akash_Bill_View = _Paths.Akash_Bill_View;
-  static const Westzone_Postpaid_Bill_View = _Paths.Westzone_Postpaid_Bill_View;
-  static const Dhaka_Wasa_From_View = _Paths.Dhaka_Wasa_From_View;
-  static const Water_Biller_List_View = _Paths.Water_Biller_List_View;
-  static const Gas_Biller_List_View = _Paths.Gas_Biller_List_View;
+
+
   static const Transaction_Successful = _Paths.Transaction_Successful;
   static const Add_New_Product = _Paths.Add_New_Product;
   static const Add_New_Expense = _Paths.Add_New_Expense;
@@ -98,7 +76,7 @@ abstract class Routes {
   static const SIGNUP_WEBVIEW = _Paths.SIGNUP_WEBVIEW;
   static const DEACTIVATE_ACCCOUNT = _Paths.DEACTIVATE_ACCCOUNT;
   static const DEACTIVATE_ACCCOUNT_PIN = _Paths.DEACTIVATE_ACCCOUNT_PIN;
-  static const FAVOUTRITE_BILLER = _Paths.FAVOUTRITE_BILLER;
+
   static const ACCOUNTSTATEMENT = _Paths.ACCOUNTSTATEMENT;
 
   static const Test = _Paths.Test;
@@ -131,12 +109,11 @@ abstract class Routes {
   static const MBANKINGSUCCESS = _Paths.MBANKINGSUCCESS;
   static const STATEMENTDETAILS = _Paths.STATEMENTDETAILS;
 
-  static const DESCOPREPAIDDETAILS = _Paths.DESCOPREPAIDDETAILS;
+
   static const TASKD = _Paths.TASKD;
 
 
-  static const Reb_Postpaid_Form_View = _Paths.Reb_Postpaid_Form_View;
-  static const Reb_Postpaid_Bill_View = _Paths.Reb_Postpaid_Bill_View;
+
   static const DUE_REPORT = _Paths.DUE_REPORT;
   static const TRANSACTION_CHARGE = _Paths.TRANSACTION_CHARGE;
   static const MOBILE_BANKING = _Paths.MOBILE_BANKING;
@@ -153,12 +130,12 @@ abstract class Routes {
   static const PROFILEVIEW = _Paths.PROFILEVIEW;
   static const REPORTANALITYC = _Paths.REPORTANALITYC;
   static const MBANKINGFAIL = _Paths.MBANKINGFAIL;
-  static const ERRORBILL = _Paths.ERRORBILL;
+
+
 
   static const NOTIDETAILS = _Paths.NOTIDETAILS;
   static const ADDPAYER = _Paths.ADDPAYER;
-  static const BPDBBILLVIEW = _Paths.BPDBBILLVIEW;
-  static const BPDBFORMVIEW = _Paths.BPDBFORMVIEW;
+
 
   static const CONFIRM_BANK_PAY = _Paths.CONFIRM_BANK_PAY;
   static const COLLECTORHOMEPAGE = _Paths.COLLECTORHOMEPAGE;
@@ -168,6 +145,44 @@ abstract class Routes {
   static const CHANGEACCOUNT = _Paths.CHANGEACCOUNT;
   static const MOBILE_BANK_TRANSACTION_HISTORY =
       _Paths.MOBILE_BANK_TRANSACTION_HISTORY;
+
+  // bill
+  static const BILL_PAYMENT = _Paths.BILL_PAYMENT;
+  static const FAVOUTRITE_BILLER = _Paths.FAVOUTRITE_BILLER;
+  static const Biller_List_View = _Paths.Biller_List_View;
+  static const DTH_BILL = _Paths.DTH_BILL;
+  static const DTH_BILL_FORM = _Paths.DTH_BILL_FORM;
+  static const ERRORBILL = _Paths.ERRORBILL;
+  static const BPDBBILLVIEW = _Paths.BPDBBILLVIEW;
+  static const BPDBFORMVIEW = _Paths.BPDBFORMVIEW;
+  static const Desco_Postpaid_List_View = _Paths.Desco_Postpaid_List_View;
+  static const Desco_Postpaid_Billview = _Paths.Desco_Postpaid_Billview;
+  static const DPDC_Postpaid_From_View = _Paths.DPDC_Postpaid_From_View;
+  static const DPDC_Postpaid_Billview = _Paths.DPDC_Postpaid_Billview;
+  static const Desco_Prepaid_From_View = _Paths.Desco_Prepaid_From_View;
+  static const Westzone_Postpaid_From_View = _Paths.Westzone_Postpaid_From_View;
+  static const nesco_From_View = _Paths.nesco_From_View;
+  static const Nesco_Bill_View = _Paths.Nesco_Bill_View;
+  static const akash_From_View = _Paths.akash_From_View;
+  static const Akash_Bill_View = _Paths.Akash_Bill_View;
+  static const Westzone_Postpaid_Bill_View = _Paths.Westzone_Postpaid_Bill_View;
+  static const Dhaka_Wasa_From_View = _Paths.Dhaka_Wasa_From_View;
+  static const Water_Biller_List_View = _Paths.Water_Biller_List_View;
+  static const Gas_Biller_List_View = _Paths.Gas_Biller_List_View;
+  static const Reb_Postpaid_Form_View = _Paths.Reb_Postpaid_Form_View;
+  static const Reb_Postpaid_Bill_View = _Paths.Reb_Postpaid_Bill_View;
+  static const DESCOPREPAIDDETAILS = _Paths.DESCOPREPAIDDETAILS;
+  static const ELECTRICITY_BILL = _Paths.ELECTRICITY_BILL;
+  static const ELECTRICITY_BILL_FORM = _Paths.ELECTRICITY_BILL_FORM;
+  static const WATER_BILL = _Paths.WATER_BILL;
+  static const WATER_BILL_FORM = _Paths.WATER_BILL_FORM;
+  static const GAS_BILL = _Paths.GAS_BILL;
+  static const GAS_BILL_FORM = _Paths.GAS_BILL_FORM;
+  static const INTERNET_BILL = _Paths.INTERNET_BILL;
+  static const INTERNET_BILL_FORM = _Paths.INTERNET_BILL_FORM;
+  static const TELEPHONE_BILL = _Paths.TELEPHONE_BILL;
+  static const TELEPHONE_BILL_FORM = _Paths.TELEPHONE_BILL_FORM;
+  // bill end
 }
 
 abstract class _Paths {
@@ -176,7 +191,7 @@ abstract class _Paths {
   static const HOME = '/home';
   static const COLLECTION = '/collection';
   static const NEWNID = '/new-nid';
-  static const DESCOPREPAIDDETAILS = '/desco-pre-details';
+
   static const REPORTANALITYC = '/report-analytic';
   static const ADDPAYER = '/add-payer';
   static const USERTYPE = '/USER-TYPE';
@@ -196,6 +211,7 @@ abstract class _Paths {
   static const NEWSIGNUPPASS = '/new-sign-up-pass';
   static const PACKAGELIST = '/package-list';
   static const PROFILEVIEW = '/profile-view';
+  static const BUSREPORT = '/BUSREPORT';
 
 
   static const WELCOME = '/welcome';
@@ -218,7 +234,48 @@ abstract class _Paths {
       '/payment-collection/share_link';
   static const PAYMENT_COLLECTION_BANK_SELECT =
       '/payment-collection/payment_collection_bank';
+  // bill
   static const BILL_PAYMENT = '/bill-payment';
+  static const DESCOPREPAIDDETAILS = '/desco-pre-details';
+  static const BPDBBILLVIEW = '/BPDBBILLVIEW';
+  static const ERRORBILL = '/error-bill';
+  static const ELECTRICITY_BILL = '/electricity_bill';
+  static const ELECTRICITY_BILL_FORM = '/electricity_bill_form';
+  static const WATER_BILL = '/water_bill';
+  static const WATER_BILL_FORM = '/water_bill_form';
+  static const GAS_BILL = '/gas_bill';
+  static const GAS_BILL_FORM = '/gas_bill_form';
+  static const INTERNET_BILL = '/internet_bill';
+  static const INTERNET_BILL_FORM = '/internet_bill_form';
+  static const TELEPHONE_BILL = '/telephone_bill';
+  static const TELEPHONE_BILL_FORM = '/telephone_bill_form';
+  static const DTH_BILL_FORM = '/dth_bill_form';
+  static const DTH_BILL = '/dth_bill';
+  static const FAVOUTRITE_BILLER = '/favourite_biller';
+  static const Biller_List_View = '/biller-list';
+  static const Water_Biller_List_View = '/water-biller-list';
+  static const Gas_Biller_List_View = '/gas_biller_List_View';
+
+  static const Desco_Postpaid_List_View = '/desco-postpaid';
+  static const Desco_Postpaid_Billview = '/desco-postpaid-billview';
+
+  static const Desco_Prepaid_From_View = '/desco-prepaid-fromview';
+
+  static const DPDC_Postpaid_Billview = '/dpdc-postpaid-billview';
+  static const DPDC_Postpaid_From_View = '/dpdc-postpaid-fromview';
+
+  static const Westzone_Postpaid_From_View = '/westzone-postpaid-fromview';
+  static const Reb_Postpaid_Form_View = '/reb-postpaid-fromview';
+  static const Reb_Postpaid_Bill_View = '/reb-postpaid-bill_view';
+  static const nesco_From_View = '/nesco-fromview';
+  static const akash_From_View = '/akash-fromview';
+  static const Westzone_Postpaid_Bill_View = '/westzone-postpaid-billview';
+  static const Nesco_Bill_View = '/nesco-billview';
+  static const Akash_Bill_View = '/akash-billview';
+  static const BPDBFORMVIEW = '/BPDBFORMVIEW';
+  static const Dhaka_Wasa_From_View = '/dhaka-wasa-fromview';
+  // bill end
+
   static const MFSLIST = '/mfs-list';
   static const SALES = '/sales';
   static const BUS_TICKET = '/bus-ticket';
@@ -233,22 +290,10 @@ abstract class _Paths {
   static const WITHDRAW_AMOUNT = '/withdraw/withdraw_amount';
   static const WITHDRAW_SUCCESS = '/withdraw/success';
   static const INBOX = '/inbox';
-  static const BPDBBILLVIEW = '/BPDBBILLVIEW';
+
   static const MBANKINGFAIL = '/m-banking-fail';
-  static const ERRORBILL = '/error-bill';
     static const SETTINGS = '/settings';
-  static const ELECTRICITY_BILL = '/electricity_bill';
-  static const ELECTRICITY_BILL_FORM = '/electricity_bill_form';
-  static const WATER_BILL = '/water_bill';
-  static const WATER_BILL_FORM = '/water_bill_form';
-  static const GAS_BILL = '/gas_bill';
-  static const GAS_BILL_FORM = '/gas_bill_form';
-  static const INTERNET_BILL = '/internet_bill';
-  static const INTERNET_BILL_FORM = '/internet_bill_form';
-  static const TELEPHONE_BILL = '/telephone_bill';
-  static const TELEPHONE_BILL_FORM = '/telephone_bill_form';
-  static const DTH_BILL_FORM = '/dth_bill_form';
-  static const DTH_BILL = '/dth_bill';
+
   static const CHECK_PHONE_NUMBER = '/check-phone-number';
   static const PHONE_VERIFICATION_WTIH_O_T_P = '/phone-verification-wtih-o-t-p';
   static const CHANGE_PASSWORD = '/change-password';
@@ -275,29 +320,7 @@ abstract class _Paths {
   static const Due_DashBoard = '/due-dashboard';
   static const Notification_View = '/notification-view';
   static const termandCOndition = '/term-condition';
-  static const FAVOUTRITE_BILLER = '/favourite_biller';
-  static const Biller_List_View = '/biller-list';
-  static const Water_Biller_List_View = '/water-biller-list';
-  static const Gas_Biller_List_View = '/gas_biller_List_View';
 
-  static const Desco_Postpaid_List_View = '/desco-postpaid';
-  static const Desco_Postpaid_Billview = '/desco-postpaid-billview';
-
-  static const Desco_Prepaid_From_View = '/desco-prepaid-fromview';
-
-  static const DPDC_Postpaid_Billview = '/dpdc-postpaid-billview';
-  static const DPDC_Postpaid_From_View = '/dpdc-postpaid-fromview';
-
-  static const Westzone_Postpaid_From_View = '/westzone-postpaid-fromview';
-  static const Reb_Postpaid_Form_View = '/reb-postpaid-fromview';
-  static const Reb_Postpaid_Bill_View = '/reb-postpaid-bill_view';
-  static const nesco_From_View = '/nesco-fromview';
-  static const akash_From_View = '/akash-fromview';
-  static const Westzone_Postpaid_Bill_View = '/westzone-postpaid-billview';
-  static const Nesco_Bill_View = '/nesco-billview';
-  static const Akash_Bill_View = '/akash-billview';
-
-  static const Dhaka_Wasa_From_View = '/dhaka-wasa-fromview';
   static const ROBIRECHARGESUCCESS = '/robi_recharge_success';
 
   static const ADDBALANCESUCCESS = '/add-balance-successful';
@@ -315,7 +338,7 @@ abstract class _Paths {
   static const DEACTIVATE_ACCCOUNT = '/deactivate_account_view';
   static const DEACTIVATE_ACCCOUNT_PIN = '/deactivate_account_pin';
   static const ACCOUNTSTATEMENT = '/account_statement';
-  static const BPDBFORMVIEW = '/BPDBFORMVIEW';
+
 
   static const Test = '/test';
   static const CUSTOMERS = '/customers';

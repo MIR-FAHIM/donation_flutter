@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
-import 'package:latest_payplus_agent/app/models/favourite_bill_list_model.dart';
+import 'package:latest_payplus_agent/app/models/electricity/favourite_bill_list_model.dart';
 
 import '../services/auth_service.dart';
 

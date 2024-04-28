@@ -99,7 +99,7 @@ class InboxView extends GetView<InboxController> {
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Notification'.tr,
+                              'Notification',
                               style: TextStyle(
                                 color: controller.selectedIndex.value == 0
                                     ? Colors.white

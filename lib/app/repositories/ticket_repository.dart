@@ -4,6 +4,7 @@ import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/buticket_model/coachList_model.dart';
 import 'package:latest_payplus_agent/app/models/buticket_model/coach_details_seat_layout_model.dart';
 import 'package:latest_payplus_agent/app/models/buticket_model/stationlist_model.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
 
 
@@ -164,7 +165,18 @@ class TicketRepository {
 
     return response;
   }
+  Future getBusReportList() async {
+    Map<String, String> header = {
+      'token' : Get.find<AuthService>().currentUser.value.token!
+    };
 
+    APIManager _manager = APIManager();
+    final response =
+    await _manager.postAPICallHeader(ApiClient.getBusReportPur, header);
+
+    print('bus report ++++++++++++++++++: ${response}');
+    return  response;
+  }
   Future<CoachDetailsSeatLayout> getCoachDetailsSeatLayout({DateTime? date, String? fromStation, String? toStation, String? tripID, String? tripRouteID, }) async {
     Map<String, String> header =
     {'token': "FixedTokenForPGWUsingAsCredentialsCanNotBeChanged"} ;
