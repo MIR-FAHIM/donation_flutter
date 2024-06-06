@@ -447,7 +447,7 @@ class MainDrawerWidget extends StatelessWidget {
                       ),
                       DrawerLinkWidget(
                         icon: 'assets/drawer/deactivate_account.png',
-                        text: "billformController: 10+33 test".tr,
+                        text: "AppId: 15+38".tr,
                         onTap: (e) {
                           //  Get.toNamed(Routes.DEACTIVATE_ACCCOUNT);
                           // Get.toNamed(Routes.Test);

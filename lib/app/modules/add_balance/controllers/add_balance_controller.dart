@@ -219,11 +219,11 @@ class AddbalanceController extends GetxController {
 
 class StickyColors {
   static final List colors = [
-    const Color(0xffb771d5),
+    const Color(0xffd8c6e0),
     const Color(0xffB4C6A6),
     const Color(0xff9c43bb),
     const Color(0xff346751),
-    const Color(0xffFFC947),
+    const Color(0xffdbceae),
     const Color(0xff3282B8),
   ];
 }

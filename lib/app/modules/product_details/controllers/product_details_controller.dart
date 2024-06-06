@@ -18,7 +18,9 @@ class ProductDetailsController extends GetxController {
           title: 'স্টক মূল্য',
           value:
               '৳ ${(productDetails.value.sellingPrice! * productDetails.value.quantity!)}',
-          press: () {}),
+          press: () {
+
+          }),
       ProductDetailModel(
           title: 'ক্রয় মূল্য',
           value: '৳ ${productDetails.value.buyingPrice}',

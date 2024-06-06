@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/password_field.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/progress_sign_up.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -31,7 +32,13 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    ProgressSignUp(
+                      indexP: 1,
+                      step1: "Outlet Information".tr,
+                      step2: "Address".tr,
+                      step3: "Password set".tr,
+                    ),
+                    SizedBox(height: 40),
                     Text(
                       "Address".tr + ' *',
                       style: Get.textTheme.bodyText1,
@@ -39,8 +46,20 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                     ),
                     SizedBox(height: 20),
                     Container(
-                      width: 300,
+
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color(0xFF652981).withOpacity(0.2),
+                              blurRadius: 2,
+                              offset: Offset(0, 2)),
+                        ],
+                        //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
+                      ),
                       child: TextFormField(
+
                         controller: controller.addressController.value,
                         keyboardType: TextInputType.text,
                         style: Get.textTheme.bodyText2,
@@ -110,7 +129,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                                 }
                                 controller.getZoneList();
                               },
-                              selectedItem: "City নির্বাচন করুন".tr,
+                              selectedItem: "Select City".tr,
                             ),
                           ),
                           // Text(controller.addresses.value),
@@ -166,7 +185,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                                 }
                                 controller.getAreaList();
                               },
-                              selectedItem: "Zone নির্বাচন করুন".tr,
+                              selectedItem: "Select Zone".tr,
                             ),
                           ),
                           // Text(controller.addresses.value),
@@ -222,7 +241,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                                   }
                                 }
                               },
-                              selectedItem: "Area নির্বাচন করুন".tr,
+                              selectedItem: "Select Area".tr,
                             ),
                           ),
                           // Text(controller.addresses.value),

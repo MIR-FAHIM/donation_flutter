@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/mobile_banking/bindings/mobile_banking_binding.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 

@@ -23,8 +23,9 @@ class BundlePackageWidget extends GetWidget<RechargeController> {
                       controller.bundlePackage[index].offerAmount!.toString();
                   controller.amountOffer.value =
                       controller.bundlePackage[index];
+                  controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
 
-                  controller.getCommission();
+               //controller.getCommission(true);
                   // Get.toNamed(Routes.RECHARGEPIN);
                 },
                 child:    controller.bundlePackage[index]

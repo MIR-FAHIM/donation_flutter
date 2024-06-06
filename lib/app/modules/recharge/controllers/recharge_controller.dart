@@ -1,4 +1,6 @@
 //import 'package:contacts_service/contacts_service.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
@@ -29,6 +31,7 @@ class RechargeController extends GetxController {
 
   final count = 1.obs;
   final alphabetFoundList = [].obs;
+
   final addNumberWidgets = [].obs;
   final seeOffer = false.obs;
   final searchStart = false.obs;
@@ -44,12 +47,14 @@ class RechargeController extends GetxController {
   final robiOfferAdminComission = ''.obs;
   final robiOfferComission = ''.obs;
   final robiRechargeCom = ''.obs;
+  final selectedIndex = 0.obs;
 
   final number_type = 'Prepaid'.obs;
 
   final internetPackage = <PackageModel>[].obs;
   final internetLoaded = false.obs;
   final minutePackage = <PackageModel>[].obs;
+  final rechargeNumberList = <RechargeViewModel>[].obs;
   final minuteLoaded = false.obs;
   final specialRatePackage = <PackageModel>[].obs;
   final specialRateLoaded = false.obs;
@@ -110,7 +115,7 @@ class RechargeController extends GetxController {
   final prepaid = true.obs;
 
   final contactLoad = false.obs;
-
+  final random = Random();
   final amountOffer = PackageModel().obs;
   final amountOfferFound = false.obs;
   final contactListClicked = false.obs;
@@ -122,14 +127,14 @@ class RechargeController extends GetxController {
   final pinController = TextEditingController().obs;
   final searchController = TextEditingController().obs;
   //TextEditingController pinController = TextEditingController();
-  final currentIndex = 0.obs;
+  final currentIndex = 1.obs;
 
   final keyboardText = ''.obs;
   final searchString = "".obs;
   final keyboardType = ''.obs;
 
   final pages = [
-    AmountRechargeWidget(),
+   AmountRechargeWidget(),
     CashBackPackageWidget(),
     InternetPackageWidget(),
     MinutePackageWidget(),
@@ -141,7 +146,17 @@ class RechargeController extends GetxController {
   void onInit() {
     // getPhoneContact();
 
+    rechargeNumberList.value.add( RechargeViewModel(
+      number: "01",
+      logo: "",
+      package:"" ,
+      validity: "",
+      operatorID: "",
+      amount:"0.0",
+      commision: "",
+      readOnly : false,
 
+    ));
     getCashBackOffer();
 
     cashBackAmount.value = '';
@@ -408,8 +423,91 @@ class RechargeController extends GetxController {
       }
     });
   }
+  void updateNumberAtIndex(int index, String newNumber) {
+    if (index >= 0 && index < rechargeNumberList.length) {
+      rechargeNumberList[index] = rechargeNumberList[index].copyWith(number: newNumber);
+      print("Updated index $index with number $newNumber");
+    }
+  }
 
-  getCommission() async {
+  void updateAmountAtIndex(int index, String amount) {
+    if (index >= 0 && index < rechargeNumberList.length) {
+      rechargeNumberList[index] = rechargeNumberList[index].copyWith(amount: amount.toString());
+      print("Updated index $index with amount $amount");
+
+    }
+  }
+  void updateMessageAtIndex(int index, String msg) {
+    if (index >= 0 && index < rechargeNumberList.length) {
+      rechargeNumberList[index] = rechargeNumberList[index].copyWith(message: msg.toString());
+      print("Updated index $index with amount $msg");
+
+    }
+  }
+
+  void updateLogoAtIndex(int index, String logo) {
+    if (index >= 0 && index < rechargeNumberList.length) {
+      rechargeNumberList[index] = rechargeNumberList[index].copyWith(logo: logo);
+      print("Updated index $index with logo $logo");
+    }
+  }
+  void updateOperatorIDAtIndex(int index, String operatorID) {
+    if (index >= 0 && index < rechargeNumberList.length) {
+      rechargeNumberList[index] = rechargeNumberList[index].copyWith(operatorID: operatorID);
+      print("Updated index $index with operator $operatorID");
+    }
+  }
+  addNewNumber(){
+    if (rechargeNumberList.length ==
+        5) {
+      Get.showSnackbar(Ui.ErrorSnackBar(
+          message:
+          'You can not add more than 5 numbers.'
+              .tr,
+          title: 'Error'.tr));
+    } else {
+      if (
+          rechargeNumberList.length ==
+          5) {
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message:
+            'You can not add more than 5 numbers.'
+                .tr,
+            title: 'Error'.tr));
+      } else {
+        if (!rechargeNumberList
+            .any((recharge) =>
+        recharge.number == "77")) {
+          rechargeNumberList.value
+              .add(
+            RechargeViewModel(
+              number: "01",
+              amount: "0.0",
+              logo: "",
+              operatorID: "",
+              package: "",
+              validity:"0",
+              commision: "",
+              readOnly: false,
+            ),
+          );
+          print(
+              "${rechargeNumberList.length}");
+
+          update();
+        } else {
+          Get.showSnackbar(Ui.ErrorSnackBar(
+              message:
+              'This number is already in the list.'
+                  .tr,
+              title: 'Error'.tr));
+        }
+      }
+    }
+  }
+
+
+  getCommission(bool readOnly) async {
     RechargeRepository()
         .getCommission(amountController.value.text, simOperator.value)
         .then((resp) {
@@ -419,7 +517,34 @@ class RechargeController extends GetxController {
         print(commission.value);
 
         if (rechargeNumber.value.length == 11) {
-          Get.toNamed(Routes.RECHARGEPIN);
+          if(rechargeNumberList.length == 5){
+            Get.showSnackbar(Ui.ErrorSnackBar(
+                message: 'You can not add more than 5 numbers.'.tr,
+                title: 'Error'.tr));
+          }else{
+            if (!rechargeNumberList.any((recharge) => recharge.number == rechargeNumberController.value.text)) {
+              rechargeNumberList.value.add(RechargeViewModel(
+                number: rechargeNumberController.value.text,
+                logo: simOperatorLogo
+                    .value,
+                package: cashBackPackageName.value ,
+                validity: amountOffer
+                    .value
+                    .offerValidity,
+                amount: amountController.value.text,
+                commision: commission.value,
+                readOnly : readOnly,
+
+              ));
+              print("recharge list is ${rechargeNumberList.length}");
+              Get.toNamed(Routes.RECHARGEPIN);
+            } else {
+              Get.showSnackbar(Ui.ErrorSnackBar(
+                  message: 'This number is already in the list.'.tr,
+                  title: 'Error'.tr));
+            }
+          }
+
         } else {
           Get.showSnackbar(Ui.ErrorSnackBar(
               message: 'Please provide valid phone number'.tr,
@@ -471,7 +596,33 @@ class RechargeController extends GetxController {
       Get.find<HomeController>().getDashBoardWithoutLoadReport();
     });
   }
+  void rechargeNumbersFromList() async {
+    for (int i = 0; i < rechargeNumberList.length ; i ++) {
+      var item = rechargeNumberList[i];
+      RechargeRepository()
+          .recharge(
+          item.number.toString(),
+          item.amount.toString(),
+          item.operatorID.toString(),
+          number_type.value,
+          pinNumber.value)
+          .then((resp) {
+        print('Recharge Response :  $resp');
 
+
+          // refresh();
+          Map data = {
+            "status_code": resp['status_code'].toString(),
+            "result": resp['result'],
+            "message": resp['message']
+          };
+          // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
+          updateMessageAtIndex(i, data['message']);
+
+
+      });
+    }
+  }
   recharge() async {
     print(number_type.value);
     print(rechargeNumberController.value.text);
@@ -538,7 +689,14 @@ class RechargeController extends GetxController {
       specialRateLoaded.value = true;
     });
   }
-
+  double calculateTotalAmount(List<RechargeViewModel> rechargeList) {
+    double totalAmount = 0.0;
+    for (var recharge in rechargeList) {
+      // Parse the amount as a double and add it to the total
+      totalAmount += double.tryParse(recharge.amount ?? '0.0') ?? 0.0;
+    }
+    return totalAmount;
+  }
   getBundle(String packageId) async {
     bundleLoaded.value = false;
     RechargeRepository().getPackages(simOperator.value, packageId).then((resp) {
@@ -563,3 +721,45 @@ class RechargeController extends GetxController {
     super.refresh();
   }
 }
+ class RechargeViewModel{
+  String? logo;
+  String? number;
+  String? package;
+  String? amount;
+  String? commision;
+  String? validity;
+  String? message;
+  String? numberType;
+  String? operatorID;
+  bool? readOnly;
+  RechargeViewModel({this.logo, this.number, this.package, this.amount,
+    this.commision, this.validity, this.readOnly,this.message,
+  this.numberType, this.operatorID});
+
+
+  RechargeViewModel copyWith({
+    String? number,
+    String? logo,
+    String? package,
+    String? validity,
+    String? amount,
+    String? commision,
+    String? message,
+    String? numberType,
+    String? operatorID,
+    bool? readOnly,
+
+  }) {
+    return RechargeViewModel(
+      number: number ?? this.number,
+      logo: logo ?? this.logo,
+      package: package ?? this.package,
+      validity: validity ?? this.validity,
+      amount: amount ?? this.amount,
+      commision: commision ?? this.commision,
+      message: message ?? this.message,
+      operatorID: operatorID ?? this.operatorID,
+      readOnly: readOnly ?? this.readOnly,
+    );
+  }
+ }

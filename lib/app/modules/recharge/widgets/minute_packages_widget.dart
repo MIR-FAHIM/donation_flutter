@@ -21,7 +21,9 @@ class MinutePackageWidget extends GetWidget<RechargeController> {
                 controller.amountController.value.text =
                     controller.minutePackage[index].offerAmount!.toString();
                 controller.amountOffer.value = controller.minutePackage[index];
-                controller.getCommission();
+                controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
+
+                //   controller.getCommission(true);
               },
               child:  controller.minutePackage[index]
                   .commision! == 0 ?

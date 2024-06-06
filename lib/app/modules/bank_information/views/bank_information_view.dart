@@ -56,7 +56,7 @@ class BankInformationView extends GetView<BankInformationController> {
                     labelText: "Provide Bank Information".tr,
                     hintText: "Bank".tr,
                     //items: ['Bank', 'Mobile Banking'],
-                    items: ['Bank'],
+                    items: ['Bank',],
                     onChanged: (input) {
                       controller.paymentMethod.value = input;
 

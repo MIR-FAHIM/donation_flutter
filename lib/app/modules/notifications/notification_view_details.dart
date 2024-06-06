@@ -37,6 +37,7 @@ class NotificationDetailsWidget extends GetWidget<InboxController> {
                         color: Colors.white,
                         radius: 10,
                       ),
+
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(

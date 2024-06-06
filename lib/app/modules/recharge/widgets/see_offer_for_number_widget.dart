@@ -27,7 +27,9 @@ class SeeOfferForNumberWidget extends GetWidget<RechargeController> {
                     controller.amountController.value.text =
                         controller.internetPackage[index].offerAmount!.toString();
                     controller.amountOffer.value = controller.internetPackage[index];
-                    controller.getCommission();
+                    controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
+
+                    //controller.getCommission(true);
                     // if (controller.rechargeNumber.value.length == 11) {
                     //   Get.toNamed(Routes.RECHARGEPIN);
                     // } else {

@@ -19,6 +19,7 @@ class CashBackPackageWidget extends GetWidget<RechargeController> {
                   controller.cashBackOffer.value.data!.length, (index) {
                 return GestureDetector(
                   onTap: () {
+                    print("i am here 1");
                     var opa = simOparetor(index);
 
                     print(controller.simOperator.value);
@@ -39,7 +40,10 @@ class CashBackPackageWidget extends GetWidget<RechargeController> {
                         .toString();
                     // controller.cashBackOfferfound.value =
                     //     controller.cashBackOffer.value.data![index];
-                    controller.getCommission();
+                    print("i am here");
+
+                    controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
+                  //  controller.getCommission(true);
                     // if (controller.rechargeNumber.value.length == 11 &&
                     //     controller.simOperator.value == opa) {
                     //   Get.toNamed(Routes.RECHARGEPIN);

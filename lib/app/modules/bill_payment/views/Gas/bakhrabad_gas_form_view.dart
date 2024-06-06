@@ -211,10 +211,10 @@ class _BakhrabadGasFormViewState extends State<BakhrabadGasFormView> {
                             "bll_dt_frm": data['bill_from'],
                             "bll_dt_to": data['bill_to'],
                             "bll_dt_due": '',
-                            "bll_amnt_ttl": double.parse(data['bill_amount'].toString()) + double.parse(data['ekpay_fee'].toString()),
+                            "bll_amnt_ttl": data['bill_total_amount'],
                             "is_bll_pd": data['is_bill_paid'],
                             "bll_late_fee": '0',
-                            "ekpay_fee": data['ekpay_fee'],
+
                             "bllr_id": data['bllr_id'],
                             "bll_loc_cd": '',
                             "bill_payment_id": ref['bill_payment_id'],

@@ -1,17 +1,12 @@
 import 'dart:io';
-
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:latest_payplus_agent/app/models/categoriesmodel.dart';
-import 'package:latest_payplus_agent/app/modules/Buy/Widget/Input_discount.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/add_product_controller.dart';
 
 class AddProductView extends GetView<AddProductController> {

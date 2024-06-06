@@ -210,12 +210,8 @@ class _JalalabadGasFormViewState extends State<JalalabadGasFormView> {
                                     "bll_mobno": data['biller_mobile'],
                                     "bll_typ": _selectedbox.key,
                                     "bll_amnt": data['bill_amount'],
-                                    "bll_amnt_ttl": double.parse(
-                                            data['bill_amount'].toString()) +
-                                        double.parse(
-                                            data['bill_late_fee'].toString()) +
-                                        double.parse(
-                                            data['ekpay_fee'].toString()),
+                                    "bll_amnt_ttl":
+                                            data['bill_total_amount'],
                                     "is_bll_pd": data['is_bill_paid'],
                                     "bll_late_fee": data['bill_late_fee'],
                                     "ekpay_fee": data['ekpay_fee'],

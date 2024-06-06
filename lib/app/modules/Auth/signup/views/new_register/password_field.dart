@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/progress_sign_up.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -32,7 +33,14 @@ class NewSignUpPassFieldView extends GetView<SignupController> {
                 key: controller.userinfo,
                 child: Column(
                   children: [
-
+                    SizedBox(height: 20,),
+                    ProgressSignUp(
+                      indexP: 2,
+                      step1: "Outlet Information".tr,
+                      step2: "Address".tr,
+                      step3: "Password set".tr,
+                    ),
+                    SizedBox(height: 50,),
                     TextFieldWidget(
                       labelText: "Pin:".tr,
                       hintText: "••••••••••••".tr,

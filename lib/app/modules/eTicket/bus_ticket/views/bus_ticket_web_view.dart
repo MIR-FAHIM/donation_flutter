@@ -73,7 +73,7 @@ class _InAppWebViewExampleScreenState extends State<BusTicketWeb> {
           endDrawer: BusReportDrawer(),
           appBar: AppBar(
             backgroundColor: AppColors.primaryColor,
-            title: Text("Bus Ticket Report"),
+            title: Text("Bus Ticket".tr),
             centerTitle: true,
 
           ),

@@ -50,7 +50,7 @@ class ProfileView extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Profile",
+                        "Profile".tr,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       Obx(() {

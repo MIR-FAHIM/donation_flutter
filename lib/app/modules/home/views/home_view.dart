@@ -15,6 +15,7 @@ import 'package:latest_payplus_agent/app/modules/bank_information/controllers/ba
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
+import 'package:latest_payplus_agent/app/services/facebook_service.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/nid_verification.dart';
@@ -378,8 +379,10 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Get.toNamed(
-                                            Routes.Add_Balance_Form_View);
+                                        print("hlw add balance");
+                                        FacebookService.logButtonClick();
+                                        // Get.toNamed(
+                                        //     Routes.Add_Balance_Form_View);
                                       },
                                       child: Row(
                                         children: [

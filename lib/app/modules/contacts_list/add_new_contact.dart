@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latest_payplus_agent/app/Page/sale_payment_system.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';

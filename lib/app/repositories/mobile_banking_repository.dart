@@ -14,6 +14,7 @@ class MobileBankingRepository {
       'amount': amount,
       'pin': pin,
       "gateway_id" : gateWayID,
+
     };
 
     var headers = {'token': token};

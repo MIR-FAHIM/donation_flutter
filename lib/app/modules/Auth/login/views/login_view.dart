@@ -61,7 +61,7 @@ class LoginView extends GetView<LoginController> {
                           labelText: "Account No:".tr,
                           hintText: "Mobile Number".tr,
                           keyboardType: TextInputType.phone,
-                          readOnly: false,
+                          readOnly: true,
 
                           // onTapped: () {
                           //   FocusScope.of(context).requestFocus(FocusNode());

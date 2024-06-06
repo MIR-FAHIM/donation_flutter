@@ -138,8 +138,7 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                       readOnly: true,
                       initialValue: Get.find<AuthService>()
                               .currentUser
-                              .value
-                              .mobileNumber ??
+                              .value.mobileNumber??
                           '',
                       // onSaved: (input) =>
                       // controller.currentUser.value.email = input,
@@ -149,6 +148,8 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                     // Container(
                     //   child: CheckBoxWidget(
                     //     title: 'Save the account'.tr,
+
+
                     //   ),
                     // ),
                     SizedBox(
@@ -161,8 +162,9 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: _size.width * .32,
+                            width: _size.width * .3,
                             child: RadioListTile(
+                              tileColor: Colors.purpleAccent.withOpacity(.2),
                               title: Text(
                                 "MFS",
                                 style: TextStyle(fontSize: 12),
@@ -176,9 +178,15 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               },
                             ),
                           ),
+                          Container(
+                            height: Get.height *.05,
+                            width: 2,
+                            color: Colors.white,
+                          ),
                           SizedBox(
-                            width: _size.width * .32,
+                            width: _size.width * .3,
                             child: RadioListTile(
+                              tileColor: Colors.purpleAccent.withOpacity(.2),
                               title: Text(
                                 "Bank",
                                 style: TextStyle(fontSize: 12),
@@ -189,29 +197,49 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               onChanged: (value) {
                                 // controller.grpValue.value = 3;
                                 // Get.snackbar("hlw bro", "Is everything okay");
-                                // Get.showSnackbar(
-                                //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-                                controller.grpValue.value =
-                                    int.parse(value.toString());
+                                Get.showSnackbar(
+                                    Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
+                                // controller.grpValue.value =
+                                //     int.parse(value.toString());
                                 //
                                 print("+++++++${controller.grpValue.value}");
                               },
                             ),
                           ),
+                          Container(
+                            height: Get.height *.05,
+                            width: 2,
+                            color: Colors.white,
+                          ),
                           SizedBox(
-                            width: _size.width * .32,
+                            width: _size.width * .35,
                             child: RadioListTile(
-                              title: Text(
-                                "Card",
-                                style: TextStyle(fontSize: 12),
+                              tileColor: Colors.purpleAccent.withOpacity(.2),
+                              title: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/icons/master.png',
+                                    height: Get.size.width * .07,
+                                    width: Get.size.width *.08,
+
+                                  ),
+                                  Text("/"),
+                                  Image.asset(
+                                    'assets/icons/visa.png',
+                                    height: Get.size.width * .07,
+                                    width: Get.size.width *.08,
+                                  ),
+                                ],
                               ),
                               value: 2,
                               contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               groupValue: controller.grpValue.value,
                               onChanged: (value) {
                                 Get.showSnackbar(Ui.ErrorSnackBar(
-                                    message: "Coming soon.....",
+                                    message: "Coming Soon...",
                                     title: 'Error'.tr));
+                                // controller.grpValue.value =
+                                //     int.parse(value.toString());
                                 //controller.grpValue.value = int.parse(value.toString());
                               },
                             ),
@@ -240,17 +268,23 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               }
                             });
                           } else if (controller.grpValue.value == 2) {
-                            print("working here ___________ hlw 2");
-                            controller
-                                .getPaymentTypeController(
-                                    controller.grpValue.value)
-                                .then((e) {
-                              if (controller.grpValue.value == 3) {
-                                controller.getBankChargeListController(3);
-                              } else {
-                                Get.toNamed(Routes.Add_Balance_Dashboard_View);
-                              }
-                            });
+                            // print("working here ___________ hlw 2");
+                            // controller
+                            //     .getPaymentTypeController(
+                            //         controller.grpValue.value)
+                            //     .then((e) {
+                            //   if (controller.grpValue.value == 3) {
+                            //     controller.getBankChargeListController(3);
+                            //   } else {
+                            //     Get.toNamed(Routes.Add_Balance_Dashboard_View);
+                            //   }
+                            // });
+
+                            if(int.parse(controller.amount.value) <1500 ){
+                              Get.showSnackbar(Ui.ErrorSnackBar(
+                                  message: "Minimum Payment amount is 1500 Taka.",
+                                  title: 'error'.tr));
+                            }
                           } else {
                             controller.getPaymentType().then((e) {
                               Get.toNamed(Routes.MFSLIST);

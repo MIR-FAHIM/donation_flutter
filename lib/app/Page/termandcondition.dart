@@ -56,7 +56,7 @@ class TermAndCOndition extends GetView<CheckPhoneNumberController> {
         ),
       ),
       body: WebViewContainer(
-        "https://www.paystation.com.bd/privacy-policy.php",
+        "https://www.com.example.salary/privacy-policy.php",
       ),
     );
   }

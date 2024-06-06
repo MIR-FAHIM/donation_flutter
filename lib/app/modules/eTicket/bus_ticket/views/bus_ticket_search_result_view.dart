@@ -1,24 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_seat_book_view.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
-
 import '../../bus_ticket/controllers/bus_ticket_controller.dart';
 
 class BusTicketSearchResultView extends GetView<BusTicketController> {
   @override
   Widget build(BuildContext context) {
-
-
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           const SizedBox(height: 10),
            Text(
             "Total Coach: ${controller.coachList.length}",

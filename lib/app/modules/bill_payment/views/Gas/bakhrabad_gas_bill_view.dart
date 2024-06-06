@@ -30,7 +30,7 @@ class BakhrabadGasBillView extends GetView {
     var bll_late_fee = Get.arguments['bll_late_fee'];
     var is_bll_pd = Get.arguments['is_bll_pd'];
     var bll_loc_cd = Get.arguments['bll_loc_cd'];
-    var ekpay_fee = Get.arguments['ekpay_fee'];
+
     var bllr_id = Get.arguments['bllr_id'];
     var _bill_payment_id = Get.arguments['bill_payment_id'];
     var _bill_refer_id = Get.arguments['bill_refer_id'];
@@ -287,50 +287,8 @@ class BakhrabadGasBillView extends GetView {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Ekpay Fee",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          Text(
-                            uniCodeTk + ' ' + ekpay_fee.toString(),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.homeTextColor3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Late Fee",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          Text(
-                            uniCodeTk + ' ' + bll_late_fee,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.homeTextColor3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
+
                     Container(
                       width: _size.width,
                       height: 1,

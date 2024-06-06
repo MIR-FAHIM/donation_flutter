@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/square_card_widget.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/widgets/mobile_bank_drawer.dart';
-
 import '../controllers/mobile_banking_controller.dart';
 
 class MobileBankingView extends GetView<MobileBankingController> {

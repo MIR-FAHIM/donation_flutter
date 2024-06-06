@@ -21,7 +21,9 @@ class SpecialRatePackageWidget extends GetWidget<RechargeController> {
                 controller.amountController.value.text =
                     controller.specialRatePackage[index].offerAmount!.toString();
                 controller.amountOffer.value = controller.specialRatePackage[index];
-                controller.getCommission();
+                controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
+
+                //  controller.getCommission(true);
                 // Get.toNamed(Routes.RECHARGEPIN);
               },
               child: controller.specialRatePackage[index]

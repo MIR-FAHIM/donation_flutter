@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/address_field.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/progress_sign_up.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 import '../../../../global_widgets/text_field_widget.dart';
 
 import '../../controllers/signup_controller.dart';
-
 
 class NewSignUpNameFieldView extends GetView<SignupController> {
   final _size = Get.size;
@@ -23,19 +23,22 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
           title: Text("Register".tr),
           centerTitle: true,
         ),
-
         body: Obx(() {
-
-
-          return  SingleChildScrollView(
+          return SingleChildScrollView(
             child: Container(
-              height: _size.height * 1.5,
+              height: _size.height ,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    ProgressSignUp(
+                      indexP: 0,
+                      step1: "Outlet Information".tr,
+                      step2: "Address".tr,
+                      step3: "Password set".tr,
+                    ),
+                    SizedBox(height: 40),
                     Text(
                       "Customer Name".tr + ' *',
                       style: Get.textTheme.bodyText1,
@@ -46,7 +49,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                       width: 300,
                       child: TextFormField(
                         controller: controller.customerName.value,
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.text,
                         style: Get.textTheme.bodyText2,
                         // validator: (input) {
                         //   if (controller.phoneController.text.length != 11) {
@@ -59,9 +62,8 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                         textAlign: TextAlign.start,
                         cursorColor: Color(0xFF652981),
                         decoration: Ui.getInputDecoration(
-                          hintText: "Enter Customer Name.".tr,
-                          iconData:
-                          CupertinoIcons.device_phone_portrait,
+                          hintText: "Enter Customer Name".tr,
+                          iconData: CupertinoIcons.device_phone_portrait,
                         ),
                       ),
                     ),
@@ -76,7 +78,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                     Container(
                       width: 300,
                       child: TextFormField(
-                         controller: controller.personalPhone.value,
+                        controller: controller.personalPhone.value,
                         keyboardType: TextInputType.phone,
                         style: Get.textTheme.bodyText2,
                         // validator: (input) {
@@ -91,8 +93,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                         cursorColor: Color(0xFF652981),
                         decoration: Ui.getInputDecoration(
                           hintText: "Enter Customer Mobile No.".tr,
-                          iconData:
-                          CupertinoIcons.device_phone_portrait,
+                          iconData: CupertinoIcons.device_phone_portrait,
                         ),
                       ),
                     ),
@@ -122,8 +123,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                         cursorColor: Color(0xFF652981),
                         decoration: Ui.getInputDecoration(
                           hintText: "Enter Outlet Name".tr,
-                          iconData:
-                          CupertinoIcons.bookmark,
+                          iconData: CupertinoIcons.bookmark,
                         ),
                       ),
                     ),
@@ -137,13 +137,14 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        if(controller.personalPhone.value.text.isEmpty || controller.outletName.value.text.isEmpty){
-                          Get.showSnackbar(
-                              Ui.ErrorSnackBar(message: "Please fill all the field", title: 'Error'.tr));
-                        }else {
+                        if (controller.personalPhone.value.text.isEmpty ||
+                            controller.outletName.value.text.isEmpty) {
+                          Get.showSnackbar(Ui.ErrorSnackBar(
+                              message: "Please fill all the field",
+                              title: 'Error'.tr));
+                        } else {
                           Get.to(NewSignUpAddressFieldView());
                         }
-
                       },
                       child: Container(
                         width: Get.width,
@@ -156,13 +157,15 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                           child: Center(
                             child: Text(
                               "Continue".tr,
-                              style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.normal),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal),
                             ),
                           ),
                         ),
                       ).paddingSymmetric(vertical: 5, horizontal: 20),
                     ),
-
                   ],
                 ),
               ),

@@ -2,13 +2,13 @@
 
 class ApiClient {
   String api_token = '';
-
+  
   static const String changeNotificationStatus =
       '${baseUrl}api/appapi/myNotifications/changeStatus';
   static const String deleteBankInfo = '${baseUrl}api/appapi/delete-bank-information';
 
   static const String baseUrl = 'https://shl.com.bd/';
-  static const String newBaseUrl = 'https://new.shl.com.bd/';
+  //static const String newBaseUrl = 'https://new.shl.com.bd/';
   static const String busStationList =
       "${baseUrl}api/appapi/ticketing/bus/all/station-list";
   static const String coachList =
@@ -37,6 +37,7 @@ class ApiClient {
       'https://shl.com.bd/api/appapi/agent/v2/registration';
   static const String numberDuplicacyCheck =
       '${baseUrl}api/appapi/numberDuplicacyCheck';
+
 
   static const String otpSend = '${baseUrl}api/appapi/sendOTP';
   static const String updateBankInfo = '${baseUrl}api/appapi/update-bank-information';
@@ -149,7 +150,6 @@ class ApiClient {
       '${baseUrl}api/appapi/payment-method-list';
   static const String cashInGateWay =
       '${baseUrl}api/appapi/mbanking/cashin-gateway-list';
-
   static const String mfsPaymentOPTION =
       '${baseUrl}api/appapi/payment-collection/payment-option';
   static const String transactionVerifyPaymentMethod =

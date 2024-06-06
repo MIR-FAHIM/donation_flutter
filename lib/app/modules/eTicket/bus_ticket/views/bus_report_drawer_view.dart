@@ -22,30 +22,13 @@ class BusReportDrawer extends StatelessWidget {
                   ),
                 ),
               )),
-
-          // DrawerLinkWidget(
-          //   icon: 'assets/drawer/report.png',
-          //   text: "Recharge Report".tr,
-          //   onTap: (e) {
-          //     Get.toNamed(Routes.RECHARGE_REPORT);
-          //   },
-          // ),
           DrawerLinkWidget(
             icon: 'assets/drawer/search.png',
-            text: "Ticket Purchase History".tr,
+            text: "Ticket Purchase Report".tr,
             onTap: (e) {
               Get.toNamed(Routes.BUSREPORT);
             },
           ),
-
-          // DrawerLinkWidget(
-          //   icon: 'assets/drawer/1.png',
-          //   text: "Sign Out".tr,
-          //   onTap: (e) {
-          //     Get.find<AuthService>().removeCurrentUser();
-          //     Get.offAndToNamed(Routes.CHECK_PHONE_NUMBER);
-          //   },
-          // ),
           SizedBox(
             height: 5,
           ),

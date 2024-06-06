@@ -15,24 +15,7 @@ class AuthRepository {
   ///User Registration api call
   Future userRegistration(Map data) async {
     print(data);
-    // print("User Data : $userModel");
-    // print(userModel.nid_front);
-    // print(userModel.nid_back);
-    // print(userModel.customerMobileNumber);
-    // print(userModel.personalMobile);
-    // print(userModel.name);
-    // print(userModel.nid);
-    // print(userModel.dob);
-    // print(userModel.imei);
-    // print(userModel.outletName);
-    // print(userModel.outletAddress);
-    // print(userModel.businessType);
-    // print(userModel.districts);
-    // print(userModel.thana);
-    // print(userModel.union);
-    // print(userModel.post_code);
-    // print(userModel.password);
-    // print(userModel.service_fee_type);
+
 
     APIManager _manager = APIManager();
     final _response = await _manager.postAPICall(ApiClient.registration, data);
@@ -61,24 +44,7 @@ class AuthRepository {
   }
   Future newUserRegistration(Map data) async {
     print(data);
-    // print("User Data : $userModel");
-    // print(userModel.nid_front);
-    // print(userModel.nid_back);
-    // print(userModel.customerMobileNumber);
-    // print(userModel.personalMobile);
-    // print(userModel.name);
-    // print(userModel.nid);
-    // print(userModel.dob);
-    // print(userModel.imei);
-    // print(userModel.outletName);
-    // print(userModel.outletAddress);
-    // print(userModel.businessType);
-    // print(userModel.districts);
-    // print(userModel.thana);
-    // print(userModel.union);
-    // print(userModel.post_code);
-    // print(userModel.password);
-    // print(userModel.service_fee_type);
+
 
     APIManager _manager = APIManager();
     final _response = await _manager.postAPICall(ApiClient.newRegitration, data);

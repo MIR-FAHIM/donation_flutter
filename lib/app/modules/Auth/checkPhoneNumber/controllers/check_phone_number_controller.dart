@@ -10,13 +10,8 @@ import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:device_information/device_information.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
-import 'package:device_information/device_information.dart';
-
 
 class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
@@ -43,27 +38,6 @@ class CheckPhoneNumberController extends GetxController {
     super.onReady();
     showPopupForReg();
   }
-
-  // Future getCurrentPhoneNumber() async {
-  //   try {
-  //     final autoFill = SmsAutoFill();
-  //     final phone = await autoFill.hint;
-  //
-  //     textEditingController.text = phone!.replaceAll('+88', '');
-  //
-  //     for (var item in simOperators) {
-  //       print(item.title);
-  //       if (textEditingController.text.length > 3) {
-  //         if (textEditingController.text.substring(0, 3) == item.title) {
-  //           print(textEditingController.text.substring(0, 3) == item.title);
-  //           simOperator.value = item.image!;
-  //         }
-  //       }
-  //     }
-  //   } on PlatformException catch (e) {
-  //     print('Failed to get mobile number because of: ${e.message}');
-  //   }
-  // }
   getPhoneContact() async {
     box.value.remove('contact');
     if (await FlutterContacts.requestPermission()) {
@@ -133,13 +107,13 @@ class CheckPhoneNumberController extends GetxController {
               });
             }
           } else {
-            Get.offAllNamed(Routes.NEWSIGNUP,
-                arguments: textEditingController.text);
-            //      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-            //        'mobileNumber': textEditingController.text,
-            //        'isRegistered': resp['result'].toString(),
-            //        'selectedServiceTypeId': '',
-            //      });
+            // Get.offAllNamed(Routes.NEWSIGNUP,
+            //     arguments: textEditingController.text);
+                 Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
+                   'mobileNumber': textEditingController.text,
+                   'isRegistered': resp['result'].toString(),
+                   'selectedServiceTypeId': '',
+                 });
           }
           // test token
           //

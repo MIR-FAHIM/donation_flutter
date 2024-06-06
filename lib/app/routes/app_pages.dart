@@ -240,6 +240,7 @@ class AppPages {
       page: () => BusReportReportView(),
       binding: BusTicketBinding(),
     ),
+
     GetPage(
       name: _Paths.LOGIN,
       page: () => LoginView(),

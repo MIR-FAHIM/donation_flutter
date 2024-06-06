@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/modules/billpay_report/controllers/billpay_report_controller.dart';
@@ -11,7 +9,6 @@ import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/rec
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/daily_report_controller.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -32,14 +29,7 @@ class DailyReportView extends GetView<DailyReportController> {
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () => Get.back(),
             ),
-            // actions: [
-            //   IconButton(
-            //       onPressed: () {},
-            //       icon: Icon(
-            //         CupertinoIcons.bell,
-            //         color: Colors.white70,
-            //       )),
-            // ],
+
           ),
         ),
         body: Obx(() {
@@ -164,12 +154,9 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                         ],
                       ),
-
-
                       SizedBox(
                         height: 20,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -1855,85 +1842,6 @@ class DailyReportView extends GetView<DailyReportController> {
                       ),
                       Divider(),
 
-                      // GridView.count(
-                      //
-                      //     // physics: NeverScrollableScrollPhysics(),
-                      //     primary: false,
-                      //     shrinkWrap: true,
-                      //     crossAxisCount: 1,
-                      //     crossAxisSpacing: 18.0,
-                      //     mainAxisSpacing: 8.0,
-                      //     childAspectRatio: 4.0,
-                      //     children: List.generate(controller.dailyReport.length,
-                      //         (index) {
-                      //       //Color randomColor = controller.getRandomColor();
-                      //       return GestureDetector(
-                      //         child: AnimationConfiguration.staggeredGrid(
-                      //           position: index,
-                      //           duration: const Duration(milliseconds: 475),
-                      //           columnCount: 1,
-                      //           child: SlideAnimation(
-                      //             horizontalOffset: 50.0,
-                      //             child: FadeInAnimation(
-                      //               child: Container(
-                      //                 width: _size.width,
-                      //                 decoration: Ui.getBoxDecoration(
-                      //                   color: Colors.white,
-                      //                   radius: 5,
-                      //                 ),
-                      //                 child: Center(
-                      //                   child: Row(
-                      //                     mainAxisAlignment:
-                      //                         MainAxisAlignment.spaceBetween,
-                      //                     children: [
-                      //                       Container(
-                      //                         child: Row(
-                      //                           children: [
-                      //                             SizedBox(
-                      //                               width: 15,
-                      //                             ),
-                      //                             Image.asset(
-                      //                               controller
-                      //                                       .dailyReport[index]
-                      //                                   ['image'],
-                      //                               height: 45,
-                      //                               width: 45,
-                      //                               // color: Color(0xFF652981),
-                      //                             ),
-                      //                             SizedBox(
-                      //                               width: 15,
-                      //                             ),
-                      //                             Text(
-                      //                               controller
-                      //                                       .dailyReport[index]
-                      //                                   ['title'],
-                      //                               style: TextStyle(
-                      //                                   fontWeight:
-                      //                                       FontWeight.bold,
-                      //                                   color: AppColors
-                      //                                       .primaryColor),
-                      //                             ),
-                      //                           ],
-                      //                         ),
-                      //                       ),
-                      //                       Padding(
-                      //                           padding: const EdgeInsets.only(
-                      //                               right: 10),
-                      //                           child: Text(
-                      //                             '৳ ${controller.dailyReport[index]['balance']}',
-                      //                             style: TextStyle(
-                      //                                 fontWeight:
-                      //                                     FontWeight.bold),
-                      //                           ))
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       );
-                      //     })),
                     ],
                   ),
                 ),
