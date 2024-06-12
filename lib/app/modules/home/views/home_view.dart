@@ -380,9 +380,9 @@ class HomeView extends GetView<HomeController> {
                                     InkWell(
                                       onTap: () {
                                         print("hlw add balance");
-                                        FacebookService.logButtonClick();
-                                        // Get.toNamed(
-                                        //     Routes.Add_Balance_Form_View);
+                                       // FacebookService.logButtonClick();
+                                        Get.toNamed(
+                                            Routes.Add_Balance_Form_View);
                                       },
                                       child: Row(
                                         children: [

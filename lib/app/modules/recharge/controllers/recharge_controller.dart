@@ -34,6 +34,9 @@ class RechargeController extends GetxController {
 
   final addNumberWidgets = [].obs;
   final seeOffer = false.obs;
+  final isExpanaded = false.obs;
+  final isPackage = false.obs;
+  final formKey = GlobalKey<FormState>().obs;
   final searchStart = false.obs;
   final rechargeNumber = ''.obs;
   final amount = ''.obs;
@@ -134,7 +137,7 @@ class RechargeController extends GetxController {
   final keyboardType = ''.obs;
 
   final pages = [
-   AmountRechargeWidget(),
+    AmountRechargeWidget(),
     CashBackPackageWidget(),
     InternetPackageWidget(),
     MinutePackageWidget(),
@@ -146,16 +149,16 @@ class RechargeController extends GetxController {
   void onInit() {
     // getPhoneContact();
 
-    rechargeNumberList.value.add( RechargeViewModel(
-      number: "01",
+    rechargeNumberList.value.add(RechargeViewModel(
+      number: "",
       logo: "",
-      package:"" ,
+      package: "",
       validity: "",
       operatorID: "",
-      amount:"0.0",
+      amount: "",
       commision: "",
-      readOnly : false,
-
+      readOnly: false,
+      isExpanded: false,
     ));
     getCashBackOffer();
 
@@ -222,7 +225,9 @@ class RechargeController extends GetxController {
   void changePage(int page) {
     currentIndex.value = page;
   }
-
+  bool toggleExpanded(bool isExpanded) {
+    return !isExpanded;
+  }
   // addAlphabet() {
   //   for (int index = 0; index < alphabetList.length; index++) {
   //     for (var item in contacts) {
@@ -234,6 +239,15 @@ class RechargeController extends GetxController {
   //     }
   //   }
   // }
+
+  //       }
+  void validateAndSubmit() {
+    if (formKey.value.currentState!.validate()) {
+      // Perform your submission logic here
+      print("Form submitted successfully!");
+    }
+  }
+
   RobiAirtelOfferModel getRobiAir(resp) {
     return RobiAirtelOfferModel.fromJson(resp);
   }
@@ -404,10 +418,12 @@ class RechargeController extends GetxController {
             cusCom: robiOfferCusComission.value,
             com: robiOfferComission.value,
             packageId: robiOfferID.value,
+
             rechargeCom: robiRechargeCom.value)
         .then((resp) {
       if (resp['result'] == 'success') {
-        Get.find<InboxController>().changeNotiStatus(Get.find<InboxController>().notiId);
+        Get.find<InboxController>()
+            .changeNotiStatus(Get.find<InboxController>().notiId);
         rechargeLoad.value = false;
         // Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
         pinPage.value = false;
@@ -423,89 +439,90 @@ class RechargeController extends GetxController {
       }
     });
   }
+
   void updateNumberAtIndex(int index, String newNumber) {
     if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] = rechargeNumberList[index].copyWith(number: newNumber);
+      rechargeNumberList[index] =
+          rechargeNumberList[index].copyWith(number: newNumber);
       print("Updated index $index with number $newNumber");
     }
   }
 
   void updateAmountAtIndex(int index, String amount) {
     if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] = rechargeNumberList[index].copyWith(amount: amount.toString());
+      rechargeNumberList[index] =
+          rechargeNumberList[index].copyWith(amount: amount.toString());
       print("Updated index $index with amount $amount");
-
     }
   }
+
   void updateMessageAtIndex(int index, String msg) {
     if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] = rechargeNumberList[index].copyWith(message: msg.toString());
+      rechargeNumberList[index] =
+          rechargeNumberList[index].copyWith(message: msg.toString());
       print("Updated index $index with amount $msg");
-
     }
   }
 
   void updateLogoAtIndex(int index, String logo) {
     if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] = rechargeNumberList[index].copyWith(logo: logo);
+      rechargeNumberList[index] =
+          rechargeNumberList[index].copyWith(logo: logo);
       print("Updated index $index with logo $logo");
     }
   }
+
   void updateOperatorIDAtIndex(int index, String operatorID) {
     if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] = rechargeNumberList[index].copyWith(operatorID: operatorID);
+      rechargeNumberList[index] =
+          rechargeNumberList[index].copyWith(operatorID: operatorID);
       print("Updated index $index with operator $operatorID");
     }
   }
-  addNewNumber(){
-    if (rechargeNumberList.length ==
-        5) {
+  void updateExpandedAtIndex(int index, bool isExpand) {
+    if (index >= 0 && index < rechargeNumberList.length) {
+      rechargeNumberList[index] =
+          rechargeNumberList[index].copyWith(isExpanded: isExpand);
+      print("Updated index $index with operator $isExpand");
+    }
+  }
+
+  addNewNumber() {
+    if (rechargeNumberList.length == 5) {
       Get.showSnackbar(Ui.ErrorSnackBar(
-          message:
-          'You can not add more than 5 numbers.'
-              .tr,
+          message: 'You can not add more than 5 numbers.'.tr,
           title: 'Error'.tr));
     } else {
-      if (
-          rechargeNumberList.length ==
-          5) {
+      if (rechargeNumberList.length == 5) {
         Get.showSnackbar(Ui.ErrorSnackBar(
-            message:
-            'You can not add more than 5 numbers.'
-                .tr,
+            message: 'You can not add more than 5 numbers.'.tr,
             title: 'Error'.tr));
       } else {
-        if (!rechargeNumberList
-            .any((recharge) =>
-        recharge.number == "77")) {
-          rechargeNumberList.value
-              .add(
+        if (!rechargeNumberList.any((recharge) => recharge.number == "77")) {
+          rechargeNumberList.value.add(
             RechargeViewModel(
-              number: "01",
-              amount: "0.0",
+              number: "",
+              amount: "",
               logo: "",
               operatorID: "",
               package: "",
-              validity:"0",
+              validity: "0",
               commision: "",
               readOnly: false,
+              isExpanded: false,
             ),
           );
-          print(
-              "${rechargeNumberList.length}");
+          print("${rechargeNumberList.length}");
 
           update();
         } else {
           Get.showSnackbar(Ui.ErrorSnackBar(
-              message:
-              'This number is already in the list.'
-                  .tr,
+              message: 'This number is already in the list.'.tr,
               title: 'Error'.tr));
         }
       }
     }
   }
-
 
   getCommission(bool readOnly) async {
     RechargeRepository()
@@ -517,24 +534,21 @@ class RechargeController extends GetxController {
         print(commission.value);
 
         if (rechargeNumber.value.length == 11) {
-          if(rechargeNumberList.length == 5){
+          if (rechargeNumberList.length == 5) {
             Get.showSnackbar(Ui.ErrorSnackBar(
                 message: 'You can not add more than 5 numbers.'.tr,
                 title: 'Error'.tr));
-          }else{
-            if (!rechargeNumberList.any((recharge) => recharge.number == rechargeNumberController.value.text)) {
+          } else {
+            if (!rechargeNumberList.any((recharge) =>
+                recharge.number == rechargeNumberController.value.text)) {
               rechargeNumberList.value.add(RechargeViewModel(
                 number: rechargeNumberController.value.text,
-                logo: simOperatorLogo
-                    .value,
-                package: cashBackPackageName.value ,
-                validity: amountOffer
-                    .value
-                    .offerValidity,
+                logo: simOperatorLogo.value,
+                package: cashBackPackageName.value,
+                validity: amountOffer.value.offerValidity,
                 amount: amountController.value.text,
                 commision: commission.value,
-                readOnly : readOnly,
-
+                readOnly: readOnly,
               ));
               print("recharge list is ${rechargeNumberList.length}");
               Get.toNamed(Routes.RECHARGEPIN);
@@ -544,7 +558,6 @@ class RechargeController extends GetxController {
                   title: 'Error'.tr));
             }
           }
-
         } else {
           Get.showSnackbar(Ui.ErrorSnackBar(
               message: 'Please provide valid phone number'.tr,
@@ -554,7 +567,7 @@ class RechargeController extends GetxController {
     });
   }
 
-  rechargeFromNotification(String num, String amount ) async {
+  rechargeFromNotification(String num, String amount) async {
     // print(number_type.value);
     // print(rechargeNumberController.value.text);
     // print(amountController.value.text);
@@ -567,13 +580,13 @@ class RechargeController extends GetxController {
     Ui.customLoaderDialog();
 
     RechargeRepository()
-        .recharge(num, amount, simOperator.value,
-            number_type.value, pinNumber.value)
+        .recharge(
+            num, amount, simOperator.value, number_type.value, pinNumber.value)
         .then((resp) {
       print('Recharge Response :  $resp');
 
       if (resp['result'] == 'failed') {
-      //  Get.back();
+        //  Get.back();
         Get.toNamed(Routes.RECHARGE);
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Failed", body: resp['message'], fln: flutterLocalNotificationsPlugin);
@@ -581,7 +594,8 @@ class RechargeController extends GetxController {
         Get.showSnackbar(
             Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       } else {
-        Get.find<InboxController>().changeNotiStatus(Get.find<InboxController>().notiId);
+        Get.find<InboxController>()
+            .changeNotiStatus(Get.find<InboxController>().notiId);
         // refresh();
         Map data = {
           "status_code": resp['status_code'].toString(),
@@ -596,33 +610,29 @@ class RechargeController extends GetxController {
       Get.find<HomeController>().getDashBoardWithoutLoadReport();
     });
   }
-  void rechargeNumbersFromList() async {
-    for (int i = 0; i < rechargeNumberList.length ; i ++) {
+
+  void rechargeNumbersFromList(numberType) async {
+    for (int i = 0; i < rechargeNumberList.length; i++) {
       var item = rechargeNumberList[i];
       RechargeRepository()
-          .recharge(
-          item.number.toString(),
-          item.amount.toString(),
-          item.operatorID.toString(),
-          number_type.value,
-          pinNumber.value)
+          .recharge(item.number.toString(), item.amount.toString(),
+              item.operatorID.toString(), numberType, pinNumber.value)
           .then((resp) {
         print('Recharge Response :  $resp');
 
-
-          // refresh();
-          Map data = {
-            "status_code": resp['status_code'].toString(),
-            "result": resp['result'],
-            "message": resp['message']
-          };
-          // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
-          updateMessageAtIndex(i, data['message']);
-
-
+        // refresh();
+        Map data = {
+          "status_code": resp['status_code'].toString(),
+          "result": resp['result'],
+          "message": resp['message']
+        };
+        // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
+        updateMessageAtIndex(i, data['message']);
       });
     }
+
   }
+
   recharge() async {
     print(number_type.value);
     print(rechargeNumberController.value.text);
@@ -689,6 +699,7 @@ class RechargeController extends GetxController {
       specialRateLoaded.value = true;
     });
   }
+
   double calculateTotalAmount(List<RechargeViewModel> rechargeList) {
     double totalAmount = 0.0;
     for (var recharge in rechargeList) {
@@ -697,6 +708,7 @@ class RechargeController extends GetxController {
     }
     return totalAmount;
   }
+
   getBundle(String packageId) async {
     bundleLoaded.value = false;
     RechargeRepository().getPackages(simOperator.value, packageId).then((resp) {
@@ -721,7 +733,8 @@ class RechargeController extends GetxController {
     super.refresh();
   }
 }
- class RechargeViewModel{
+
+class RechargeViewModel {
   String? logo;
   String? number;
   String? package;
@@ -732,10 +745,19 @@ class RechargeController extends GetxController {
   String? numberType;
   String? operatorID;
   bool? readOnly;
-  RechargeViewModel({this.logo, this.number, this.package, this.amount,
-    this.commision, this.validity, this.readOnly,this.message,
-  this.numberType, this.operatorID});
-
+  bool? isExpanded;
+  RechargeViewModel(
+      {this.logo,
+      this.number,
+      this.package,
+      this.amount,
+      this.commision,
+      this.validity,
+      this.readOnly,
+      this.message,
+        this.isExpanded,
+      this.numberType,
+      this.operatorID});
 
   RechargeViewModel copyWith({
     String? number,
@@ -747,8 +769,8 @@ class RechargeController extends GetxController {
     String? message,
     String? numberType,
     String? operatorID,
+    bool? isExpanded,
     bool? readOnly,
-
   }) {
     return RechargeViewModel(
       number: number ?? this.number,
@@ -760,6 +782,7 @@ class RechargeController extends GetxController {
       message: message ?? this.message,
       operatorID: operatorID ?? this.operatorID,
       readOnly: readOnly ?? this.readOnly,
+      isExpanded: isExpanded ?? this.isExpanded,
     );
   }
- }
+}

@@ -32,7 +32,7 @@ class InternetPackageWidget extends GetWidget<RechargeController> {
 
                 print("my recharge number list is amount is ${controller.rechargeNumberList[0].amount}");
 
-
+                controller.isPackage.value = true;
                 // controller.getCommission(true);
                 // if (controller.rechargeNumber.value.length == 11) {
                 //   Get.toNamed(Routes.RECHARGEPIN);

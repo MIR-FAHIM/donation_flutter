@@ -43,6 +43,7 @@ class CashBackPackageWidget extends GetWidget<RechargeController> {
                     print("i am here");
 
                     controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
+                    controller.isPackage.value = true;
                   //  controller.getCommission(true);
                     // if (controller.rechargeNumber.value.length == 11 &&
                     //     controller.simOperator.value == opa) {

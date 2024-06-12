@@ -100,7 +100,7 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
 
                                       suffixIcon: IconButton(
                                         onPressed: () {
-                                          controller.rechargeNumbersFromList();
+                                          controller.rechargeNumbersFromList("Prepaid");
 
                                           print("sahed");
                                           controller.pinController.value
@@ -142,7 +142,7 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text("Number", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
+                                      child: Text("Number".tr, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
                                     ),
                                   ),
 
@@ -157,7 +157,7 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text("Amount", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      child: Text("Amount".tr, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
                                     ),
                                   ),
 
@@ -172,12 +172,13 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text("Message", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
+                                      child: Text("Message".tr, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
+                            SizedBox(height: 5,),
                             Container(
                               height: Get.height*.25,
                               width: Get.width*.9,
@@ -187,12 +188,14 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
                                     for (var data in controller.rechargeNumberList.value) TableRow(
                                         children: [
                                           TableCell(
+                                            
                                             child: Row(
 
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: <Widget>[
 
                                                 Container(
+
                                                     width:Get.width*.35,
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(8.0),
@@ -211,16 +214,18 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
                                                       ),
                                                     )),
                                                 Container(
+
                                                     width:Get.width*.17,
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(8.0),
                                                       child: Text(data.amount.toString()),
                                                     )),
                                                 Container(
+
                                                     width:Get.width*.38,
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(8.0),
-                                                      child: Text(data.message ?? "Ready to initiate.", style: TextStyle(fontSize: 12),),
+                                                      child: Text(data.message ?? "Ready to initiate", style: TextStyle(fontSize: 12),),
                                                     )),
                                               ],
                                             ),

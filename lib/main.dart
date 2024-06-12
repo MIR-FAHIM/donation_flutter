@@ -18,7 +18,8 @@ import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/app/services/settings_service.dart';
 import 'package:latest_payplus_agent/app/services/translation_service.dart';
 import 'package:latest_payplus_agent/service/shared_pref.dart';
-
+import 'package:uni_links/uni_links.dart';
+import 'package:flutter/services.dart' show PlatformException, MethodChannel;
 import 'app/modules/Auth/signup/controllers/signup_controller.dart';
 import 'app/routes/app_pages.dart';
 
@@ -94,7 +95,9 @@ initServices() async {
   await Get.putAsync(() => FireBaseMessagingService().init());
 
   // NotificationLocal.initialize(flutterLocalNotificationsPlugin);
+
   Get.log('All services started...');
+
 }
 
 void main() async {
@@ -111,7 +114,19 @@ void main() async {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         primaryColor: const Color(0xFF652981),
+        dataTableTheme: DataTableThemeData(
+          headingRowColor: MaterialStateProperty.all(Colors.blueAccent),
+          headingTextStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+          dataRowColor: MaterialStateProperty.all(Colors.lightBlue[50]),
+          dataTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+          ),),
       ),
+
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[

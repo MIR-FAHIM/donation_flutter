@@ -17,7 +17,7 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
   @override
   Widget build(BuildContext context) {
     final _size = Get.size;
-    // Get.find<CheckPhoneNumberController>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
