@@ -195,7 +195,7 @@ class RobiAirtelPackageWidget extends GetWidget<RechargeController> {
                                 controller.robiOfferAdminComission.value = controller.robiAirtelOfferList.value[index].adminCommission!.toString();
                                 controller.robiOfferComission.value = controller.robiAirtelOfferList.value[index].commission!.toString();
                                 controller.pinPage.value = true;
-                                Get.toNamed(Routes.RECHARGEPINROBI);
+                                Get.toNamed(Routes.RECHARGEPINROBI, arguments: Get.arguments[0]);
                                 // Get.dialog(
                                 //    PinCodeDialog());
 

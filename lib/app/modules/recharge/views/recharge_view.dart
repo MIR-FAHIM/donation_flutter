@@ -21,7 +21,6 @@ import '../controllers/recharge_controller.dart';
 
 class RechargeView extends GetView<RechargeController> {
   // RechargeController controller = Get.put(RechargeController());
-
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -48,9 +47,7 @@ class RechargeView extends GetView<RechargeController> {
                   ],
                 ),
                 elevation: 0,
-                leading: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    onPressed: () => Get.offAllNamed(Routes.ROOT)),
+
                 actions: [
                   // IconButton(
                   //     onPressed: () {
@@ -74,7 +71,11 @@ class RechargeView extends GetView<RechargeController> {
           ),
           body: WillPopScope(
             onWillPop: () {
-              Get.offAllNamed(Routes.ROOT);
+             if(controller.contactListClicked.value == true){
+               controller.contactListClicked.value = false;
+             }else{
+               Get.toNamed(Routes.ROOT);
+             }
               return Future.value(false);
             },
             child: GestureDetector(
@@ -720,8 +721,6 @@ class RechargeView extends GetView<RechargeController> {
                                                   ),
                                                 ],
                                               ),
-
-
                                               SizedBox(
                                                 height:
                                                     Get.height * .02,
@@ -780,7 +779,7 @@ class RechargeView extends GetView<RechargeController> {
                                                       GestureDetector(
                                                                   onTap:
                                                                       () {
-                                                                    controller.getRobiAndAirtelOfferList();
+                                                                    controller.getRobiAndAirtelOfferList(data.number, data.operatorID!, i);
                                                                   },
                                                                   child: Container(
                                                                       height: 20,
@@ -803,7 +802,7 @@ class RechargeView extends GetView<RechargeController> {
                                                       GestureDetector(
                                                         onTap:
                                                             () {
-                                                          controller.getRobiAndAirtelOfferList();
+                                                          controller.getRobiAndAirtelOfferList(data.number, data.operatorID!, i);
                                                         },
                                                         child: Container(
                                                             height: 20,
@@ -1067,6 +1066,7 @@ class RechargeView extends GetView<RechargeController> {
                                             // ),
                                           ],
                                         ),
+
                                         i ==
                                             controller
                                                 .rechargeNumberList

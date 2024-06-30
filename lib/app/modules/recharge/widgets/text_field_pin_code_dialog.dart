@@ -609,7 +609,7 @@ class RechargePINViewRobiAirtel extends GetView<RechargeController> {
                                     child: Center(child: CircularProgressIndicator())):IconButton(
                                   onPressed: () {
                                     if(controller.pinController.value.text != ""){
-                                      controller.rechargeRobiAirtelOffer();
+                                      controller.rechargeRobiAirtelOffer(Get.arguments[0]);
 
                                     }else{
                                       Get.showSnackbar(Ui.ErrorSnackBar(

@@ -28,10 +28,8 @@ import 'package:get_storage/get_storage.dart';
 
 class RechargeController extends GetxController {
   //TODO: Implement RechargeController
-
   final count = 1.obs;
   final alphabetFoundList = [].obs;
-
   final addNumberWidgets = [].obs;
   final seeOffer = false.obs;
   final isExpanaded = false.obs;
@@ -257,16 +255,15 @@ class RechargeController extends GetxController {
     return regExp.allMatches(input).map((match) => match.group(0)).toList();
   }
 
-  getRobiAndAirtelOfferList() async {
+  getRobiAndAirtelOfferList(number, operator, index) async {
     print(
         "robi ++++++++${simOperator.value} token +++++++++++${Get.find<AuthService>().currentUser.value.token}");
     pinPage.value = false;
     loading.value = true;
     amountFocusFocus.value.requestFocus();
-
-    var oparetor = simOperator.value;
+  //  var oparetor = simOperator.value;
     RechargeRepository()
-        .getRobiAirtelOffer(oparetor, rechargeNumber.value)
+        .getRobiAirtelOffer(operator, number)
         .then((resp) {
       print("fhwruuw $resp");
       if (resp["result"] == "success") {
@@ -275,7 +272,7 @@ class RechargeController extends GetxController {
         amountOfferListLoaded.value = true;
         loading.value = false;
         selected.value = true;
-        Get.to(RobiAirtelPackageWidget());
+        Get.to(RobiAirtelPackageWidget(),arguments: [index]);
       } else {
         loading.value = false;
         print("fhwruuw ");
@@ -405,7 +402,7 @@ class RechargeController extends GetxController {
     });
   }
 
-  rechargeRobiAirtelOffer() async {
+  rechargeRobiAirtelOffer(index) async {
     rechargeLoad.value = true;
 
     RechargeRepository()
@@ -429,6 +426,7 @@ class RechargeController extends GetxController {
         pinPage.value = false;
         rechargeLoad.value = false;
         Map data = {"result": resp['result'], "message": resp['message']};
+        rechargeNumberList.value.removeAt(index);
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
         Get.offNamed(Routes.ROBIRECHARGESUCCESS, arguments: data);
