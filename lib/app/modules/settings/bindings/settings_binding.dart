@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
+import 'package:donation_flutter/app/modules/settings/controllers/language_controller.dart';
 
 import '../controllers/settings_controller.dart';
 

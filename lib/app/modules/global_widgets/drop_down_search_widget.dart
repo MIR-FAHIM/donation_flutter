@@ -58,13 +58,17 @@ class DropDownWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 14, left: 20, right: hasDropdown! ? 0 : 20),
+      padding: EdgeInsets.only(
+          top: 10, bottom: 14, left: 20, right: hasDropdown! ? 0 : 20),
       margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: buildBorderRadius,
         boxShadow: [
-          BoxShadow(color: Color(0xFF652981).withOpacity(0.2), blurRadius: 2, offset: Offset(0, 2)),
+          BoxShadow(
+              color: Color(0xFF652981).withOpacity(0.2),
+              blurRadius: 2,
+              offset: Offset(0, 2)),
         ],
         //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
       ),
@@ -80,30 +84,9 @@ class DropDownWidget extends StatelessWidget {
             height: 55,
             color: Colors.white,
             child: DropdownSearch<String>(
-              mode: Mode.MENU,
-              showSelectedItems: true,
               items: items.isNotEmpty ? items : [],
               onChanged: onChanged,
               selectedItem: items.isNotEmpty ? items[0] : hintText,
-              dropdownSearchDecoration: iconData == null && imageData == null
-                  ? InputDecoration(
-                      hintText: hintText,
-                      hintStyle: Get.textTheme.caption,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      contentPadding: EdgeInsets.all(0),
-                      focusColor: Color(0xFF652981),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                    )
-                  : Ui.getInputDecoration(
-                      hintText: hintText ?? '',
-                      iconData: iconData,
-                      suffixIcon: suffixIcon,
-                      suffix: suffix,
-                      errorText: errorText,
-                      imageData: imageData,
-                    ),
             ),
           ),
         ],

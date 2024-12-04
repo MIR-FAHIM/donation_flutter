@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-import 'package:latest_payplus_agent/common/custom_data.dart';
+import 'package:donation_flutter/common/custom_data.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 Future<Uint8List> makePdf(dynamic _title, dynamic _images, dynamic _bllr_accno, dynamic _bll_no, dynamic _bll_mobno, dynamic _bll_dt_frm,

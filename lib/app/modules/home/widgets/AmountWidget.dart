@@ -2,7 +2,7 @@
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:donation_flutter/common/Color.dart';
 
 class AmountWidget extends StatelessWidget {
   final image;

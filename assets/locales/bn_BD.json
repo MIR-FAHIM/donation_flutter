@@ -1,12 +1,42 @@
 {
+
+
+
+
   "Home": " হোম",
+
+ "Login to Shahajjo": "সাহায্য আপ এ লগইন করুন",
+ "Do Not Have An Account, Please Signup?": "আপনার যদি একাউন্ট না থাকে , একাউন্ট তৈরি করুন",
   "Saved": " সংরক্ষিত",
   "Message": " মেসেজ",
   "Profile": " প্রোফাইল",
+
+
+  "Motive": "উদ্দেশ্য",
+  "Gallary": "গ্যালারি",
+  "Review": "রিভিউ",
+  "Trusted By": "ট্রাস্টেড বাই ",
+  "Who Will Get Help By You": "কারা উপকৃত হবেন?",
+  "Raised": "রেইজড",
+  "Activity": "এক্টিভিটি",
+  "Viewed": "ভিউ হয়েছে",
+  "Add A Donation": "ডোনেশন যুক্ত করুন",
+ "  Please check the policy, Shahajjo App only connect Donator with Charity Authority": "  পলিসি পড়ুন , সাহায্য এপ শুধুমাত্র ডোনেটর এবং চ্যারিটি অথরিটির সাথে যোগাযোগ ও ডিজিটাল সম্পর্ক স্থাপন করে।",
+ "Click on this Policy link.": "পলিসি পড়তে এখানে ক্লিক করুন .",
+ "You can make a contact with respective person before donate, also please read the Terms and Condition Policy.": "ডোনেট করার আগে আপনি চাইলে অথরিটির সাথে কথা বলতে পারেন এবং আমাদের পলিসি অবশ্যই পড়বেন। ",
+
+
+  "Important Informations": "গুরুত্বপূর্ণ তথ্য",
+  "Amar Offer": "আমার অফার",
   "Menu": "মেনু",
+  "Power Load": "পাওয়ার  লোড",
+ "Activate": "আক্টিভেট করুন",
+ "Package Amount: ": "প্যাক পরিমাণ: ",
   "Change Account": "ব্যাংক তথ্য পরিবর্তন করুন",
 "Payment Collection": "পেমেন্ট কালেকশন",
 "Payment ": "পেমেন্ট",
+"Combo": "কম্বো",
+"Rate Cutter": "রেট কাটার",
  "Current Package": "বর্তমান প্যাকেজ",
 "Package Purchase": "প্যাকেজ ক্রয়",
  "Total Commision": " মোট কমিশন",

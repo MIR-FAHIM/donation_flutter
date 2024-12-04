@@ -3,7 +3,7 @@
 // ignore: non_constant_identifier_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/common/color_constant_custom.dart';
+import 'package:donation_flutter/common/color_constant_custom.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 
@@ -38,6 +38,7 @@ Widget CustomTextField({
                   keyboardType: keyboardType,
                   controller: controller,
                   obscureText: obsecure,
+
                   decoration: InputDecoration(
                     // suffixIcon: Icon(
                     //   iconName,

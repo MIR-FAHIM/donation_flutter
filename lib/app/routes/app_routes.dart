@@ -10,9 +10,11 @@ abstract class Routes {
   static const RobiAirtelOffer = _Paths.ROBIAIRTELOFFER;
   static const CHANGE_BANK_INFORMATION = _Paths.CHANGE_BANK_INFORMATION;
   static const BUSREPORT = _Paths.BUSREPORT;
+  static const REGISTER = _Paths.REGISTER;
 
 
   static const ROOT = _Paths.ROOT;
+  static const ACTIVITYLIST = _Paths.ACTIVITYLIST;
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
   static const MFSLIST = _Paths.MFSLIST;
   static const WELCOME = _Paths.WELCOME;
@@ -110,6 +112,7 @@ abstract class Routes {
   static const STATEMENTDETAILS = _Paths.STATEMENTDETAILS;
 
 
+
   static const TASKD = _Paths.TASKD;
 
 
@@ -133,6 +136,8 @@ abstract class Routes {
 
 
 
+
+
   static const NOTIDETAILS = _Paths.NOTIDETAILS;
   static const ADDPAYER = _Paths.ADDPAYER;
 
@@ -148,6 +153,9 @@ abstract class Routes {
 
   // bill
   static const BILL_PAYMENT = _Paths.BILL_PAYMENT;
+  static const ADDUSER = _Paths.ADDUSER;
+  static const ADDBANK = _Paths.ADDBANK;
+  static const VISAMASLIST = _Paths.VISAMASLIST;
   static const FAVOUTRITE_BILLER = _Paths.FAVOUTRITE_BILLER;
   static const Biller_List_View = _Paths.Biller_List_View;
   static const DTH_BILL = _Paths.DTH_BILL;
@@ -164,17 +172,20 @@ abstract class Routes {
   static const nesco_From_View = _Paths.nesco_From_View;
   static const Nesco_Bill_View = _Paths.Nesco_Bill_View;
   static const akash_From_View = _Paths.akash_From_View;
+  static const ADDACTIVITY = _Paths.ADDACTIVITY;
   static const Akash_Bill_View = _Paths.Akash_Bill_View;
   static const Westzone_Postpaid_Bill_View = _Paths.Westzone_Postpaid_Bill_View;
   static const Dhaka_Wasa_From_View = _Paths.Dhaka_Wasa_From_View;
   static const Water_Biller_List_View = _Paths.Water_Biller_List_View;
   static const Gas_Biller_List_View = _Paths.Gas_Biller_List_View;
+  static const ACTIVITYLISTADMIN = _Paths.ACTIVITYLISTADMIN;
   static const Reb_Postpaid_Form_View = _Paths.Reb_Postpaid_Form_View;
   static const Reb_Postpaid_Bill_View = _Paths.Reb_Postpaid_Bill_View;
   static const DESCOPREPAIDDETAILS = _Paths.DESCOPREPAIDDETAILS;
   static const ELECTRICITY_BILL = _Paths.ELECTRICITY_BILL;
   static const ELECTRICITY_BILL_FORM = _Paths.ELECTRICITY_BILL_FORM;
   static const WATER_BILL = _Paths.WATER_BILL;
+  static const MULTIRECHARGESUCCESS = _Paths.MULTIRECHARGESUCCESS;
   static const WATER_BILL_FORM = _Paths.WATER_BILL_FORM;
   static const GAS_BILL = _Paths.GAS_BILL;
   static const GAS_BILL_FORM = _Paths.GAS_BILL_FORM;
@@ -182,6 +193,24 @@ abstract class Routes {
   static const INTERNET_BILL_FORM = _Paths.INTERNET_BILL_FORM;
   static const TELEPHONE_BILL = _Paths.TELEPHONE_BILL;
   static const TELEPHONE_BILL_FORM = _Paths.TELEPHONE_BILL_FORM;
+  static const DETAILS = _Paths.DETAILS;
+  static const ADDDONATIONFORM = _Paths.ADDDONATIONFORM;
+  static const ALLUSER = _Paths.ALLUSER;
+  static const ADDDONATIONUSER = _Paths.ADDDONATIONUSER;
+  static const ALLDONATIONLIST = _Paths.ALLDONATIONLIST;
+  static const USERDONATIONBYID = _Paths.USERDONATIONBYID;
+  static const GALLARY = _Paths.GALLARY;
+  static const PROJECTDASHBOARD = _Paths.PROJECTDASHBOARD;
+  static const PROJECTLISTADMIN = _Paths.PROJECTLISTADMIN;
+  static const DONATION_LIST_PRO_ID = _Paths.DONATION_LIST_PRO_ID;
+  static const BANK_LIST_ADMIN = _Paths.BANK_LIST_ADMIN;
+  static const PAYMENTWAY = _Paths.PAYMENTWAY;
+  static const SUCCESS = _Paths.SUCCESS;
+  static const PRODECURE = _Paths.PRODECURE;
+  static const ADDREVIEW = _Paths.ADDREVIEW;
+  static const ALLDONATIONLISTBYPRO = _Paths.ALLDONATIONLISTBYPRO;
+  static const REVIEWLIST = _Paths.REVIEWLIST;
+  static const ADDDONATIONTABBAR_ADMIN = _Paths.ADDDONATIONTABBAR_ADMIN;
   // bill end
 }
 
@@ -191,9 +220,17 @@ abstract class _Paths {
   static const HOME = '/home';
   static const COLLECTION = '/collection';
   static const NEWNID = '/new-nid';
+  static const ALLUSER = '/ALLUSER';
+  static const ADDDONATIONTABBAR_ADMIN = '/ADDDONATIONTABBAR_ADMIN';
+  static const USERDONATIONBYID = '/USERDONATIONBYID';
+  static const PAYMENTWAY = '/PAYMENTWAY';
+  static const SUCCESS = '/SUCCESS';
+  static const ADDREVIEW = '/ADDREVIEW';
 
   static const REPORTANALITYC = '/report-analytic';
   static const ADDPAYER = '/add-payer';
+  static const ACTIVITYLIST = '/ACTIVITYLIST';
+  static const ADDACTIVITY = '/ADDACTIVITY';
   static const USERTYPE = '/USER-TYPE';
   static const PAYERVIEW = '/payer-view';
   static const CHANGE_BANK_INFORMATION = '/update-bank';
@@ -202,19 +239,31 @@ abstract class _Paths {
   static const SIGNUP = '/signup';
   static const NEWSIGNUP = '/new-signup';
   static const ADDCOLLECTIONFORM = '/add-collection-form';
+  static const ADDDONATIONUSER = '/ADDDONATIONUSER';
+  static const ADDDONATIONFORM = '/ADDDONATIONFORM';
+  static const BANK_LIST_ADMIN = '/BANK_LIST_ADMIN';
+  static const REVIEWLIST = '/REVIEWLIST';
 
   static const ROOT = '/root';
+  static const REGISTER = '/REGISTER';
   static const TASKD = '/root';
   static const SPLASHSCREEN = '/splashscreen';
-  static const NEWSIGNUPADDRESS = '/new-sign-up-address';
+  static const DETAILS = '/DETAILS';
 
-  static const NEWSIGNUPPASS = '/new-sign-up-pass';
   static const PACKAGELIST = '/package-list';
+  static const DONATION_LIST_PRO_ID = '/DONATION_LIST_PRO_ID';
   static const PROFILEVIEW = '/profile-view';
   static const BUSREPORT = '/BUSREPORT';
+  static const ACTIVITYLISTADMIN = '/ACTIVITYLISTADMIN';
+  static const ADDUSER = '/ADDUSER';
+  static const ADDBANK = '/ADDBANK';
+  static const GALLARY = '/GALLARY';
+  static const ALLDONATIONLISTBYPRO = '/ALLDONATIONLISTBYPRO';
 
 
   static const WELCOME = '/welcome';
+  static const PRODECURE = '/PRODECURE';
+  static const ALLDONATIONLIST = '/ALLDONATIONLIST';
   static const PHONE_VERIFICATION = '/phone-verification';
   static const RECHARGE = '/recharge';
   static const RECHARGEPIN = '/recharge/pin';
@@ -277,6 +326,7 @@ abstract class _Paths {
   // bill end
 
   static const MFSLIST = '/mfs-list';
+  static const VISAMASLIST = '/VISAMASLIST';
   static const SALES = '/sales';
   static const BUS_TICKET = '/bus-ticket';
   static const CASHINOUT = '/cash-in-out';
@@ -324,6 +374,9 @@ abstract class _Paths {
   static const ROBIRECHARGESUCCESS = '/robi_recharge_success';
 
   static const ADDBALANCESUCCESS = '/add-balance-successful';
+  static const PROJECTLISTADMIN = '/PROJECTLISTADMIN';
+  static const PROJECTDASHBOARD = '/PROJECTDASHBOARD';
+  static const MULTIRECHARGESUCCESS = '/MULTIRECHARGESUCCESS';
 
   static const Transaction_Successful = '/transaction-successful';
 

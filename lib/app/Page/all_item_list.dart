@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/Page/sale_payment_system.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+
+import 'package:donation_flutter/common/Color.dart';
+import 'package:donation_flutter/common/ui.dart';
 
 class AllItemListView extends StatelessWidget {
   final _size = Get.size;
@@ -441,7 +441,7 @@ class AllItemListView extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: InkWell(
                 onTap: () {
-                  Get.to(SalePaymentSystem());
+
                 },
                 child: Container(
                   width: _size.width,

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "latest_payplus_agent" "\0"
+            VALUE "FileDescription", "donation_flutter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "latest_payplus_agent" "\0"
+            VALUE "InternalName", "donation_flutter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "latest_payplus_agent.exe" "\0"
-            VALUE "ProductName", "latest_payplus_agent" "\0"
+            VALUE "OriginalFilename", "donation_flutter.exe" "\0"
+            VALUE "ProductName", "donation_flutter" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

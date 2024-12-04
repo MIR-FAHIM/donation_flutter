@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/Page/sale_payment_system.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
+
+import 'package:donation_flutter/common/Color.dart';
 
 class Income extends StatelessWidget {
   const Income({Key? key}) : super(key: key);
@@ -150,7 +150,7 @@ class Income extends StatelessWidget {
               lineGap(),
               InkWell(
                 onTap: () {
-                  Get.to(SalePaymentSystem());
+
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

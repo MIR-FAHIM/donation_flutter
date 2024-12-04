@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
 
-  static final primaryColor = Color(0xFF652981);
+  static final primaryColor = Colors.green.withOpacity(.8);
   static final primaryLightColor = Color.fromARGB(255, 247, 235, 252);
   static final backgroundColor = Color(0xFFF6F8F6);
   static final SecondbackgroundColor = Color(0xFFE5E5E5);
@@ -20,14 +20,16 @@ class AppColors {
   static final primarydeepLightColor = Color(0xFFEBCEFF);
   static final dividerColor = Color(0xFFEEEEEE);
   static final golden = HexColor("#FFCF40");
-  static final gradientOne = HexColor("#6D3587");
-  static final gradientTwo = HexColor("#8950A4");
+  static final gradientOne = Color(0xFFC1EF3F);
+  static final gradientTwo = Color(0xFFC1EF3F);
   static final softPink = HexColor("#FFC5C5");
  static final softBrwn = HexColor("#FFEBD8");
  // static final gradientTwo = HexColor("#8950A4");
  // static final gradientTwo = HexColor("#8950A4");
  // static final gradientTwo = HexColor("#8950A4");
 
+  static Color textAlt = HexColor("#505050");
+  static Color textColorBlack = Colors.black;
 
 }
 class HexColor extends Color {

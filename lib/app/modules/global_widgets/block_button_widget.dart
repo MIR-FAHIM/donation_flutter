@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class BlockButtonWidget extends StatelessWidget {
   BlockButtonWidget(
-      {Key? key, this.color, this.text, this.onPressed, this.radius = 10, this.width})
+      {Key? key, this.color, this.text, this.onPressed, this.radius = 10, this.width, this.height})
       : super(key: key);
 
   final Color? color;
@@ -11,10 +11,12 @@ class BlockButtonWidget extends StatelessWidget {
   final double radius;
   final VoidCallback? onPressed;
   final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
       width: width ?? Get.size.width,
       decoration: this.onPressed != null
           ? BoxDecoration(

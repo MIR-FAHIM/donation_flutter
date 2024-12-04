@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:donation_flutter/common/ui.dart';
 
 class ConnectivityController extends GetxController {
   //this variable 0 = No Internet, 1 = connected to WIFI ,2 = connected to Mobile Data.

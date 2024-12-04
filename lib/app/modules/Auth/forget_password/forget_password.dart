@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:donation_flutter/app/modules/global_widgets/block_button_widget.dart';
+import 'package:donation_flutter/app/modules/global_widgets/text_field_widget.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/common/ui.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);

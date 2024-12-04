@@ -1,20 +1,27 @@
+import 'package:donation_flutter/app/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
-import 'package:latest_payplus_agent/app/services/firebase_messaging_service.dart';
-import 'package:latest_payplus_agent/app/services/location_service.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
-import 'package:latest_payplus_agent/service/shared_pref.dart';
+
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/app/services/auth_service.dart';
+import 'package:donation_flutter/app/services/firebase_messaging_service.dart';
+import 'package:donation_flutter/app/services/location_service.dart';
+import 'package:donation_flutter/common/ui.dart';
+import 'package:donation_flutter/service/shared_pref.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
-
+  final codeController = TextEditingController().obs;
+  final emailController = TextEditingController().obs;
+  final fullName = TextEditingController().obs;
+  final mobileController = TextEditingController().obs;
+  final countryController = TextEditingController().obs;
+  final addressController = TextEditingController().obs;
   final mobileNumber = ''.obs;
+  var regisFormKey = GlobalKey<FormState>().obs;
   final imeiNumber = ''.obs;
   final password = ''.obs;
   final deviceToken = ''.obs;
@@ -58,6 +65,50 @@ class LoginController extends GetxController {
     }
   }
 
+  loginController(){
+   AuthRepository().userLogin(emailController.value.text, password.value).then((value) {
+    //  AuthRepository().userLogin("ridoyfahim92@gmail.com", "123456").then((value) {
+
+        if(value.status == 200){
+        Get.find<AuthService>().setUser(value);
+        Get.find<AuthService>().setFirstLoggedOrNot();
+
+        Get.toNamed(Routes.HOME);
+
+      }else{
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message:
+            'Something went wrong'.tr,
+            title: 'Error'.tr));
+      }
+    });
+  }
+
+  registerController(){
+    Map data = {
+    'name' : fullName.value.text,
+    'email' : emailController.value.text,
+    'mobile' : mobileController.value.text,
+    'donate_amount' : '0',
+      "usertype" : "user",
+      "project_id" : "0",
+
+    'password' : codeController.value.text,
+    'country' : countryController.value.text,
+    };
+    AuthRepository().userRegister(data).then((value) {
+      if(value['status'] == 200){
+        Get.toNamed(Routes.LOGIN);
+
+      }else{
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message:
+            'Something went wrong'.tr,
+            title: 'Error'.tr));
+      }
+    });
+  }
+
   getDeviceInfo() async {
     try {
       String platformVersion = await DeviceInformation.platformVersion;
@@ -69,41 +120,7 @@ class LoginController extends GetxController {
     }
   }
 
-  void login() async {
-    print("my device token is bro ++++++++++++++++++++++"
-        " ${imeiNumber.value}");
-    if (loginFormKey.currentState!.validate()) {
-      Get.find<AuthService>().setFirstLoggedOrNot();
-      loginFormKey.currentState!.save();
-      await Get.find<FireBaseMessagingService>().setDeviceToken();
-      Ui.customLoaderDialog();
-      //351811075916820\
-      //jdMSmZ7wc0fvo9NyGShtUgVpeouEOQO5qbFKo7VL
-      AuthRepository()
-          .userLogin(mobileNumber.value, password.value, imeiNumber.value)
-          .then((resp) {
-        if (resp.result == 'success') {
-          AuthRepository()
-              .sendDeviceToken(resp.customerCode.toString(), deviceToken.value);
-          print('deviceToken : ${deviceToken.value}');
 
-          SharedPreff.to.prefss
-              .setString("logindate", DateTime.now().toString());
-
-          Get.offAllNamed(Routes.ROOT);
-        } else {
-          Get.back();
-          Get.showSnackbar(Ui.ErrorSnackBar(
-              message: 'Invalid information provided'.tr, title: 'Error'.tr));
-        }
-      }).catchError((onError) {
-        Get.back();
-        Get.showSnackbar(Ui.ErrorSnackBar(
-            message: "Please check your mobile number and PIN".tr,
-            title: 'Error'.tr));
-      });
-    }
-  }
 
   // void printSimCardsData() async {
   //   try {

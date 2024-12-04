@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/common/ui.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../controllers/webview_controller.dart';
@@ -48,10 +48,10 @@ class WebviewView extends GetView<WebviewController> {
           centerTitle: true,
           title: Text(controller.title.value.tr),
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Get.offAllNamed(Routes.ROOT),
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(Icons.arrow_back_ios),
+          //   onPressed: () => Get.offAllNamed(Routes.ROOT),
+          // ),
         ),
       ),
       body: WillPopScope(onWillPop: () {

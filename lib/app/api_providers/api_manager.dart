@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:latest_payplus_agent/app/api_providers/customExceptions.dart';
+import 'package:donation_flutter/app/api_providers/customExceptions.dart';
 
 class APIManager {
   Future<dynamic> postAPICallWithHeader(String url, var param, Map<String, String> headerData) async {
@@ -61,12 +61,12 @@ class APIManager {
   Future<dynamic> postAPICall(String url, Map param) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
-    Map<String, String> headerData = {};
-    headerData["remark"] = "Agent";
-    print("Calling header: $headerData");
+
+
+
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(url), body: param, headers: headerData);
+      final response = await http.post(Uri.parse(url), body: param,);
       responseJson = _response(response);
       print(responseJson);
     } on SocketException {
@@ -124,12 +124,12 @@ class APIManager {
 
   Future<dynamic> get(String url) async {
     print("Calling API: $url");
-    Map<String, String> headerData = {};
-    headerData["remark"] = "Agent";
-    print("Calling header: $headerData");
+
+
+
     var responseJson;
     try {
-      final response = await http.get(Uri.parse(url), headers: headerData);
+      final response = await http.get(Uri.parse(url),);
       print(response.body);
       responseJson = _response(response);
     } on SocketException {
@@ -160,9 +160,16 @@ class APIManager {
       case 200:
         var responseJson = json.decode(response.body.toString());
         return responseJson;
+      case 404:
+      var responseJson = json.decode(response.body.toString());
+      return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
+        case 422:
+        throw BadRequestException(response.body.toString());
+
       case 401:
+        throw BadRequestException(response.body.toString());
       case 403:
         throw UnauthorisedException(response.body.toString());
       case 500:

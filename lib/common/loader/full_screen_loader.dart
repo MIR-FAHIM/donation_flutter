@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:latest_payplus_agent/common/loader/custom_loader.dart';
+import 'package:donation_flutter/common/loader/custom_loader.dart';
 
 class CustomFullScreenLoader{
   static void openLoadingDialog(String text, String animation){

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="paystation.com.bd">
+    package="donation.com.bd">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -44,7 +44,7 @@
         </intent>
     </queries>
    <application
-        android:label="PayPlus Agent"
+        android:label="Shahajjo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
@@ -101,7 +101,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="https"
-                    android:host="www.paystation.com.bd" />
+                    android:host="www.donation.com.bd" />
             </intent-filter>
         </activity>
 

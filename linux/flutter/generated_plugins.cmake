@@ -5,7 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   flutter_localization
   printing
-  smart_auth
+  rive_common
   url_launcher_linux
 )
 

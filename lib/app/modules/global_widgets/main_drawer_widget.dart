@@ -1,3 +1,5 @@
+import 'package:donation_flutter/app/modules/home/views/facebook/fb_homepage.dart';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,17 +7,16 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
-import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
-import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
+
+import 'package:donation_flutter/app/modules/home/controllers/home_controller.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:latest_payplus_agent/app/modules/package/controller/package_list_controller.dart';
-import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/service/shared_pref.dart';
+
+import 'package:donation_flutter/app/modules/settings/controllers/language_controller.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/app/services/auth_service.dart';
+import 'package:donation_flutter/common/Color.dart';
+import 'package:donation_flutter/service/shared_pref.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'drawer_link_widget.dart';
 
@@ -131,39 +132,6 @@ class MainDrawerWidget extends StatelessWidget {
             //     Get.toNamed(Routes.ACCOUNT_SETTING);
             //   },
             // ),
-            Get.find<HomeController>()
-                        .getPermissionModel
-                        .value
-                        .data!
-                        .allowMbanking ==
-                    1
-                ? DrawerLinkWidget(
-                    icon: 'assets/drawer/5.png',
-                    text: "Bank Information".tr,
-                    onTap: (e) {
-                      print(
-                          "fff----${Get.find<WithdrawController>().userBankInformation.length}");
-                      Get.find<WithdrawController>().userBankInformation.isEmpty
-                          ? Get.toNamed(Routes.BANK_INFORMATION)
-                          : Get.toNamed(Routes.CHANGEACCOUNT);
-                    },
-                  )
-                : Container(),
-
-            Get.find<HomeController>()
-                        .getPermissionModel
-                        .value
-                        .data!
-                        .allowMbanking ==
-                    1
-                ? DrawerLinkWidget(
-                    icon: 'assets/drawer/4.png',
-                    text: "Withdraw money".tr,
-                    onTap: (e) {
-                      Get.toNamed(Routes.WITHDRAW);
-                    },
-                  )
-                : Container(),
 
             // DrawerLinkWidget(
             //   icon: 'assets/drawer/4.png',
@@ -172,64 +140,84 @@ class MainDrawerWidget extends StatelessWidget {
             //     Get.toNamed(Routes.CHANGEACCOUNT);
             //   },
             // ),
+
             DrawerLinkWidget(
               icon: 'assets/drawer/account_statement.png',
-              text: "Current Package".tr,
+              text: "Home".tr,
               onTap: (e) {
-                Get.toNamed(Routes.PACKAGELIST);
+                Get.toNamed(Routes.HOME);
               },
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: ExpandablePanel(
-                collapsed: const SizedBox(
-                  height: 10,
-                ),
-                header: DrawerLinkWidget(
-                  icon: 'assets/drawer/3.png',
-                  text: "Report".tr,
-                  id: 0,
-                  onTap: (e) {},
-                ),
-                expanded: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // DrawerLinkWidget(
-                      //   icon: 'assets/drawer/account_statement.png',
-                      //   text: "Account Statement".tr,
-                      //   onTap: (e) {
-                      //     Get.toNamed(Routes.ACCOUNTSTATEMENT);
-                      //   },
-                      // ),
-                      SizedBox(
+            // DrawerLinkWidget(
+            //   icon: 'assets/drawer/account_statement.png',
+            //   text: "Social".tr,
+            //   onTap: (e) {
+            //     Get.to(() =>  FbHomePage(),);
+            //
+            //
+            //   },
+            // ),
+            DrawerLinkWidget(
+              icon: 'assets/drawer/account_statement.png',
+              text: "Profile".tr,
+              onTap: (e) {
+                Get.toNamed(Routes.PROFILEVIEW);
+              },
+            ),
+            Get.find<AuthService>().currentUser.value.user!.usertype == "admin"
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: ExpandablePanel(
+                      collapsed: const SizedBox(
                         height: 10,
                       ),
-                      DrawerLinkWidget(
+                      header: DrawerLinkWidget(
                         icon: 'assets/drawer/3.png',
-                        text: "Daily Report".tr,
-                        onTap: (e) {
-                          Get.toNamed(Routes.DAILY_REPORT);
-                        },
+                        text: "Admin".tr,
+                        id: 0,
+                        onTap: (e) {},
                       ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // DrawerLinkWidget(
-                      //   icon: 'assets/drawer/3.png',
-                      //   text: "Report Analytic".tr,
-                      //   onTap: (e) {
-                      //     Get.toNamed(Routes.REPORTANALITYC);
-                      //   },
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                      expanded: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // DrawerLinkWidget(
+                            //   icon: 'assets/drawer/account_statement.png',
+                            //   text: "Account Statement".tr,
+                            //   onTap: (e) {
+                            //     Get.toNamed(Routes.ACCOUNTSTATEMENT);
+                            //   },
+                            // ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DrawerLinkWidget(
+                              icon: 'assets/drawer/3.png',
+                              text: "All Users".tr,
+                              onTap: (e) {
+                                Get.toNamed(Routes.ALLUSER);
+                              },
+                            ),
+
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DrawerLinkWidget(
+                              icon: 'assets/drawer/3.png',
+                              text: "My Projects".tr,
+                              onTap: (e) {
+                                Get.toNamed(Routes.PROJECTLISTADMIN);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
 
             Padding(
               padding: const EdgeInsets.only(right: 16),
@@ -253,7 +241,7 @@ class MainDrawerWidget extends StatelessWidget {
                         icon: 'assets/drawer/2.png',
                         text: "Hotline".tr,
                         onTap: (e) {
-                          Get.toNamed(Routes.HOTLINE);
+                          //Get.toNamed(Routes.HOTLINE);
                         },
                       ),
                       SizedBox(
@@ -264,7 +252,7 @@ class MainDrawerWidget extends StatelessWidget {
                         text: "Terms & Conditions".tr,
                         onTap: (e) async {
                           Uri url = Uri.parse(
-                              'https://shl.com.bd/terms-and-conditions.php');
+                              'https://donation.biswasandbrothers.com/public/privacy_policy');
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           } else {
@@ -287,7 +275,7 @@ class MainDrawerWidget extends StatelessWidget {
                         text: "Privacy Policy".tr,
                         onTap: (e) async {
                           final String urlString =
-                              "https://raw.githubusercontent.com/musabbir-mamun/app-privacy-policy/master/paystation/paystation.html";
+                              "https://donation.biswasandbrothers.com/public/privacy_policy";
 
                           Uri url = Uri.parse(urlString);
                           if (await canLaunchUrl(url)) {
@@ -429,20 +417,8 @@ class MainDrawerWidget extends StatelessWidget {
                         text: "Sign Out".tr,
                         id: 1,
                         onTap: (e) async {
-                          SharedPreferences saveimage =
-                              await SharedPreferences.getInstance();
-                          final success = await saveimage.remove('imagepath');
-                          // userdata.remove('imeiNumber');
-                          // userdata.remove('mobile_number');
-                          String number = Get.find<AuthService>()
-                              .currentUser
-                              .value
-                              .mobileNumber!;
                           Get.find<AuthService>().removeCurrentUser();
-                          SharedPreff.to.prefss.remove("logindate");
-
-                          Get.offAndToNamed(Routes.SPLASHSCREEN,
-                              arguments: number);
+                          Get.offNamed(Routes.LOGIN);
                         },
                       ),
                       DrawerLinkWidget(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/app/services/auth_service.dart';
 
 import '../controllers/welcome_controller.dart';
 

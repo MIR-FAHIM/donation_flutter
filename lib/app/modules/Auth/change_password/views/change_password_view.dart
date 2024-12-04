@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
+import 'package:donation_flutter/app/modules/global_widgets/block_button_widget.dart';
+import 'package:donation_flutter/app/modules/global_widgets/text_field_widget.dart';
 
 import '../controllers/change_password_controller.dart';
 
@@ -148,7 +148,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                   BlockButtonWidget(
                     onPressed: () {
                       if (controller.pinFormKey.currentState!.validate()) {
-                        controller.changePin();
+
 
                         // Get.find<AuthService>().removeCurrentUser();
                         // Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);

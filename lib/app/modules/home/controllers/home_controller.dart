@@ -1,112 +1,385 @@
+import 'package:donation_flutter/app/model/all_donation_model.dart';
+import 'package:donation_flutter/app/model/all_user_model.dart';
+import 'package:donation_flutter/app/model/donation_project_model.dart';
+import 'package:donation_flutter/app/model/get_bank_model.dart';
+import 'package:donation_flutter/app/model/get_review_model.dart';
+import 'package:donation_flutter/app/model/project_activity_list_model.dart';
+import 'package:donation_flutter/app/model/project_image_model.dart';
+import 'package:donation_flutter/app/repository/home_repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
-import 'package:latest_payplus_agent/app/models/dashboardReportModel.dart';
-import 'package:latest_payplus_agent/app/models/get_permission_model.dart';
-import 'package:latest_payplus_agent/app/models/get_profile_info_model.dart';
-import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
-import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
-import 'package:latest_payplus_agent/app/repositories/balance_check_repository.dart';
-import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
-import 'package:latest_payplus_agent/main.dart';
-import 'package:latest_payplus_agent/service/shared_pref.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:donation_flutter/app/modules/settings/controllers/language_controller.dart';
 
-import '../../../models/package model/my_current_package_model.dart';
-import '../../../models/package model/package_list_model.dart';
-import '../../package/controller/package_list_controller.dart';
+import 'package:new_version_plus/new_version_plus.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/app/services/auth_service.dart';
+import 'package:donation_flutter/common/ui.dart';
+import 'package:donation_flutter/main.dart';
+import 'package:donation_flutter/service/shared_pref.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-  final currentPackageModel = CurrentPackageModel().obs;
 
-  final balance = '0.0'.obs;
+  final projectAmount = '0.0'.obs;
   final phoneController = TextEditingController().obs;
-   final outletNameController = TextEditingController().obs;
-   final ownerController = TextEditingController().obs;
-   final addressController = TextEditingController().obs;
+  final outletNameController = TextEditingController().obs;
+  final bankNameController = TextEditingController().obs;
+  final accountNumController = TextEditingController().obs;
+  final routingController = TextEditingController().obs;
+  final branchController = TextEditingController().obs;
+  final refferanceController = TextEditingController().obs;
+  final emailController = TextEditingController().obs;
+  final accountNameController = TextEditingController().obs;
+  final userNameController = TextEditingController().obs;
+  final titleController = TextEditingController().obs;
+  final detailController = TextEditingController().obs;
+  final costController = TextEditingController().obs;
+  final amountController = TextEditingController().obs;
+  final codeController = TextEditingController().obs;
+
+  final fullName = TextEditingController().obs;
+  final mobileController = TextEditingController().obs;
+  final countryController = TextEditingController().obs;
+  final addressController = TextEditingController().obs;
+  final ownerController = TextEditingController().obs;
+  final reviewController = TextEditingController().obs;
+
   // final phoneController = TextEditingController().obs;
   // final phoneController = TextEditingController().obs;
   final status = false.obs;
+  final projectData = DatumProject().obs;
   final packageName = "".obs;
-  final profileInfoModel = GetProfileInfo().obs;
+  final ratingNum = 0.0.obs;
+  final selectPayWay = "".obs;
+  final donationProjectList = <DatumProject>[].obs;
+  final reviewList = <DatumReview>[].obs;
+  final donationByUserList = <Transaction>[].obs;
+  final userListDatum = <UserListDatum>[].obs;
+  final projectImages = <DatumImg>[].obs;
+  final bankList = <DatumBank>[].obs;
+  final datumBank = DatumBank().obs;
+  final projectActivityList = <ActivityDatum>[].obs;
   final packageLoad = false.obs;
   final ownerName = "".obs;
-  final packageListModel = PackageListModel().obs;
-  final getPermissionModel = GetPermissionModel().obs;
-  final AdBanner = <AdBannerModel>[].obs;
+
   final AdBannerLoad = false.obs;
   final box = GetStorage().obs;
-  final   contactsResult = <Contact>[].obs;
-  final   paymentCollectionModel = <PaymentCollectModel>[].obs;
-  // PickedFile? imageFile = null.obs as PickedFile?;
+  final contactsResult = <Contact>[].obs;
+  final paymentCollectionModel = <PaymentCollectModel>[].obs;
 
-  // void _openCamera() async {
-  //   final pickedFile = await ImagePicker().getImage(
-  //     source: ImageSource.camera,
-  //   );
-  //   // Ui.customLoaderDialog();
-
-  //   imageFile = pickedFile!;
-
-  //   // Navigator.pop(context);
-  // }
-
-  // final isAnimation = false.obs;
-  // final isBalanceShown = false.obs;
-  // final isBalance = true.obs;
-
-  final dashboardReport = DahsboardReportModel().obs;
   @override
-  Future<void> onInit() async {
-
-    currentPackage();
-
-    getLanguageSwitch();
-    getBalance();
-    getAdBanner();
-    getDashBoardReport();
-    getProfileInfo();
-    getAllDisablePermission();
-
-    if(GetStorage().read<List<Contact>>('contact') == null){
-      getPhoneContact();
-    }else{
-      print("okay");
-    }
-
+  void onInit() {
+    advancedStatusCheck();
+    print('HomeController.onInit');
+    getDonationProjectList();
 
     super.onInit();
-    print('HomeController.onInit');
   }
 
-  Future refreshHome() async {
-    getBalance();
-    getAdBanner();
-    getDashBoardReport();
-  }
-
-  forFCM() {
-    switch (type) {
-      case '1':
-        Get.toNamed(Routes.OFFER, arguments: type);
-        break;
-      case '2':
-        Get.toNamed(Routes.RECHARGE_REPORT, arguments: type);
-        break;
-      case '3':
-        Get.toNamed(Routes.TRANSACTION_HISTORY, arguments: type);
-        break;
+  Future refreshHome() async {}
+  advancedStatusCheck() async {
+    final newVersion = NewVersionPlus(
+      //iOSId: 'com.google.Vespa',
+      androidId: 'donation.com.bd',
+    );
+    var status = await newVersion.getVersionStatus();
+    print("version status ${status!.appStoreLink}");
+    if (status.canUpdate == true) {
+      print("update av");
+      newVersion.showUpdateDialog(
+        // launchMode: LaunchMode.externalApplication,
+        context: Get.context!,
+        versionStatus: status,
+        dialogTitle: 'Update Available!',
+        dialogText: 'Upgrade  ${status.localVersion} to ${status.storeVersion}',
+      );
     }
   }
-  getPackageName() async {
-  packageName.value = Get.find<PackageController>().currentPackageModel.value.data!.packageName;
- }
+
+  getProjectAmount(id) async {
+    print("get getProjectAmount calle");
+
+    HomeRepository().getProjectAmount(id).then((response) {
+      projectAmount.value = response["data"]["amount"].toString();
+      print("my getProjectAmount is ${projectAmount.value}");
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
+  addDonationByUser({
+    String? userID,
+    String? username,
+    String? projId,
+    String? amount,
+  }) {
+    Map data = {
+      "bank_name": bankNameController.value.text,
+      "account_name": accountNameController.value.text,
+      "account_num": accountNumController.value.text,
+      "user_id": userID.toString(),
+      "user_name": username,
+      "project_id": projectData.value.id.toString(),
+      "bank_trans_code": refferanceController.value.text,
+      "status": "0",
+      "pay_way": selectPayWay.value,
+      "amount": amount,
+      "created_by":
+          Get.find<AuthService>().currentUser.value.user!.id.toString(),
+    };
+    HomeRepository().addDonationByUser(data).then((value) {
+      if (value["status"] == 200) {
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message:
+                'Thank you for your donation, our admin will confirm this donation soon.'
+                    .tr,
+            title: 'Success'.tr));
+        Get.toNamed(Routes.SUCCESS);
+      }
+    });
+  }
+
+  addReview() {
+    Map data = {
+      "project_name": projectData.value.projectName,
+      "email": Get.find<AuthService>().currentUser.value.user!.email.toString(),
+      "message": reviewController.value.text,
+      "mobile":
+          Get.find<AuthService>().currentUser.value.user!.mobile.toString(),
+      "project_id": projectData.value.id.toString(),
+      "user_id": Get.find<AuthService>().currentUser.value.user!.id.toString(),
+      "star": ratingNum.value.toString(),
+    };
+    HomeRepository().addReview(data).then((value) {
+      if (value["status"] == 200) {
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message:
+                'Thank you for your donation, our admin will confirm this donation soon.'
+                    .tr,
+            title: 'Success'.tr));
+
+        getReview(projectData.value.id.toString());
+      }
+    });
+  }
+
+  addImageController() {
+    Map data = {
+      "project_name": projectData.value.projectName,
+      "email": Get.find<AuthService>().currentUser.value.user!.email.toString(),
+      "message": reviewController.value.text,
+      "mobile":
+          Get.find<AuthService>().currentUser.value.user!.mobile.toString(),
+      "project_id": projectData.value.id.toString(),
+      "user_id": Get.find<AuthService>().currentUser.value.user!.id.toString(),
+      "star": ratingNum.value.toString(),
+    };
+    HomeRepository().addReview(data).then((value) {
+      if (value["status"] == 200) {
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message:
+                'Thank you for your donation, our admin will confirm this donation soon.'
+                    .tr,
+            title: 'Success'.tr));
+
+        getReview(projectData.value.id.toString());
+      }
+    });
+  }
+
+  getDonationProjectList() async {
+    print("get donation calle");
+
+    HomeRepository().getDonationProjectList().then((response) {
+      print("my donation project list is $response");
+      DonationProjectListModel data =
+          DonationProjectListModel.fromJson(response);
+      donationProjectList.value = data.data!;
+      print("my donation project list is ${donationProjectList.value.length}");
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
+  getReview(id) async {
+    print("get review called");
+
+    HomeRepository().getReview(id).then((response) {
+      print("get review called $response");
+      if (response["status"] == 200) {
+        print("my review list is $response");
+        GetReviewModel data = GetReviewModel.fromJson(response);
+        reviewList.value = data.data!;
+        print("my review list is ${reviewList.value.length}");
+        Get.toNamed(Routes.REVIEWLIST);
+      } else {
+        Get.toNamed(Routes.ADDREVIEW);
+      }
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
+  getBankList(id) async {
+    print("get getProBankList called");
+
+    HomeRepository().getBank(id).then((response) {
+      print("my getProBankList list is $response");
+      GetBankModel data = GetBankModel.fromJson(response);
+      bankList.value = data.data!;
+      print("my getProBankList list is ${bankList.value.length}");
+      Get.toNamed(Routes.PAYMENTWAY);
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
+  getActivityList(id) async {
+    print("get activity called");
+
+    HomeRepository().getActivity(id).then((response) {
+      print("my activity list is $response");
+      ProjectActivityModel data = ProjectActivityModel.fromJson(response);
+      projectActivityList.value = data.data!;
+      print("my activity list is ${projectActivityList.value.length}");
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
+  getUserDonationListById(id) async {
+    print("get donation called");
+
+    HomeRepository().getUserDonationListById(id).then((response) {
+      print("my donation list is $response");
+      AllDonationModel data = AllDonationModel.fromJson(response);
+      donationByUserList.value = data.transactions!;
+      print("my donation  list is ${donationByUserList.value.length}");
+      Get.toNamed(Routes.USERDONATIONBYID);
+    }).catchError((onError) {
+      Get.showSnackbar(Ui.ErrorSnackBar(
+          message: 'Something went wrong'.tr, title: 'Error'.tr));
+      throw (onError);
+    });
+  }
+
+  getAllUsers() async {
+    print("get donation calle");
+
+    HomeRepository().getAllUser().then((response) {
+      print("my user list is $response");
+      AllUserListModel data = AllUserListModel.fromJson(response);
+      userListDatum.value = data.data!;
+      print("my user list is ${userListDatum.value.length}");
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
+  showClaimList(context) {
+    return showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return Container(
+          height: Get.height * .4,
+          child: AlertDialog(
+              contentPadding: EdgeInsets.zero,
+              //title: Text('Select '),
+              content: Container(
+                height: Get.height * .4,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ListTile(
+                      leading: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/social/images/knowledge_black.png"),
+                                fit: BoxFit.cover)),
+                      ),
+                      title: Text(
+                        "Informative",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[800]),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image:
+                                    AssetImage("assets/social/images/read.png"),
+                                fit: BoxFit.cover)),
+                      ),
+                      title: Text(
+                        "Readable",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[800]),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/social/images/power.png"),
+                                fit: BoxFit.cover)),
+                      ),
+                      title: Text(
+                        "Impact",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[800]),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/social/images/fire_black.png"),
+                                fit: BoxFit.cover)),
+                      ),
+                      title: Text(
+                        "Burnt it",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[800]),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+        );
+      },
+    );
+  }
+
+  getProjectImages(id) async {
+    print("get image called");
+    projectImages.value.clear();
+    HomeRepository().getProjectImages(id).then((response) {
+      print("my project images list is $response");
+      GetProjectImagesModel data = GetProjectImagesModel.fromJson(response);
+      projectImages.value = data.data!;
+      print("my project images list is ${projectImages.value.length}");
+      print("my project images is ${projectImages.value[0].imageUrl}");
+    }).catchError((onError) {
+      throw (onError);
+    });
+  }
+
   getLanguageSwitch() {
     if (Get.find<LanguageController>().locale.value == 'en_US') {
       status.value = true;
@@ -115,7 +388,7 @@ class HomeController extends GetxController {
     }
   }
 
-  getPhoneContact()async{
+  getPhoneContact() async {
     box.value.remove('contact');
     if (await FlutterContacts.requestPermission()) {
       // Get all contacts (lightly fetched)
@@ -132,107 +405,8 @@ class HomeController extends GetxController {
       contactsResult.value = contacts;
       await box.value.write('contact', contactsResult);
       print("hlw bro ***********************${GetStorage().read('contact')}");
-
     }
   }
-  currentPackage() async {
-    packageLoad.value = true;
-    BuySellRepository().currentPackage().then((response) {
-      if (response.result == 'success') {
-        print("Hlw package ");
-        packageLoad.value = false;
-        currentPackageModel.value = response;
-
-        //  packageItems.value = response.data!;
-
-
-
-
-      } else {
-        Get.showSnackbar(
-            Ui.ErrorSnackBar(message: "Something wrong", title: 'Error'.tr));
-        packageLoad.value = false;
-      }
-    });
-  }
-
-  getDashBoardReport() async {
-    BalanceCheckRepository().dashboardData().then((resp) {
-      dashboardReport.value = resp;
-    });
-  }
-  // profile info
-  getProfileInfo() async {
-    BalanceCheckRepository().getProfileInfo().then((resp) {
-      print("my profile info is $resp");
-      if(resp["message"]== "Invalid token"){
-        String number = Get.find<AuthService>()
-            .currentUser
-            .value
-            .mobileNumber!;
-        Get.find<AuthService>().removeCurrentUser();
-        SharedPreff.to.prefss.remove("logindate");
-
-        Get.offAndToNamed(Routes.SPLASHSCREEN,
-            arguments: number);
-      }else{
-        profileInfoModel.value =   GetProfileInfo.fromJson(resp);
-
-
-    }});
-  }
-  getAllDisablePermission() async {
-    print("hlw all permission");
-    BalanceCheckRepository().getDisablePermission().then((resp) {
-      print("My All permission are ${resp.data!.allowMoneyout.toString()}");
-      getPermissionModel.value = resp;
-    });
-  }
-
-
-  // get permission
-  getDashBoardWithoutLoadReport() async {
-    BalanceCheckRepository().dashboardData().then((resp) {
-      dashboardReport.value = resp;
-    });
-  }
-
-  getBalance() async {
-    BalanceCheckRepository().balanceCheck().then((resp) {
-      double bln = double.parse(resp['balance'].toString().replaceAll('tk', '').trim());
-      balance.value = double.parse((bln).toStringAsFixed(2)).toString();
-      print("sahed");
-      print(resp);
-    });
-  }
-
-  getAdBanner() async {
-    BalanceCheckRepository().getBanner().then((resp) {
-      AdBanner.value = resp;
-      AdBannerLoad.value = true;
-    });
-  }
-  //test
-  getAllCompany() async {
-    BuySellRepository().getAllCompany().then((resp) {
-     print("my all company data are $resp");
-    });
-  }
-  // void changeState() async {
-  //   // getBalance();
-
-  //   isAnimation.value = true;
-  //   isBalance.value = false;
-
-  //   await Future.delayed(
-  //       Duration(milliseconds: 800), () => isBalanceShown.value = true);
-  //   await Future.delayed(
-  //       Duration(seconds: 3), () => isBalanceShown.value = false);
-  //   await Future.delayed(
-  //       Duration(milliseconds: 200), () => isAnimation.value = false);
-  //   await Future.delayed(
-  //       Duration(milliseconds: 800), () => isBalance.value = true);
-  // }
 
   @override
   void onReady() {
@@ -241,7 +415,6 @@ class HomeController extends GetxController {
     super.onReady();
   }
 }
-
 
 class PaymentCollectModel {
   String? title;

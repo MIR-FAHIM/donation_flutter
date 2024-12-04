@@ -1,11 +1,38 @@
 {
   "Home": " Home",
+  "Login to Shahajjo": "Login to Shahajjo",
+  "Do Not Have An Account, Please Signup?": "Do Not Have An Account, Please Signup?",
   "Saved": " Saved",
   "Continue": "Continue",
   "Enter Address": "Enter Address",
   "Message": " Message",
   "Profile": " Profile",
+  "Activate": " Activate",
   "Menu": "Menu",
+  "Rate Cutter": "Rate Cutter",
+
+  "Motive": "Motive",
+  "Gallary": "Gallary",
+  "Review": "Review",
+  "Trusted By": "Trusted By",
+  "Who Will Get Help By You": "Who Will Get Help By You?",
+  "Raised": "Raised",
+  "Activity": "Activity",
+  "Viewed": "Viewed",
+  "Add A Donation": "Add Donation",
+
+  "  Please check the policy, Shahajjo App only connect Donator with Charity Authority": "  Please check the policy, Shahajjo App only connect Donator with Charity Authority",
+  "Click on this Policy link.": "Click on this Policy link.",
+  "You can make a contact with respective person before donate, also please read the Terms and Condition Policy.": "You can make a contact with respective person before donate, also please read the Terms and Condition Policy.",
+
+
+
+
+
+
+
+  "Combo": "Combo",
+  "Package Amount: ": "Package Amount: ",
   "Meter Number": "Meter Number",
   "Bill Period": "Bill Period",
   "Package Purchase" : "Package Purchase",
@@ -39,6 +66,7 @@
   "Profile Information": "Profile Information",
   "Owner Name": "Owner Name",
   "Outlet Name" : "Outlet Name",
+  "Important Informations" : "Important Informations",
   "Outlet Information" : "Outlet Information",
   "Support":"Support",
   "Personal Mobile no": "Personal Mobile no",
@@ -54,13 +82,15 @@
   "Total Commision": "Total Commision",
   "My shop": "My shop",
   "Offer": "Offer",
+  "Power Load": "পাওয়ার  লোড",
+  "Amar Offer": "Amar Offer",
   "See Offer": "See Offer",
   "Akash": "Akash",
   "Money Out": "Money Out",
   "Offer Recharge Successful" : "Offer Recharge Successful",
   "Commission": "Commission",
   "Inbox": "Inbox",
-  "Create Pay Station account with your NID": "Create Pay Station account with your NID",
+  "Create Pay Station account with your NID": "Create PayStation account with your NID",
   "Login / Registration": "Login / Registration",
   "Login / Register with mobile number": "Login / Register with mobile number",
   "I agree to your terms and condition": "I agree to your terms and condition",

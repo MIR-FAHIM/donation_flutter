@@ -1,35 +1,24 @@
 // import 'dart:html';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io';
 import 'dart:ui';
 import 'package:badges/badges.dart' as badges;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:donation_flutter/app/api_providers/api_url.dart';
+import 'package:donation_flutter/app/modules/global_widgets/main_drawer_widget.dart';
+import 'package:donation_flutter/app/modules/home/views/homepage_listing_profile_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
-import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
-import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
-import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
-import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
-import 'package:latest_payplus_agent/app/services/facebook_service.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/nid_verification.dart';
-import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/nid_verification_widget.dart';
-import 'package:latest_payplus_agent/app/modules/home/widgets/AmountWidget.dart';
-import 'package:latest_payplus_agent/app/modules/home/widgets/home_option_widget.dart';
-import 'package:latest_payplus_agent/app/modules/home/widgets/home_slider_widget.dart';
-import 'package:latest_payplus_agent/app/modules/package/controller/package_list_controller.dart';
-import 'package:latest_payplus_agent/app/modules/package/view/package_list_screen.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/common/custom_data.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/app/services/auth_service.dart';
+import 'package:donation_flutter/common/Color.dart';
+import 'package:donation_flutter/common/custom_data.dart';
+import 'package:donation_flutter/common/ui.dart';
 import '../controllers/home_controller.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
@@ -37,512 +26,156 @@ class HomeView extends GetView<HomeController> {
   final _size = Get.size;
 
   @override
-  HomeController controller = Get.put(HomeController());
-  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return exit(0);
-      },
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          // drawer: RechargeDrawer(),
-          // // endDrawer: RechargeDrawer(),
-          appBar: PreferredSize(
-            preferredSize: const Size(65, 65),
-            child: AppBar(
-              backgroundColor: const Color(0xFF652981),
-              automaticallyImplyLeading: false,
-              centerTitle: false,
-              title: Padding(
-                padding: const EdgeInsets.only(right: 50.0),
-                child: Row(
-                  children: [
-                    ProfileImage(),
-
-                    SizedBox(
-                      width: 10,
-                    ),
-
-                    Obx(() {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            Get.find<AuthService>()
-                                    .currentUser
-                                    .value
-                                    .outletName ??
-                                '',
-                            style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            Get.find<AuthService>()
-                                    .currentUser
-                                    .value
-                                    .mobileNumber ??
-                                '',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                            ),
-                          ),
-                          // controller.packageLoad.value == true
-                          //     ? SizedBox(
-                          //         height: 10,
-                          //         width: 10,
-                          //         child: CircularProgressIndicator())
-                          //     : InkWell(
-                          //         onTap: () {
-                          //           Get.toNamed(Routes.PACKAGELIST);
-                          //         },
-                          //         child: Text(
-                          //           controller.currentPackageModel.value.data!
-                          //               .packageName,
-                          //           style: const TextStyle(
-                          //             fontSize: 12,
-                          //             color: Colors.white,
-                          //           ),
-                          //         ),
-                          //       ),
-                        ],
-                      );
-                    }),
-                    // Ui.offsetPopup()
-                  ],
-                ),
-              ),
-              elevation: 0,
+    return WillPopScope(onWillPop: () async {
+      // Disable back press dialog on the web since browsers handle this.
+      if (kIsWeb) {
+        return Future.value(true);
+      } else {
+        final value = await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: const Text('Are you sure you want to exit?'),
               actions: [
-                Obx(() {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      badges.Badge(
-                        badgeStyle: badges.BadgeStyle(
-                          badgeColor: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(0),
-                        ),
-                        badgeContent: Text(Get.find<InboxController>()
-                            .newNotificationNum
-                            .toString()),
-                        child: IconButton(
-                            onPressed: () {
-                              Get.lazyPut<RechargeController>(
-                                () => RechargeController(),
-                              );
-                              Get.find<InboxController>().removeNewMsgNum();
-                              Get.toNamed(Routes.Notification_View);
-                            },
-                            icon: const Icon(
-                              CupertinoIcons.bell,
-                              color: Colors.white70,
-                            )),
-                      )
-                    ],
-                  );
-                }),
-                IconButton(
-                    onPressed: () {
-                      controller.getAllDisablePermission();
-                      Get.put(WithdrawController());
-                      Scaffold.of(context).openEndDrawer();
-                    },
-                    icon: const Icon(
-                      Icons.menu,
-                      color: Colors.white70,
-                    )),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('No'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('Yes'),
+                ),
               ],
-            ),
+            );
+          },
+        );
+        return value == true;
+      }
+    }, child: Obx(() {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        endDrawer: MainDrawerWidget(),
+        appBar: PreferredSize(
+          preferredSize: const Size(65, 65),
+          child: AppBar(
+            backgroundColor: AppColors.primaryColor,
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            title: Text("Find Project"),
+            elevation: 0,
           ),
-          body: Obx(() {
-            // print(controller.balance.value);+
-            return RefreshIndicator(
-              color: const Color(0xFF652981),
-              onRefresh: () async {
-                controller.refreshHome();
-              },
-              child: ListView(
+        ),
+        body: Column(
+          children: [
+            Card(
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(Routes.WELCOME, arguments: [0]);
+                },
+                title: Text("Donate for humanity"),
+                subtitle: Text("Check how we collect donations."),
+                trailing: Icon(Icons.warning_rounded),
+              ),
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              // Use Expanded instead of SizedBox for better layout adaptation
+              child: ListView.builder(
+                shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                children: [
-                  Get.find<AuthService>().currentUser.value.kyc_status == "none"
-                      ? Container()
-                      : Get.find<AuthService>().currentUser.value.kyc_status ==
-                              "required"
-                          ? Card(
-                              color: Colors.red.withOpacity(.4),
-                              child: ListTile(
-                                title: Text(
-                                  "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন",
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                                trailing: InkWell(
-                                  onTap: () {
-                                    Get.find<SignupController>().checkCameraPermission();
-
-                                  },
-                                  child: Container(
-                                    height: 30,
-                                    width: _size.width * .2,
-                                    decoration:
-                                        Ui.getBoxDecoration(radius: 5.0),
-                                    child: Center(
-                                      child: Text(
-                                        "তথ্য দিন",
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.white),
-                                      ),
-                                    ),
+                itemCount: controller.donationProjectList.value.length,
+                itemBuilder: (BuildContext context, index) {
+                  var data = controller.donationProjectList.value[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            controller.projectData.value = data;
+                            controller.getProjectImages(data.id);
+                            controller.getActivityList(data.id);
+                            controller.getProjectAmount(data.id);
+                            Get.toNamed(Routes.DETAILS);
+                          },
+                          child: Container(
+                            height: kIsWeb
+                                ? Get.height * .3
+                                : MediaQuery.of(context).size.height * .2,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                  color: Colors.transparent, width: 2),
+                              color: AppColors.primaryColor,
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: "${ApiClient.baseUrl}${data.image}",
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(4),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                            )
-                          : Get.find<AuthService>()
-                                      .currentUser
-                                      .value
-                                      .kyc_status ==
-                                  "rejected"
-                              ? Card(
-                                  color: Colors.red.withOpacity(.4),
-                                  child: ListTile(
-                                    title: Text(
-                                      "আপনার এনআইডি ও ছবির মিল না থাকায় রেজিষ্ট্রেশন সফল হয়নি। আগামী ৭২ ঘন্টার মধ্যে আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে। বিস্তারিতঃ ০৯৬১৩৮২৮৪৮২",
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                    trailing: InkWell(
-                                      onTap: () {
-                                        Get.toNamed(Routes.NEWNID);
-                                      },
-                                      child: Container(
-                                        height: 30,
-                                        width: _size.width * .2,
-                                        decoration:
-                                            Ui.getBoxDecoration(radius: 5.0),
-                                        child: Center(
-                                          child: Text(
-                                            "তথ্য দিন",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                              placeholder: (context, url) => const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Image(
+                                  image: AssetImage(
+                                    'assets/images/charity.png',
                                   ),
-                                )
-                              : Container(),
-                  AnimationConfiguration.staggeredList(
-                    position: 0,
-                    duration: const Duration(milliseconds: 375),
-                    child: SlideAnimation(
-                      horizontalOffset: 50.0,
-                      child: FadeInAnimation(
-                        child: Container(
-                          //height: 180,
-                          width: _size.width,
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, left: 20, right: 20, bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        // controller.changeState();
-                                      },
-                                      child: Container(
-                                        height: 145,
-                                        width: 145,
-                                        decoration: Ui.getBoxDecoration(
-                                          color: const Color(0xFF652981),
-                                          radius: 100,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(3.0),
-                                          child: Container(
-                                              height: 145,
-                                              width: 145,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  color:
-                                                      const Color(0xFF652981),
-                                                  border: Border.all(
-                                                      width: 2,
-                                                      color: Colors.white)),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Center(
-                                                        child: FittedBox(
-                                                          fit: BoxFit.fitWidth,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              const SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              // const Image(
-                                                              //   height: 15,
-                                                              //   width: 15,
-                                                              //   image: AssetImage('assets/images/taka.png'),
-                                                              //   color: Colors.white,
-                                                              // ),
-                                                              Obx(() {
-                                                                return Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      top: 2.0,
-                                                                      right: 5),
-                                                                  child:
-                                                                      FittedBox(
-                                                                    fit: BoxFit
-                                                                        .fitWidth,
-                                                                    child: double.parse(controller.balance.value) >
-                                                                            0.0
-                                                                        ? Text(
-                                                                            '$uniCodeTk ' +
-                                                                                controller.balance.value.toString().replaceAll('tk', ''),
-                                                                            style: const TextStyle(
-                                                                                color: Colors.white,
-                                                                                fontSize: 17,
-                                                                                fontWeight: FontWeight.bold),
-                                                                            maxLines:
-                                                                                2,
-                                                                            overflow:
-                                                                                TextOverflow.ellipsis,
-                                                                          )
-                                                                        : Text(
-                                                                            '$uniCodeTk ' +
-                                                                                "0",
-                                                                            style: const TextStyle(
-                                                                                color: Colors.white,
-                                                                                fontSize: 17,
-                                                                                fontWeight: FontWeight.bold),
-                                                                            maxLines:
-                                                                                2,
-                                                                            overflow:
-                                                                                TextOverflow.ellipsis,
-                                                                          ),
-                                                                  ),
-                                                                );
-                                                              }),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        'Balance'.tr,
-                                                        style: TextStyle(
-                                                          color: AppColors
-                                                              .primarydeepLightColor,
-                                                          fontSize: 12,
-                                                        ),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        print("hlw add balance");
-                                       // FacebookService.logButtonClick();
-                                        Get.toNamed(
-                                            Routes.Add_Balance_Form_View);
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Add Balance'.tr,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              color: Color(0xFF652981),
-                                            ),
-                                          ),
-                                          const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF652981),
-                                            size: 14,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
                                 ),
-                                //Right Side 3 Item
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    AmountWidget(
-                                        image: 'assets/images/phone.png',
-                                        amount:
-                                            '${controller.dashboardReport.value.rechargeAmount}',
-                                        title: 'Recharge'.tr,
-                                        padding: "10"
-                                        // colors: Colors.white,
-                                        ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    AmountWidget(
-                                        image:
-                                            'assets/images/mobile_banking.png',
-                                        amount:
-                                            '${controller.dashboardReport.value.mbanking}',
-                                        colors: const Color(0xFF652981),
-                                        title: 'mBanking'.tr,
-                                        padding: "3"),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    AmountWidget(
-                                        image: 'assets/images/bill_payment.png',
-                                        amount:
-                                            '${controller.dashboardReport.value.billPayment}',
-                                        colors: const Color(0xFF652981),
-                                        title: 'Bill Pay'.tr,
-                                        padding: "10"),
-                                  ],
-                                )
-                              ],
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Image(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage(
+                                    'assets/images/charity.png',
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        const SizedBox(height: 10),
+                        InkWell(
+                          onTap: () {
+                            controller.projectData.value = data;
+                            controller.getProjectImages(data.id);
+                            controller.getActivityList(data.id);
+                            controller.getProjectAmount(data.id);
+                            Get.toNamed(Routes.DETAILS);
+                          },
+                          child: HomePageListingProfileWidget(
+                            review: ["1", "2"],
+                            title: data.projectName!,
+                            listingType: "listingType",
+                            guestNum: "1",
+                            description: data.details!,
+                            bedNum: "1",
+                            fullDayPriceSetByUser: "1",
+                            listingAddress: data.address!,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  AnimationConfiguration.staggeredList(
-                      position: 2,
-                      duration: const Duration(milliseconds: 375),
-                      child: SlideAnimation(
-                          horizontalOffset: 50.0,
-                          child: FadeInAnimation(
-                            child: HomeSliderWidget(),
-                          ))),
-
-                  //banner
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  //   child: Container(
-                  //     width: _size.width,
-                  //     color: Color(0xFF652981),
-                  //     child: Image(
-                  //       image: AssetImage('assets/banner.jpeg'),
-                  //       fit: BoxFit.contain,
-                  //     ),
-                  //   ),
-                  // ),
-                  // controller.AdBannerLoad.value == true
-                  //     ? ImageSlideshow(
-                  //         /// Width of the [ImageSlideshow].
-                  //         width: double.infinity,
-                  //
-                  //         /// Height of the [ImageSlideshow].
-                  //         height: 110,
-                  //
-                  //         /// The page to show when first creating the [ImageSlideshow].
-                  //         initialPage: 0,
-                  //
-                  //         /// The color to paint the indicator.
-                  //         indicatorColor: Colors.blue,
-                  //
-                  //         /// The color to paint behind th indicator.
-                  //         indicatorBackgroundColor: Colors.grey,
-                  //
-                  //         /// The widgets to display in the [ImageSlideshow].
-                  //         /// Add the sample image file into the images folder
-                  //         children: List.generate(controller.AdBanner.length, (index) {
-                  //           return Image.network(
-                  //             controller.AdBanner[index].advertisementBanner!,
-                  //             fit: BoxFit.contain,
-                  //           );
-                  //         }),
-                  //         //     [
-                  //         //   Image.asset(
-                  //         //     'assets/banner1.jpg',
-                  //         //     fit: BoxFit.cover,
-                  //         //   ),
-                  //         //   // Image.asset(
-                  //         //   //   'images/sample_image_3.jpg',
-                  //         //   //   fit: BoxFit.cover,
-                  //         //   // ),
-                  //         // ],
-                  //
-                  //         /// Called whenever the page in the center of the viewport changes.
-                  //         onPageChanged: (value) {
-                  //           print('Page changed: $value');
-                  //         },
-                  //
-                  //         /// Auto scroll interval.
-                  //         /// Do not auto scroll with null or 0.
-                  //         autoPlayInterval: 8000,
-                  //
-                  //         /// Loops back to first slide.
-                  //         isLoop: true,
-                  //       )
-                  //     : Container(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  //Card Option Widget
-                  AnimationConfiguration.staggeredList(
-                      position: 2,
-                      duration: const Duration(milliseconds: 375),
-                      child: SlideAnimation(
-                        horizontalOffset: 50.0,
-                        child: FadeInAnimation(child: HomeTopOptionWidget()),
-                      )),
-
-                  // SizedBox(
-                  //   height: 120,
-                  // ),
-                ],
+                  );
+                },
               ),
-            );
-          })),
-    );
+            ),
+          ],
+        ),
+      );
+    }));
   }
 }
 

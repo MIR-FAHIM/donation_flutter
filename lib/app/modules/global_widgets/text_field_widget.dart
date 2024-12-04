@@ -1,3 +1,4 @@
+import 'package:donation_flutter/common/Color.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class TextFieldWidget extends StatelessWidget {
                         style: style ?? Get.textTheme.bodyText2,
                         obscureText: obscureText ?? false,
                         textAlign: textAlign ?? TextAlign.start,
-                        cursorColor: const Color(0xFF652981),
+                        cursorColor: AppColors.primaryColor,
                         decoration: iconData == null && imageData == null
                             ? InputDecoration(
                                 counterText: "",

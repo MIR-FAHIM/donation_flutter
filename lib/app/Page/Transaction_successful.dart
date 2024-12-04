@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/Page/widget/GlowAnimation.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:donation_flutter/app/Page/widget/GlowAnimation.dart';
+import 'package:donation_flutter/app/modules/global_widgets/block_button_widget.dart';
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/common/Color.dart';
 
 class TransactionSuccessful extends StatelessWidget {
   final _size = Get.size;

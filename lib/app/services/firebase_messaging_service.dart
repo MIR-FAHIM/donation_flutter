@@ -1,16 +1,12 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
-import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
-import 'package:latest_payplus_agent/app/modules/payment_collection/controllers/payment_collection_controller.dart';
-import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
-import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/recharge_report_controller.dart';
-import 'package:latest_payplus_agent/app/modules/recharge_report_number_check/controllers/number_check_controller.dart';
 
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/notificationlocal.dart';
-import 'package:latest_payplus_agent/main.dart';
+
+
+import 'package:donation_flutter/app/routes/app_pages.dart';
+import 'package:donation_flutter/app/services/notificationlocal.dart';
+import 'package:donation_flutter/main.dart';
 import '../../common/ui.dart';
 import '../modules/Auth/login/controllers/login_controller.dart';
 
@@ -124,30 +120,10 @@ class FireBaseMessagingService extends GetxService {
                     ? notification.body!
                     : message.data['notification_type'].toString(),
       );
-      Get.find<InboxController>().getNotifications();
-      // print('get notificationbody is 1:${notification.body!}');
-      // numbers = Get.find<RechargeController>().extractNumbersFromString(notification.body!);
-      Get.find<InboxController>().getNewMsgNum();
 
-      //In App Notification
-      // Get.showSnackbar(Ui.notificationSnackBar(
-      //   title: notification.title!,
-      //   message: notification.body!,
-      // ));
 
-      // if (message.data.isNotEmpty) {
-      //   print('FireBaseMessagingService.firebaseCloudMessagingListeners: ${message.data['notification_type'].runtimeType}');
-      //   if (message.data['notification_type'].toString() == '1') {
-      //     Get.put(RootController()).changePageOutRoot(1);
-      //     Get.toNamed(Routes.Notification_View, arguments: message.data['notification_type'].toString());
-      //   }
-      //   if (message.data['notification_type'].toString() == '2') {
-      //     Get.toNamed(Routes.RECHARGE_REPORT, arguments: message.data['notification_type'].toString());
-      //   }
-      //   if (message.data['notification_type'].toString() == '3') {
-      //     Get.toNamed(Routes.COLLECTION, arguments: message.data['notification_type'].toString());
-      //   }
-      // }
+
+
     });
     print("starting on message opened app function ++++++++++++++++++++++ ");
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
@@ -180,25 +156,19 @@ class FireBaseMessagingService extends GetxService {
 
       Map data = {"msg": "hlw"};
       if (message.data.isNotEmpty) {
-        Get.put(InboxController());
-        Get.find<InboxController>().getNotifications();
+
 
         print(
             "bro my push notification type is ${message.data['notification_type'].toString()}");
         print(
             'FireBaseMessagingService.firebaseCloudMessagingListeners my notification type is ++++++++ ${message.data['notification_type'].toString()} is bro ${message.messageType} +++++++++: ${message.data['notification_type'].runtimeType}');
         if (message.data['notification_type'].toString() == '1') {
-          Get.put(AddbalanceController());
-          Get.find<AddbalanceController>().getAddBalanceHistory();
-          Get.toNamed(Routes.COLLECTION,
-              arguments: message.data['notification_type'].toString());
+
+
         }
 
         if (message.data['notification_type'].toString() == '2') {
-          Get.put(NumberCheckController());
-          Get.find<NumberCheckController>().getRechargeReportAll();
-          Get.toNamed(Routes.NUMBER_CHECK,
-              arguments: message.data['notification_type'].toString());
+
         }
         if (message.data['notification_type'] == null) {
           Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
@@ -230,53 +200,22 @@ class FireBaseMessagingService extends GetxService {
               arguments: message.data['notification_type'].toString());
         } else if (notification.title!
             .contains("Robi Recharge Request from PayPos")) {
-          Get.put(RechargeController());
-          extractNumbersFromString(notification.body!).then((e) {
-            Get.put(RechargeController());
-            Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
-              numbers[0],
-              numbers[1],
-              numbers[2],
-            ]);
-          });
+
         } else if (notification.title!
             .contains("Airtel Recharge Request from PayPos")) {
-          Get.put(RechargeController());
-          extractNumbersFromString(notification.body!).then((e) {
-            Get.put(RechargeController());
-            Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
-              numbers[0],
-              numbers[1],
-              numbers[2],
-            ]);
-          });
+
         } else if (notification.title!
             .contains("Teletalk Recharge Request from PayPos")) {
           print("i am here +++++");
-          Get.put(RechargeController());
-          extractNumbersFromString(notification.body!).then((e) {
-            Get.put(RechargeController());
-            Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
-              numbers[0],
-              numbers[1],
-              numbers[2],
-            ]);
-          });
+
         } else {
           print("i am here in else on message opened app");
           if (notification.title!
               .contains("Teletalk Recharge Request from PayPos")) {
-            print(
-                "i am here in elseon message opened app  ${notification.body}");
-            Get.put(RechargeController());
-            Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
-                arguments: [notification.body, "push"]);
+
           }
           print("image notification ${notification.title}++++++++++++++");
-          // Get.toNamed(Routes.RECHARGEPINNOTIFICATION,
-          //     arguments: [notification.body, "push"]);
-          Get.put(InboxController());
-          Get.find<InboxController>().getNotifications();
+
           Get.toNamed(
             Routes.Notification_View,
           );
@@ -301,16 +240,7 @@ class FireBaseMessagingService extends GetxService {
     print("I am in onselect notification function $payload");
 
     if (payload!.contains("Request amount")) {
-      print(
-          "i am here in else Request amount onSelectNotification ++++++++++ ${payload!}");
-      extractNumbersFromString(payload!).then((e) {
-        Get.put(RechargeController());
-        Get.toNamed(Routes.RECHARGEPINNOTIFICATION, arguments: [
-          numbers[0],
-          numbers[1],
-          numbers[2],
-        ]);
-      });
+
     }
     if (payload == "3") {
       Get.toNamed(Routes.COLLECTION);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:donation_flutter/common/Color.dart';
 
 class GlowAnimation extends StatefulWidget {
   const GlowAnimation({Key? key}) : super(key: key);

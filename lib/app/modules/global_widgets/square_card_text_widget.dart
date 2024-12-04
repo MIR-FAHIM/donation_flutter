@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:donation_flutter/common/Color.dart';
+import 'package:donation_flutter/common/ui.dart';
 
 class SquareCardTextWidget extends StatelessWidget {
   SquareCardTextWidget(

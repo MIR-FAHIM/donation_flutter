@@ -9,9 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:latest_payplus_agent/common/custom_data.dart';
+import 'package:donation_flutter/app/modules/global_widgets/block_button_widget.dart';
+import 'package:donation_flutter/common/Color.dart';
+import 'package:donation_flutter/common/custom_data.dart';
 
 class Ui {
   static GetSnackBar SuccessSnackBar(
@@ -19,7 +19,8 @@ class Ui {
     Get.log("[$title] $message");
     return GetSnackBar(
       titleText: Text(title.tr,
-          style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white))),
+          style:
+              Get.textTheme.headline6!.merge(TextStyle(color: Colors.white))),
       messageText: Text(message.tr,
           style: Get.textTheme.caption!.merge(TextStyle(color: Colors.white))),
       snackPosition: SnackPosition.BOTTOM,
@@ -57,32 +58,38 @@ class Ui {
     Get.log("[$title] $message", isError: true);
     return GetSnackBar(
       titleText: Text(title.tr,
-          style:
-              Get.textTheme.headline6!.merge(TextStyle(color: Get.theme.primaryColor))),
+          style: Get.textTheme.headline6!
+              .merge(TextStyle(color: Get.theme.primaryColor))),
       messageText: Text(message.tr,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Get.theme.primaryColor))),
+          style: Get.textTheme.caption!
+              .merge(TextStyle(color: Get.theme.primaryColor))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
       backgroundColor: Colors.redAccent,
-      icon: Icon(Icons.remove_circle_outline, size: 32, color: Get.theme.primaryColor),
+      icon: Icon(Icons.remove_circle_outline,
+          size: 32, color: Get.theme.primaryColor),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       borderRadius: 8,
       duration: Duration(seconds: 5),
     );
   }
 
-  static GetSnackBar defaultSnackBar({String title = 'Alert', required String message}) {
+  static GetSnackBar defaultSnackBar(
+      {String title = 'Alert', required String message}) {
     Get.log("[$title] $message", isError: false);
     return GetSnackBar(
       titleText: Text(title.tr,
-          style: Get.textTheme.headline6!.merge(TextStyle(color: Get.theme.hintColor))),
+          style: Get.textTheme.headline6!
+              .merge(TextStyle(color: Get.theme.hintColor))),
       messageText: Text(message,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Get.theme.focusColor))),
+          style: Get.textTheme.caption!
+              .merge(TextStyle(color: Get.theme.focusColor))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
       backgroundColor: Get.theme.primaryColor,
       borderColor: Get.theme.focusColor.withOpacity(0.1),
-      icon: Icon(Icons.warning_amber_rounded, size: 32, color: Get.theme.hintColor),
+      icon: Icon(Icons.warning_amber_rounded,
+          size: 32, color: Get.theme.hintColor),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       borderRadius: 8,
       duration: Duration(seconds: 5),
@@ -93,13 +100,16 @@ class Ui {
       {String title = 'Notification', required String message}) {
     Get.log("[$title] $message", isError: false);
     return GetSnackBar(
-      titleText: Text(title.tr, style: TextStyle(color: AppColors.primaryColor)),
-      messageText: Text(message, style: TextStyle(color: AppColors.homeTextColor3)),
+      titleText:
+          Text(title.tr, style: TextStyle(color: AppColors.primaryColor)),
+      messageText:
+          Text(message, style: TextStyle(color: AppColors.homeTextColor3)),
       snackPosition: SnackPosition.TOP,
       margin: EdgeInsets.all(20),
       backgroundColor: Colors.white,
       borderColor: Get.theme.focusColor.withOpacity(0.1),
-      icon: Icon(Icons.notifications_none, size: 32, color: Get.theme.hintColor),
+      icon:
+          Icon(Icons.notifications_none, size: 32, color: Get.theme.hintColor),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       borderRadius: 8,
       duration: Duration(seconds: 5),
@@ -141,7 +151,8 @@ class Ui {
         //       blurRadius: 5,
         //       offset: Offset(0, 5)),
         // ],
-        border: border ?? Border.all(color: Get.theme.focusColor.withOpacity(0.05)),
+        border:
+            border ?? Border.all(color: Get.theme.focusColor.withOpacity(0.05)),
         gradient: gradient,
         image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill
 
@@ -170,7 +181,8 @@ class Ui {
     }
   }
 
-  static AlignmentDirectional getAlignmentDirectional(String alignmentDirectional) {
+  static AlignmentDirectional getAlignmentDirectional(
+      String alignmentDirectional) {
     switch (alignmentDirectional) {
       case 'top_start':
         return AlignmentDirectional.topStart;
@@ -236,7 +248,10 @@ class Ui {
       onTap: press,
       child: Container(
         padding: EdgeInsets.only(
-            left: horrizontal, right: horrizontal, top: vertical, bottom: vertical),
+            left: horrizontal,
+            right: horrizontal,
+            top: vertical,
+            bottom: vertical),
         height: height,
         width: width,
         decoration: getBoxDecoration(
@@ -253,8 +268,8 @@ class Ui {
             : Center(
                 child: Text(
                   text,
-                  style:
-                      TextStyle(color: textColor ?? Get.theme.textTheme.bodyText1!.color),
+                  style: TextStyle(
+                      color: textColor ?? Get.theme.textTheme.bodyText1!.color),
                 ),
               ),
       ),
@@ -275,8 +290,8 @@ class Ui {
       height: height,
       child: TextButton(
         style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-          primary: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius)),
           backgroundColor: color,
         ),
         onPressed: press,
@@ -481,7 +496,8 @@ class Ui {
                   itemBuilder: (BuildContext context, int index) {
                     return DecoratedBox(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50), color: Colors.white),
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white),
                     );
                   },
                 ),
@@ -508,8 +524,8 @@ class Ui {
       child: Container(
         height: 120,
         width: Get.size.width,
-        decoration:
-            BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(8)),
         child: Row(
           children: [
             SizedBox(
@@ -521,7 +537,8 @@ class Ui {
                 return DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: index.isEven ? Colors.blue.shade500 : Colors.deepOrange,
+                    color:
+                        index.isEven ? Colors.blue.shade500 : Colors.deepOrange,
                   ),
                 );
               },
@@ -542,11 +559,16 @@ class Ui {
       ),
     );
   }
-  static showAwesomeDialog(String title, String description, Color? color, VoidCallback? onTap,
-      {bool showClose = false, bool isBarrierDismiss = true, String type = 'info', String okay = 'Yes, Proceed'}) {
+
+  static showAwesomeDialog(
+      String title, String description, Color? color, VoidCallback? onTap,
+      {bool showClose = false,
+      bool isBarrierDismiss = true,
+      String type = 'info',
+      String okay = 'Yes, Proceed'}) {
     return AwesomeDialog(
       context: Get.context!,
-      dialogType: type == 'info' ? DialogType.INFO_REVERSED : DialogType.NO_HEADER,
+
       borderSide: BorderSide(
         color: Get.theme.primaryColor,
         width: 1,
@@ -559,7 +581,6 @@ class Ui {
       dismissOnTouchOutside: isBarrierDismiss,
       dismissOnBackKeyPress: false,
       headerAnimationLoop: false,
-      animType: AnimType.BOTTOMSLIDE,
 
       title: title,
       titleTextStyle: const TextStyle(
@@ -592,17 +613,17 @@ class Ui {
           ),
           showClose
               ? BlockButtonWidget(
-            color: Colors.red,
-            onPressed: () {
-              Get.back();
-            },
-            text: const Text(
-              'No, Close',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          )
+                  color: Colors.red,
+                  onPressed: () {
+                    Get.back();
+                  },
+                  text: const Text(
+                    'No, Close',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
               : Wrap(),
           SizedBox(
             height: size.width * .03,
@@ -622,22 +643,20 @@ class Ui {
             value: 1,
             child: Text(
               "Flutter Open",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
             ),
           ),
           PopupMenuItem(
             value: 2,
             child: Text(
               "Flutter Tutorial",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
             ),
           ),
         ],
         icon: Icon(Icons.arrow_drop_down),
         offset: Offset(50, 50),
       );
-
-
-
-
 }
